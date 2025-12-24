@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000000; 
+            font-family: 'Arial', sans-serif;
+            color: white;
+            user-select: none;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin: 0;
+            font-family: 'Brush Script MT', cursive;
+            background: linear-gradient(to right, #fff, #ffd700, #ff0000, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: shine 3s infinite linear;
+        }
+
+        p {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            color: #ddd;
+            opacity: 0.8;
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            z-index: 5;
+        }
+        .click-message {
+            position: absolute;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2rem;
+            font-weight: bold;
+            pointer-events: none; 
+            z-index: 20;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            white-space: nowrap;
+            animation: popUp 1.5s ease-out forwards;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -150%) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .click-message { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-text">
+        <h1>Merry Christmas</h1>
+        <p>2025</p>
+    </div>
+
+    <div class="instruction">Kailqq</div>
+
+    <div id="canvas-container">
+        <canvas id="treeCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('treeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+        let snowParticles = [];
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetRotationY = 0;
+        let rotationY = 0;
+        let targetTilt = 0;
+        let tilt = 0;
+
+        const TREE_HEIGHT = 500;
+        const TREE_WIDTH = 250;
+        const PARTICLE_COUNT = 2500; 
+        const SNOW_COUNT = 200;
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - width / 2) * 0.001;
+            mouseY = (e.clientY - height / 2) * 0.001;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                mouseX = (e.touches[0].clientX - width / 2) * 0.002;
+                mouseY = (e.touches[0].clientY - height / 2) * 0.002;
+            }
+        }, { passive: true });
+
+        document.addEventListener('click', (e) => {
+            createClickMessage(e.clientX, e.clientY);
+        });
+
+        function createClickMessage(x, y) {
+            const msg = document.createElement('div');
+            msg.className = 'click-message';
+            msg.innerText = 'Merry Christmas!';
+            
+            msg.style.left = x + 'px';
+            msg.style.top = y + 'px';
+            
+            const colors = ['#FFD700', '#FF4500', '#00FF7F', '#00FFFF', '#FFFFFF', '#FF69B4'];
+            msg.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.appendChild(msg);
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                msg.remove();
+            }, 1500); 
+        }
+
+        class Particle {
+            constructor(yPercent) {
+                this.reset(yPercent);
+            }
+
+            reset(yPercent) {
+                this.y = (Math.random() * TREE_HEIGHT) - TREE_HEIGHT / 2 + 100;
+                
+                if (yPercent !== undefined) {
+                    this.y = (yPercent * TREE_HEIGHT) - TREE_HEIGHT / 2 + 100;
+                }
+
+                // (0.0 = 树顶, 1.0 = 树底)
+                const relativeY = this.y - (-TREE_HEIGHT / 2 + 100);
+                const progress = Math.max(0, relativeY / TREE_HEIGHT);
+
+                // 基础圆锥半径
+                let radius = progress * TREE_WIDTH;
+
+                // --- 形状复杂化 ---
+                // sin 波动
+                const layers = 8;
+                const layerEffect = 0.8 + 0.4 * Math.pow(Math.sin(progress * layers * Math.PI), 2);
+                radius *= layerEffect;
+
+                // 2. 随机扩散
+                const thickness = 0.8 + 0.2 * Math.random();
+                radius *= thickness;
+                this.angle = Math.random() * Math.PI * 2;
+                
+                this.x = Math.cos(this.angle) * radius;
+                this.z = Math.sin(this.angle) * radius;
+                
+                const rand = Math.random();
+                if (rand > 0.92) this.color = `hsla(50, 100%, 70%, ${Math.random() * 0.5 + 0.5})`; 
+                else if (rand > 0.88) this.color = `hsla(0, 80%, 60%, ${Math.random() * 0.5 + 0.5})`;
+                else if (rand > 0.84) this.color = `hsla(200, 100%, 90%, ${Math.random() * 0.5 + 0.5})`; 
+                else if (rand > 0.76) this.color = `hsla(30, 100%, 60%, ${Math.random() * 0.6 + 0.4})`; 
+                else this.color = `hsla(${120 + Math.random() * 40}, 70%, ${30 + Math.random() * 30}%, ${Math.random() * 0.6 + 0.4})`; 
+
+                this.size = Math.random() * 3 + 1;
+                this.blinkSpeed = Math.random() * 0.05 + 0.01;
+                this.blinkOffset = Math.random() * Math.PI * 2;
+            }
+
+            update(time) {
+                this.alpha = 0.5 + 0.5 * Math.sin(time * this.blinkSpeed + this.blinkOffset);
+            }
+
+            draw(ctx, centerX, centerY, rotY, tiltX) {
+                // 3D 旋转矩阵 (绕Y轴)
+                let x1 = this.x * Math.cos(rotY) - this.z * Math.sin(rotY);
+                let z1 = this.z * Math.cos(rotY) + this.x * Math.sin(rotY);
+        
+                let y1 = this.y * Math.cos(tiltX) - z1 * Math.sin(tiltX);
+                let z2 = z1 * Math.cos(tiltX) + this.y * Math.sin(tiltX);
+
+                // 透视投影
+                const scale = 800 / (800 + z2);
+                const x2d = x1 * scale + centerX;
+                const y2d = y1 * scale + centerY;
+
+                if (z2 > -700) { 
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = scale * this.alpha;
+                    ctx.beginPath();
+                    ctx.arc(x2d, y2d, this.size * scale, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            }
+        }
+
+        class Snow {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height;
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = -10;
+                this.z = Math.random() * 0.5 + 0.5;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.drift = Math.random() * 1 - 0.5;
+            }
+
+            update() {
+                this.y += this.speedY * this.z;
+                this.x += this.drift * this.z + (mouseX * 2); 
+
+                if (this.y > height) this.reset();
+                if (this.x > width) this.x = 0;
+                if (this.x < 0) this.x = width;
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * this.z, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // 星星
+        function drawStar(ctx, cx, cy, rotY, tiltX, time) {
+            const starY = -TREE_HEIGHT / 2 + 90;
+            const starX = 0;
+            const starZ = 0;
+
+            let y1 = starY * Math.cos(tiltX) - starZ * Math.sin(tiltX);
+            let z1 = starZ * Math.cos(tiltX) + starY * Math.sin(tiltX);
+            let x2 = starX * Math.cos(rotY) - z1 * Math.sin(rotY);
+            let z2 = z1 * Math.cos(rotY) + starX * Math.sin(rotY);
+
+            const scale = 800 / (800 + z2);
+            const x2d = x2 * scale + cx;
+            const y2d = y1 * scale + cy;
+
+            const glow = 20 + 10 * Math.sin(time * 0.005);
+            const gradient = ctx.createRadialGradient(x2d, y2d, 2, x2d, y2d, glow);
+            gradient.addColorStop(0, "rgba(255, 255, 200, 1)");
+            gradient.addColorStop(0.2, "rgba(255, 215, 0, 0.8)");
+            gradient.addColorStop(1, "rgba(255, 215, 0, 0)");
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(x2d, y2d, glow, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#FFF";
+            ctx.beginPath();
+            ctx.moveTo(x2d, y2d - 10 * scale);
+            ctx.lineTo(x2d + 3 * scale, y2d - 3 * scale);
+            ctx.lineTo(x2d + 10 * scale, y2d);
+            ctx.lineTo(x2d + 3 * scale, y2d + 3 * scale);
+            ctx.lineTo(x2d, y2d + 10 * scale);
+            ctx.lineTo(x2d - 3 * scale, y2d + 3 * scale);
+            ctx.lineTo(x2d - 10 * scale, y2d);
+            ctx.lineTo(x2d - 3 * scale, y2d - 3 * scale);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function init() {
+            particles = [];
+            snowParticles = [];
+            
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle(i / PARTICLE_COUNT));
+            }
+
+            for (let i = 0; i < SNOW_COUNT; i++) {
+                snowParticles.push(new Snow());
+            }
+        }
+
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time++;
+
+            ctx.clearRect(0, 0, width, height);
+
+            targetRotationY += 0.002 + (mouseX * 0.03); 
+            rotationY += (targetRotationY - rotationY) * 0.1;
+            
+            targetTilt = mouseY * 0.5;
+            tilt += (targetTilt - tilt) * 0.1;
+
+            const centerX = width / 2;
+            const centerY = height / 2 - 120; // 保持上移的位置
+
+            ctx.globalCompositeOperation = 'lighter';
+
+            particles.forEach(p => {
+                p.update(time);
+                p.draw(ctx, centerX, centerY, rotationY, tilt);
+            });
+
+            drawStar(ctx, centerX, centerY, rotationY, tilt, time);
+
+            ctx.globalCompositeOperation = 'source-over';
+
+            snowParticles.forEach(s => {
+                s.update();
+                s.draw(ctx);
+            });
+        }
+
+        init();
+        animate();
+
+    </script>
+</body>
+</html>
