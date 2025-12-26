@@ -21,6 +21,6 @@ statistics: True
 
 
 
-[欢迎来我的主页看看](https://kailqq.cc)
+[欢迎来我的主页看看](https://the0xka1.cc)
 
 [源码仓库:fontawesome-brands-github:](https://github.com/The0xKa1/The0xKa1.github.io.git)
