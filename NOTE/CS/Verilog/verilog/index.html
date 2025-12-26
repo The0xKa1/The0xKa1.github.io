@@ -1,0 +1,3638 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/CS/Verilog/verilog/">
+      
+      
+        <link rel="prev" href="../../GIT/">
+      
+      
+        <link rel="next" href="../../RUST/RUST/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Verilog学习笔记 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#verilog-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Verilog学习笔记
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    编程语言
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verilog学习笔记
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verilog学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#verilog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog模块结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assign语句
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#always" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        always语句块
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        底层模块调用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        门原语调用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog中的数据类型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog中数字的表示格式以及逻辑值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if语句
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case 语句
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog的语言描述风格
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他规定
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RUST/RUST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RUST学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ASM/wk1/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    汇编学习笔记
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#verilog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog模块结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assign语句
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#always" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        always语句块
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        底层模块调用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        门原语调用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog中的数据类型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog中数字的表示格式以及逻辑值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if语句
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case 语句
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verilog的语言描述风格
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他规定
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    💻 自学笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    编程语言
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="verilog-">Verilog 学习笔记-入门篇<a class="headerlink" href="#verilog-" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 1011 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 207 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 8 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 6 分钟</p>
+</div>
+<blockquote>
+<p>老师不教是吧,自己学</p>
+</blockquote>
+<h2 id="verilog">Verilog模块结构<a class="headerlink" href="#verilog" title="Permanent link">&para;</a></h2>
+<p>Verilog模块大致如下</p>
+<p><div class="language-verilog highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">module</span><span class="w"> </span><span class="n">name_of_module</span><span class="p">([</span><span class="err">端口列表</span><span class="p">]);</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">     </span><span class="err">端口信号声明</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">     </span><span class="err">参数声明</span><span class="p">;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">     </span><span class="o">---</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">     </span><span class="err">内部信号说明</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">     </span><span class="k">assign</span><span class="w"> </span><span class="err">语句</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">     </span><span class="err">底层模块或者门原调用</span><span class="p">(</span><span class="err">包括生成模块</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">     </span><span class="n">Initial</span><span class="w"> </span><span class="err">或</span><span class="w"> </span><span class="k">always</span><span class="w"> </span><span class="err">语句块</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">     </span><span class="err">任务和函数定义</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">     </span><span class="k">specify</span><span class="w"> </span><span class="err">块</span><span class="p">(</span><span class="err">路径延迟</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">endmodule</span>
+</span></code></pre></div>
+<strong>详细说明</strong></p>
+<ul>
+<li>常用语句只有三种<ul>
+<li><code>assign</code>语句</li>
+<li><code>always</code>语句</li>
+<li>底层模块调用语句</li>
+</ul>
+</li>
+<li><strong>三种语句的顺序无关</strong> ,这与C语言很不同</li>
+<li>
+<p>除一开始的<code>module</code>和<code>endmodule</code>必须写之外,其他都是可选的</p>
+</li>
+<li>
+<p>缩进在Verilog中并不重要,它主要使用<code>begin</code>和<code>end</code>来分割</p>
+</li>
+<li>
+<p>模块名是指电路的名字,由用户指定,最好与文件名一致</p>
+</li>
+<li>
+<p><strong>端口列表</strong> 是指电路的输入/输出信号名称列表,信号名由用户指定,各名称用逗号隔开;</p>
+</li>
+<li>
+<p><strong>端口信号声明</strong> 是要说明端口信号的输入输出属性、信号的数据类型,以及信号的位宽;输入输出属性有input,output,inout三种,信号的数据类型常用的有wire和reg两种;信号的位宽用[n1:n2]表示;同一类信号之间用逗号隔开;</p>
+</li>
+<li><strong>信号位宽不做说明的话默认是1位,信号类型不做说明的话,默认是wire类型的</strong></li>
+<li><strong>参数声明</strong> 要说明参数的名称和初值(例如<code>parameter</code> reg A = 1'b1)</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>二选一多路选择器的Verilog描述
+ <div class="language-Verilog highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">module</span><span class="w"> </span><span class="n">MUX21a</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">input</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">s</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">output</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="o">?</span><span class="nl">a:</span><span class="n">b</span><span class="p">);</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">endmodule</span>
+</span></code></pre></div>
+ 边沿D触发器的Verilog描述
+ <div class="language-verilog highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">module</span><span class="w"> </span><span class="n">DFFL</span><span class="p">(</span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">Q</span><span class="p">);</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">input</span><span class="w"> </span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">endmodule</span><span class="w">    </span>
+</span></code></pre></div>
+ 四位全加器
+ <div class="language-verilog highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">module</span><span class="w"> </span><span class="n">full_adder</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">CIN</span><span class="p">,</span><span class="n">COUT</span><span class="p">);</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">input</span><span class="w"> </span><span class="n">CIN</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">S</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">output</span><span class="w"> </span><span class="n">COUT</span><span class="p">;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">endmodule</span>
+</span></code></pre></div></p>
+</div>
+<h2 id="assign">assign语句<a class="headerlink" href="#assign" title="Permanent link">&para;</a></h2>
+<p><code>assign</code>语句称作连续赋值语句,赋值目标必须是wire型的,wire表示电路间的连线.</p>
+<p>基本格式: <code>assign</code> 赋值目标 = 表达式,更硬件地说<code>assign</code>的左边是一个电路的输入,另外一边是另一个电路的输出</p>
+<p>例如</p>
+<ul>
+<li>非: <code>assgin y = ~a</code></li>
+<li>与门: <code>assign y=a&amp;b</code></li>
+</ul>
+<p><strong>特点</strong>:之所以称为连续赋值语句是指其总是处于激活状态,只要表达式中的操作数有变化,立即进行计算和赋值.(与连续赋值语句对应的另一种语句称为过程赋值语句)</p>
+<p>Verilog具有丰富的表达式运算功能可以用于assign语句</p>
+<table>
+<thead>
+<tr>
+<th>操作类型</th>
+<th>操作符</th>
+<th>执行的操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算术</td>
+<td><code>*</code></td>
+<td>乘</td>
+</tr>
+<tr>
+<td></td>
+<td><code>/</code></td>
+<td>除</td>
+</tr>
+<tr>
+<td></td>
+<td><code>+</code></td>
+<td>加</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-</code></td>
+<td>减</td>
+</tr>
+<tr>
+<td></td>
+<td><code>%</code></td>
+<td>取模</td>
+</tr>
+<tr>
+<td></td>
+<td><code>**</code></td>
+<td>求幂</td>
+</tr>
+<tr>
+<td>逻辑</td>
+<td><code>!</code></td>
+<td>逻辑求反</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td></td>
+<td><code>|            |</code></td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>关系</td>
+<td><code>&gt;</code></td>
+<td>大于</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;</code></td>
+<td>小于</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&gt;=</code></td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;=</code></td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>等价</td>
+<td><code>==</code></td>
+<td>相等</td>
+</tr>
+<tr>
+<td></td>
+<td><code>!=</code></td>
+<td>不等</td>
+</tr>
+<tr>
+<td></td>
+<td><code>===</code></td>
+<td>case 相等</td>
+</tr>
+<tr>
+<td></td>
+<td><code>!==</code></td>
+<td>case 不等</td>
+</tr>
+<tr>
+<td>按位</td>
+<td><code>~</code></td>
+<td>按位求反</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&amp;</code></td>
+<td>按位与</td>
+</tr>
+<tr>
+<td></td>
+<td><code>|</code></td>
+<td>按位或</td>
+</tr>
+<tr>
+<td></td>
+<td><code>^</code></td>
+<td>按位异或</td>
+</tr>
+<tr>
+<td></td>
+<td><code>^~</code>或<code>~^</code></td>
+<td>按位同或</td>
+</tr>
+<tr>
+<td>缩减</td>
+<td><code>&amp;</code></td>
+<td>缩减与</td>
+</tr>
+<tr>
+<td></td>
+<td><code>~&amp;</code></td>
+<td>缩减与非</td>
+</tr>
+<tr>
+<td></td>
+<td><code>|</code></td>
+<td>缩减或</td>
+</tr>
+<tr>
+<td></td>
+<td><code>~         |</code></td>
+<td>缩减或非</td>
+</tr>
+<tr>
+<td></td>
+<td><code>^</code></td>
+<td>缩减异或</td>
+</tr>
+<tr>
+<td></td>
+<td><code>^~</code>或<code>~^</code></td>
+<td>缩减同或</td>
+</tr>
+<tr>
+<td>移位</td>
+<td><code>&gt;&gt;</code></td>
+<td>右移</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;&lt;</code></td>
+<td>左移</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&gt;&gt;&gt;</code></td>
+<td>算术右移</td>
+</tr>
+<tr>
+<td></td>
+<td><code>&lt;&lt;&lt;</code></td>
+<td>算术左移</td>
+</tr>
+<tr>
+<td>拼接</td>
+<td><code>{}</code></td>
+<td>拼接</td>
+</tr>
+<tr>
+<td>复制</td>
+<td><code>{n{}}</code></td>
+<td>复制</td>
+</tr>
+<tr>
+<td>条件</td>
+<td><code>?:</code></td>
+<td>条件</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition 需要注意的地方">
+<p class="admonition-title">需要注意的地方</p>
+<p>前面几个比较简单,和C语言基本一样</p>
+<p><strong>等价运算符</strong>
+ <div class="language-Verilog highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">Y</span><span class="o">=</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="o">==</span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">);</span><span class="err">结果为</span><span class="n">x</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">Y</span><span class="o">=</span><span class="p">(</span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="o">==</span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">);</span><span class="err">结果为</span><span class="n">x</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Y</span><span class="o">=</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="o">===</span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">);</span><span class="err">结果为</span><span class="mh">0</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">Y</span><span class="o">=</span><span class="p">(</span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="o">===</span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">);</span><span class="err">结果为</span><span class="mh">1</span>
+</span></code></pre></div></p>
+<ul>
+<li>等于和不等于运算的结果可能是1(逻辑真)、0(逻辑假)、x(不确定);对于x或z,认为是不确定的值,比较结果为x;</li>
+<li>case等和case不等的结果只能是1或0,对于x、z认为是确定的值,参加比较;</li>
+</ul>
+<p><strong>按位运算符</strong></p>
+<ul>
+<li>按位运算的操作数是1位或多位二进制数,</li>
+<li>按位非的操作数只有一个,将该数的每一位求非运算.</li>
+<li>其它按位运算的操作数有2个或多个,将两个操作数对应的位两两运算;</li>
+<li>如果操作数位宽不同,位宽小的会自动左添0补齐;</li>
+<li>结果与操作数位宽相同;</li>
+</ul>
+<p><strong>缩减运算符</strong></p>
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Y</span><span class="o">=&amp;</span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="w"> </span><span class="p">(</span><span class="err">结果为</span><span class="mh">0</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Y</span><span class="o">=~&amp;</span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="w"> </span><span class="p">(</span><span class="err">结果为</span><span class="mh">1</span><span class="p">,</span><span class="err">相当于</span><span class="o">~</span><span class="p">(</span><span class="o">&amp;</span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="p">))</span>
+</span></code></pre></div>
+<ul>
+<li>缩减运算的操作数是1位或多位二进制数;</li>
+<li>缩减运算的操作数只有一个,将该数的各位自左至右进行逻辑运算,结果只有一位.</li>
+</ul>
+<p><strong>移位运算符</strong></p>
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Y</span><span class="o">=</span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="o">&gt;&gt;</span><span class="mh">1</span><span class="p">;(</span><span class="mh">0100</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">Y</span><span class="o">=</span><span class="mh">4</span><span class="p">&#39;</span><span class="n">sb1001</span><span class="o">&gt;&gt;</span><span class="mh">1</span><span class="p">;(</span><span class="mh">1100</span><span class="p">,</span><span class="mh">4</span><span class="p">&#39;</span><span class="n">sb指的是有符号</span><span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li>移位运算的操作数是1位或多位二进制数;</li>
+<li>向左或向右移n位;</li>
+<li>只有对有符号数的算术右移自动补符号位;</li>
+<li>其他移位均自动补0.</li>
+</ul>
+<p><strong>拼接(拼总线)</strong></p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">Y</span><span class="o">=</span><span class="p">{</span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="p">,</span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">}(</span><span class="mh">100100</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">Y</span><span class="o">=</span><span class="p">{</span><span class="mh">4</span><span class="p">{</span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">}}(</span><span class="mh">01010101</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">Y</span><span class="o">=</span><span class="p">{</span><span class="mh">4</span><span class="p">{</span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">},</span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">}(</span><span class="mh">0101010111</span><span class="p">)</span>
+</span></code></pre></div>
+ - 将多个操作数拼接起来;
+ - 将操作数复制n遍并拼接起来;
+ - 可以组合使用.</p>
+<p>条件运算符
+ <code>a?:b:c</code>如果a是1,则返回b,否则返回c;可以嵌套使用</p>
+</div>
+<h2 id="always">always语句块<a class="headerlink" href="#always" title="Permanent link">&para;</a></h2>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>基本格式
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="err">敏感信号条件表</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">   </span><span class="err">各类顺序语句</span>
+</span></code></pre></div></p>
+</div>
+<p><strong>特点</strong></p>
+<ul>
+<li>always语句本身不是单一的有意义的一条语句,而是和下面的语句一起构成一个语句块,称之为过程块;过程块中的赋值语句称过程赋值语句;</li>
+<li>该语句块不是总处于激活状态,当满足激活条件时才能被执行,否则被挂起,挂起时即使操作数有变化,也不执行赋值,赋值目标值保持不变;</li>
+<li>赋值目标必须是reg型的.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>激活条件由敏感信号条件表决定,当敏感条件满足时,过程块被激活.
+<strong>敏感条件有两种,一种是边沿敏感,一种是电平敏感</strong></p>
+</div>
+<p><strong>边沿敏感</strong></p>
+<ul>
+<li><code>posedge</code> 信号名:信号上升沿到来</li>
+<li><code>negedge</code> 信号名:信号下降沿到来</li>
+</ul>
+<p><strong>电平敏感</strong></p>
+<ul>
+<li>信号名列表:信号列表中任一个信号有变化(例如<code>(a,b,c)</code>或<code>(a or b or c)</code>,当三个信号中有一个发生变化) </li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">Q</span><span class="o">=</span><span class="n">D</span><span class="p">;</span>
+</span></code></pre></div>
+当CLK上升沿到来时,激活该语句块,将D的值赋给Q;
+否则,该语句块挂起,即使D有变化,Q的值也保持不变,直到下一次赋值
+.</p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">Q</span><span class="o">=</span><span class="n">D</span><span class="p">;</span>
+</span></code></pre></div>
+当D有变化时(不管是由1变0还是由0变1),激活该语句块,将D的值赋给Q;
+否则,该语句块挂起,Q的值保持不变,直到下一次赋值.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>过程块中的赋值目标必须是reg型的.</li>
+<li>由于always语句可以描述边沿变化,在设计时序电路中得到广泛应用.</li>
+<li>always语句中还可以使用if、case、for循环等语句,其功能更加强大.例如
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">module</span><span class="w"> </span><span class="n">DFF2</span><span class="w"> </span><span class="p">(</span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="n">RST</span><span class="p">,</span><span class="n">EN</span><span class="p">)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">input</span><span class="w"> </span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">RST</span><span class="p">,</span><span class="n">EN</span><span class="p">;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">output</span><span class="w"> </span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kt">reg</span><span class="w"> </span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">negedge</span><span class="w"> </span><span class="n">RST</span><span class="p">)</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">begin</span><span class="w"> </span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">RST</span><span class="p">)</span><span class="w"> </span><span class="n">Q</span><span class="o">&lt;=</span><span class="mh">0</span><span class="p">;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">EN</span><span class="p">)</span><span class="w"> </span><span class="n">Q</span><span class="o">&lt;=</span><span class="n">D</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="k">end</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="k">endmodule</span>
+</span></code></pre></div></li>
+</ul>
+</div>
+<p><strong><code>assign</code>语句和<code>always</code>语句的区别</strong></p>
+<ul>
+<li>连续赋值语句总是处于激活状态,只要操作数有变化马上进行计算和赋值;</li>
+<li>过程赋值语句只有当激活该过程时,才会进行计算和赋值,如果该过程不被激活,即使操作数发生变化也不会计算和赋值.</li>
+<li>verilog规定<code>assign</code>中的赋值目标必须是<code>wire</code>型的,而<code>always</code>语句中的赋值目标必须是<code>reg</code>型的.</li>
+<li><code>always</code>语句块中如果有多条赋值语句必须将其用<code>begin</code> <code>end</code>包括起来,<code>assign</code>语句中没有<code>begin</code> <code>end</code></li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">assign</span><span class="w"> </span><span class="n">Q</span><span class="o">=</span><span class="n">D</span>
+</span></code></pre></div>
+只要D发生变化,马上进行计算和赋值; Q必须是wire型</p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w">                     </span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">         </span><span class="n">Q</span><span class="o">=</span><span class="n">D</span><span class="p">;</span>
+</span></code></pre></div>
+只有当clk上升沿到来时,才能激活该块语句,才能进行计算和赋值;否则,即使D发生变化也不会计算和赋值.在未被激活时,Q的值保持不变.
+Q必须是reg型.</p>
+</div>
+<p><strong>阻塞赋值和非阻塞赋值</strong></p>
+<p><code>begin</code> <code>end</code>之间的赋值语句有阻塞赋值和非阻塞赋值之分</p>
+<ul>
+<li>
+<p>阻塞赋值<code>=</code>:语句顺序执行,前面的执行完才能执行后面的语句;
+    <div class="language-verilog highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">   </span><span class="n">a</span><span class="o">=</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">   </span><span class="n">b</span><span class="o">=</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+</span></code></pre></div>
+    对a赋值会阻塞赋值b,即只有当赋值a执行完才能执行赋值b.</p>
+</li>
+<li>
+<p>非阻塞赋值<code>&lt;=</code>:所有语句并行执行
+     <div class="language-verilog highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">  </span><span class="n">a</span><span class="o">&lt;=</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="n">b</span><span class="o">&lt;=</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+</span></code></pre></div>
+    对a赋值不会阻塞赋值b,两个语句并行执行</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">begin</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="n">m</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="n">y</span><span class="o">=</span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="k">end</span><span class="w">   </span>
+</span></code></pre></div>
+当m赋值完成后,才能执行y的赋值,y得到的是m的新值.</p>
+<p><div class="language-Verilog highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">begin</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="n">m</span><span class="o">&lt;=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="n">y</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="k">end</span><span class="w">   </span>
+</span></code></pre></div>
+m和y的赋值并行执行,y得到的是m的旧值.</p>
+<p>设A、B同时由0变1
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">begin</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="n">M1</span><span class="o">=</span><span class="n">A</span><span class="p">;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="n">M2</span><span class="o">=</span><span class="n">B</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="n">Q</span><span class="o">=</span><span class="n">M1</span><span class="o">|</span><span class="n">M2</span><span class="p">;</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="k">end</span>
+</span></code></pre></div>
+激活前：M1=0,M2=0,Q=0</p>
+<p>激活后：先计算A=1,马上赋值给M1
+再计算B&amp;M1=1,马上赋值给M2
+再计算M1|M2=1,马上赋值给Q</p>
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">begin</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="n">M1</span><span class="o">&lt;=</span><span class="n">A</span><span class="p">;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="n">M2</span><span class="o">&lt;=</span><span class="n">B</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">    </span><span class="n">Q</span><span class="w"> </span><span class="o">&lt;=</span><span class="n">M1</span><span class="o">|</span><span class="n">M2</span><span class="p">;</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="k">end</span>
+</span></code></pre></div>
+<p>先计算A=1,(等待,不赋值)</p>
+<p>再计算B&amp;M1=0,(等待,不赋值)</p>
+<p>再计算M1|M2=0,(等待,不赋值)</p>
+<p>过程结束</p>
+<p>先赋值给M1=1</p>
+<p>再赋值给M2=0</p>
+<p>再赋值给Q=0</p>
+</div>
+<p><strong>总结</strong> :</p>
+<ul>
+<li>
+<p>阻塞赋值的实质:右边表达式的计算和对左边寄存器变量的赋值是一个统一的原子操作中的两个动作,这两个动作之间不能再插入其他任何动作.</p>
+</li>
+<li>
+<p>非阻塞赋值的实质:首先按顺序计算右边表达式的值,但是并不马上赋值,而是要等到过程结束时再按顺序赋值.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>设计组合电路时常用阻塞赋值;</li>
+<li>设计时序电路时常用非阻塞赋值;但不是绝对的.</li>
+<li>不建议在一个always块中混合使用阻塞赋值和非阻塞赋值</li>
+</ul>
+</div>
+<details class="example">
+<summary>Example</summary>
+<p>阻塞赋值实现的组合电路
+<img alt="" src="../image.png" />
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">module</span><span class="w"> </span><span class="n">MY</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">input</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">;</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">output</span><span class="w"> </span><span class="n">Y</span><span class="p">;</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="kt">reg</span><span class="w"> </span><span class="n">Y</span><span class="p">;</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kt">reg</span><span class="w"> </span><span class="n">M</span><span class="p">;</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">)</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="k">begin</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">    </span><span class="n">M</span><span class="o">=</span><span class="n">B</span><span class="o">|</span><span class="n">C</span><span class="p">;</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">    </span><span class="n">Y</span><span class="o">=</span><span class="n">A</span><span class="o">&amp;</span><span class="n">M</span><span class="p">;</span><span class="w">      </span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="k">end</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="k">endmodule</span>
+</span></code></pre></div>
+(其实也可以直接<code>assign</code>的)</p>
+<p>非阻塞赋值实现的移位寄存器<img alt="" src="../image-1.png" />
+  <div class="language-verilog highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">module</span><span class="w"> </span><span class="n">DDF3</span><span class="p">(</span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">Q</span><span class="p">)</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">output</span><span class="w"> </span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="k">input</span><span class="w">  </span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="kt">reg</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="p">)</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="k">begin</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">  </span><span class="n">a</span><span class="o">&lt;=</span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">  </span><span class="n">b</span><span class="o">&lt;=</span><span class="n">a</span><span class="p">;</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">  </span><span class="n">Q</span><span class="o">&lt;=</span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="k">end</span>
+</span></code></pre></div>
+  这个移位寄存器是每当上升沿到来,同时整体移动的,而不是a先变化,b再变化······</p>
+</details>
+<p>把<code>assign</code>和<code>always</code>结合起来,举一个4位二进制加法计数器的例子
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="w">  </span><span class="k">module</span><span class="w"> </span><span class="n">CNT4</span><span class="w"> </span><span class="p">(</span><span class="n">CLK</span><span class="p">,</span><span class="n">Q</span><span class="p">);</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="k">input</span><span class="w"> </span><span class="n">CLK</span><span class="p">;</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">Q1</span><span class="p">;</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="p">)</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">  </span><span class="k">begin</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">    </span><span class="n">Q1</span><span class="o">&lt;=</span><span class="n">Q1</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">  </span><span class="k">end</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">Q</span><span class="o">=</span><span class="n">Q1</span><span class="p">;</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="w">  </span><span class="k">endmodule</span>
+</span></code></pre></div>
+此程序中有<code>always</code>和<code>assign</code>两条语句,他们之间是并行的;有一个内部变量Q1,使用时要进行声明;</p>
+<h2 id="_1">底层模块调用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>类似于C语言里面的函数调用,Verilog中也有模块的调用,调用的格式为:<strong>底层模块名 例化名 (端口映射);</strong></p>
+<details class="example">
+<summary>Example</summary>
+<p>实现如下电路</p>
+<p><img alt="" src="../image-2.png" /></p>
+<p>先定义好D触发器,然后再设计顶层电路,在顶层电路中可调用底层模块.
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">module</span><span class="w"> </span><span class="n">DFF</span><span class="p">(</span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">Q</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">Q</span><span class="p">;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="k">input</span><span class="w"> </span><span class="n">CLK</span><span class="p">,</span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="k">always</span><span class="w"> </span><span class="p">@</span><span class="w"> </span><span class="p">(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="p">)</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="n">Q</span><span class="o">&lt;=</span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="k">endmodule</span>
+</span></code></pre></div>
+然后,在顶层模块中调用
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">module</span><span class="w"> </span><span class="n">examp</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">output</span><span class="w">  </span><span class="n">q</span><span class="p">;</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">;</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="kt">wire</span><span class="w"> </span><span class="n">d1</span><span class="p">;</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="kt">wire</span><span class="w"> </span><span class="n">q1</span><span class="p">;</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="n">DFF</span><span class="w"> </span><span class="n">dff1</span><span class="p">(.</span><span class="n">CLK</span><span class="p">(</span><span class="n">clk</span><span class="p">),.</span><span class="n">D</span><span class="p">(</span><span class="n">d1</span><span class="p">),.</span><span class="n">Q</span><span class="p">(</span><span class="n">q1</span><span class="p">));</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="n">DFF</span><span class="w"> </span><span class="n">dff2</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">q</span><span class="p">);</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="n">d1</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">q</span><span class="p">);</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="k">endmodule</span>
+</span></code></pre></div>
+为了调用底层模块,需要加两个内部变量d1和q1,并给两次调用的模块进行命名,调用时例化名不能省略.</p>
+</details>
+<p><strong>端口映射</strong></p>
+<ul>
+<li>
+<p>端口名关联法(命名法),将模块的端口和调用模块的环境中的变量对应起来, <strong>即(.底层端口名1(外接信号名1),.底层端口名2(外接信号名2),…)</strong> 
+<code>DFF dff1(.CLK(clk),.D(d1),.Q(q1));</code>,这样的方法因为有名字对应,不必按照模块的端口列表排序.</p>
+</li>
+<li>
+<p>位置关联法(顺序法):将模块的端口以及要接的外部信号按照模块定义的顺序一一对应起来(外接信号名1,外接信号名2,…)
+  <code>DFF dff2(q1,d,q);</code>,<strong>这样的方法必须严格按照底层模块的端口信号列表顺序书写</strong></p>
+</li>
+</ul>
+<h2 id="_2">门原语调用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>Verilog</strong> 语言语言提供已经设计好的门,称为门原语(primitive,共12个),这些门可直接调用,不用再对其进行功能描述.</p>
+<p><strong>门原语调用格式：</strong> 门原语名    实例名  (端口连接)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>和模块调用不同,实例名可以省略,端口连接只能采用顺序法,<strong>输出在前,输入在后.</strong></p>
+</div>
+<p><strong>常见的门原语</strong></p>
+<ul>
+<li>
+<p>与门等6个:<code>and</code>,<code>or</code>,<code>xor</code>,<code>nand</code>,<code>nor</code>,<code>xnor</code>.用法例如<code>and (out,in1,in2,in3···)</code>,第一个是输出,后面跟着输入,输入不限制个数</p>
+</li>
+<li>
+<p>非门:<code>not</code>,用法例如<code>not (OUT,IN)</code></p>
+</li>
+<li>
+<p>缓冲器:<code>buf</code>,用法例如<code>buf b1_2out(OUT1, OUT2, IN);</code>,前面是输出,最后一个是输入,输出个数不限.</p>
+</li>
+<li>
+<p>三态门</p>
+<ul>
+<li>bufif1(控制端1有效缓冲器) </li>
+<li>bufif0 (控制端0有效缓冲器)</li>
+<li>notif1(控制端1有效非门)</li>
+<li>notif0(控制端0有效非门)</li>
+<li>端口列表中前面是输出,中间是输入,最后是使能端,输出个数不限</li>
+</ul>
+</li>
+</ul>
+<details class="hint">
+<summary>Hint</summary>
+<p><img alt="" src="../image-3.png" />
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">bufif1</span><span class="w"> </span><span class="n">b1</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="p">);</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="k">bufif0</span><span class="w"> </span><span class="n">b0</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="p">);</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="k">notif1</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="p">);</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="k">notif0</span><span class="w"> </span><span class="n">n0</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="p">);</span>
+</span></code></pre></div></p>
+</details>
+<h2 id="verilog_1">Verilog中的数据类型<a class="headerlink" href="#verilog_1" title="Permanent link">&para;</a></h2>
+<p>Verilog中的数据类型分为两大类:net(线网)类和variable(变量)类</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>因连续赋值语句和过程赋值语句的激活特点不同,故赋值目标特点也不同,前者不需要保存,后者需要保存,因此规定两种数据类型,<strong>net型用于连续赋值的赋值目标或门原语的输出</strong>,且仿真时不需要分配内存空间,<strong>variable用于过程赋值的赋值目标</strong>,且仿真时需要分配内存空间.</p>
+</div>
+<ul>
+<li>net 类中的数据类型(常用wire)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>wire(线型)</th>
+<th>tri(三态)</th>
+<th>tri0(下拉电阻)</th>
+<th>supply0(地)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wand(线与)</td>
+<td>triand(三态与)</td>
+<td>tri1(上拉电阻)</td>
+<td>supply1(电源)</td>
+</tr>
+<tr>
+<td>wor(线或)</td>
+<td>trior(三态或)</td>
+<td>trireg(电容性线网)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Variable类中的数据类型(常用reg)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>reg(寄存器型)</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>integer(整型)</td>
+<td>time(时间型)</td>
+</tr>
+<tr>
+<td>real(实型)</td>
+<td>realtime(实时间型)</td>
+</tr>
+</tbody>
+</table>
+<details class="info">
+<summary>Info</summary>
+<p>将一个信号定义成net型还是varible型,由以下两方面决定</p>
+<p>a.使用何种赋值语句对该信号进行赋值,如果是连续赋值或门原语赋值或例化语句赋值,则定义成net型;如果是过程赋值则定义成variable型.</p>
+<p>b.对于端口信号来说,input信号和inout信号必须定义成net型的;output信号可以是net型的也可以是variable型的,决定于如何对其赋值(同a).</p>
+<p><img alt="" src="../image-4.png" /></p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><img alt="alt text" src="../image-6.png" /></p>
+<p>该图中d和e的赋值有三种方法</p>
+<ul>
+<li>
+<p>使用连续赋值语句
+  <div class="language-Verilog highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">assign</span><span class="w"> </span><span class="n">d</span><span class="o">=</span><span class="n">a</span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="k">assign</span><span class="w"> </span><span class="n">e</span><span class="o">=</span><span class="n">d</span><span class="o">|</span><span class="n">c</span><span class="p">;</span>
+</span></code></pre></div>
+  此时,d和e必须定义为net类的</p>
+</li>
+<li>
+<p>使用门原语赋值
+  <div class="language-Verilog highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">c</span><span class="p">);</span>
+</span></code></pre></div>
+  此时,d和e也必须是net类的</p>
+</li>
+<li>
+<p>使用过程赋值语句
+<div class="language-verilog highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="w">   </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="k">begin</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">      </span><span class="n">d</span><span class="o">=</span><span class="n">a</span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">      </span><span class="n">e</span><span class="o">=</span><span class="n">d</span><span class="o">|</span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">    </span><span class="k">end</span>
+</span></code></pre></div>
+此时d和e必须是reg类型的.</p>
+</li>
+</ul>
+<p>我们也可以在这里回忆一下,这里d先改变了,e会受到d的影响,所以需要使用阻塞赋值. </p>
+</div>
+<h2 id="verilog_2">Verilog中数字的表示格式以及逻辑值<a class="headerlink" href="#verilog_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>无符号数的表示方法:<code>位宽</code>+<code>'</code>+<code>进制</code>+<code>数字</code>(5'd8,五位十进制8,也就是<span class="arithmatex">\((01000)_2\)</span>)</li>
+<li>有符号数的表示方法:<code>位宽</code>+<code>'</code>+<code>sb</code>+<code>数字</code>(8'sb10111011,第一位是符号位,是<span class="arithmatex">\(-(01000101)_2=-69_{10}\)</span>)</li>
+<li>Verilog语言中的逻辑值有四种:<ul>
+<li>1：逻辑1，高电平，数字1</li>
+<li>0：逻辑0，低电平，数字0</li>
+<li>x：不确定</li>
+<li>z：高阻态</li>
+</ul>
+</li>
+</ul>
+<h2 id="if">if语句<a class="headerlink" href="#if" title="Permanent link">&para;</a></h2>
+<p>Verilog中有四种类型的if语句,大致也跟C语言类似</p>
+<ul>
+<li><code>if(&lt;条件表达式&gt;)语句;</code></li>
+<li><code>if(&lt;条件表达式&gt;)真语句;else 假语句;</code></li>
+<li><code>verilog
+  if (&lt;条件表达式1&gt;)语句1;
+  else if (&lt;条件表达式2&gt;)语句2 ;
+  else if (&lt;条件表达式3&gt;)语句3 ;</code></li>
+<li>
+<p><code>Verilog
+  if (&lt;条件表达式1&gt;)语句1 ;
+  else if (&lt;条件表达式2&gt;)语句2 ;
+  else if (&lt;条件表达式3&gt;)语句3 ;
+  else 默认语句 ;</code></p>
+</li>
+<li>
+<p>多条语句时使用<code>begin</code> <code>end</code></p>
+</li>
+</ul>
+<div class="admonition eexample">
+<p class="admonition-title">Eexample</p>
+<p>计数器
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">CLK</span><span class="p">)</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">RST</span><span class="p">)</span><span class="w"> </span><span class="n">Q</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">else</span><span class="w"> </span><span class="n">Q</span><span class="o">=</span><span class="n">Q</span><span class="o">+</span><span class="mh">1</span><span class="p">;</span><span class="w">  </span>
+</span></code></pre></div></p>
+</div>
+<details class="danger">
+<summary>Danger</summary>
+<p>在用if语句设计“组合电路”时要注意，如果条件不完整，会综合出寄存器。</p>
+<p>使条件完整的两种方法:</p>
+<ul>
+<li>加else</li>
+<li>设初值</li>
+</ul>
+<p><img alt="alt text" src="../image-7.png" /></p>
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="w"> </span><span class="n">Q</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="k">else</span><span class="w">      </span><span class="n">Q</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
+</span></code></pre></div>
+<p><code>Verilog
+always @(a,b)
+Q=a;
+if (sel) Q=b;</code></p>
+</details>
+<ul>
+<li>条件表达式格式:(计算表达式),计算表达式可以是任意形式的表达式；条件表达式的结果只有0和1两种，如果计算表达式的值为0，则条件表达式的值为0，否则为1。</li>
+</ul>
+<p>例如,设a=1000,b=0110</p>
+<table>
+<thead>
+<tr>
+<th>条件表达式</th>
+<th>计算表达式</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>if (a==b)</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>if (a&gt;b)</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>if (a)</td>
+<td>1000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>if (a*b)</td>
+<td>11_0000(前两位被截掉)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>if (a</td>
+<td>b)</td>
+<td>1110</td>
+</tr>
+<tr>
+<td>if (a&amp;b)</td>
+<td>0000</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="case">Case 语句<a class="headerlink" href="#case" title="Permanent link">&para;</a></h2>
+<p>功能类似于C语言中的<code>switch case</code>语句</p>
+<p>格式:
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="err">表达式</span><span class="p">)</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">    </span><span class="err">取值</span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="err">语句</span><span class="mh">1</span><span class="p">;</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="err">取值</span><span class="mh">2</span><span class="o">:</span><span class="w"> </span><span class="err">语句</span><span class="mh">2</span><span class="p">;</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="err">取值</span><span class="mh">3</span><span class="o">:</span><span class="w"> </span><span class="err">语句</span><span class="mh">3</span><span class="p">;</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="err">默认语句</span><span class="p">;</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">    </span><span class="k">endcase</span>
+</span></code></pre></div></p>
+<p><code>default</code>语句可加可不加,但是要注意条件的完整性</p>
+<h2 id="verilog_3">Verilog的语言描述风格<a class="headerlink" href="#verilog_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>结构化描述(也称门级描述,全部使用门原语和底层模块调用)</li>
+<li>数据流级描述(全部用<code>assign</code> 语句)</li>
+<li>行为级描述(全部用<code>always</code>语句配合<code>if``case</code>语句等)</li>
+<li>RTL级描述方式(数据流级+行为级，可综合)</li>
+<li>实际描述是三种混合的</li>
+</ul>
+<div class="admonition example 四选一选择器的多种verilog表示方法">
+<p class="admonition-title">Example</p>
+<p><img alt="" src="../image-8.png" />
+门级描述
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">module</span><span class="w"> </span><span class="n">mux4_to_1</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">);</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">output</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="k">input</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">;</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="k">input</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">;</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="kt">wire</span><span class="w"> </span><span class="n">s1n</span><span class="p">,</span><span class="w"> </span><span class="n">s0n</span><span class="p">;</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="kt">wire</span><span class="w"> </span><span class="n">y0</span><span class="p">,</span><span class="w"> </span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="n">y2</span><span class="p">,</span><span class="w"> </span><span class="n">y3</span><span class="p">;</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="k">not</span><span class="w"> </span><span class="p">(</span><span class="n">s1n</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">);</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="k">not</span><span class="w"> </span><span class="p">(</span><span class="n">s0n</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">);</span>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">y0</span><span class="p">,</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">s1n</span><span class="p">,</span><span class="w"> </span><span class="n">s0n</span><span class="p">);</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">s1n</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">);</span>
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">y2</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0n</span><span class="p">);</span>
+</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">y3</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">);</span>
+</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a>
+</span><span id="__span-32-17"><a id="__codelineno-32-17" name="__codelineno-32-17" href="#__codelineno-32-17"></a><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">y0</span><span class="p">,</span><span class="w"> </span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="n">y2</span><span class="p">,</span><span class="w"> </span><span class="n">y3</span><span class="p">);</span>
+</span><span id="__span-32-18"><a id="__codelineno-32-18" name="__codelineno-32-18" href="#__codelineno-32-18"></a><span class="k">endmodule</span>
+</span></code></pre></div></p>
+<p>数据流级描述
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">module</span><span class="w"> </span><span class="n">mux4_to_1</span><span class="w">  </span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">);</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="k">output</span><span class="w"> </span><span class="n">out</span><span class="err">，</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="k">input</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">;</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="k">input</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">;</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="k">assign</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">s1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">s0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">i0</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="o">~</span><span class="n">s1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">s0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="p">(</span><span class="n">s1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">s0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="p">(</span><span class="n">s1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">s0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">i3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="k">endmodule</span>
+</span></code></pre></div></p>
+<p>行为级描述
+<div class="language-Verilog highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">module</span><span class="w"> </span><span class="n">mux4_to_1</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">);</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="k">output</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="k">input</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">i3</span><span class="p">;</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="k">input</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">;</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="kt">reg</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="n">s1</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">s0</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">i0</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">i3</span><span class="p">)</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">({</span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s0</span><span class="p">})</span>
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a><span class="w">       </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i0</span><span class="p">;</span>
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a><span class="w">       </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i1</span><span class="p">;</span>
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="w">       </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2</span><span class="p">;</span>
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a><span class="w">       </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i3</span><span class="p">;</span>
+</span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a><span class="w">       </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">;</span>
+</span><span id="__span-34-14"><a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a><span class="w">     </span><span class="k">endcase</span>
+</span><span id="__span-34-15"><a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a><span class="w">  </span><span class="k">end</span>
+</span><span id="__span-34-16"><a id="__codelineno-34-16" name="__codelineno-34-16" href="#__codelineno-34-16"></a><span class="k">endmodule</span>
+</span></code></pre></div></p>
+</div>
+<h2 id="_3">其他规定<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>关键字:关键字即Verilog语言中预定义的有特殊含义的英文词语</p>
+</li>
+<li>
+<p>标识符:标识符即用户自定义的信号名、模块名等等；
+  注意关键字不能作标识符；
+  Verilog区别大小写（关键字都是小写）</p>
+</li>
+<li>
+<p>Verilog文件扩展名为.v；verilog不要求文件名和模块名一致</p>
+</li>
+<li>
+<p>注释:和C语言一样,//单行注释,/**/多行注释</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../GIT/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Git 笔记">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Git 笔记
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../RUST/RUST/" class="md-footer__link md-footer__link--next" aria-label="下一页: RUST学习笔记">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                RUST学习笔记
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../js/print-site.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="../../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../../javascripts/card.js"></script>
+      
+        <script src="../../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

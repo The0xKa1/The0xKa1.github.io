@@ -1,0 +1,3205 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/CS/GIT/">
+      
+      
+        <link rel="prev" href="../TMS/miscellaneous/">
+      
+      
+        <link rel="next" href="../Verilog/verilog/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Git 笔记 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git 笔记
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Git 版本控制
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检验是否安装成功
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本地操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="本地操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        初始化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        版本回退
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="版本回退">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-soft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --soft
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-hard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --hard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-mixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --mixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Revert
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        git diff
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="git diff">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工作区vs暂存区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工作区vs提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        暂存区vs提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提交vs提交
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分支vs分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        删除文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分支
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分支">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分支合并冲突
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rebase
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关联远程仓库
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    💻 自学笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Git 版本控制
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="git">Git 笔记<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 4596 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 56 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 39 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 17 分钟</p>
+</div>
+<p>作为计科专业的学生,怎么能不会Git呢</p>
+<p>git命令比较多,有些命令的意义比较长难以一直记住,在这里推荐一个非常好用的工具<a href="https://tldr.sh/">tldr</a>，Too long don't read~</p>
+<h2 id="_1">安装<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Windows 用户可以通过<a href="https://git-scm.com/download/win">Git官网</a>下载安装包进行安装</p>
+<p>Linux 用户可以通过以下命令进行安装</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>git
+</span></code></pre></div>
+<p>macOS 用户可以通过以下命令进行安装</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>brew<span class="w"> </span>install<span class="w"> </span>git
+</span></code></pre></div>
+<h3 id="_2">检验是否安装成功<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>在终端中输入以下命令,如果出现版本号,则说明安装成功</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>--version
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">git 是怎么工作的</p>
+<p>首先,有以下几个概念</p>
+<ol>
+<li>
+<p><strong>工作区 (Working Directory)</strong>: 这是你在本地计算机上看到的文件和目录。你在这里进行文件的添加、修改和删除操作。</p>
+</li>
+<li>
+<p><strong>暂存区 (Staging Area)</strong>: 当你对工作区中的文件进行修改后，可以使用 <code>git add</code> 命令将这些修改添加到暂存区。暂存区是一个临时区域,它是工作区和本地仓库的桥梁，起到缓冲的作用,用于记录即将提交的更改。</p>
+</li>
+<li>
+<p><strong>本地仓库 (Local Repository)</strong>: 使用 <code>git commit</code> 命令将暂存区中的更改提交到本地仓库。提交后，这些更改将被记录在本地仓库的历史记录中。</p>
+</li>
+<li>
+<p><strong>远程仓库 (Remote Repository)</strong>: 远程仓库是存储在服务器上的 Git 仓库。你可以使用 <code>git push</code> 命令将本地仓库中的更改推送到远程仓库，或者使用 <code>git pull</code> 命令从远程仓库拉取最新的更改。</p>
+</li>
+<li>
+<p><strong>版本库 (Repository)</strong>: 版本库是 Git 用来保存项目历史记录的地方。它包含了所有提交的记录和项目的所有版本。在本地仓库中,版本库是.git文件夹,在远程仓库中,版本库是远程仓库里面的.git文件夹</p>
+</li>
+</ol>
+<p><figure markdown="span">
+<img alt="Image title" src="img/git.png" width="400" />
+<figcaption>示意图</figcaption>
+</figure></p>
+<p><figure markdown="span">
+<img alt="Image title" src="img/git1.png" width="400" />
+<figcaption>版本库,工作区和暂存区</figcaption>
+</figure></p>
+</div>
+<h2 id="_3">本地操作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">初始化<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>创建一个文件夹,然后进入文件夹,在终端中输入以下命令</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>init
+</span></code></pre></div>
+这条命令会在当前目录下创建一个.git文件夹,这个文件夹就是版本库</p>
+<figure>
+<img alt="Image title" src="img/init.png" width="400" />
+
+<figcaption>初始化</figcaption>
+</figure>
+<h3 id="_5">添加文件<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>此时 <strong>工作区</strong> 中有一个text.txt文件,现在我们想把这个文件添加到 <strong>暂存区</strong> 中</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>add<span class="w"> </span>text.txt
+</span></code></pre></div>
+<p>此时 <strong>暂存区</strong> 中就多了一个text.txt文件，我们可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>status
+</span></code></pre></div>
+<p>来查看此时git的状态</p>
+<figure>
+<img alt="Image title" src="img/add.png" width="400" />
+
+<figcaption>添加文件</figcaption>
+</figure>
+<p>在这里,将文件加入暂存区后,文件就在暂存区中等待我们的提交(Commit)了</p>
+<details class="note">
+<summary>常见的 git add 的指令</summary>
+<ol>
+<li>
+<p>添加单个文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;filename&gt;
+</span></code></pre></div>
+例如，添加 <code>text.txt</code> 文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>add<span class="w"> </span>text.txt
+</span></code></pre></div></p>
+</li>
+<li>
+<p>添加多个文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;file1&gt;<span class="w"> </span>&lt;file2&gt;<span class="w"> </span>&lt;file3&gt;
+</span></code></pre></div>
+例如，添加 <code>file1.txt</code>、<code>file2.txt</code> 和 <code>file3.txt</code>：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>add<span class="w"> </span>file1.txt<span class="w"> </span>file2.txt<span class="w"> </span>file3.txt
+</span></code></pre></div></p>
+</li>
+<li>
+<p>添加当前目录下的所有文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span></code></pre></div>
+这条命令会将当前目录下的所有更改添加到暂存区。</p>
+</li>
+<li>
+<p>添加特定目录下的所有文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;directory&gt;/
+</span></code></pre></div>
+例如，添加 <code>src</code> 目录下的所有文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>git<span class="w"> </span>add<span class="w"> </span>src/
+</span></code></pre></div></p>
+</li>
+<li>
+<p>添加符合特定模式的文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>git<span class="w"> </span>add<span class="w"> </span>*.txt
+</span></code></pre></div>
+这条命令会将当前目录下所有 <code>.txt</code> 文件添加到暂存区。</p>
+</li>
+<li>
+<p>交互式添加文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>git<span class="w"> </span>add<span class="w"> </span>-i
+</span></code></pre></div>
+这条命令会进入交互模式，允许你选择性地添加文件。</p>
+</li>
+<li>
+<p>更新已追踪文件的更改：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git<span class="w"> </span>add<span class="w"> </span>-u
+</span></code></pre></div>
+这条命令只会添加已追踪文件的更改，不会添加新文件。</p>
+</li>
+<li>
+<p>添加所有更改，包括未追踪文件：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span></code></pre></div>
+这条命令会将所有更改（包括新文件和删除的文件）添加到暂存区。</p>
+</li>
+</ol>
+<p>这些指令可以帮助你根据不同的需求灵活地将文件添加到 Git 的暂存区中。</p>
+</details>
+<h3 id="_6">提交<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;提交信息&quot;</span>
+</span></code></pre></div>
+例如,在上面的例子中,我们可以运行</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;添加text.txt文件&quot;</span>
+</span></code></pre></div>
+来进行提交</p>
+<figure>
+<img alt="Image title" src="img/commit.png" width="400" />
+
+<figcaption>提交</figcaption>
+</figure>
+<p>查看信息</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[master (root-commit) f81217a] 添加text.txt文件
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a> 1 file changed, 1 insertion(+)
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a> create mode 100644 text.txt
+</span></code></pre></div>
+这条信息表示我们在 master 分支上进行了一个根提交（root-commit），提交的哈希值是 f81217a。提交信息为“添加text.txt文件”。在这次提交中，有一个文件发生了变化，进行了1次插入操作，并且创建了一个新的文件 text.txt，文件权限为 100644。文件权限 100644 表示这是一个普通文件，所有者有读写权限，组用户和其他用户有只读权限。</p>
+<p>我们可以通过
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>git<span class="w"> </span>log
+</span></code></pre></div>
+来查看提交信息</p>
+<figure>
+<img alt="Image title" src="img/log.png" width="400" />
+
+<figcaption>查看提交信息</figcaption>
+</figure>
+<p>这里展示了完整的提交信息,包括提交的哈希值,提交信息,提交时间,提交者等信息，如果不想要看到这么多信息,可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/log1.png" width="400" />
+
+<figcaption>查看提交信息</figcaption>
+</figure>
+<h3 id="_7">版本回退<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>设想这样一个场景,你修改了十次文件,然后你发现你修改错了,现在你想要回到你修改前的状态,如果没有git,而你的编辑器又恰好不能一直<code>Ctrl+Z</code>到你修改前的状态,那么你只能手动一个一个的改回去,这显然是非常麻烦的,而git可以轻松的解决这个问题</p>
+<p>Git使用git reset 命令来回退版本,git reset 命令有三个参数</p>
+<ol>
+<li>--soft: 回退到某个版本,但是不改变任何东西</li>
+<li>--hard: 回退到某个版本,并丢弃工作区,和暂存区的所有修改内容</li>
+<li>--mixed: 回退到某个版本,保留工作区的修改，丢弃暂存区的修改</li>
+</ol>
+<figure>
+<img alt="Image title" src="img/reset.png" width="400" />
+
+<figcaption>绿色代表保存,红色代表丢弃</figcaption>
+</figure>
+<p>接下来我们具体看看它们是怎么工作的,首先我们创建两个文件,并进行两次提交</p>
+<figure>
+<img alt="Image title" src="img/reset1.png" width="400" />
+
+<figcaption>创建两个文件,并进行两次提交</figcaption>
+</figure>
+<p>此时Head指向的是第三次提交,也就是master分支的最新版本,此时工作区有三个文件,暂存区为空</p>
+<div align="center">
+<img src="./img/reset2.png" width="400">
+</div>
+
+<p>为了方便比对三种不同指令,将这个仓库复制两个副本,分别命名为git_practice1和git_practice2</p>
+<h4 id="-soft">--soft<a class="headerlink" href="#-soft" title="Permanent link">&para;</a></h4>
+<p>现在,我们修改text1.txt文件,并进行一次add</p>
+<div align="center">
+<img src="./img/reset3.png" width="400">
+</div>
+
+<p>现在，使用soft指令回退到第第一次提交</p>
+<div align="center">
+<img src="./img/reset4.png" width="400">
+</div>
+
+<p>可以看到,工作区没有发生任何变化,但是暂存区发生了变化,我们之前提交的text2和text3文件变成了new file;</p>
+<div align="center">
+<img src="./img/reset5.png" width="400">
+</div>
+
+<p>同时两次提交都不见了,HEAD指向了第一次提交</p>
+<p><strong>soft指令保存所有的更改,仅仅在commmit种有变化,这在处理只想要回退到某个版本,但是不想要丢弃工作区,和暂存区的修改时非常有用</strong></p>
+<h4 id="-hard">--hard<a class="headerlink" href="#-hard" title="Permanent link">&para;</a></h4>
+<p>现在,我们进入git_practice1,并进行一次add</p>
+<p>使用hard指令回退到第一次提交</p>
+<div align="center">
+<img src="./img/reset6.png" width="400">
+</div>
+
+<p>可以看到,工作区,暂存区,和提交都发生了变化,工作区,暂存区,和提交都变成了第一次提交的样子</p>
+<p><strong>相当于第二次第三次提交以及它们的修改都没有发生过,执行类似于<code>Ctrl+Z</code>的操作</strong></p>
+<h4 id="-mixed">--mixed<a class="headerlink" href="#-mixed" title="Permanent link">&para;</a></h4>
+<p>现在,我们进入git_practice2,并进行一次add，然后使用mixed指令回退到第一次提交</p>
+<div align="center">
+<img src="./img/reset7.png" width="400">
+</div>
+
+<p>可以看到,暂存区空空如也,而工作区仍然是修改后的样子,<strong>相当于进行了修改,但是没有进行任何提交</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p><code>--Hard</code>会丢弃所有的修改,一定要慎用,一般都推荐使用<code>--soft</code>和<code>--mixed</code></p>
+<p>同时在上面我们也可以发现,使用soft的时候,不会给你任何提示,使用hard会告诉你现在head在哪里,使用mixed会告诉你unstaged changes,也就是未暂存的变化(在上面的例子中是M text.txt),即修改后(Modified)的text.txt文件从暂存区中移除</p>
+<p>在实践过程中,可以使用<code>git ls-files</code>来查看暂存区中的文件</p>
+<p>可以使用<code>git status</code>来查看工作区,暂存区,和提交的状态</p>
+</div>
+<h4 id="revert">Revert<a class="headerlink" href="#revert" title="Permanent link">&para;</a></h4>
+<p>如果仅仅想要撤销某个提交,可以使用<code>git revert</code>命令,它会创建一个新的提交,撤销之前的提交</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>git<span class="w"> </span>revert<span class="w"> </span>-n<span class="w"> </span>&lt;commit_hash&gt;
+</span></code></pre></div>
+<p><code>-n</code>参数表示不进行提交,也就是不生成新的提交,而是直接在当前分支上进行撤销,等待你手动进行提交</p>
+<p>如果想要撤销一系列提交,可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>revert<span class="w"> </span>-n<span class="w"> </span>&lt;start_commit&gt;^..&lt;end_commit&gt;
+</span></code></pre></div>
+<p>例如,我们的提交链是这样的</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>A-&gt;B-&gt;C-&gt;D
+</span></code></pre></div>
+<p>如果我们想要撤销B和C,可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>git<span class="w"> </span>revert<span class="w"> </span>-n<span class="w"> </span>B^..C
+</span></code></pre></div>
+<h3 id="git-diff">git diff<a class="headerlink" href="#git-diff" title="Permanent link">&para;</a></h3>
+<p><code>git diff</code>命令可以用来查看工作区,暂存区,和提交之间的差异,也可以用来比较两个分支之间的差异,以及不同版本文件之间的差异</p>
+<h4 id="vs">工作区vs暂存区<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h4>
+<p>默认不加任何参数,<code>git diff</code>会显示工作区与暂存区之间的差异</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>git<span class="w"> </span>diff
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/diff1.png" width="400" />
+
+<figcaption>删除文件</figcaption>
+</figure>
+<p>可以发现,工作区中删除了text.txt文件,而暂存区中没有发生变化</p>
+<div align="center">
+<img src="./img/diff2.png" width="400">
+<img src="./img/diff3.png" width="400">
+</div>
+
+<p>这时git diff会显示工作区与暂存区之间的差异，删除了text.txt文件，什么都没有增加</p>
+<h4 id="vs_1">工作区vs提交<a class="headerlink" href="#vs_1" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>git diff &lt;commit_hash&gt;
+</span></code></pre></div>
+<p>这条命令会显示当前工作区与指定提交之间的差异</p>
+<p>例如,我们运行</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>git<span class="w"> </span>diff<span class="w"> </span>HEAD
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/diff4.png" width="400" />
+
+<figcaption>工作区与提交</figcaption>
+</figure>
+<p>可以看到,工作区中添加了text.txt文件,而提交中没有发生变化</p>
+<h4 id="vs_2">暂存区vs提交<a class="headerlink" href="#vs_2" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>git diff --cached &lt;commit_hash&gt;
+</span></code></pre></div>
+<p>这条命令会显示暂存区与指定提交之间的差异</p>
+<p>例如,我们运行</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>HEAD
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/diff5.png" width="400" />
+
+<figcaption>未add</figcaption>
+</figure>
+<p>这时候没有任何差异,因为我们没有把工作区的修改添加到暂存区</p>
+<p>我们进行一次add</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>git<span class="w"> </span>add<span class="w"> </span>text.txt
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>HEAD
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/diff6.png" width="400" />
+
+<figcaption>已add</figcaption>
+</figure>
+<p>可以看到,暂存区与提交之间发生了差异,也就是我们添加的text.txt文件</p>
+<p>此时运行<code>git ls-files</code>可以看到暂存区中的文件,只包含text2.txt文件</p>
+<figure>
+<img alt="Image title" src="img/diff7.png" width="400" />
+
+<figcaption>暂存区中的文件</figcaption>
+</figure>
+<h4 id="vs_3">提交vs提交<a class="headerlink" href="#vs_3" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>git diff &lt;commit_hash1&gt; &lt;commit_hash2&gt;
+</span></code></pre></div>
+<p>这条命令会显示两个提交之间的差异</p>
+<p>例如,我们删除text.txt文件,并进行一次提交后，运行</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>git<span class="w"> </span>diff<span class="w"> </span>HEAD<span class="w"> </span>HEAD^
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/diff8.png" width="400" />
+
+<figcaption>提交与提交</figcaption>
+</figure>
+<p>可以看到,第二次提交与第一次提交之间发生了差异,也就是我们删除的text.txt文件</p>
+<p>如果想要查看特定文件在不同提交之间的差异,可以使用</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>git diff 版本1 版本2</code>,指的是与版本1相比,版本2的变动；<code>HEAD</code>代表当前分支的最新版本，<code>HEAD^</code>代表当前分支的上一版本</p>
+</div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>git<span class="w"> </span>diff<span class="w"> </span>&lt;commit_hash1&gt;<span class="w"> </span>&lt;commit_hash2&gt;<span class="w">  </span>&lt;file_path&gt;
+</span></code></pre></div>
+<p>例如,我们想要查看text.txt文件在第一次提交和第二次提交之间的差异,可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>git<span class="w"> </span>diff<span class="w"> </span>HEAD<span class="w"> </span>HEAD^<span class="w"> </span>text.txt
+</span></code></pre></div>
+<h4 id="vs_4">分支vs分支<a class="headerlink" href="#vs_4" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>git<span class="w"> </span>diff<span class="w"> </span>&lt;branch1&gt;<span class="w"> </span>&lt;branch2&gt;
+</span></code></pre></div>
+<p>这条命令会显示两个分支之间的差异</p>
+<h3 id="_8">删除文件<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>删除文件有以下几种方式</p>
+<ol>
+<li><code>rm+add</code>:首先使用<code>rm</code>命令删除文件,然后使用<code>add</code>命令将删除的文件添加到暂存区</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>rm<span class="w"> </span>text.txt
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>git<span class="w"> </span>add<span class="w"> </span>text.txt
+</span></code></pre></div>
+<ol>
+<li><code>git rm</code>:直接使用<code>git rm</code>命令删除文件,这个命令会同时将删除的文件添加到暂存区</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>git<span class="w"> </span>rm<span class="w"> </span>text.txt
+</span></code></pre></div>
+<p>相当于是<code>rm+add</code>的快捷命令</p>
+<ol>
+<li><code>git rm --cached</code>:这个命令会删除文件,但是不从工作区中删除,而是从暂存区中删除</li>
+</ol>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>text.txt
+</span></code></pre></div>
+当不想提交某个文件时这条命令是好用的</p>
+<p>我们首先在仓库里多创建几个文件,然后测试三条指令</p>
+<figure>
+<img alt="Image title" src="img/rm1.png" width="400" />
+
+<figcaption>rm+add</figcaption>
+</figure>
+<figure>
+<img alt="Image title" src="img/rm2.png" width="400" />
+
+<figcaption>git rm</figcaption>
+</figure>
+<figure>
+<img alt="Image title" src="img/rm3.png" width="400" />
+
+<figcaption>git rm --cached</figcaption>
+</figure>
+<p>最后我们commit一次,将三个文件从版本库中删除</p>
+<figure>
+<img alt="Image title" src="img/rm4.png" width="400" />
+
+<figcaption>commit</figcaption>
+</figure>
+<p>可以看到删除了三个文件,但是工作区中的text4文件仍然存在(可以使用<code>git diff</code>查看版本差异进一步确认删除的文件)</p>
+<h3 id="_9">分支<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>分支是Git中一个非常重要的概念，它允许你在同一个仓库中同时进行多个开发工作。分支的存在使得你可以在不影响主线代码的情况下进行开发、测试和实验。</p>
+<p>分支的存在使得多人的协同开发变得容易,可以同时进行多个开发工作,而保持主线的稳定工作;</p>
+<p>每个分支都有自己的提交历史,分支之间可以相互合并,也可以相互独立;</p>
+<figure>
+<img alt="Image title" src="img/branch1.png" width="400" />
+
+<figcaption>分支示意图</figcaption>
+</figure>
+<p>创建一个分支，可以使用以下命令</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>git<span class="w"> </span>branch<span class="w"> </span>&lt;branch_name&gt;
+</span></code></pre></div>
+<p>例如,创建一个名为<code>dev</code>的分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>git<span class="w"> </span>branch<span class="w"> </span>dev
+</span></code></pre></div>
+<p>创建之后，可以使用<code>git branch</code>查看所有分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>git<span class="w"> </span>branch
+</span></code></pre></div>
+<div align="center">
+<img src="./img/branch2.png" width="200">
+</div>
+<p>这里可以看到master和dev两个分支,前面的<code>*</code>表示当前所在的分支,也就是master分支</p>
+<p>现在，假设我们要在dev分支上进行一系列开发工作,首先需要切换到dev分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">git switch</p>
+<p>使用<code>git checkout</code>命令的时候，可能会存在一些潜在的问题:除了切换分支之外,<code>git checkout</code>还可以用来恢复文件或者目录到之前的某一个状态,比如我们意外修改了某一个文件,可以使用<code>git checkout -- &lt;file_path&gt;</code>来恢复文件(如果暂存区中有,则恢复到暂存区中的文件,否则恢复到上一次提交的文件);而这个时候如果分支名和文件名相同,就会出现歧义,<code>git checkout</code>会默认切换分支而不是恢复文件,为了避免这种情况,可以使用<code>git switch</code>命令来切换分支;</p>
+</div>
+<p>切换之后，可以使用<code>git branch</code>查看当前所在的分支;</p>
+<figure>
+<img alt="Image title" src="img/branch3.png" width="200" />
+
+<figcaption>切换分支</figcaption>
+</figure>
+<p>现在,我们在dev分支上进行一系列开发工作,添加一系列文件；</p>
+<p>在这一过程中，我们的主线上也进行的提交</p>
+<figure>
+<img alt="Image title" src="img/branch4.png" width="300" />
+
+<figcaption>过程</figcaption>
+</figure>
+<p>现在假设dev上的开发以已经完成了,我们想要将dev分支合并到master分支上,可以使用以下命令</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>git<span class="w"> </span>merge<span class="w"> </span>dev
+</span></code></pre></div>
+<p>意为将dev分支合并到 <strong>当前所在分支</strong> (master分支)上,合并之后,如果没有冲突,会自动进行一次commit;</p>
+<figure>
+<img alt="Image title" src="img/branch5.png" width="300" />
+
+<figcaption>git log </figcaption>
+</figure>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>使用<code>git log --oneline --graph</code>可以查看分支合并的过程</p>
+<p>实际上,<code>git log</code>有很多参数可以使用</p>
+<ul>
+<li><code>--oneline</code>: 只显示一行提交信息</li>
+<li><code>--graph</code>: 显示分支合并的过程</li>
+<li><code>--all</code>: 显示所有分支的提交历史</li>
+<li><code>--reverse</code>: 逆序显示提交历史</li>
+<li><code>--since=&lt;date&gt;</code>: 显示从某个日期开始的提交历史</li>
+<li><code>--until=&lt;date&gt;</code>: 显示到某个日期为止的提交历史</li>
+<li><code>--author=&lt;pattern&gt;</code>: 显示某个作者的提交历史</li>
+<li><code>--grep=&lt;pattern&gt;</code>: 显示包含某个关键字的提交历史</li>
+</ul>
+<p>并且可以组合使用,例如<code>git log --oneline --graph --all</code></p>
+</div>
+<p>merge结束后的分支仍然存在,如果想要删除某个分支,可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>&lt;branch_name&gt;
+</span></code></pre></div>
+<p>注意<code>-d</code>只能删除已经进行过合并的分支,如果想要强制删除某个分支,可以使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>git<span class="w"> </span>branch<span class="w"> </span>-D<span class="w"> </span>&lt;branch_name&gt;
+</span></code></pre></div>
+<p>即使用大写的<code>D</code></p>
+<h4 id="_10">分支合并冲突<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>假设不同的开发者同时对同一个文件的同一个地方进行修改,那么合并的时候就会发生冲突,Git会提示你发生了冲突,你需要手动解决冲突</p>
+<figure>
+<img alt="Image title" src="img/branch6.png" width="400" />
+
+<figcaption>冲突制造过程</figcaption>
+</figure>
+<p>在这一过程中,我首先在分支feat上对main.txt文件进行了修改,然后进行了一次commit,然后切换到master分支,对main.txt文件相同位置进行了修改,然后进行了一次commit;</p>
+<p>现在我们试图将feat分支合并到master分支上,会发生冲突;</p>
+<p>此时查看main.txt文件,可以看到发生了冲突;</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>&gt; cat main.txt
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>main
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>main line 2 updated after feat
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>=======
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>aha~ now is feat!
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; feat
+</span></code></pre></div>
+<div align="center">
+<img src="./img/branch8.png" width="400">
+</div>
+
+<p>运行<code>git diff</code>或者直接查看发生冲突的文件都可以看到冲突;</p>
+<p>解决冲突，保留我们想要的内容，然后进行一次commit，解决冲突；</p>
+<p>最后我们来看看合并后的的git log</p>
+<figure>
+<img alt="Image title" src="img/branch9.png" width="300" />
+
+<figcaption>git log</figcaption>
+</figure>
+<p>可以看到,master分支的提交历史中包含了feat分支的提交历史;成功合并了feat分支;</p>
+<h3 id="rebase">Rebase<a class="headerlink" href="#rebase" title="Permanent link">&para;</a></h3>
+<p>除了使用merge命令进行分支合并,还可以使用rebase命令进行分支合并;</p>
+<p>与merge不同,rebase执行完毕后,会将两次分支的提交历史合并成一条线,而不是像溪流一样汇聚在一起；</p>
+<figure>
+<img alt="Image title" src="img/rebase1.png" width="400" />
+
+<figcaption>示意图</figcaption>
+</figure>
+<p>rebase的工作原理是，找到两个分支的共同祖先，然后从共同祖先开始，将当前分支的提交应用到目标分支上；</p>
+<p>为了演示两种不同的合并方式,我创建了两个分支,然后进行了一系列的commit;并把这个仓库复制一遍；</p>
+<p>现在有两个分支,分别是main和rbs,共同祖先为<code>merge conflict</code>这一次提交,两个分支各自进行了一次提交,为<code>main 1</code>和<code>rbs 1</code>;</p>
+<p>现在，假设我们要把main分支rebase到rbs分支上</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>git<span class="w"> </span>switch<span class="w"> </span>main
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>git<span class="w"> </span>rebase<span class="w"> </span>rbs
+</span></code></pre></div>
+这条命令会将<code>merge conflict</code>后，main分支上的提交接在rbs分支上</p>
+<figure>
+<img alt="Image title" src="img/rebase2.png" width="300" />
+
+<figcaption>rebase</figcaption>
+</figure>
+<p>然后再试试看rebase rbs到main上</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>git<span class="w"> </span>switch<span class="w"> </span>rbs
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>git<span class="w"> </span>rebase<span class="w"> </span>main
+</span></code></pre></div>
+<figure>
+<img alt="Image title" src="img/rebase3.png" width="300" />
+
+<figcaption>rebase</figcaption>
+</figure>
+<p>可以看到两次的提交记录是不同的;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>rebase的中文是"变基",这一含义十分清楚,再某个分支上运行<code>git rebase &lt;branch_name&gt;</code>命令,就是将当前分支的提交历史变基到目标分支上,即从两个分支的共同祖先开始,将当前分支的提交接在目标分支上;</p>
+</div>
+<h2 id="_11">关联远程仓库<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>Git的强大之处在于它能够与远程仓库进行交互,远程仓库可以是一个服务器,也可以是一个云平台,例如GitHub,GitLab,Gitee等,开发者们在自己的电脑上进行开发,然后将代码推送到远程仓库,其他人可以在远程仓库上进行协作;</p>
+<p>这里主要介绍如何与GitHub进行交互;</p>
+<figure>
+<img alt="Image title" src="img/remote.png" width="400" />
+
+<figcaption>示意图</figcaption>
+</figure>
+<p>首先注册一个Github账号,然后创建一个仓库;例如创建一个名为<code>test</code>的仓库;</p>
+<p>然后使用<code>git remote add &lt;remote_name&gt; &lt;remote_url&gt;</code>命令将本地仓库与远程仓库关联;</p>
+<p>或者使用<code>git clone &lt;remote_url&gt;</code>命令将远程仓库克隆到本地;</p>
+<p>然后在本地进行一系列操作,例如添加文件,进行commit,然后使用<code>git push &lt;remote_name&gt; &lt;branch_name&gt;</code>命令将本地仓库推送到远程仓库;</p>
+<p>这一步实际上是在合并本地仓库和远程仓库;</p>
+<p>如果是多人协作,在你push之前,可能别人已经修改过远程仓库,这时候你需要先pull一下,然后再push;</p>
+<p>如果pull的时候发生冲突,你需要解决冲突,然后再push;</p>
+<p>要想删除远程仓库,可以使用<code>git remote remove &lt;remote_name&gt;</code></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../TMS/miscellaneous/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 大杂烩">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                大杂烩
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Verilog/verilog/" class="md-footer__link md-footer__link--next" aria-label="下一页: Verilog学习笔记">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Verilog学习笔记
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

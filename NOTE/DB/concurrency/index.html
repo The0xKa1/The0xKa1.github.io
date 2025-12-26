@@ -1,0 +1,4114 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/DB/concurrency/">
+      
+      
+        <link rel="prev" href="../transaction/">
+      
+      
+        <link rel="next" href="../recovery/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>并发控制 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#concurrency-control" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              并发控制
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ER模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系数据库设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    查询处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    查询优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事务
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    并发控制
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    并发控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lock-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock-Based Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lock-Based Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-2pl-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 2PL protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The 2PL protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-2pl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict 2PL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigorous-2pl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigorous 2PL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-acquisition-of-locks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic acquisition of locks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation of Locking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph-Based Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestamp-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timestamp-Based Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Timestamp-Based Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thomas-write-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thomas' Write Rule（托马斯写规则）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-based-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation-Based Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-granularity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Granularity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiple Granularity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#granularity-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Granularity Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locking-granularity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locking Granularity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intention-lock-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intention Lock Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock schemas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiversion-schemes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiversion Schemes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiversion Schemes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiversion-timestamp-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiversion Timestamp Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiversion-two-phase-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiversion Two-Phase Locking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deadlock-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deadlock handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Prevention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-and-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert and delete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-and-delete-operations-in-two-phase-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert and Delete Operations in Two-Phase Locking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phantom-phenomenon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phantom Phenomenon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-locking-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index locking protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    恢复
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lock-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock-Based Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lock-Based Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-2pl-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 2PL protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The 2PL protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-2pl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict 2PL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigorous-2pl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigorous 2PL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-acquisition-of-locks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic acquisition of locks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation of Locking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph-Based Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestamp-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timestamp-Based Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Timestamp-Based Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thomas-write-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thomas' Write Rule（托马斯写规则）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-based-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation-Based Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-granularity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Granularity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiple Granularity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#granularity-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Granularity Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locking-granularity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locking Granularity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intention-lock-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intention Lock Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock schemas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiversion-schemes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiversion Schemes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiversion Schemes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiversion-timestamp-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiversion Timestamp Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiversion-two-phase-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiversion Two-Phase Locking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deadlock-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deadlock handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Prevention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-and-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert and delete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-and-delete-operations-in-two-phase-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert and Delete Operations in Two-Phase Locking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phantom-phenomenon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phantom Phenomenon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-locking-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index locking protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🎓 课程笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    数据库系统
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="concurrency-control">Concurrency Control<a class="headerlink" href="#concurrency-control" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 7583 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 15 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 7 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 26 分钟</p>
+</div>
+<h2 id="lock-based-protocols">Lock-Based Protocols<a class="headerlink" href="#lock-based-protocols" title="Permanent link">&para;</a></h2>
+<p>可串行化调度是并发控制的基础；</p>
+<p>数据项可以以两种模式锁定：</p>
+<ul>
+<li>Exclusive (X) mode: 数据项可以被读取和写入。X锁通过lock-X指令请求。</li>
+<li>Shared (S) mode: 数据项只能被读取。S锁通过lock-S指令请求。</li>
+</ul>
+<p>写一个数据之前，需要先得到一个X锁，读一个数据之前，需要先得到一个S锁。操作结束之后，将这个锁释放。</p>
+<p>锁请求由并发控制管理器处理。事务只有在请求被授予后才能继续执行。</p>
+<p>S锁与S锁是兼容的，X锁其它锁不兼容.</p>
+<p>如果请求的锁与其他事务已经持有的锁兼容，
+则事务可以获得对数据项的锁。
+任意数量的事务可以对一个数据项持有共享锁（S锁），
+但如果任何事务对该数据项持有排他锁（X锁），则其他事务不能持有任何类型的锁。</p>
+<p>如果锁不能被授予，请求锁的事务将被阻塞等待，
+直到所有不兼容的锁被其他事务释放。
+然后，锁才会被授予给等待的事务。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Example of a transaction performing locking</p>
+<p><div class="language-sql highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">lock</span><span class="o">-</span><span class="n">S</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">read</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">unlock</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">lock</span><span class="o">-</span><span class="n">S</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">read</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">unlock</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">display</span><span class="p">(</span><span class="n">A</span><span class="o">+</span><span class="n">B</span><span class="p">)</span>
+</span></code></pre></div>
+上面的锁定方式不足以保证可串行化 — 如果在读取A和B之间，A和B被更新了，那么显示的总和将是错误的。</p>
+<p>锁定协议(Locking protocols)是所有事务在请求和释放锁时遵循的一组规则。锁定协议限制了可能的调度集合。</p>
+<p><figure markdown="span">
+<img alt="Deadlock" src="../img/deadlock.png" width="500" />
+</figure></p>
+<p>上图展示了一个死锁的例子：</p>
+<ul>
+<li>T3 持有 B 的 X 锁，并请求 A 的 X 锁</li>
+<li>T4 持有 A 的 S 锁，并请求 B 的 S 锁</li>
+</ul>
+<p>T3 和 T4 都无法继续执行 — T4 执行 lock-S(B) 会导致它等待 T3 释放 B 上的锁，而 T3 执行 lock-X(A) 会导致它等待 T4 释放 A 上的锁。这种情况被称为死锁（deadlock）。</p>
+<p>为了处理死锁，必须回滚 T3 或 T4 中的一个事务，并释放其持有的锁。</p>
+<div class="admonition info">
+<p class="admonition-title">deadlock &amp; starvation</p>
+<p>死锁（deadlock）是指在并发系统中，两个或多个事务（或进程）相互等待对方释放资源，从而导致所有事务都无法继续执行的情况。具体来说，在一个死锁的情境中，每个事务都持有某些资源的锁，并请求其他事务持有的资源锁，而这些资源锁又无法被释放，因为持有它们的事务也在等待其他资源的释放。</p>
+<p>死锁是大多数锁定协议中存在的问题，可以说是一种"evil"。除了死锁外，饥饿（starvation）也是可能发生的问题，特别是当并发控制管理器设计不良时。</p>
+<p>饥饿的例子包括：</p>
+<ul>
+<li>一个事务可能正在等待对某个数据项的X锁，而同时有一系列其他事务请求并获得了对同一数据项的S锁，导致第一个事务无限期等待。</li>
+<li>同一个事务由于反复遇到死锁而被多次回滚，无法完成执行。</li>
+</ul>
+<p>一个设计良好的并发控制管理器应该能够防止饥饿现象的发生，例如通过实现公平的锁分配策略或优先级机制来确保所有事务最终都能获得所需的锁并完成执行。</p>
+</div>
+</div>
+<h3 id="the-2pl-protocol">The 2PL protocol<a class="headerlink" href="#the-2pl-protocol" title="Permanent link">&para;</a></h3>
+<p>2PL协议(Two-Phase Locking)是一种用于并发控制的协议，它通过在事务执行过程中对锁的请求和释放进行限制，从而确保事务的执行顺序和结果的正确性。</p>
+<p>2PL协议的执行过程可以分为两个阶段：</p>
+<ol>
+<li>
+<p><strong>增长阶段（Growing Phase）</strong>：</p>
+<ul>
+<li>事务可以获取锁</li>
+<li>事务不能释放锁</li>
+</ul>
+</li>
+<li>
+<p><strong>缩减阶段（Shrinking Phase）</strong>：</p>
+<ul>
+<li>事务可以释放锁</li>
+<li>事务不能获取锁</li>
+</ul>
+</li>
+</ol>
+<p>该协议确保了冲突可串行化的调度。可以证明，事务可以按照它们的锁点（即事务获取其最后一个锁的时间点）的顺序进行串行化。</p>
+<p>虽然2PL协议确保了冲突可串行化，但它并不能解决所有的并发控制问题：</p>
+<ol>
+<li>
+<p><strong>死锁问题</strong>：2PL协议本身不能防止死锁的发生。当多个事务相互等待对方持有的锁时，仍然可能出现死锁情况。</p>
+</li>
+<li>
+<p><strong>级联回滚问题</strong>：在标准的2PL协议下，如果一个事务回滚，可能导致其他已读取该事务修改数据的事务也必须回滚，这称为级联回滚（cascading rollback）。</p>
+</li>
+</ol>
+<p>为了解决这些问题，有两种改进的2PL协议：</p>
+<h4 id="strict-2pl">Strict 2PL<a class="headerlink" href="#strict-2pl" title="Permanent link">&para;</a></h4>
+<p>严格两阶段锁协议要求事务持有所有排他锁（X锁）直到事务提交或中止。具体规则如下：</p>
+<ul>
+<li>事务必须按照2PL协议获取锁</li>
+<li>事务持有的所有排他锁必须在事务结束（提交或中止）后才能释放</li>
+</ul>
+<p>Strict 2PL的主要优点是避免了级联回滚问题，因为其他事务无法读取未提交的修改数据。</p>
+<h4 id="rigorous-2pl">Rigorous 2PL<a class="headerlink" href="#rigorous-2pl" title="Permanent link">&para;</a></h4>
+<p>Rigorous 2PL比Strict 2PL更加严格，它要求事务持有所有锁（包括共享锁和排他锁）直到事务提交或中止：</p>
+<ul>
+<li>事务必须按照2PL协议获取锁</li>
+<li>事务持有的所有锁（S锁和X锁）必须在事务结束（提交或中止）后才能释放</li>
+</ul>
+<p>Rigorous 2PL的主要优点是事务可以按照它们提交的顺序进行串行化，这提供了一种简单明确的串行化顺序。</p>
+<p>在实际数据库系统中，通常采用Strict 2PL或Rigorous 2PL协议，因为它们不仅保证了可串行化，还避免了级联回滚问题，简化了恢复机制。</p>
+<p>尽管2PL可能不是实现冲突可串行化的唯一方法，但它是一种通用且可靠的方法，特别是在没有关于事务访问模式的先验知识的情况下。这也解释了为什么2PL协议在实际数据库系统中被广泛采用。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>虽然2PL协议可以保证生成冲突可串行化的调度，但需要注意的是：</p>
+<ol>
+<li>
+<p><strong>并非所有冲突可串行化的调度都能通过2PL获得</strong>：</p>
+<ul>
+<li>存在一些冲突可串行化的调度，它们无法通过遵循2PL协议的事务执行来产生。</li>
+<li>这意味着2PL协议在某种程度上限制了可能的调度集合。</li>
+</ul>
+</li>
+<li>
+<p><strong>2PL对于冲突可串行化的必要性</strong>：</p>
+<ul>
+<li>在没有额外信息（例如对数据访问的顺序）的情况下，2PL对于确保冲突可串行化是必要的。</li>
+<li>这可以通过以下方式理解：如果事务Ti不遵循两阶段锁定协议，我们总能找到另一个遵循两阶段锁定的事务Tj，使得Ti和Tj的某个调度不是冲突可串行化的。(逆否)</li>
+</ul>
+</li>
+</ol>
+</div>
+<h3 id="lock-conversion">Lock Conversion<a class="headerlink" href="#lock-conversion" title="Permanent link">&para;</a></h3>
+<p>锁转换（Lock Conversion）是两阶段锁协议的一个扩展，允许事务在执行过程中动态地改变已持有锁的类型。这种机制增加了并发控制的灵活性，同时仍然保持可串行化的保证。</p>
+<p>在带有锁转换的两阶段锁协议中：</p>
+<ul>
+<li>
+<p><strong>第一阶段（获取阶段）</strong>：</p>
+<ul>
+<li>可以获取项目上的共享锁（S锁）</li>
+<li>可以获取项目上的排他锁（X锁）</li>
+<li>可以将共享锁（S锁）升级为排他锁（X锁）（Upgrade操作）</li>
+</ul>
+</li>
+<li>
+<p><strong>第二阶段（释放阶段）</strong>：</p>
+<ul>
+<li>可以释放共享锁（S锁）（Unlock操作）</li>
+<li>可以释放排他锁（X锁）（Unlock操作）</li>
+<li>可以将排他锁（X锁）降级为共享锁（S锁）（Downgrade操作）</li>
+</ul>
+</li>
+</ul>
+<p>这个协议确保了可串行化。但它仍然依赖于程序员正确插入各种锁定指令。</p>
+<p>锁转换的主要优势在于：</p>
+<ol>
+<li><strong>提高并发度</strong>：允许事务根据实际需要调整锁的类型，避免不必要的严格锁定。</li>
+<li><strong>减少死锁可能性</strong>：通过锁降级，可以在不完全释放锁的情况下减少对资源的独占，降低死锁风险。</li>
+<li><strong>增强灵活性</strong>：事务可以根据操作的不同阶段调整锁的强度，更好地适应实际需求。</li>
+</ol>
+<h3 id="automatic-acquisition-of-locks">Automatic acquisition of locks<a class="headerlink" href="#automatic-acquisition-of-locks" title="Permanent link">&para;</a></h3>
+<p>在实际的数据库系统中，事务通常不需要显式地发出锁请求，而是由系统自动处理锁的获取和释放。这种自动锁定机制简化了编程，并确保了事务的正确执行。</p>
+<p>当事务Ti发出标准的读/写指令（没有显式的锁定调用）时，系统会自动处理锁定：</p>
+<p><strong>读操作的处理</strong>：</p>
+<p>当事务Ti执行<code>read(D)</code>操作时：</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">Ti</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">lock</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">read</span><span class="p">(</span><span class="n">D</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"> </span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">if</span><span class="w"> </span><span class="n">necessary</span><span class="w"> </span><span class="n">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">other</span><span class="w">  </span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">transaction</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">lock</span><span class="o">-</span><span class="n">X</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">grant</span><span class="w"> </span><span class="n">Ti</span><span class="w"> </span><span class="n">a</span><span class="w">  </span><span class="k">lock</span><span class="o">-</span><span class="n">S</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">read</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">end</span>
+</span></code></pre></div>
+<h3 id="implementation-of-locking">Implementation of Locking<a class="headerlink" href="#implementation-of-locking" title="Permanent link">&para;</a></h3>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>锁管理器通常被实现为一个独立的进程，事务向其发送锁定和解锁请求。锁管理器的工作流程如下：</p>
+<ul>
+<li>当收到锁请求时，锁管理器会回复一个锁授予消息（或在发生死锁的情况下，发送一个要求事务回滚的消息）</li>
+<li>请求锁的事务会等待，直到其请求得到回应</li>
+<li>锁管理器维护一个称为锁表（lock table）的数据结构，用于记录已授予的锁和待处理的请求</li>
+</ul>
+<p>锁表通常实现为一个内存中的哈希表，以被锁定的数据项的名称作为索引。
+锁表中的每个条目通常包含：</p>
+<ul>
+<li>数据项标识符</li>
+<li>锁类型（共享/排他）</li>
+<li>持有锁的事务列表</li>
+<li>等待该数据项锁的事务队列</li>
+</ul>
+<p><figure markdown="span">
+<img alt="Lock Table" src="../img/lock_table.png" width="500" />
+</figure></p>
+<p>上图展示了一个锁表的示例。</p>
+<p>新的请求会被添加到数据项请求队列的末尾，并且只有当它与所有早期锁兼容时才会被授予。</p>
+<p>解锁请求会导致相应的请求被删除，系统会检查后续请求是否可以被授予。如果事务中止，该事务的所有等待或已授予的请求都会被删除。</p>
+<p>为了高效实现这一机制，锁管理器通常会为每个事务维护一个持有锁的列表。这样，当事务完成或中止时，可以快速找到并释放该事务持有的所有锁。</p>
+<p>锁管理器的实现需要考虑以下几个关键点：</p>
+<ol>
+<li><strong>高效的锁状态查询</strong> ：快速确定某个数据项的锁状态</li>
+<li><strong>兼容性检查</strong> ：判断新的锁请求是否与现有锁兼容</li>
+<li><strong>死锁检测</strong> ：识别并解决可能的死锁情况</li>
+<li><strong>公平性</strong> ：确保长时间等待的事务最终能获得所需的锁</li>
+</ol>
+<p>这种集中式的锁管理机制虽然增加了一定的系统开销，但大大简化了并发控制的实现，并提高了系统的可靠性。</p>
+</div>
+<h3 id="graph-based-protocols">Graph-Based Protocols<a class="headerlink" href="#graph-based-protocols" title="Permanent link">&para;</a></h3>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p><strong>基于图的协议</strong> 是二阶段锁定的一种替代方案。这种协议在数据项集合 </p>
+<div class="arithmatex">\[
+D = \{d_1, d_2, \ldots, d_h\}
+\]</div>
+<p>上施加一个偏序关系。</p>
+<p>如果 <span class="arithmatex">\(d_1 \rightarrow d_2\)</span>，那么任何同时访问 <span class="arithmatex">\(d_1\)</span> 和 <span class="arithmatex">\(d_2\)</span> 的事务必须先访问 <span class="arithmatex">\(d_1\)</span> 再访问 <span class="arithmatex">\(d_2\)</span>。这意味着数据集 <span class="arithmatex">\(D\)</span> 可以被视为一个有向无环图，称为数据库图(database graph)。</p>
+<p>树协议(tree-protocol)是一种简单的图协议。在树协议中，数据项被组织成一棵树的形式，事务必须按照从根到叶的顺序访问数据项。</p>
+</div>
+<figure markdown="span">
+ ![Tree Protocol](./img/tree_protocol.png){ width="500" }
+ </figure>
+<p>树协议的规则如下：</p>
+<ol>
+<li>
+<p><strong>仅允许排他锁（X锁）</strong>：树协议中只使用排他锁，不使用共享锁。</p>
+</li>
+<li>
+<p><strong>首次加锁的灵活性</strong>：事务Ti的第一个锁可以加在任何数据项上。</p>
+</li>
+<li>
+<p><strong>层次化加锁规则</strong>：随后，Ti只能对当前已经被Ti锁定的数据项的子节点加锁。具体来说，数据项Q只有在其父节点已被Ti锁定的情况下才能被Ti锁定。</p>
+</li>
+<li>
+<p><strong>灵活的解锁时间</strong>：数据项可以在任何时候解锁，不必遵循严格的顺序。</p>
+</li>
+<li>
+<p><strong>不可重复加锁</strong>：一旦某个数据项被Ti锁定并解锁后，Ti不能再次锁定该数据项。</p>
+</li>
+</ol>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>树协议的优缺点：</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li><em>无死锁保证</em>：树协议确保了冲突可串行化以及无死锁发生</li>
+<li><em>提前解锁</em>：与二阶段锁定协议相比，树协议允许更早地解锁数据项</li>
+<li><em>等待时间更短</em>：在某些情况下可以提高并发度</li>
+<li><em>无需回滚</em>：由于协议是无死锁的，不需要执行回滚操作</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li><em>恢复性问题</em>：协议不保证可恢复性或避免级联回滚</li>
+<li><em>需要额外机制</em>：为确保可恢复性，需要引入提交依赖关系</li>
+<li><em>额外锁定</em>：事务可能必须锁定它们实际上不访问的数据项</li>
+<li><em>锁开销增加</em>：导致额外的等待时间</li>
+<li><em>并发度潜在降低</em>：在某些情况下可能降低系统的整体并发性能</li>
+</ul>
+<p>值得注意的是，二阶段锁定协议和树协议各有所长，某些在二阶段锁定下不可能的调度在树协议下是可能的，反之亦然。选择哪种协议取决于具体的应用场景和数据访问模式。</p>
+</div>
+<h2 id="timestamp-based-protocols">Timestamp-Based Protocols<a class="headerlink" href="#timestamp-based-protocols" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>时间戳协议(Timestamp-Based Protocols)是一种基于时间戳的并发控制协议，用于管理数据库中的事务并发。每个事务在进入系统时都会被分配一个时间戳。如果一个旧事务<span class="arithmatex">\(T_i\)</span>的时间戳为<span class="arithmatex">\(TS(T_i)\)</span>，那么一个新事务<span class="arithmatex">\(T_j\)</span>将被分配时间戳<span class="arithmatex">\(TS(T_j)\)</span>，使得<span class="arithmatex">\(TS(T_i) &lt; TS(T_j)\)</span>。该协议通过时间戳来管理并发执行，以确保事务的可串行化顺序。</p>
+<p>为了保证这种行为，协议为每个数据Q维护两个时间戳值：</p>
+<ul>
+<li>W-timestamp(Q)：是任何成功执行write(Q)的事务中最大的时间戳。也就是最晚的写时间戳。</li>
+<li>R-timestamp(Q)：是任何成功执行read(Q)的事务中最大的时间戳。也就是最晚的读时间戳。</li>
+</ul>
+</div>
+<p>Suppose a transaction Ti issues a read(Q):</p>
+<ul>
+<li>
+<p>If <span class="arithmatex">\(TS(Ti) \leqslant W-timestamp(Q)\)</span>, then Ti needs to read a value of Q that was already overwritten. Hence, the read operation is rejected, and Ti is rolled back.有更新的事务已经写入了Q，读取操作被拒绝，事务回滚。</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(TS(Ti) \geqslant W-timestamp(Q)\)</span>, then the read operation is executed, and <span class="arithmatex">\(R-timestamp(Q)\)</span> is set to the maximum of <span class="arithmatex">\(R-timestamp(Q)\)</span> and <span class="arithmatex">\(TS(Ti)\)</span>.OK，可以读取。</p>
+</li>
+</ul>
+<p>Suppose that transaction Ti issues a write(Q):</p>
+<ul>
+<li>
+<p>If <span class="arithmatex">\(TS(Ti) &lt; R-timestamp(Q)\)</span>, then the value of Q that Ti is producing was needed previously, and the system assumed that that value would never be produced. Hence, the write operation is rejected, and Ti is rolled back.有更新的事务已经读取了Q，写入的话会影响已经完成的事务，所以拒绝写入，回滚。</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(TS(Ti) &lt; W-timestamp(Q)\)</span>, then Ti is attempting to write an obsolete value of Q. Hence, this write operation is rejected, and Ti is rolled back.有更新的事务已经写入了Q，Ti试图写入一个过时的值，所以拒绝写入，回滚。</p>
+</li>
+<li>
+<p>Otherwise, the write operation is executed, and <span class="arithmatex">\(W-timestamp(Q)\)</span> is set to <span class="arithmatex">\(TS(Ti)\)</span>.OK，可以写入。</p>
+</li>
+</ul>
+<figure>
+<img alt="Timestamp Protocol" src="../img/timestamp.png" width="500" />
+
+<figcaption>
+    Timestamp Protocol Example
+</figcaption>
+</figure>
+<ul>
+<li>
+<p><strong>优先图弧</strong>：在时间戳排序协议中，优先图的构建方式是所有的弧都是从时间戳较早的事务指向时间戳较晚的事务。这种排序确保了没有循环，因为循环意味着一个事务依赖于未来的事务，这与时间戳排序相矛盾。</p>
+</li>
+<li>
+<p><strong>无死锁</strong>：该协议本质上避免了死锁，因为事务之间不会相互等待。如果一个事务由于时间戳冲突而无法继续，它将被回滚并以新的时间戳重新启动，确保没有事务处于等待状态。</p>
+</li>
+<li>
+<p><strong>级联回滚</strong>：虽然时间戳协议防止了死锁，但它并不固有地防止级联回滚。当一个事务被回滚时，可能会导致其他依赖的事务也被回滚。如果一个事务读取了另一个事务写入的值，而后者事务随后被回滚，就会发生级联回滚。为了解决这个问题，事务被结构化为其所有写操作都在处理结束时执行。这确保了事务的所有写操作形成一个原子操作，这意味着在一个事务正在写入时，其他事务不能执行。如果一个事务中止，它将以新的时间戳重新启动。此方法有助于减少级联回滚效应，并确保更稳定和可恢复的调度。</p>
+</li>
+<li>
+<p><strong>可恢复性</strong>：该协议可能还会产生不可恢复的调度。当一个事务读取了另一个事务写入的值时，如果写入事务在读取事务之前提交，调度是可恢复的。在时间戳协议中，一个事务可能会读取另一个事务的值，而后者事务随后被回滚，导致调度不可恢复。</p>
+</li>
+<li>
+<p><strong>权衡</strong>：时间戳排序协议在简化和性能之间提供了一种权衡。它通过避免死锁简化了并发控制，但可能由于潜在的级联回滚和不可恢复的调度而产生性能成本。在实践中，可能需要额外的机制来确保可恢复性和级联自由，例如实现提交依赖关系跟踪系统或使用更复杂的并发控制协议。</p>
+</li>
+</ul>
+<h3 id="thomas-write-rule">Thomas' Write Rule（托马斯写规则）<a class="headerlink" href="#thomas-write-rule" title="Permanent link">&para;</a></h3>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>托马斯写规则是时间戳排序协议的一种修改版本，允许在某些情况下忽略过时的写操作，从而增加潜在的并发性。此规则在视图可串行化是可接受的场景中特别有用，即使未实现冲突可串行化。</p>
+<p>当事务 Ti 尝试写入数据项 Q 时：</p>
+<ul>
+<li>
+<p>如果 <span class="arithmatex">\(TS(Ti) &lt; W-timestamp(Q)\)</span>，则 Ti 试图写入一个过时的 Q 值。与标准时间戳排序协议要求的回滚不同，此写操作被简单地忽略。这允许系统在不必要的回滚下继续处理，从而增强并发性。</p>
+</li>
+<li>
+<p>如果 <span class="arithmatex">\(TS(Ti) \geqslant W-timestamp(Q)\)</span>，则写操作按常规执行，并将 <span class="arithmatex">\(W-timestamp(Q)\)</span> 更新为 <span class="arithmatex">\(TS(Ti)\)</span>。</p>
+</li>
+</ul>
+<p>托马斯写规则允许视图可串行化但不一定是冲突可串行化的调度，提供了严格串行化和增加并发性之间的权衡。</p>
+</div>
+<ul>
+<li>
+<p><strong>增加的并发性</strong>：通过忽略某些过时的写操作，托马斯写规则减少了回滚次数，允许更多事务并发进行。</p>
+</li>
+<li>
+<p><strong>视图可串行化</strong>：此规则支持视图可串行化的调度，这比冲突可串行化的调度限制更少，从而实现更灵活的事务排序。</p>
+</li>
+<li>
+<p><strong>权衡</strong>：虽然托马斯写规则增加了并发性，但可能导致调度不是冲突可串行化的。在视图可串行化足以保证正确性的系统中，这种权衡通常是可以接受的。</p>
+</li>
+<li>
+<p><strong>使用场景</strong>：托马斯写规则在高并发环境中特别有利，在这些环境中，管理冲突可串行化的开销过高，并且系统可以容忍视图可串行化的放松约束。</p>
+</li>
+</ul>
+<h2 id="validation-based-protocol">Validation-Based Protocol<a class="headerlink" href="#validation-based-protocol" title="Permanent link">&para;</a></h2>
+<p>基于验证的协议，也称为乐观并发控制（Optimistic Concurrency Control），事务的执行分为三个阶段：</p>
+<ol>
+<li>
+<p><strong>读取和执行阶段</strong>：在此阶段，事务 Ti 仅写入临时的本地变量。所有操作都在这些本地副本上执行，而不影响实际数据库。</p>
+</li>
+<li>
+<p><strong>验证阶段</strong>：事务 Ti 执行“验证测试”，以确定本地变量是否可以在不违反可串行化的情况下写入。这是确保事务之间不冲突的关键步骤。</p>
+</li>
+<li>
+<p><strong>写入阶段</strong>：如果 Ti 通过验证，则更新将应用于数据库；否则，Ti 将被回滚。</p>
+</li>
+</ol>
+<p>并发执行的事务的三个阶段可以交错进行，但每个事务必须按顺序经历这三个阶段。为了简化起见，假设验证和写入阶段是一起发生的，具有原子性和串行性，即一次只有一个事务执行验证/写入。</p>
+<p>这种方法被称为乐观并发控制，因为事务在执行时完全希望在验证期间一切顺利。</p>
+<ul>
+<li>
+<p><strong>优点</strong>：</p>
+<ul>
+<li><strong>增加并发性</strong>：由于事务在执行期间不锁定数据项，多个事务可以同时进行，从而提高系统吞吐量。</li>
+<li><strong>减少死锁</strong>：由于没有锁的存在，消除了死锁的可能性，简化了事务管理。</li>
+</ul>
+</li>
+<li>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>高中止率的可能性</strong>：在高争用环境中，事务验证失败的可能性增加，导致更多的中止和重试。</li>
+<li><strong>复杂的验证逻辑</strong>：验证阶段可能变得复杂，特别是在有许多并发事务的系统中，因为它必须确保可串行化。</li>
+</ul>
+</li>
+</ul>
+<p>对于所有事务 Ti，如果 TS(Ti) &lt; TS(Tj)，则以下条件之一成立：</p>
+<ul>
+<li>
+<p>finish(Ti) &lt; start(Tj)</p>
+</li>
+<li>
+<p>start(Tj) &lt; finish(Ti) &lt; validation(Tj) 且 Ti 写入的数据项集合与 Tj 读取的数据项集合不相交。</p>
+</li>
+<li>
+<p>如果第一个条件满足，则没有重叠的执行。</p>
+</li>
+<li>如果第二个条件满足，Tj 的写操作不会影响 Ti 的读操作，因为它们发生在 Ti 完成其读操作之后。</li>
+<li>
+<p>Ti 的写操作不会影响 Tj 的读操作，因为 Tj 没有读取 Ti 写入的任何数据项。</p>
+</li>
+<li>
+<p><strong>验证失败</strong>：如果上述条件均不满足，则验证失败，Tj 将被中止。</p>
+</li>
+</ul>
+<figure>
+<img alt="Validation Protocol" src="../img/VALID.png" width="500" />
+
+<figcaption>
+    Validation Protocol Example
+</figcaption>
+</figure>
+<h2 id="multiple-granularity">Multiple Granularity<a class="headerlink" href="#multiple-granularity" title="Permanent link">&para;</a></h2>
+<p>在数据库系统中，允许数据项以不同的大小进行锁定，这被称为多粒度锁定（Multiple Granularity Locking）。这种方法通过定义数据粒度的层次结构来实现，其中较小的粒度嵌套在较大的粒度内，并可以图形化地表示为一棵树。</p>
+<h3 id="granularity-hierarchy">Granularity Hierarchy<a class="headerlink" href="#granularity-hierarchy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Root Node</strong>：表示整个数据库。</li>
+<li><strong>Intermediate Node</strong>：表示数据库中的表或文件。</li>
+<li><strong>Leaf Node</strong>：表示表中的记录或文件中的块。</li>
+</ul>
+<p>当事务显式地锁定树中的一个节点时，它隐式地以相同的模式锁定该节点的所有子节点。</p>
+<h3 id="locking-granularity">Locking Granularity<a class="headerlink" href="#locking-granularity" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fine-Grained Locking</strong>（Lower in tree）：在树的较低层次进行锁定，提供高并发性，但锁定开销较高。</li>
+<li><strong>Coarse-Grained Locking</strong>（Higher in tree）：在树的较高层次进行锁定，锁定开销较低，但并发性较低。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>假设有一个数据库包含多个表，每个表包含多个记录。可以将数据库视为树的根节点，表作为中间节点，记录作为叶子节点。</p>
+<ul>
+<li><strong>细粒度锁定</strong>：如果一个事务需要访问特定的记录，它可以直接锁定该记录。这允许其他事务同时访问同一表中的其他记录，从而提高并发性。</li>
+<li><strong>粗粒度锁定</strong>：如果一个事务需要访问整个表，它可以锁定表节点。这将阻止其他事务访问该表中的任何记录，降低并发性，但减少了锁定的开销。</li>
+</ul>
+<p>通过选择适当的锁定粒度，系统可以在并发性和锁定开销之间进行权衡，以满足不同的性能需求。</p>
+</div>
+<figure>
+<img alt="Multiple Granularity" src="../img/concur1.png" width="500" />
+
+<figcaption>
+    Tree example
+</figcaption>
+</figure>
+<h3 id="intention-lock-modes">Intention Lock Modes<a class="headerlink" href="#intention-lock-modes" title="Permanent link">&para;</a></h3>
+<p>在多粒度锁定中，存在三种意向锁模式：</p>
+<ul>
+<li>
+<p><strong>Intention-shared (IS，共享型意向锁)</strong>: 表明在树的较低层次存在共享锁。这意味着该节点的后代可能被显式地以共享模式锁定。</p>
+</li>
+<li>
+<p><strong>Intention-exclusive (IX，排它型意向锁)</strong>: 表明在树的较低层次存在排他锁。这意味着该节点的后代可能被显式地以排他模式锁定。</p>
+</li>
+<li>
+<p><strong>Shared and intention-exclusive (SIX，共享排它型意向锁)</strong>: 表明以共享模式显式锁定该节点的子树，并且在较低层次以排他模式进行显式锁定。SIX 锁是共享锁和排他意向锁的组合，即 SIX = S + IX。</p>
+</li>
+</ul>
+<p>这些意向锁模式允许事务在不同粒度级别上安全地锁定数据项，从而提高并发性和性能。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>考虑一个场景，其中多个事务正在与结构为树形的数据库交互。以下是意向锁在此上下文中的工作原理：</p>
+<ul>
+<li>
+<p>T1 用 X 锁锁定 <code>ra1</code>：</p>
+<ul>
+<li><code>ra1</code> 是一个叶子节点。在用 X 锁锁定 <code>ra1</code> 之前，意向排他锁（IX）会被放置在其所有祖先节点上直到根节点。这意味着：</li>
+<li>在 <code>Fa</code> 上加 IX 锁（如果 <code>ra1</code> 在 <code>Fa</code> 下）</li>
+<li>在 <code>Fb</code> 上加 IX 锁（如果 <code>ra1</code> 在 <code>Fb</code> 下）</li>
+<li>在根节点（整个数据库）上加 IX 锁</li>
+</ul>
+</li>
+<li>
+<p>T2 用 S 锁锁定 <code>Fb</code>：</p>
+<ul>
+<li><code>Fb</code> 是一个中间节点。在用 S 锁锁定 <code>Fb</code> 之前，意向共享锁（IS）会被放置在其所有祖先节点上直到根节点。这意味着：</li>
+<li>在根节点（整个数据库）上加 IS 锁</li>
+</ul>
+</li>
+<li>
+<p>T3 希望用 S 锁锁定 <code>Fa</code>：</p>
+<ul>
+<li><code>Fa</code> 是一个中间节点。在用 S 锁锁定 <code>Fa</code> 之前，意向共享锁（IS）会被放置在其所有祖先节点上直到根节点。这意味着：</li>
+<li>在根节点（整个数据库）上加 IS 锁</li>
+<li>由于 <code>T1</code> 在 <code>Fa</code> 上有一个 IX 锁，<code>T3</code> 可以继续在 <code>Fa</code> 上加 S 锁，因为 IS 和 IX 是兼容的。</li>
+</ul>
+</li>
+<li>
+<p>T4 希望用 S 锁锁定整个数据库：</p>
+<ul>
+<li>根节点代表整个数据库。在用 S 锁锁定根节点之前，意向共享锁（IS）会被放置在其所有祖先节点上，但由于它是根节点，没有进一步的祖先节点。</li>
+<li>如果没有冲突的锁，<code>T4</code> 可以继续在整个数据库上加 S 锁。然而，由于 <code>T1</code> 在根节点上有一个 IX 锁，<code>T4</code> 必须等待，因为 S 和 IX 是不兼容的。</li>
+</ul>
+</li>
+</ul>
+</div>
+<figure>
+<img alt="Multiple Granularity" src="../img/intent.png" width="500" />
+
+<figcaption>
+    锁之间的兼容性
+</figcaption>
+</figure>
+<h3 id="lock-schemas">Lock schemas<a class="headerlink" href="#lock-schemas" title="Permanent link">&para;</a></h3>
+<p>事务 Ti 可以使用以下规则锁定节点 Q：</p>
+<ol>
+<li>
+<p><strong>锁兼容性矩阵</strong>：</p>
+<ul>
+<li>Ti 必须遵循锁兼容性矩阵，以确保其获取的锁不会与其他事务持有的现有锁冲突。</li>
+</ul>
+</li>
+<li>
+<p><strong>根节点锁定</strong>：</p>
+<ul>
+<li>必须首先锁定树的根节点。根节点可以以任何模式（S, IS, X, IX, SIX）锁定。</li>
+</ul>
+</li>
+<li>
+<p><strong>S 或 IS 模式锁定</strong>：</p>
+<ul>
+<li>仅当 Q 的父节点当前被 Ti 以 IX 或 IS 模式锁定时，Ti 才能以 S 或 IS 模式锁定节点 Q。</li>
+</ul>
+</li>
+<li>
+<p><strong>X, SIX 或 IX 模式锁定</strong>：</p>
+<ul>
+<li>仅当 Q 的父节点当前被 Ti 以 IX 或 SIX 模式锁定时，Ti 才能以 X, SIX 或 IX 模式锁定节点 Q。</li>
+</ul>
+</li>
+<li>
+<p><strong>两阶段锁定协议 (2PL)</strong>：</p>
+</li>
+<li>
+<p>Ti 只能在尚未解锁任何节点的情况下锁定节点。这确保 Ti 遵循两阶段锁定协议。</p>
+</li>
+<li>
+<p><strong>解锁节点</strong>：</p>
+</li>
+<li>Ti 只能在 Q 的所有子节点都未被 Ti 锁定的情况下解锁节点 Q。这确保锁按照从叶到根的顺序释放。</li>
+</ol>
+<p>优点：
+- <strong>增强并发性</strong>：通过允许事务在不同粒度上锁定节点，系统可以支持更高水平的并发性。
+- <strong>降低加锁开销</strong>：使用意向锁和两阶段锁定协议有助于减少与锁定相关的开销，从而提高系统性能。</p>
+<h2 id="multiversion-schemes">Multiversion Schemes<a class="headerlink" href="#multiversion-schemes" title="Permanent link">&para;</a></h2>
+<p>多版本并发控制（MVCC）是一种通过保留数据项的多个版本来提高数据库系统并发性的方法。这种方法允许事务访问不同版本的数据项而不相互干扰，从而提高系统性能并减少等待时间。</p>
+<h3 id="multiversion-timestamp-ordering">Multiversion Timestamp Ordering<a class="headerlink" href="#multiversion-timestamp-ordering" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>版本创建</strong>：每次成功的写操作都会创建数据项的新版本。这个新版本用时间戳标记，通常是执行写操作的事务的时间戳。</p>
+</li>
+<li>
+<p><strong>读操作</strong>：当事务发出读(Q)操作时，系统根据事务的时间戳选择Q的最合适版本。选择的版本是时间戳最大且小于或等于读取事务时间戳的版本。这确保了读操作返回的数据视图与事务开始时的一致。</p>
+</li>
+<li>
+<p><strong>并发性</strong>：读取操作永远不需要等待，因为总有一个合适的版本可用。这是多版本方案的一个显著优势，因为它允许读操作在存在并发写操作的情况下不受延迟地进行。</p>
+</li>
+</ul>
+<h3 id="multiversion-two-phase-locking">Multiversion Two-Phase Locking<a class="headerlink" href="#multiversion-two-phase-locking" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>锁定机制</strong>：多版本两阶段锁定（MV2PL）结合了多版本并发控制与两阶段锁定的原则。在这种方案中，读操作不需要锁，因为它们可以直接访问合适的版本。然而，写操作仍然遵循两阶段锁定协议以确保可串行化。</p>
+</li>
+<li>
+<p><strong>版本管理</strong>：与多版本时间戳排序类似，每次写操作都会创建数据项的新版本。系统维护多个版本，每个版本都用创建它的事务的时间戳标记。</p>
+</li>
+<li>
+<p><strong>优点</strong>：通过允许读操作在没有锁的情况下进行，MV2PL减少了争用并提高了并发性。这种方法在读操作较多的工作负载中尤其有利，因为大多数操作都是读取。</p>
+</li>
+</ul>
+<p>总之，多版本并发控制方案，如多版本时间戳排序和多版本两阶段锁定，通过维护数据项的多个版本来增强并发性。这些方案允许读操作在不等待的情况下访问最合适的版本，从而提高系统性能并减少事务等待时间。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在多版本并发控制系统中，事务可以分为两种类型：只读事务和更新事务。每种类型遵循不同的协议以确保数据一致性和系统性能。</p>
+<ul>
+<li>
+<p><strong>更新事务</strong>：</p>
+<ul>
+<li><strong>锁定协议</strong>：更新事务在访问的数据项上获取读锁和写锁。它们遵循严格的两阶段锁定协议，这意味着它们在事务完成并提交之前持有所有获取的锁。</li>
+<li><strong>版本创建</strong>：更新事务的每次成功写操作都会创建数据项的新版本。这个新版本用时间戳标记。</li>
+<li><strong>时间戳管理</strong>：每个新版本的时间戳是从一个计数器 <code>ts-counter</code> 中获得的，该计数器在事务提交处理期间递增。</li>
+</ul>
+</li>
+<li>
+<p><strong>只读事务</strong>：</p>
+<ul>
+<li><strong>时间戳分配</strong>：在执行之前，只读事务通过读取 <code>ts-counter</code> 的当前值来分配时间戳。此时间戳用于在事务执行期间确定数据版本的可见性。</li>
+<li><strong>读取协议</strong>：只读事务遵循多版本时间戳排序协议。它们访问每个数据项的版本，该版本的时间戳最大且小于或等于事务的时间戳，从而确保数据库在事务开始时的一致视图。</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="deadlock-handling">Deadlock handling<a class="headerlink" href="#deadlock-handling" title="Permanent link">&para;</a></h2>
+<h3 id="deadlock-prevention">Deadlock Prevention<a class="headerlink" href="#deadlock-prevention" title="Permanent link">&para;</a></h3>
+<p>Deadlock prevention protocols ensure that the system will never enter into a deadlock state. Some prevention strategies:</p>
+<p>1) Require that each transaction locks all its data items before it begins execution (predeclaration) – conservative 2PL. (Either all or none are locked)
+Disadvantages: bad concurrency, hard to predict </p>
+<p>2) Impose partial ordering of all data items and require that a transaction can lock data items only in the order (graph-based protocol). ---- therefore never form a cycle. </p>
+<ul>
+<li>
+<p><strong>Wait-die scheme — 非抢占式</strong>：较旧的事务可以等待较新的事务释放数据项。较新的事务永远不会等待较旧的事务；相反，它们会被回滚。一个事务可能在获取所需数据项之前多次“死亡”。</p>
+</li>
+<li>
+<p><strong>Wound-wait scheme — 抢占式</strong>：较旧的事务会“伤害”（强制回滚）较新的事务，而不是等待它。较新的事务可以等待较旧的事务。与wait-die方案相比，可能会有更少的回滚。</p>
+</li>
+</ul>
+<p>在wait-and-die和wound-and-wait方案中，被回滚的事务以其原始时间戳重新启动。因此，较旧的事务优先于较新的事务，从而避免了饥饿。</p>
+<p>基于超时的方案：</p>
+<ul>
+<li>事务仅在指定的时间内等待锁。之后，等待超时，事务被回滚。</li>
+<li>因此，不可能出现死锁。</li>
+<li>实现简单；但可能会出现饥饿问题。此外，确定超时间隔的良好值也很困难。</li>
+</ul>
+<h3 id="deadlock-detection">Deadlock Detection<a class="headerlink" href="#deadlock-detection" title="Permanent link">&para;</a></h3>
+<p>Deadlocks can be described as a wait-for graph, which consists of a pair <span class="arithmatex">\(G = (V,E)\)</span>, </p>
+<p><span class="arithmatex">\(V\)</span> is a set of vertices (all the transactions in the system)
+<span class="arithmatex">\(E\)</span> is a set of edges; each element is an ordered pair <span class="arithmatex">\(T_i \rightarrow T_j\)</span>.  </p>
+<p>If <span class="arithmatex">\(T_i \rightarrow T_j\)</span> is in <span class="arithmatex">\(E\)</span>, then there is a directed edge from <span class="arithmatex">\(T_i\)</span> to <span class="arithmatex">\(T_j\)</span>, implying that <span class="arithmatex">\(T_i\)</span> is waiting for <span class="arithmatex">\(T_j\)</span> to release a data item.</p>
+<p>When <span class="arithmatex">\(T_i\)</span> requests a data item currently being held by <span class="arithmatex">\(T_j\)</span>, then the edge <span class="arithmatex">\(T_i \rightarrow T_j\)</span> is inserted in the wait-for graph. This edge is removed only when <span class="arithmatex">\(T_j\)</span> is no longer holding a data item needed by <span class="arithmatex">\(T_i\)</span>.</p>
+<div class="admonition key-point">
+<p class="admonition-title">Key-point</p>
+<p>The system is in a deadlock state if and only if the wait-for graph has a cycle.  Must invoke a deadlock-detection algorithm periodically to look for cycles.</p>
+</div>
+<h3 id="deadlock-recovery">Deadlock Recovery<a class="headerlink" href="#deadlock-recovery" title="Permanent link">&para;</a></h3>
+<p>When a deadlock is detected, the system must choose a transaction to roll back in order to break the deadlock. The selection of the victim transaction should be based on minimizing the cost. The cost can be determined by factors such as the amount of work done by the transaction, the resources it holds, and the number of rollbacks it has already undergone to prevent starvation.</p>
+<ol>
+<li>
+<p><strong>Victim Selection</strong>:</p>
+<ul>
+<li>Choose the transaction with the minimum cost as the victim.</li>
+<li>Consider the number of rollbacks a transaction has already experienced as part of the cost to avoid starvation.</li>
+</ul>
+</li>
+<li>
+<p><strong>Rollback Strategy</strong>:</p>
+<ul>
+<li><strong>Total Rollback</strong>: Abort the transaction completely and restart it. This is straightforward but may not always be the most efficient.</li>
+<li><strong>Partial Rollback</strong>: Roll back the transaction only as far as necessary to resolve the deadlock. This can be more efficient as it allows the transaction to retain some of its progress.</li>
+</ul>
+</li>
+<li>
+<p><strong>Starvation Prevention</strong>:</p>
+<ul>
+<li>Track the number of times each transaction has been rolled back.</li>
+<li>Increase the cost factor for transactions that have been rolled back multiple times to ensure they are not repeatedly chosen as victims.</li>
+</ul>
+</li>
+</ol>
+<p>By implementing these strategies, the system can effectively manage deadlocks while minimizing the impact on transaction processing and avoiding starvation.</p>
+<h3 id="insert-and-delete">Insert and delete<a class="headerlink" href="#insert-and-delete" title="Permanent link">&para;</a></h3>
+<h3 id="insert-and-delete-operations-in-two-phase-locking">Insert and Delete Operations in Two-Phase Locking<a class="headerlink" href="#insert-and-delete-operations-in-two-phase-locking" title="Permanent link">&para;</a></h3>
+<p>In a two-phase locking protocol, certain rules must be followed to ensure serializability when performing insert and delete operations:</p>
+<ul>
+<li><strong>Delete Operation</strong>: </li>
+<li>
+<p>A delete operation may be performed only if the transaction deleting the tuple has an exclusive (X) lock on the tuple to be deleted. This ensures that no other transaction can access the tuple while it is being deleted, maintaining data consistency.</p>
+</li>
+<li>
+<p><strong>Insert Operation</strong>: </p>
+</li>
+<li>A transaction that inserts a new tuple into the database is given an X-mode lock on the tuple. This exclusive lock prevents other transactions from accessing the tuple until the insert operation is complete, ensuring that the new data is correctly integrated into the database.</li>
+</ul>
+<h3 id="phantom-phenomenon">Phantom Phenomenon<a class="headerlink" href="#phantom-phenomenon" title="Permanent link">&para;</a></h3>
+<p>Insertions and deletions can lead to the phantom phenomenon, which occurs when:</p>
+<ul>
+<li>A transaction scans a relation (e.g., finding the sum of balances of all accounts in Perryridge).</li>
+<li>Another transaction inserts a tuple into the relation (e.g., inserting a new account at Perryridge).</li>
+</ul>
+<p>These transactions conceptually conflict despite not accessing any tuple in common. If only tuple locks are used, non-serializable schedules can result. For example, the scan transaction may not see the new account but reads some other tuple written by the update transaction.</p>
+<p>To prevent the phantom phenomenon, additional locking mechanisms, such as predicate locks or index-range locks, may be required to ensure that the set of tuples being scanned remains consistent throughout the transaction's execution.</p>
+<h3 id="index-locking-protocols">Index locking protocols<a class="headerlink" href="#index-locking-protocols" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每个关系必须至少有一个索引。对关系的访问必须仅通过该关系的一个索引进行。</li>
+<li>执行查找的事务 Ti 必须以 S 模式锁定其访问的所有索引桶。</li>
+<li>事务 Ti 不得在不更新所有关系 r 的索引的情况下将元组 ti 插入到关系 r 中。</li>
+<li>Ti 必须在每个索引上执行查找，以查找所有可能已经包含指向元组 ti 的指针的索引桶，并在所有这些索引桶上以 X 模式获取锁。Ti 还必须在其修改的所有索引桶上以 X 模式获取锁。</li>
+<li>必须遵守两阶段锁定协议的规则。</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../transaction/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 事务">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                事务
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../recovery/" class="md-footer__link md-footer__link--next" aria-label="下一页: 恢复">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                恢复
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

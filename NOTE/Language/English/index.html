@@ -1,0 +1,4393 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/Language/English/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../CTF/CTF/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>English - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cet6-words" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              English
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_6" id="__nav_2_4_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    语言学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PART 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PART 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PART 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PART 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PART 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PART 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../CS/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    💻 自学笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    语言学习
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cet6-words">CET6 Words<a class="headerlink" href="#cet6-words" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 10076 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 35 分钟</p>
+</div>
+<h2 id="part-1">PART 1<a class="headerlink" href="#part-1" title="Permanent link">&para;</a></h2>
+<p><span style="color: red;">barren</span></p>
+<ul>
+<li>adj. <ul>
+<li>贫瘠的,不毛的，不孕不育的</li>
+<li>没有效果的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The barren land was a source of great frustration.</p>
+<p>这片贫瘠的土地让我感到非常沮丧。</p>
+</div>
+<p><span style="color: red;">spot</span></p>
+<ul>
+<li>n.<ul>
+<li>斑点,污渍,脏点</li>
+<li>粉刺，脓包</li>
+<li>地点，场所</li>
+<li>机会，时机</li>
+<li>一点，一点儿</li>
+</ul>
+</li>
+<li>v.<ul>
+<li>看见,注意到,发现</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>There was a spot on his face.</p>
+<p>他脸上有一个脏点。</p>
+</div>
+<p><span style="color: red;">bleak</span></p>
+<ul>
+<li>adj.<ul>
+<li>荒凉的, 阴冷的</li>
+<li>没有希望的, 凄凉的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The landscape was bleak and desolate.</p>
+<p>景色荒凉而凄凉。</p>
+</div>
+<p><span style="color: red;">leak</span></p>
+<ul>
+<li>n.<ul>
+<li>漏洞, 漏出, 泄漏</li>
+<li>漏出物, 漏出量</li>
+</ul>
+</li>
+<li>v.<ul>
+<li>漏, 渗漏</li>
+<li>泄露, 透露</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>There was a leak in the roof.</p>
+<p>屋顶有个漏洞。</p>
+<p>The company tried to prevent any leaks of confidential information.</p>
+<p>公司试图防止任何机密信息的泄露。</p>
+</div>
+<p><span style="color: red;">humid</span></p>
+<ul>
+<li>adj.<ul>
+<li>潮湿的, 湿润的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The air was humid and sticky.</p>
+<p>空气潮湿而粘稠。</p>
+</div>
+<p>hum当词根有泥土的意思.humble可以理解为贴近泥土,有谦卑的意思</p>
+<p><span style="color: red;">regulate</span></p>
+<ul>
+<li>v.<ul>
+<li>管理, 控制, 调节</li>
+<li>使规则化, 使有秩序</li>
+</ul>
+</li>
+</ul>
+<p>其名词形式为regulation，指规则,法规，ragular为规则的,有规律的</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The government regulates the financial industry to prevent fraud.</p>
+<p>政府管理金融行业以防止欺诈。</p>
+<p>The thermostat regulates the temperature in the house.</p>
+<p>恒温器调节房子的温度。</p>
+</div>
+<p><span style="color: red;">summit</span></p>
+<ul>
+<li>n.<ul>
+<li>顶点, 最高点</li>
+<li>峰会, 最高级会议</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>They reached the summit of the mountain after a grueling climb.</p>
+<p>经过艰苦的攀登，他们到达了山顶。</p>
+<p>The leaders met at the summit to discuss global issues.</p>
+<p>领导人在峰会上会面讨论全球问题。</p>
+</div>
+<p>mit当词根有send的意思,例如transmit为传递的意思,submit为提交的意思</p>
+<p><span style="color: red;">defend</span></p>
+<ul>
+<li>v.<ul>
+<li>防御, 保卫</li>
+<li>为...辩护, 维护</li>
+</ul>
+</li>
+</ul>
+<p>其名词形式为defense，指防御, 防卫，defender为防御者, 辩护者</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The soldiers defended the castle from the invaders.</p>
+<p>士兵们保卫城堡免受入侵者的攻击。</p>
+<p>She defended her thesis during the oral examination.</p>
+<p>她在口试中为她的论文辩护。</p>
+</div>
+<p>fend当词根有击打，推，撞击的意思,例如offend为冒犯</p>
+<p><span style="color: red;">protest</span></p>
+<ul>
+<li>
+<p>v.</p>
+<ul>
+<li>抗议, 反对</li>
+<li>申明, 声明</li>
+</ul>
+</li>
+<li>
+<p>n.</p>
+<ul>
+<li>抗议, 反对</li>
+</ul>
+</li>
+</ul>
+<details class="idea">
+<summary>Idea</summary>
+<p>protest，提前考试，有意思哈，必须抗议！！！</p>
+</details>
+<p>其名词形式为protestation，指抗议, 声明，protester为抗议者, 反对者</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The workers protested against the unfair labor practices.</p>
+<p>工人们抗议不公平的劳动惯例。</p>
+<p>She protested her innocence during the trial.</p>
+<p>她在审判期间申明她的清白。</p>
+</div>
+<p>detest 为憎恶，厌恶的意思，contest为争论，竞争的意思</p>
+<p><span style="color: red;">sue</span></p>
+<ul>
+<li>v.<ul>
+<li>控告, 起诉</li>
+<li>请求, 恳求</li>
+</ul>
+</li>
+</ul>
+<p>其名词形式为suit，指诉讼，起诉，suitor为起诉者, 求婚者</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She decided to sue the company for wrongful termination.</p>
+<p>她决定起诉公司非法解雇。</p>
+<p>He sued for peace after the long conflict.</p>
+<p>在长期冲突后，他请求和平。</p>
+</div>
+<p>pursue 为追求，追赶的意思，ensue为接着发生的意思</p>
+<p><span style="color: red;">versus</span></p>
+<ul>
+<li>prep.<ul>
+<li>对抗, 与...相对</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The upcoming match is Team A versus Team B.</p>
+<p>即将到来的比赛是A队对抗B队。</p>
+<p>The court case was plaintiff versus defendant.</p>
+<p>这场诉讼是原告对被告。</p>
+</div>
+<p>其缩写形式为vs.，常用于体育比赛和法律案件中。</p>
+<p><span style="color: red;">compulsory</span></p>
+<ul>
+<li>adj.<ul>
+<li>强制的, 必须做的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>Education is compulsory for children in many countries.</p>
+<p>在许多国家，教育是强制性的。</p>
+<p>Wearing a seatbelt is compulsory in most vehicles.</p>
+<p>在大多数车辆中，系安全带是强制性的。</p>
+</div>
+<p>其名词形式为compulsion，指强制，强迫，compulsorily为副词形式，表示强制地。</p>
+<p><span style="color: red;">institute</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>机构, 学院, 研究所</li>
+<li>协会, 学会</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>建立, 设立, 制定</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The institute offers various programs in science and technology.</p>
+<p>该研究所提供各种科学和技术课程。</p>
+<p>They decided to institute new policies to improve efficiency.</p>
+<p>他们决定制定新政策以提高效率。</p>
+</div>
+<p>其名词形式为institution，指机构，制度，institutional为形容词形式，表示制度的，机构的。</p>
+<p>in表示进入，词根时stitut时是sta(=stand)的变体，表示站立，建立的意思</p>
+<p>MIT(Massachusetts Institute of Technology)麻省理工学院</p>
+<p>substitute 为替代品(n)，代替(v)的意思(在下面站着)</p>
+<p><span style="color: red;">proficient</span></p>
+<ul>
+<li>adj.<ul>
+<li>熟练的, 精通的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She is proficient in several languages.</p>
+<p>她精通几种语言。</p>
+<p>He is a proficient programmer.</p>
+<p>他是一名熟练的程序员。</p>
+</div>
+<p>其名词形式为proficiency，指熟练，精通，proficiently为副词形式，表示熟练地，精通地。</p>
+<p>pro-表示向前，词根'ficient'表示有能力的，能够的意思,早就能够了，很熟练了</p>
+<p>deficiency 为缺乏，不足，deficient为形容词形式，表示缺乏的，不足的</p>
+<p>efficiency 为效率，efficient为形容词形式，表示效率高的，有效的</p>
+<p>artificially 为人工的，artificial为形容词形式，表示人工的，人造的 </p>
+<p><span style="color: red;">refer</span></p>
+<ul>
+<li>v.<ul>
+<li>提到, 涉及</li>
+<li>参考, 查阅</li>
+<li>归因于</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>Please refer to the manual for more information.</p>
+<p>请参考手册以获取更多信息。</p>
+<p>He often refers to his notes during the lecture.</p>
+<p>他在讲座期间经常参考他的笔记。</p>
+<p>The term 'refer' can also mean to mention or allude to something.</p>
+<p>'refer'这个词也可以表示提到或暗指某事。</p>
+</div>
+<p>其名词形式为reference，指参考，提及，referential为形容词形式，表示参考的，提及的。</p>
+<p>re-表示回，词根'fer'表示带来，带回去，表示参考，提到的意思</p>
+<p>reference book 参考书</p>
+<p>infer 为推断，推论，inferred为推断的，推论的</p>
+<p>prefer 为更喜欢，prefer为形容词形式，表示更喜欢的</p>
+<p>transfer 为转移，转移，transferred为转移的，转移的</p>
+<p><span style="color: red;">project</span></p>
+<ul>
+<li>n.<ul>
+<li>项目, 计划</li>
+<li>工程, 方案</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The team is working on a new project.</p>
+<p>团队正在进行一个新项目。</p>
+<p>She presented her project to the class.</p>
+<p>她向班级展示了她的项目。</p>
+<p>The term 'project' can also mean to plan or propose something.</p>
+<p>'project'这个词也可以表示计划或提议某事。</p>
+</div>
+<p>其动词形式为project，指计划，设计，projected为形容词形式，表示计划的，设计的。</p>
+<p>pro-表示向前，词根'ject'表示投掷，向前投掷，表示计划，设计的意思</p>
+<p>projection 投影，预测</p>
+<p>object 为物体，目标，objected为反对的，反对的</p>
+<p>subject 为主题，科目，subjected为服从的，受制的</p>
+<p>reject 为拒绝，拒绝，rejected为被拒绝的，被拒绝的</p>
+<p><span style="color: red;">prior</span></p>
+<ul>
+<li>adj.<ul>
+<li>先前的, 之前的</li>
+<li>优先的, 更重要的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She had a prior engagement and couldn't attend the meeting.</p>
+<p>她有一个先前的约会，不能参加会议。</p>
+<p>The project was given prior approval.</p>
+<p>该项目得到了事先批准。</p>
+<p>The term 'prior' can also mean something that is more important or takes precedence.</p>
+<p>'prior'这个词也可以表示更重要的或优先的事物。</p>
+</div>
+<p>其副词形式为priorly，指先前地，之前地。</p>
+<p>pri-表示在前</p>
+<p>priority 优先权，优先事项</p>
+<p>prioritize 为优先考虑，优先处理</p>
+<p>posterior 为后面的，较后的</p>
+<p>superior 为更好的，上级的</p>
+<p>inferior 为较差的，下级的</p>
+<p><span style="color: red;">renovation</span></p>
+<ul>
+<li>n.<ul>
+<li>翻新, 修复</li>
+<li>革新, 改造</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The building is closed for renovation.</p>
+<p>这栋建筑因翻新而关闭。</p>
+<p>The company is undergoing a major renovation of its management structure.</p>
+<p>该公司正在对其管理结构进行重大改造。</p>
+<p>The term 'renovation' can also refer to the process of making something new again or restoring it to a better state.</p>
+<p>'renovation'这个词也可以指使某物焕然一新或恢复到更好状态的过程。</p>
+</div>
+<p>其动词形式为renovate，指翻新，修复。</p>
+<p>re-表示再次，nov-表示新的</p>
+<p>innovate 创新，革新</p>
+<p>innovation 创新，革新</p>
+<p>novel 新颖的，新奇的</p>
+<p>novelty 新奇，新颖</p>
+<p><span style="color: red;">visualize</span></p>
+<ul>
+<li>v.<ul>
+<li>使形象化, 使可视化</li>
+<li>想象, 设想</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The architect used software to visualize the new building design.</p>
+<p>建筑师使用软件来使新建筑设计可视化。</p>
+<p>She tried to visualize the scene in her mind.</p>
+<p>她试图在脑海中想象那个场景。</p>
+<p>The term 'visualize' can also refer to the process of forming a mental image or making something visible.</p>
+<p>'visualize'这个词也可以指形成心象或使某物可见的过程。</p>
+</div>
+<p>其名词形式为visualization，指可视化，形象化。</p>
+<p>vis-表示看见</p>
+<p>vision 视力，视觉</p>
+<p>visible 可见的，看得见的</p>
+<p>invisible 看不见的，隐形的</p>
+<p>visual 视觉的，视力的</p>
+<p>visualization 可视化，形象化</p>
+<p>supervise 监督，监督，supervised为监督的，监督的 (在上面看)</p>
+<p>previse 预见，预知，prevised为预见的，预知的(提前看)</p>
+<p>revise 修订，修改(再看一遍)</p>
+<p>television 电视，电视机，tele-表示远，电视把远的东西传过来</p>
+<p><span style="color: red;">revive</span></p>
+<ul>
+<li>v.<ul>
+<li>使复活, 使恢复</li>
+<li>复苏, 重新流行(一般指经济)</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The doctor managed to revive the patient after the cardiac arrest.</p>
+<p>医生在心脏骤停后设法使病人复活。</p>
+<p>The old tradition is starting to revive in the community.</p>
+<p>这个古老的传统在社区里开始重新流行。</p>
+<p>The term 'revive' can also refer to bringing something back into use or popularity.</p>
+<p>'revive'这个词也可以指使某物重新使用或流行。</p>
+</div>
+<p>其名词形式为revival，指复活，复兴。</p>
+<p>re-表示再，重新</p>
+<p>revive 使复活，使恢复</p>
+<p>revival 复活，复兴</p>
+<p>revivify 使复活，使恢复生气</p>
+<p>survive 幸存，存活，survived为幸存的，存活的 (在下面活)</p>
+<p>derive 源于，得自，derived为源于的，得自的(从...而来)</p>
+<p>arrive 到达，抵达(到达某地)</p>
+<p><span style="color: red;">script</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>剧本, 脚本</li>
+<li>剧本, 剧本</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>写, 编写</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The term 'script' can also refer to a written text of a play, movie, or broadcast.</p>
+<p>'script'这个词也可以指戏剧、电影或广播的书面文本。</p>
+<p>Scripts are essential in the entertainment industry for planning and production.</p>
+<p>剧本在娱乐行业中对于规划和制作是必不可少的。</p>
+<p>The word 'script' can also refer to handwriting or a particular style of writing.</p>
+<p>'script'这个词也可以指手写体或特定的书写风格。</p>
+</div>
+<p>describe 描述，形容</p>
+<p>inscribe 铭刻，题词</p>
+<p>subscribe 订阅，捐助</p>
+<p>ascribe 归因于，归咎于(除了ab-表示否定，a-都表示一再)</p>
+<p><span style="color: red;">default</span></p>
+<ul>
+<li>adj.<ul>
+<li>默认的, 默认的</li>
+<li>默认的, 默认的</li>
+</ul>
+</li>
+<li>v.<ul>
+<li>不履行, 不履行</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The default setting is to turn on the lights when the door is opened.</p>
+<p>默认设置是当门打开时打开灯。</p>
+<p>The default option is to save the file before closing.</p>
+<p>默认选项是保存文件后再关闭。</p>
+</div>
+<p><span style="color: red;">deceive</span></p>
+<ul>
+<li>v.<ul>
+<li>欺骗, 蒙骗</li>
+<li>误导, 使误解</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>He tried to deceive his friends about his whereabouts.</p>
+<p>他试图欺骗朋友关于他的行踪。</p>
+<p>The magician's trick was designed to deceive the audience.</p>
+<p>魔术师的把戏是为了欺骗观众。</p>
+<p>The term 'deceive' can also mean to cause someone to believe something that is not true.</p>
+<p>'deceive'这个词也可以表示使某人相信不真实的事情。</p>
+</div>
+<p>其名词形式为deception，指欺骗，蒙骗，deceptive为形容词形式，表示欺骗性的，误导的。</p>
+<p>perceive 感知，察觉，perceived为感知的，察觉的</p>
+<p>conceive 构思，设想，conceived为构思的，设想的</p>
+<p>receive 接收，收到，received为接收的，收到的</p>
+<p><span style="color: red;">detain</span></p>
+<ul>
+<li>v.<ul>
+<li>拘留, 扣留</li>
+<li>耽搁, 延误</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The police decided to detain the suspect for further questioning.</p>
+<p>警方决定拘留嫌疑人以便进一步审问。</p>
+<p>The unexpected traffic jam will detain us for an hour.</p>
+<p>意外的交通堵塞会耽搁我们一个小时。</p>
+<p>The term 'detain' can also mean to keep someone from proceeding or to hold back.</p>
+<p>'detain'这个词也可以表示阻止某人前进或拖延。</p>
+</div>
+<p>其名词形式为detention，指拘留，扣留，detained为形容词形式，表示被拘留的，被扣留的。</p>
+<p>maintain 维持，保持，maintained为维持的，保持的</p>
+<p>entertain 娱乐，款待，entertainment 娱乐活动</p>
+<p>sustain 维持，支持，sustain为维持的，支持的</p>
+<p>retain 保持，保留，retained为保持的，保留的</p>
+<p>obtain 获得，取得，obtained为获得的，取得的</p>
+<p>attain 达到，获得</p>
+<p><span style="color: red;">guilt</span></p>
+<ul>
+<li>n.<ul>
+<li>罪行, 罪过</li>
+<li>内疚, 自责</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The jury found him guilty of the crime.</p>
+<p>陪审团认定他有罪。</p>
+<p>She felt a deep sense of guilt after lying to her friend.</p>
+<p>她在对朋友撒谎后感到深深的内疚。</p>
+<p>The term 'guilt' can also refer to a feeling of responsibility or remorse for some offense, crime, or wrong.</p>
+<p>'guilt'这个词也可以指对某些罪行、犯罪或错误的责任感或悔恨。</p>
+</div>
+<p>其形容词形式为guilty，表示有罪的，内疚的。</p>
+<p>反义词innocent为无罪的</p>
+<p><span style="color: red;">outrage</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>愤怒, 义愤</li>
+<li>暴行, 侮辱</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>激怒, 使愤怒</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The news of the scandal caused public outrage.</p>
+<p>丑闻的消息引起了公众的愤怒。</p>
+<p>The brutal attack was an outrage against humanity.</p>
+<p>这次残忍的袭击是对人类的暴行。</p>
+<p>The term 'outrage' can also refer to an act that causes great anger or shock.</p>
+<p>'outrage'这个词也可以指引起极大愤怒或震惊的行为。</p>
+</div>
+<p>其形容词形式为outraged，表示愤怒的，义愤填膺的。</p>
+<p>反义词为calm，表示平静的。</p>
+<p><span style="color: red;">rebel</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>反叛者, 叛逆者</li>
+<li>反抗者</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>反叛, 造反</li>
+<li>反抗, 抵抗</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The rebels took control of the capital.</p>
+<p>反叛者控制了首都。</p>
+<p>She rebelled against the strict rules imposed by her parents.</p>
+<p>她反抗父母施加的严格规定。</p>
+<p>The term 'rebel' can also refer to someone who resists authority, control, or tradition.</p>
+<p>'rebel'这个词也可以指抵抗权威、控制或传统的人。</p>
+</div>
+<p>其形容词形式为rebellious，表示反叛的，叛逆的。</p>
+<p><span style="color: red;">terror</span></p>
+<ul>
+<li>n.<ul>
+<li>恐怖, 恐惧</li>
+<li>恐怖活动, 恐怖主义</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The mere thought of the haunted house filled her with terror.</p>
+<p>一想到鬼屋，她就充满了恐惧。</p>
+<p>The city was in a state of terror after the series of attacks.</p>
+<p>一系列袭击后，城市处于恐怖状态。</p>
+<p>The term 'terror' can also refer to extreme fear or the use of violence to intimidate people.</p>
+<p>'terror'这个词也可以指极度的恐惧或使用暴力来恐吓人们。</p>
+</div>
+<p><span style="color: red;">verdict</span></p>
+<ul>
+<li>n.<ul>
+<li>裁决, 判决</li>
+<li>定论, 结论</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The jury reached a unanimous verdict of 'not guilty'.</p>
+<p>陪审团达成了一致的'无罪'裁决。</p>
+<p>The judge's verdict was based on the evidence presented in court.</p>
+<p>法官的判决是基于法庭上提供的证据。</p>
+<p>The term 'verdict' can also refer to an opinion or judgment about something.</p>
+<p>'verdict'这个词也可以指对某事的意见或判断。</p>
+</div>
+<p><span style="color: red;">blast</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>爆炸, 爆破</li>
+<li>一阵强风, 冲击波</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>爆炸</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The blast from the explosion shattered all the windows in the building.</p>
+<p>爆炸的冲击波震碎了大楼的所有窗户。</p>
+<p>A cold blast of air hit her as she opened the door.</p>
+<p>当她打开门时，一阵冷风袭来。</p>
+<p>The term 'blast' can also refer to a loud noise or an enjoyable experience.</p>
+<p>'blast'这个词也可以指巨响或一次愉快的经历。</p>
+</div>
+<p><span style="color: red;">emergency</span></p>
+<ul>
+<li>n.<ul>
+<li>紧急情况, 突发事件</li>
+<li>紧急状态</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The hospital is equipped to handle any kind of emergency.</p>
+<p>医院配备了处理任何紧急情况的设备。</p>
+<p>In case of an emergency, please call 911 immediately.</p>
+<p>如果发生紧急情况，请立即拨打911。</p>
+<p>The term 'emergency' can also refer to a situation that requires immediate action or attention.</p>
+<p>'emergency'这个词也可以指需要立即采取行动或注意的情况。</p>
+</div>
+<p>其形容词形式为emergent，表示紧急的，突发的。</p>
+<p>emerge 出现，浮现，emerged为出现的，浮现的</p>
+<p>urgent 紧急的，急迫的</p>
+<p>urgency 紧急，急迫</p>
+<p><span style="color: red;">misfortune</span></p>
+<ul>
+<li>n.<ul>
+<li>不幸, 灾难</li>
+<li>厄运, 倒霉</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>He had the misfortune of losing his job during the economic downturn.</p>
+<p>他在经济衰退期间失去了工作，真是不幸。</p>
+<p>The family's misfortune seemed to never end.</p>
+<p>这个家庭的不幸似乎永无止境。</p>
+<p>The term 'misfortune' can also refer to an event or circumstance that brings bad luck or adversity.</p>
+<p>'misfortune'这个词也可以指带来厄运或逆境的事件或情况。</p>
+</div>
+<p>其形容词形式为unfortunate，表示不幸的，倒霉的。</p>
+<p>fortune 运气，财富，fortunate为幸运的，幸运的</p>
+<p>mis-表示错误，坏的</p>
+<p>misadventure 意外事故，不幸遭遇</p>
+<p>mishap 小事故，不幸事件</p>
+<p><span style="color: red;">urgent</span></p>
+<ul>
+<li>adj.<ul>
+<li>紧急的, 急迫的</li>
+<li>迫切的, 紧要的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The situation requires urgent attention.</p>
+<p>这种情况需要紧急关注。</p>
+<p>She sent an urgent message to her team.</p>
+<p>她给她的团队发了一条紧急消息。</p>
+<p>The term 'urgent' can also refer to something that needs immediate action or attention.</p>
+<p>'urgent'这个词也可以指需要立即行动或关注的事情。</p>
+</div>
+<p>其名词形式为urgency，指紧急，急迫。</p>
+<p>urge 催促，推动，urged为催促的，推动的</p>
+<p>emergency 紧急情况，紧急事件</p>
+<p>pressing 紧迫的，迫切的</p>
+<p>immediate 立即的，直接的</p>
+<p><span style="color: red;">bankrupt</span></p>
+<ul>
+<li>
+<p>adj.</p>
+<ul>
+<li>破产的, 无力偿还债务的</li>
+<li>完全缺乏的, 贫困的</li>
+</ul>
+</li>
+<li>
+<p>n.</p>
+<ul>
+<li>破产者, 无力偿还债务者</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>使破产, 使无力偿还债务</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The company went bankrupt after years of financial struggles.</p>
+<p>该公司在多年财务困难后破产了。</p>
+<p>He was declared bankrupt by the court.</p>
+<p>他被法院宣布破产。</p>
+<p>The term 'bankrupt' can also refer to a person or entity that is completely lacking in a particular quality or value.</p>
+<p>'bankrupt'这个词也可以指完全缺乏某种特质或价值的人或实体。</p>
+</div>
+<p>其名词形式为bankruptcy，指破产，倒闭。</p>
+<p>bank 作为词根表示银行，财务</p>
+<p>rupt 表示破裂，断裂</p>
+<p>disrupt 破坏，扰乱</p>
+<p>interrupt 打断，中断</p>
+<p>corrupt 腐败的，堕落的</p>
+<p><span style="color: red;">deposit</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>存款, 定金</li>
+<li>沉积物, 矿床</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>存放, 存储</li>
+<li>沉积, 堆积</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She made a deposit of $500 into her savings account.</p>
+<p>她在她的储蓄账户中存入了500美元。</p>
+<p>The river deposits silt along its banks.</p>
+<p>这条河在河岸上沉积淤泥。</p>
+<p>The term 'deposit' can also refer to a layer of material that has been laid down naturally.</p>
+<p>'deposit'这个词也可以指自然沉积的一层物质。</p>
+</div>
+<p>其名词形式为deposition，指沉积，沉积物。</p>
+<p>de 表示向下，离开</p>
+<p>posit 表示放置</p>
+<p>decompose 分解，腐烂</p>
+<p>dispose 处理，处置</p>
+<p>expose 暴露，揭露(be exposed to 暴露于,接触到)</p>
+<p>propose 求婚，建议</p>
+<p>compose 组成，构成</p>
+<p>impose 强加，征税</p>
+<p><span style="color: red;">guarantee</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>保证, 担保</li>
+<li>保修单, 保证书</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>保证, 担保</li>
+<li>确保, 使...必然发生</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The company offers a money-back guarantee if the product doesn't work.</p>
+<p>如果产品不起作用，公司提供退款保证。</p>
+<p>I guarantee that you will be satisfied with the results.</p>
+<p>我保证你会对结果满意。</p>
+<p>The warranty guarantees the product against defects for one year.</p>
+<p>保修单保证产品一年内无缺陷。</p>
+</div>
+<p>其名词形式为guarantor，指担保人。</p>
+<p>guar 表示保护，保卫</p>
+<p>antee 表示行动或状态</p>
+<p>guard 守卫，保卫</p>
+<p>warranty 保修，保证</p>
+<p>assure 确保，保证</p>
+<p>ensure 确保，保证</p>
+<p>secure 安全的，确保</p>
+<p><span style="color: red;">fund</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>资金, 基金</li>
+<li>专款, 现款</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>提供资金, 资助</li>
+<li>投资, 资助</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The government allocated funds for the new infrastructure project.</p>
+<p>政府为新的基础设施项目拨款。</p>
+<p>She decided to fund the startup with her savings.</p>
+<p>她决定用她的积蓄资助这家初创公司。</p>
+<p>The term 'fund' can also refer to a sum of money saved or made available for a particular purpose.</p>
+<p>'fund'这个词也可以指为特定目的储存或提供的一笔资金。</p>
+</div>
+<p>其名词形式为funding，指资金，资助。</p>
+<p>fundamental 基本的，基础的</p>
+<p>refund 退款，退还</p>
+<p>defund 撤资，停止资助</p>
+<p>fundraiser 募捐活动，筹款人</p>
+<p><span style="color: red;">export</span></p>
+<ul>
+<li>v.<ul>
+<li>出口, 输出</li>
+<li>传播, 输出</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The country exports a large amount of oil.</p>
+<p>这个国家出口大量石油。</p>
+<p>The software allows users to export data to various formats.</p>
+<p>该软件允许用户将数据导出为各种格式。</p>
+<p>The term 'export' can also refer to the act of sending goods or services to another country for sale.</p>
+<p>'export'这个词也可以指将商品或服务发送到另一个国家进行销售的行为。</p>
+</div>
+<p>其名词形式为exportation，指出口，输出，exporter为名词形式，表示出口商。</p>
+<p>ex-表示向外，port表示港口，向外运到港口，表示出口的意思</p>
+<p>import 进口，输入</p>
+<p>transport 运输，运送</p>
+<p>support 支持，支撑</p>
+<p>report 报告，汇报</p>
+<p><span style="color: red;">manufacturer</span></p>
+<ul>
+<li>n.<ul>
+<li>制造商, 生产者</li>
+<li>厂商, 制造公司</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The manufacturer produces high-quality electronics.</p>
+<p>该制造商生产高质量的电子产品。</p>
+<p>The term 'manufacturer' can also refer to a company or person that makes goods for sale.</p>
+<p>'manufacturer'这个词也可以指制造商品以供销售的公司或个人。</p>
+</div>
+<p><span style="color: red;">mortgage</span></p>
+<ul>
+<li>n.<ul>
+<li>抵押贷款, 按揭</li>
+<li>抵押</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>They took out a mortgage to buy their house.</p>
+<p>他们办理了抵押贷款来买房。</p>
+<p>The term 'mortgage' can also refer to the legal agreement by which a bank lends money in exchange for taking title of the debtor's property.</p>
+<p>'mortgage'这个词也可以指银行通过借款协议获得债务人财产所有权的法律协议。</p>
+</div>
+<p><span style="color: red;">pension</span></p>
+<ul>
+<li>n.<ul>
+<li>养老金, 退休金</li>
+<li>抚恤金</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She lives on her pension after retiring from the company.</p>
+<p>她退休后靠养老金生活。</p>
+<p>The term 'pension' can also refer to a regular payment made during a person's retirement from an investment fund to which that person or their employer has contributed during their working life.</p>
+<p>'pension'这个词也可以指在一个人工作期间由其本人或雇主缴纳的投资基金在其退休期间定期支付的款项。</p>
+</div>
+<p><span style="color: red;">profit</span></p>
+<ul>
+<li>n.<ul>
+<li>利润, 收益</li>
+<li>利润率</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The company made a significant profit last year.</p>
+<p>该公司去年获得了可观的利润。</p>
+<p>The term 'profit' can also refer to the financial gain, especially the difference between the amount earned and the amount spent in buying, operating, or producing something.</p>
+<p>'profit'这个词也可以指财务收益，特别是收入与购买、运营或生产某物的支出之间的差额。</p>
+</div>
+<p>benefit 利益，好处</p>
+<p><span style="color: red;">prosperity</span></p>
+<ul>
+<li>n.<ul>
+<li>繁荣, 兴旺</li>
+<li>成功, 昌盛</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The country enjoyed a period of prosperity after the war.</p>
+<p>战后该国经历了一段繁荣时期。</p>
+<p>The term 'prosperity' can also refer to the state of being successful, especially in financial or economic terms.</p>
+<p>'prosperity'这个词也可以指成功的状态，特别是在财务或经济方面。</p>
+</div>
+<p>词根sp表示看，观察</p>
+<p>spy 间谍，侦探;suspect 怀疑，猜疑,inspect 检查，视察,respect 尊重，尊敬</p>
+<p>prospect 前景，展望， circumspect 小心谨慎的，谨慎的，</p>
+<p>spectator 观众，旁观者 speculate 推测，猜测,spectacular 壮观的，引人注目的</p>
+<p>perspective 观点，看法，透视，透视图，透视图</p>
+<p>conspicuous 引人注目的，显眼的</p>
+<p>retrospect 回顾，回顾性</p>
+<h2 id="part-2">PART 2<a class="headerlink" href="#part-2" title="Permanent link">&para;</a></h2>
+<p><span style="color: red;">reclaim</span></p>
+<ul>
+<li>v.<ul>
+<li>取回, 拿回</li>
+<li>开垦, 改造</li>
+<li>回收利用</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She managed to reclaim her lost wallet.</p>
+<p>她设法找回了丢失的钱包。</p>
+<p>The term 'reclaim' can also refer to the process of retrieving or recovering something previously lost or taken.</p>
+<p>'reclaim'这个词也可以指取回或恢复以前丢失或被拿走的东西。</p>
+</div>
+<p>reclaim 取回，拿回，开垦，改造，回收利用</p>
+<p>reclaimable 可回收的，可开垦的</p>
+<p>reclamation 开垦，改造，回收</p>
+<p>proclaim 宣布，宣告</p>
+<p>exclaim 惊呼，惊叫</p>
+<p>acclaim 喝彩，称赞</p>
+<p>declaim 断言，宣称</p>
+<p><span style="color: red;">refine</span></p>
+<ul>
+<li>v.<ul>
+<li>精炼, 提纯</li>
+<li>改进, 改善</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The company refined the product to improve its quality.</p>
+<p>该公司精炼产品以提高其质量。</p>
+<p>The term 'refine' can also refer to the process of improving or enhancing something, especially in terms of quality or purity.</p>
+<p>'refine'这个词也可以指改进或提高某物，特别是在质量或纯度方面。</p>
+</div>
+<p><span style="color: red;">sufficient</span></p>
+<ul>
+<li>adj.<ul>
+<li>足够的, 充足的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The food supply was sufficient for the entire village.</p>
+<p>食物供应足够整个村庄使用。</p>
+<p>The term 'sufficient' can also refer to having enough of something to meet the needs or requirements.</p>
+<p>'sufficient'这个词也可以指有足够的东西来满足需求或要求。</p>
+</div>
+<p><span style="color: red;">rival</span></p>
+<ul>
+<li>n.<ul>
+<li>竞争对手, 对手</li>
+<li>敌手, 竞争者</li>
+</ul>
+</li>
+<li>v.<ul>
+<li>竞争, 对抗</li>
+<li>与...匹敌, 比得上</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The two companies were fierce rivals in the market.</p>
+<p>这两家公司在市场上是激烈的竞争对手。</p>
+<p>The term 'rival' can also refer to someone or something that competes with another for the same objective or superiority in the same field.</p>
+<p>'rival'这个词也可以指在同一领域中为相同目标或优越性而竞争的人或事物。</p>
+</div>
+<p><span style="color: red;">stake</span></p>
+<ul>
+<li>n.<ul>
+<li>桩, 标桩</li>
+<li>股份, 利害关系</li>
+<li>赌注, 奖金</li>
+</ul>
+</li>
+<li>v.<ul>
+<li>用桩支撑, 用桩标出</li>
+<li>下注, 投资</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>He drove a stake into the ground to mark the boundary.</p>
+<p>他在地上打了一根桩来标记边界。</p>
+<p>The company has a significant stake in the new project.</p>
+<p>该公司在新项目中有重要的股份。</p>
+<p>The term 'stake' can also refer to a personal or financial interest or involvement in something.</p>
+<p>'stake'这个词也可以指在某事中的个人或财务利益或参与。</p>
+<p><span style="color: blue;">at stake</span></p>
+<ul>
+<li>phrase.<ul>
+<li>处于危险中, 处于成败关头</li>
+<li>有风险, 有可能失去</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The future of the company is at stake.</p>
+<p>公司的未来岌岌可危。</p>
+<p>There is a lot of money at stake in this venture.</p>
+<p>这项风险投资中有大量资金处于危险之中。</p>
+<p>The term 'at stake' can also refer to something that is at risk or in a position to be won or lost.</p>
+<p>'at stake'这个词也可以指处于风险中或处于成败关头的事物。</p>
+</div>
+</div>
+<p><span style="color: red;">subsidy</span></p>
+<ul>
+<li>n.<ul>
+<li>补贴, 津贴</li>
+<li>财政资助</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The government provided a subsidy to help the farmers.</p>
+<p>政府提供了补贴来帮助农民。</p>
+<p>The term 'subsidy' can also refer to financial assistance given by the government to support a specific sector or activity.</p>
+<p>'subsidy'这个词也可以指政府为支持特定部门或活动而提供的财政援助。</p>
+</div>
+<p><span style="color: red;">estate</span></p>
+<ul>
+<li>n.<ul>
+<li>财产, 资产</li>
+<li>房地产, 不动产</li>
+<li>庄园, 庄园住宅</li>
+</ul>
+</li>
+</ul>
+<p>real estate 房地产</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>He inherited a large estate from his uncle.</p>
+<p>他从叔叔那里继承了一大笔财产。</p>
+<p>The real estate market is booming in the city.</p>
+<p>该市的房地产市场正在蓬勃发展。</p>
+<p>The family owns a beautiful estate in the countryside.</p>
+<p>这家人在乡下拥有一个美丽的庄园。</p>
+<p>The term 'estate' can also refer to all the money and property owned by a particular person, especially at death.</p>
+<p>'estate'这个词也可以指某人拥有的所有钱财和财产，尤其是在去世时。</p>
+</div>
+<p><span style="color: red;">recede</span></p>
+<ul>
+<li>v.<ul>
+<li>后退, 退却</li>
+<li>减弱, 减少</li>
+<li>变秃</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The floodwaters began to recede after the heavy rain stopped.</p>
+<p>暴雨停止后，洪水开始退去。</p>
+<p>His hairline has started to recede as he gets older.</p>
+<p>随着年龄的增长，他的发际线开始后退。</p>
+<p>The pain in his leg gradually receded.</p>
+<p>他腿上的疼痛逐渐减轻。</p>
+<p>The term 'recede' can also refer to something moving back or becoming less intense.</p>
+<p>'recede'这个词也可以指某物后退或变得不那么强烈。</p>
+</div>
+<p><span style="color: red;">relieve</span></p>
+<ul>
+<li>v.<ul>
+<li>减轻, 缓解</li>
+<li>解除, 免除</li>
+<li>救济, 救援</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The medication helped to relieve the pain.</p>
+<p>药物有助于减轻疼痛。</p>
+<p>He was relieved of his duties after the incident.</p>
+<p>事件发生后，他被免除了职务。</p>
+<p>The charity works to relieve poverty in the region.</p>
+<p>该慈善机构致力于缓解该地区的贫困。</p>
+<p>The term 'relieve' can also refer to making a problem or bad situation less serious.</p>
+<p>'relieve'这个词也可以指使问题或糟糕的情况变得不那么严重。</p>
+</div>
+<p><span style="color: red;">counter</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>计数器, 计算器</li>
+<li>柜台, 柜台式长桌</li>
+<li>反驳, 反对</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>反驳, 反对</li>
+</ul>
+</li>
+<li>
+<p>adv.</p>
+<ul>
+<li>相反, 相反地</li>
+</ul>
+</li>
+</ul>
+<p>CSGO (Counter-Strike: Global Offensive) 反恐精英:全球攻势</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The counter displayed the number of visitors to the website.</p>
+<p>计数器显示了网站的访问者数量。</p>
+<p>She placed her order at the counter.</p>
+<p>她在柜台下了订单。</p>
+<p>His argument was met with a strong counter.</p>
+<p>他的论点遭到了强烈的反驳。</p>
+<p>The term 'counter' can also refer to something that opposes or goes against something else.</p>
+<p>'counter'这个词也可以指反对或对抗某事物。</p>
+</div>
+<p>account 账户, 账目, 解释, 说明 accountant 会计</p>
+<p>unaccountable 无法解释的, 不可原谅的 </p>
+<p>counterpart 对应物, 副本, 对应的人</p>
+<p>encounter 遭遇, 遇到 </p>
+<p>discount 折扣, 打折</p>
+<p><span style="color: red;">wholesale</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>批发, 批发业务</li>
+<li>大规模, 大批量</li>
+</ul>
+</li>
+<li>
+<p>adj.</p>
+<ul>
+<li>批发的, 大规模的</li>
+</ul>
+</li>
+<li>
+<p>adv.</p>
+<ul>
+<li>以批发方式, 大规模地</li>
+</ul>
+</li>
+</ul>
+<p>反义词:retail 零售</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The company specializes in the wholesale of electronic goods.</p>
+<p>这家公司专门从事电子产品的批发业务。</p>
+<p>They bought the goods at wholesale prices.</p>
+<p>他们以批发价购买了这些商品。</p>
+<p>The policy led to the wholesale destruction of the environment.</p>
+<p>这项政策导致了环境的大规模破坏。</p>
+<p>The term 'wholesale' can also refer to the selling of goods in large quantities at lower prices.</p>
+<p>'wholesale'这个词也可以指以较低价格大批量销售商品。</p>
+</div>
+<p><span style="color: red;">transact</span></p>
+<ul>
+<li>v.<ul>
+<li>处理, 办理, 交易</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>They decided to transact the business in private.</p>
+<p>他们决定私下处理这笔业务。</p>
+<p>The bank transacts all its business in a professional manner.</p>
+<p>这家银行以专业的方式处理所有业务。</p>
+<p>The term 'transact' can also refer to conducting or carrying out business or negotiations.</p>
+<p>'transact'这个词也可以指进行或开展业务或谈判。</p>
+</div>
+<p><span style="color: red;">triple</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>三倍, 三重, 三个一组</li>
+</ul>
+</li>
+<li>
+<p>adj.</p>
+<ul>
+<li>三倍的, 三重的</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>使成三倍, 增至三倍</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The company aims to triple its revenue in the next five years.</p>
+<p>这家公司计划在未来五年内将收入增加到三倍。</p>
+<p>She ordered a triple espresso to stay awake.</p>
+<p>她点了一杯三倍浓度的浓缩咖啡以保持清醒。</p>
+<p>The term 'triple' can also refer to something that is three times as much or as many.</p>
+<p>'triple'这个词也可以指三倍的数量或程度。</p>
+</div>
+<p><span style="color: red;">radiate</span></p>
+<ul>
+<li>v.<ul>
+<li>辐射, 发射, 散发</li>
+<li>流露, 显示</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The sun radiates light and heat.</p>
+<p>太阳辐射光和热。</p>
+<p>She radiates confidence and charm.</p>
+<p>她流露出自信和魅力。</p>
+<p>The term 'radiate' can also refer to spreading out in all directions from a central point.</p>
+<p>'radiate'这个词也可以指从中心点向各个方向扩散。</p>
+</div>
+<p><span style="color: red;">spark</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>火花, 火星</li>
+<li>闪光, 闪现</li>
+<li>导火线, 诱因</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>发出火花, 闪烁</li>
+<li>引发, 激发</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The spark from the firework lit up the night sky.</p>
+<p>烟花的火花照亮了夜空。</p>
+<p>Her speech sparked a lot of interest in the topic.</p>
+<p>她的演讲激发了人们对这个话题的浓厚兴趣。</p>
+<p>The term 'spark' can also refer to a small amount of a quality or feeling.</p>
+<p>'spark'这个词也可以指少量的某种品质或感觉。</p>
+</div>
+<p><span style="color: red;">splash</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>飞溅, 溅泼</li>
+<li>溅泼声</li>
+<li>亮点, 引人注目的效果</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>溅, 泼</li>
+<li>使(液体)飞溅</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The splash of water was refreshing on a hot day.</p>
+<p>在炎热的夏天，水的飞溅让人感到清爽。</p>
+<p>The artist added a splash of color to the painting.</p>
+<p>艺术家在画中添加了一抹亮色。</p>
+<p>The term 'splash' can also refer to a prominent or sensational effect.</p>
+<p>'splash'这个词也可以指引人注目的效果。</p>
+</div>
+<p>blush 脸红, 羞红</p>
+<p>flush 冲洗</p>
+<p><span style="color: red;">assimilate</span></p>
+<ul>
+<li>v.<ul>
+<li>吸收, 消化</li>
+<li>同化, 融入</li>
+<li>理解, 领会</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The immigrants found it difficult to assimilate into the new culture.</p>
+<p>移民们发现很难融入新的文化。</p>
+<p>The students quickly assimilated the new information.</p>
+<p>学生们很快吸收了新信息。</p>
+<p>The term 'assimilate' can also refer to the process of fully understanding and integrating new ideas or experiences.</p>
+<p>'assimilate'这个词也可以指完全理解和整合新的想法或经历。</p>
+</div>
+<p><span style="color: red;">append</span></p>
+<ul>
+<li>v.<ul>
+<li>附加, 添加</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The document was appended with a new section.</p>
+<p>文件被添加了一个新部分。</p>
+<p>The term 'append' can also refer to adding something to the end of a list or sequence.</p>
+<p>'append'这个词也可以指将某物添加到列表或序列的末尾。</p>
+</div>
+<p>suspend 悬挂, 暂停, 中止</p>
+<p><span style="color: red;">alleviate</span></p>
+<ul>
+<li>v.<ul>
+<li>减轻, 缓和, 缓解</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The medication helped to alleviate the patient's pain.</p>
+<p>药物帮助减轻了病人的疼痛。</p>
+<p>The government implemented measures to alleviate poverty.</p>
+<p>政府采取了措施来缓解贫困。</p>
+<p>The term 'alleviate' can also refer to making a problem or suffering less severe.</p>
+<p>'alleviate'这个词也可以指使问题或痛苦减轻。</p>
+</div>
+<p><span style="color: red;">assumption</span></p>
+<ul>
+<li>n.<ul>
+<li>假设, 设想</li>
+<li>承担, 承担责任</li>
+<li>假定, 假装</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The assumption that he would be late proved to be correct.</p>
+<p>他会迟到的假设被证明是正确的。</p>
+<p>The company's assumption of responsibility for the project was commendable.</p>
+<p>该公司对项目责任的承担是值得称赞的。</p>
+<p>The term 'assumption' can also refer to something that is accepted as true without proof.</p>
+<p>'assumption'这个词也可以指在没有证据的情况下被接受为真的事物。</p>
+</div>
+<p><span style="color: red;">assure</span></p>
+<ul>
+<li>v.<ul>
+<li>确保, 保证</li>
+<li>使确信, 使放心</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>He assured her that everything would be fine.</p>
+<p>他向她保证一切都会好起来的。</p>
+<p>The company assured its customers of the product's quality.</p>
+<p>公司向客户保证产品的质量。</p>
+<p>The term 'assure' can also refer to making someone feel confident about something.</p>
+<p>'assure'这个词也可以指使某人对某事感到有信心。</p>
+</div>
+<p>跟ensure差不多</p>
+<p><span style="color: red;">accelerate</span></p>
+<ul>
+<li>v.<ul>
+<li>加速, 促进</li>
+<li>增加, 提高</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The car can accelerate from 0 to 60 mph in just a few seconds.</p>
+<p>这辆车可以在几秒钟内从0加速到60英里每小时。</p>
+<p>The company plans to accelerate its expansion into new markets.</p>
+<p>该公司计划加速其向新市场的扩展。</p>
+<p>The term 'accelerate' can also refer to the process of making something happen sooner or faster.</p>
+<p>'accelerate'这个词也可以指使某事更快或更早发生的过程。</p>
+</div>
+<p><span style="color: red;">alter</span></p>
+<ul>
+<li>v.<ul>
+<li>改变, 修改</li>
+<li>变更, 变动</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The tailor altered the dress to fit her better.</p>
+<p>裁缝修改了这件连衣裙以更好地适合她。</p>
+<p>The company decided to alter its marketing strategy.</p>
+<p>公司决定改变其营销策略。</p>
+<p>The term 'alter' can also refer to making a change to something, usually in a small but significant way.</p>
+<p>'alter'这个词也可以指对某物进行改变，通常是小但重要的改变。</p>
+</div>
+<p>alternative 替代品, 选择, 选择之一</p>
+<p><span style="color: red;">reproach</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>责备, 指责</li>
+<li>耻辱, 丢脸</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>责备, 指责</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She looked at him with reproach in her eyes.</p>
+<p>她用责备的眼神看着他。</p>
+<p>His actions brought reproach upon the family.</p>
+<p>他的行为给家族带来了耻辱。</p>
+<p>The term 'reproach' can also refer to expressing disapproval or disappointment.</p>
+<p>'reproach'这个词也可以指表达不满或失望。</p>
+</div>
+<p><span style="color: red;">accomplish</span></p>
+<ul>
+<li>v.<ul>
+<li>完成, 实现</li>
+<li>达到, 实现目标</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She was able to accomplish all her goals for the year.</p>
+<p>她能够完成她今年的所有目标。</p>
+<p>The team worked hard to accomplish the project on time.</p>
+<p>团队努力按时完成了项目。</p>
+<p>The term 'accomplish' can also refer to successfully achieving something through effort or skill.</p>
+<p>'accomplish'这个词也可以指通过努力或技能成功实现某事。</p>
+</div>
+<p><span style="color: red;">advocate</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>提倡者, 拥护者</li>
+<li>辩护律师</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>提倡, 主张</li>
+<li>为...辩护</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She is a strong advocate for women's rights.</p>
+<p>她是妇女权利的坚定拥护者。</p>
+<p>The lawyer advocated for his client's innocence.</p>
+<p>律师为他的客户的清白辩护。</p>
+<p>The term 'advocate' can also refer to publicly recommending or supporting a particular cause or policy.</p>
+<p>'advocate'这个词也可以指公开推荐或支持某个特定的事业或政策。</p>
+</div>
+<p><span style="color: red;">accuse</span></p>
+<ul>
+<li>v.<ul>
+<li>指控, 控告</li>
+<li>谴责, 责备</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>He was accused of stealing the money.</p>
+<p>他被指控偷了钱。</p>
+<p>The manager accused the employee of being late.</p>
+<p>经理指责员工迟到。</p>
+<p>The term 'accuse' can also refer to charging someone with an offense or crime.</p>
+<p>'accuse'这个词也可以指控告某人犯有罪行。</p>
+</div>
+<p><span style="color: red;">acquire</span></p>
+<ul>
+<li>v.<ul>
+<li>获得, 得到</li>
+<li>习得, 学到</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She managed to acquire a rare painting.</p>
+<p>她设法获得了一幅稀有的画作。</p>
+<p>He acquired new skills during the training.</p>
+<p>他在培训期间学到了新技能。</p>
+<p>The term 'acquire' can also refer to gaining possession or control of something.</p>
+<p>'acquire'这个词也可以指获得某物的所有权或控制权。</p>
+</div>
+<p>require 需要, 要求 inquire 询问, 调查</p>
+<p><span style="color: red;">ascertain</span></p>
+<ul>
+<li>v.<ul>
+<li>确定, 查明</li>
+<li>弄清, 弄明白</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The detective tried to ascertain the facts of the case.</p>
+<p>侦探试图查明案件的事实。</p>
+<p>She quickly ascertained that the information was incorrect.</p>
+<p>她很快弄清楚了信息是错误的。</p>
+<p>The term 'ascertain' can also refer to finding out something with certainty through examination or investigation.</p>
+<p>'ascertain'这个词也可以指通过检查或调查确定某事。</p>
+</div>
+<p><span style="color: red;">patriotic</span></p>
+<ul>
+<li>adj.<ul>
+<li>爱国的, 有爱国心的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The citizens displayed a patriotic spirit during the national holiday.</p>
+<p>在国庆期间，市民们表现出了爱国精神。</p>
+<p>He felt a patriotic duty to serve his country.</p>
+<p>他感到有一种爱国的责任去为国家服务。</p>
+<p>The term 'patriotic' can also refer to showing love and devotion to one's country.</p>
+<p>'patriotic'这个词也可以指表现出对国家的热爱和忠诚。</p>
+</div>
+<p><span style="color: red;">entrepreneurship</span></p>
+<ul>
+<li>n.<ul>
+<li>创业, 企业家精神</li>
+<li>创业活动, 创业能力</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>Entrepreneurship requires creativity and risk-taking.</p>
+<p>创业需要创造力和冒险精神。</p>
+<p>She studied entrepreneurship to start her own business.</p>
+<p>她学习创业以开办自己的企业。</p>
+<p>The term 'entrepreneurship' can also refer to the process of designing, launching, and running a new business.</p>
+<p>'entrepreneurship'这个词也可以指设计、启动和经营新业务的过程。</p>
+</div>
+<p><span style="color: red;">boost</span></p>
+<ul>
+<li>v.<ul>
+<li>提高, 增强, 促进</li>
+<li>推动, 推进</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The new marketing strategy helped to boost sales.</p>
+<p>新的营销策略有助于提高销售额。</p>
+<p>Regular exercise can boost your energy levels.</p>
+<p>定期锻炼可以提高你的能量水平。</p>
+<p>The term 'boost' can also refer to increasing or improving something, especially in terms of performance or effectiveness.</p>
+<p>'boost'这个词也可以指增加或改善某物，特别是在性能或效果方面。</p>
+</div>
+<p>boast 夸耀, 自夸, 自夸的</p>
+<p><span style="color: red;">compile</span></p>
+<ul>
+<li>v.<ul>
+<li>编译, 汇编</li>
+<li>收集, 汇集</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The programmer needed to compile the code before running it.</p>
+<p>程序员需要在运行代码之前编译它。</p>
+<p>She compiled a list of her favorite books.</p>
+<p>她汇集了一份她最喜欢的书籍清单。</p>
+<p>The term 'compile' can also refer to the process of converting source code into executable code.</p>
+<p>'compile'这个词也可以指将源代码转换为可执行代码的过程。</p>
+</div>
+<p>compilation 汇编, 编纂, 汇编物</p>
+<p>compiler 编译器, 汇编者</p>
+<p><span style="color: red;">bribe</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>贿赂, 行贿物</li>
+<li>诱惑物</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>贿赂, 行贿</li>
+<li>收买</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The official was accused of accepting a bribe.</p>
+<p>这名官员被指控接受贿赂。</p>
+<p>They tried to bribe the guard to let them in.</p>
+<p>他们试图贿赂警卫让他们进去。</p>
+<p>The term 'bribe' can also refer to offering something valuable to influence someone's actions.</p>
+<p>'bribe'这个词也可以指提供有价值的东西以影响某人的行为。</p>
+</div>
+<p>bribery 贿赂行为, 行贿</p>
+<p><span style="color: red;">coordinate</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>坐标</li>
+<li>协调, 配合</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>协调, 调整</li>
+<li>使...协调一致</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The coordinates of the location were marked on the map.</p>
+<p>该位置的坐标标在地图上。</p>
+<p>The team worked together to coordinate the event.</p>
+<p>团队合作协调了这次活动。</p>
+<p>The term 'coordinate' can also refer to organizing different elements to work together effectively.</p>
+<p>'coordinate'这个词也可以指组织不同的元素以有效地协同工作。</p>
+</div>
+<p>coordination 协调, 调整, 协同</p>
+<p>coordinator 协调者, 统筹者</p>
+<p><span style="color: red;">condemn</span></p>
+<ul>
+<li>v.<ul>
+<li>谴责, 指责</li>
+<li>判刑, 宣判</li>
+<li>使陷入困境</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The government condemned the attack on the embassy.</p>
+<p>政府谴责了对大使馆的袭击。</p>
+<p>He was condemned to life imprisonment.</p>
+<p>他被判处终身监禁。</p>
+<p>The building was condemned as unsafe.</p>
+<p>这座建筑被判定为不安全。</p>
+<p>The term 'condemn' can also refer to expressing strong disapproval or sentencing someone to a particular punishment.</p>
+<p>'condemn'这个词也可以指表示强烈不满或判处某人特定的惩罚。</p>
+</div>
+<p>condemnation 谴责, 指责, 定罪</p>
+<p>condemnable 应受谴责的, 应受处罚的</p>
+<h2 id="part-3">PART 3<a class="headerlink" href="#part-3" title="Permanent link">&para;</a></h2>
+<p><span style="color: red;">consult</span></p>
+<ul>
+<li>v.<ul>
+<li>咨询, 请教</li>
+<li>商量, 商议</li>
+<li>查阅, 参考</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She decided to consult a lawyer about the legal issues.</p>
+<p>她决定就法律问题咨询律师。</p>
+<p>The manager consulted with the team before making a decision.</p>
+<p>经理在做决定前与团队商量。</p>
+<p>He consulted the manual to find the correct procedure.</p>
+<p>他查阅了手册以找到正确的程序。</p>
+<p>The term 'consult' can also refer to seeking information or advice from someone or something.</p>
+<p>'consult'这个词也可以指向某人或某物寻求信息或建议。</p>
+</div>
+<p>consultation 咨询, 商议, 会诊</p>
+<p>consultant 顾问, 咨询师</p>
+<p>consultative 咨询的, 顾问的</p>
+<p>insult 侮辱, 辱骂</p>
+<p><span style="color: red;">confer</span></p>
+<ul>
+<li>v.<ul>
+<li>授予, 赋予</li>
+<li>协商, 商议</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The university conferred an honorary degree on the distinguished professor.</p>
+<p>大学授予这位杰出的教授荣誉学位。</p>
+<p>The committee members conferred to discuss the new policy.</p>
+<p>委员会成员们商议新政策。</p>
+<p>The term 'confer' can also refer to granting or bestowing something, such as a title or degree, or to discussing something with others to reach a decision.</p>
+<p>'confer'这个词也可以指授予某物，如头衔或学位，或与他人讨论以达成决定。</p>
+</div>
+<p>conference 会议, 讨论会</p>
+<p>conferral 授予, 赋予</p>
+<p>conferment 授予, 赋予</p>
+<p>refer 提及, 参考</p>
+<p>defer 推迟, 延期</p>
+<p>fertile 肥沃的, 肥沃的, 肥沃的</p>
+<p><span style="color: red;">confine</span></p>
+<ul>
+<li>v.<ul>
+<li>限制, 局限</li>
+<li>监禁, 禁闭</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The prisoners were confined to their cells.</p>
+<p>囚犯们被限制在他们的牢房里。</p>
+<p>The term 'confine' can also refer to restricting someone or something within certain limits or boundaries.</p>
+<p>'confine'这个词也可以指在某些限制或边界内限制某人或某物。</p>
+</div>
+<p>confinement 监禁, 禁闭, 限制</p>
+<p>confined 受限的, 狭窄的</p>
+<p>define 定义, 解释</p>
+<p>definite 明确的, 确定的</p>
+<p>refine 精炼, 提纯</p>
+<p>infinite 无限的, 无穷的</p>
+<p><span style="color: red;">conserve</span></p>
+<ul>
+<li>v.<ul>
+<li>保存, 保护</li>
+<li>节约, 节省</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>We need to conserve our natural resources for future generations.</p>
+<p>我们需要为子孙后代保护我们的自然资源。</p>
+<p>The term 'conserve' can also refer to using something carefully to prevent waste.</p>
+<p>'conserve'这个词也可以指小心使用某物以防止浪费。</p>
+</div>
+<p>conservation 保存, 保护, 节约</p>
+<p>conservative 保守的, 守旧的</p>
+<p>preserve 保存, 保护</p>
+<p>reserve 保留, 预订</p>
+<p>observe 观察, 遵守</p>
+<p><span style="color: red;">console</span></p>
+<ul>
+<li>n.<ul>
+<li>控制台, 操作台</li>
+<li>控制面板, 仪表板</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The programmer used the console to debug the application.</p>
+<p>程序员使用控制台调试应用程序。</p>
+<p>The term 'console' can also refer to a panel or unit accommodating a set of controls for electronic or mechanical equipment.</p>
+<p>'console'这个词也可以指容纳电子或机械设备控制装置的面板或单元。</p>
+</div>
+<p>consolation 安慰, 慰藉</p>
+<p>consolidate 巩固, 合并</p>
+<p>consult 咨询, 请教</p>
+<p>consume 消耗, 消费</p>
+<p><span style="color: red;">convey</span></p>
+<ul>
+<li>v.<ul>
+<li>传达, 表达</li>
+<li>运输, 传送</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The teacher used pictures to convey the concept to the students.</p>
+<p>老师用图片向学生传达了这个概念。</p>
+<p>The term 'convey' can also refer to transporting or carrying something from one place to another.</p>
+<p>'convey'这个词也可以指将某物从一个地方运输或传送到另一个地方。</p>
+</div>
+<p>conveyance 运输, 传送, 表达</p>
+<p>conveyor 传送带, 运输机</p>
+<p>conveyer 传送者, 传播者</p>
+<p><span style="color: red;">enlightened</span></p>
+<ul>
+<li>adj.<ul>
+<li>开明的, 有见识的</li>
+<li>受启发的, 启蒙的</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The leader was known for his enlightened views on social issues.</p>
+<p>这位领导因其在社会问题上的开明观点而闻名。</p>
+<p>The term 'enlightened' can also refer to someone who has been given greater knowledge and understanding about a subject or situation.</p>
+<p>'enlightened'这个词也可以指在某个主题或情况下获得更多知识和理解的人。</p>
+</div>
+<p>enlighten 启发, 启蒙</p>
+<p>enlightenment 启蒙, 启发</p>
+<p><span style="color: red;">dictate</span></p>
+<ul>
+<li>v.<ul>
+<li>口述, 听写</li>
+<li>命令, 指示</li>
+<li>支配, 决定</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>She dictated the letter to her assistant.</p>
+<p>她向助理口述了这封信。</p>
+<p>The manager dictated the terms of the agreement.</p>
+<p>经理规定了协议的条款。</p>
+<p>The term 'dictate' can also refer to determining or influencing something.</p>
+<p>'dictate'这个词也可以指决定或影响某事。</p>
+</div>
+<p>dictation 听写, 口述</p>
+<p>dictator 独裁者, 专制者</p>
+<p>dictatorial 独裁的, 专制的</p>
+<p><span style="color: red;">estimate</span></p>
+<ul>
+<li>
+<p>n.</p>
+<ul>
+<li>估计, 估算</li>
+<li>评估, 评价</li>
+<li>报价, 预算</li>
+</ul>
+</li>
+<li>
+<p>v.</p>
+<ul>
+<li>估计, 估算</li>
+<li>评估, 评价</li>
+</ul>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>The engineer provided an estimate for the cost of the project.</p>
+<p>工程师提供了项目成本的估算。</p>
+<p>It is difficult to estimate the exact number of people affected.</p>
+<p>很难准确估计受影响的人数。</p>
+<p>The term 'estimate' can also refer to forming an approximate judgment or opinion regarding the value, amount, size, or weight of something.</p>
+<p>'estimate'这个词也可以指对某物的价值、数量、大小或重量形成大致的判断或意见。</p>
+</div>
+<p>estimation 估计, 评价</p>
+<p>estimated 估计的, 预计的</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: 外语学习">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                外语学习
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../CTF/CTF/" class="md-footer__link md-footer__link--next" aria-label="下一页: 浙江大学AAA短学期课程">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                浙江大学AAA短学期课程
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

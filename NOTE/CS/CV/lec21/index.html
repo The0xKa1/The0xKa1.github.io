@@ -1,0 +1,3657 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/CS/CV/lec21/">
+      
+      
+        <link rel="prev" href="../lec17/">
+      
+      
+        <link rel="next" href="../../../Language/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Visualize - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#visualizing-and-generating" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Visualize
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_5" id="__nav_2_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机视觉 (Computer Vision)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Classification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Classifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Convolutional Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec7_8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN Architectures in history
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec9_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec11_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software in CV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec13_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visualize
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visualize
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-and-understanding-convolutional-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualizing and Understanding Convolutional Networks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing and Understanding Convolutional Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-the-activations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualizing the activations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing the activations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maximally-activating-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximally Activating Patches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saliency-via-occlusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saliency Via Occlusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saliency-via-backpropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saliency via Backpropagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-features-via-guided-backpropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate Features via Guided Backpropagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-activation-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Activation Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gardient-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gardient Ascent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adversarial-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adversarial Attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adversarial Attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-from-arbitrary-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start from arbitrary image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select-a-target-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Select a target class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gradient ascent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stop condition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#white-box-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        White-Box Attack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#black-box-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Black-Box Attack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Inversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deepdream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DeepDream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texture-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Texture Synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Texture Synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nearest-neighbor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nearest Neighbor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gram-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gram Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neural-style-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Neural Style Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-and-understanding-convolutional-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualizing and Understanding Convolutional Networks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing and Understanding Convolutional Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-the-activations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualizing the activations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing the activations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maximally-activating-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximally Activating Patches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saliency-via-occlusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saliency Via Occlusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saliency-via-backpropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saliency via Backpropagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-features-via-guided-backpropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate Features via Guided Backpropagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-activation-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Activation Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gardient-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gardient Ascent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adversarial-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adversarial Attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adversarial Attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-from-arbitrary-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start from arbitrary image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select-a-target-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Select a target class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gradient ascent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stop condition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#white-box-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        White-Box Attack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#black-box-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Black-Box Attack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Inversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deepdream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DeepDream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texture-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Texture Synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Texture Synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nearest-neighbor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nearest Neighbor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gram-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gram Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neural-style-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Neural Style Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    💻 自学笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    计算机视觉 (Computer Vision)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="visualizing-and-generating">Visualizing and Generating<a class="headerlink" href="#visualizing-and-generating" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 4749 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 19 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 16 分钟</p>
+</div>
+<h2 id="visualizing-and-understanding-convolutional-networks">Visualizing and Understanding Convolutional Networks<a class="headerlink" href="#visualizing-and-understanding-convolutional-networks" title="Permanent link">&para;</a></h2>
+<p>卷积神经网络的第一层的filters主要学习的是边缘特征</p>
+<figure>
+<img alt="" src="../img/lec21-1.png" width="70%&quot;" />
+
+<figcaption>
+    Visualizing the filters of the first layer of a convolutional network
+</figcaption>
+</figure>
+<p>因为第一层filters的通道数和输入的通道数相同，所以可以将其可视化。为各种边边角角的组合。</p>
+<p>但是越往后，filters的通道数就比较奇怪，例如20x16x7x7，将其作为RGB图像可视化没有什么意义，可以将其看作是20组，每组16个7x7的特征灰度图。但是即使这样，看起来也并不像任何东西。</p>
+<figure>
+<img alt="" src="../img/lec21-2.png" width="70%&quot;" />
+</figure>
+<p>由于最后一层在全连接层之前是一个大向量，例如4096维；可以将各种图像应用在训练好的网络中，根据这个大的特征向量使用nearest neighbor的方法找到最相似的向量，然后将它们的图像匹配在一起；</p>
+<figure>
+<img alt="" src="../img/lec21-3.png" width="70%&quot;" />
+</figure>
+<p>与linear classifier使用像素不同，在这个特征向量上使用最近邻的结果表现得非常好，这说明神经网络通过学习，消除了图像本身的一些特征，例如光照，位置，角度等，提取出了更高层次的特征；</p>
+<p>还可以通过Dimension Reduction的方法将4096维的特征向量降维到2维的点，然后将对应的点替换为图像，就可以得到图像在空间上的分布；</p>
+<figure>
+<img alt="" src="../img/lec21-4.png" width="70%&quot;" />
+</figure>
+<blockquote>
+<p><a href="https://cs.stanford.edu/people/karpathy/cnnembed/">高清图</a></p>
+</blockquote>
+<p>可以看到相似的图像都紧凑地聚集在一起，而不同的图像则分散在各个角落。</p>
+<h3 id="visualizing-the-activations">Visualizing the activations<a class="headerlink" href="#visualizing-the-activations" title="Permanent link">&para;</a></h3>
+<p>还可以通过中间层的特征来可视化图像</p>
+<p>例如conv5是128x13x13的，可以将其看作是128个13x13的特征图，可以将其可视化，在下面这个例子中，其中一个特征图可视化后非常像人脸，说明这个特征图学习到了人脸的特征。</p>
+<figure>
+<img alt="" src="../img/lec21-5.png" width="70%&quot;" />
+</figure>
+<h4 id="maximally-activating-patches">Maximally Activating Patches<a class="headerlink" href="#maximally-activating-patches" title="Permanent link">&para;</a></h4>
+<p>最大激活补丁（Maximally Activating Patches）是指在卷积神经网络中，选择一个特定的层和通道，然后输入大量图像，记录该通道的激活值，最后可视化那些产生最大激活值的图像补丁。</p>
+<p>工作流程如下：</p>
+<ul>
+<li>选择网络中的一个特定层和通道，例如conv5层（尺寸为128×13×13），可以选择其中的第17个通道</li>
+<li>将大量图像输入网络，记录所选通道的激活值</li>
+<li>可视化那些产生最大激活值的图像补丁</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec21-6.png" width="70%&quot;" />
+</figure>
+<p>这种可视化方法揭示了卷积神经网络中不同通道学习识别的具体视觉特征。通过查看最大激活补丁，我们可以理解每个通道在"寻找"什么样的图像特征，从而解释网络如何进行特征提取。这表明神经网络的不同部分专门负责检测图像中的不同语义元素，进一步证实了深度学习模型具有层次化特征学习能力。</p>
+<h4 id="saliency-via-occlusion">Saliency Via Occlusion<a class="headerlink" href="#saliency-via-occlusion" title="Permanent link">&para;</a></h4>
+<p>遮挡显著性(Saliency via Occlusion)是一种确定图像中哪些区域对CNN预测最重要的方法。其基本思想是通过系统地遮挡图像的不同部分，然后观察模型预测概率的变化，来判断哪些区域对分类结果影响最大。</p>
+<p>工作流程如下：</p>
+<ul>
+<li>使用滑动窗口方法，用灰色方块（或其他颜色）系统地遮挡输入图像的不同区域</li>
+<li>每次遮挡后，将修改后的图像输入CNN，记录预测概率的变化</li>
+<li>生成热力图，显示遮挡每个区域后导致的预测概率下降程度</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec21-7.png" width="70%&quot;" />
+
+<figcaption>
+    使用遮挡技术可视化CNN中重要的像素区域
+</figcaption>
+</figure>
+<p>如上图所示，右侧的热力图显示了对每个类别（帆船、非洲象、卡丁车）的预测贡献最大的区域。热力图中的亮色区域表示该区域被遮挡后会导致预测概率大幅下降，说明这些区域对模型的决策至关重要。</p>
+<p>这种方法直观地展示了CNN在做决策时"关注"图像的哪些部分，有助于我们理解模型的工作原理并验证其是否真正学习到了有意义的特征，而不是依赖于图像中的无关背景或伪相关。</p>
+<h4 id="saliency-via-backpropagation">Saliency via Backpropagation<a class="headerlink" href="#saliency-via-backpropagation" title="Permanent link">&para;</a></h4>
+<p>反向传播显著性(Saliency via Backpropagation)是一种通过反向传播梯度来确定图像中哪些区域对CNN预测结果影响最大的方法。</p>
+<figure>
+<img alt="" src="../img/lec21-8.png" width="70%&quot;" />
+</figure>
+<p>具体实现步骤：</p>
+<ul>
+<li>将图像输入网络，进行前向传播，得到类别预测分数</li>
+<li>计算特定类别（如"狗"）的未归一化分数相对于输入图像像素的梯度</li>
+<li>取梯度的绝对值，并在RGB通道上取最大值</li>
+<li>生成可视化热力图，显示哪些像素对预测结果贡献最大</li>
+</ul>
+<p>这种方法的优势在于计算效率高，只需一次反向传播即可获得显著性图，而且能直接揭示网络关注的图像区域。与遮挡方法相比，它不需要进行多次前向传播，因此速度更快。</p>
+<p>通过这种可视化技术，我们可以验证CNN是否真正关注目标对象的相关特征，而非背景或无关元素，有助于解释模型决策过程并检测潜在的偏见或过拟合问题。</p>
+<h4 id="intermediate-features-via-guided-backpropagation">Intermediate Features via Guided Backpropagation<a class="headerlink" href="#intermediate-features-via-guided-backpropagation" title="Permanent link">&para;</a></h4>
+<p>引导反向传播(Guided Backpropagation)是对标准反向传播方法的一种改进，用于更好地可视化CNN中间层神经元所关注的图像区域。</p>
+<p>工作流程如下：</p>
+<ul>
+<li>选择网络中特定的一个中间神经元（例如conv5层128×13×13特征图中的一个值）</li>
+<li>计算该神经元的激活值相对于输入图像像素的梯度</li>
+<li>但与标准反向传播不同，引导反向传播在反向传递中对ReLU激活函数进行特殊处理</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec21-9.png" width="70%&quot;" />
+</figure>
+<p>引导反向传播的特点：</p>
+<ul>
+<li>在反向传播过程中，仅允许正梯度通过ReLU层（"引导"过程）</li>
+<li>这意味着在ReLU层，同时考虑前向传播和反向传播的限制：</li>
+<li>前向传播时，只有正值会被传递（ReLU的标准行为）</li>
+<li>
+<p>反向传播时，只有正梯度会被传递（引导部分）</p>
+</li>
+<li>
+<p>结果产生更清晰的可视化，更好地展示了神经元响应的图像区域</p>
+</li>
+</ul>
+<p>这种方法相比普通反向传播可以生成更加锐利和聚焦的可视化结果，使我们能够更清楚地了解CNN中特定神经元对应的图像特征。从右侧的比较可以看出，引导反向传播的结果更加清晰，噪声更少。</p>
+<p>这项技术最早由Springenberg等人在2015年的ICLR研讨会论文"Striving for Simplicity: The All Convolutional Net"中提出，它为理解CNN内部表示提供了重要工具。</p>
+<h4 id="class-activation-mapping">Class Activation Mapping<a class="headerlink" href="#class-activation-mapping" title="Permanent link">&para;</a></h4>
+<p>类激活映射(Class Activation Mapping)是一种用于可视化卷积神经网络中特定类别的激活区域的方法。</p>
+<figure>
+<img alt="" src="../img/lec21-10.png" width="70%&quot;" />
+</figure>
+<p>首先，对CNN提取出的图像(H,W,K)特征进行全局平均池化(K,)，得到一个特征向量，然后通过全连接层得到一个类别得分(C,)。</p>
+<p>由于平均池化：</p>
+<div class="arithmatex">\[
+    F_k = \frac{1}{HW}\sum_{h,w}f_{h,w,k}
+\]</div>
+<p>将其带入每个类别的得分中:</p>
+<div class="arithmatex">\[
+S_c = \sum_k w_{k,c}F_k = \frac{1}{HW}\sum_k w_{k,c}\sum_{h,w}f_{h,w,k} = \frac{1}{HW}\sum_{h,w}\sum_k w_{k,c}f_{h,w,k}
+\]</div>
+<p>这样就得到了CAM的公式：</p>
+<div class="arithmatex">\[
+    M_{c,h,w} = \sum_k w_{k,c}f_{h,w,k}
+\]</div>
+<p>即，对于类别c，其在位置(h,w)的激活值是权重矩阵中第c列和特征图f按k通道进行内积的结果。</p>
+<p>这种方式可以直观展示图像中对分类决策起关键作用的区域。</p>
+<figure>
+<img alt="" src="../img/lec21-11.png" width="70%&quot;" />
+</figure>
+<blockquote>
+<p>但缺点是只能在最后的全连接层进行，如果想要在中间层进行，需要使用Grad-CAM。</p>
+</blockquote>
+<h2 id="generating-images">Generating Images<a class="headerlink" href="#generating-images" title="Permanent link">&para;</a></h2>
+<h3 id="gardient-ascent">Gardient Ascent<a class="headerlink" href="#gardient-ascent" title="Permanent link">&para;</a></h3>
+<p>在之前，图像是固定的，我们通过反向传播来查看哪些像素的变化对于某个中间神经元的影响最大，来查看中间层通道在学习什么特征；</p>
+<p>现在，我们可以从零开始，聚焦在中间层某一个神经元的值，不断通过梯度上升，来生成使得神经元激活值最大的图像。</p>
+<p>总的来说，是重复执行以下步骤：</p>
+<ul>
+<li>前向传播，计算当前得分</li>
+<li>反向传播，计算得分对于像素的梯度</li>
+<li>更新图像，使得得分上升</li>
+</ul>
+<p>目标是</p>
+<div class="arithmatex">\[
+    argmax_I S_c(I) - \lambda ||I||_2^2
+\]</div>
+<p>需要添加正则项，防止其生成得分很高但是没有意义的图像。</p>
+<figure>
+<img alt="" src="../img/lec21-12.png" width="70%&quot;" />
+</figure>
+<p>通过多面特征，可以生成更加多样化的图像。</p>
+<h3 id="adversarial-attack">Adversarial Attack<a class="headerlink" href="#adversarial-attack" title="Permanent link">&para;</a></h3>
+<p>对抗样本（Adversarial Examples）是通过对输入数据进行微小但有目的的修改，以欺骗机器学习模型的技术</p>
+<h4 id="start-from-arbitrary-image">Start from arbitrary image<a class="headerlink" href="#start-from-arbitrary-image" title="Permanent link">&para;</a></h4>
+<p>对抗样本的生成可以从任何图像出发，包括自然图像（如照片）或随机噪声。关键是通过后续步骤对图像进行修改，使其被模型错误分类。例如：  </p>
+<ul>
+<li>若原始图像是“猫”，攻击者可能希望模型将其误判为“狗”或其他类别。  </li>
+<li>起始图像的选择会影响生成对抗样本所需的扰动大小和复杂度。</li>
+</ul>
+<h4 id="select-a-target-class">Select a target class<a class="headerlink" href="#select-a-target-class" title="Permanent link">&para;</a></h4>
+<p>攻击者需指定希望模型误判的类别（如“飞机”或“汽车”）。这一步决定了对抗样本的生成方向： </p>
+<ul>
+<li>定向攻击（Targeted Attack）：强制模型输出特定目标类别。  </li>
+<li>非定向攻击（Untargeted Attack）：仅需让模型输出错误类别，不指定具体目标。<br />
+目标类别的选择会影响生成对抗样本的策略和扰动模式。</li>
+</ul>
+<h4 id="gradient-ascent">gradient ascent<a class="headerlink" href="#gradient-ascent" title="Permanent link">&para;</a></h4>
+<p>这是生成对抗样本的核心步骤，具体流程如下：  </p>
+<ul>
+<li>
+<p>计算梯度：利用反向传播，计算模型对输入图像的梯度。梯度表示“如何调整图像像素值才能最大程度提高目标类别的预测概率”。  </p>
+</li>
+<li>
+<p>梯度上升（Gradient Ascent）：与训练模型的梯度下降相反，梯度上升沿着梯度方向更新图像，逐步增加目标类别的分数。  </p>
+</li>
+</ul>
+<h4 id="stop-condition">Stop condition<a class="headerlink" href="#stop-condition" title="Permanent link">&para;</a></h4>
+<p>停止条件通常有两种：  </p>
+<ul>
+<li>置信度阈值：当目标类别的预测概率达到预设值（如99%）。  </li>
+<li>扰动限制：当添加的扰动（如L2范数）超过允许范围，确保扰动对人类不可见。  </li>
+</ul>
+<p>例如，当原始图像被修改后，模型以高置信度将其分类为“飞机”而非真实的“猫”，则认为攻击成功。</p>
+<h4 id="key-characteristics">Key characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">&para;</a></h4>
+<ul>
+<li>微小扰动：人类难以察觉的微小修改即可欺骗模型。  </li>
+<li>可转移性：针对某模型生成的对抗样本，可能对其他模型也有效。  </li>
+<li>高维敏感性：模型在高维特征空间中对微小扰动高度敏感。</li>
+</ul>
+<p>在自动驾驶、人脸识别等安全关键系统中，对抗样本可能导致严重错误。研究其生成与防御对提升AI系统的安全性和可靠性至关重要。</p>
+<p>例如</p>
+<figure>
+<img alt="" src="../img/lec21-13.png" width="70%&quot;" />
+</figure>
+<blockquote>
+<p>通过微小的调整，就足以让其误判，但是人眼难以察觉。</p>
+</blockquote>
+<h4 id="white-box-attack">White-Box Attack<a class="headerlink" href="#white-box-attack" title="Permanent link">&para;</a></h4>
+<p>白盒攻击（White-Box Attack）是指攻击者拥有目标模型的完整信息，包括模型结构、参数和训练数据。</p>
+<h4 id="black-box-attack">Black-Box Attack<a class="headerlink" href="#black-box-attack" title="Permanent link">&para;</a></h4>
+<p>黑盒攻击（Black-Box Attack）是指攻击者没有目标模型的完整信息，只能通过模型预测结果进行攻击。</p>
+<h3 id="feature-inversion">Feature Inversion<a class="headerlink" href="#feature-inversion" title="Permanent link">&para;</a></h3>
+<p>特征反转（Feature Inversion）是一种用于生成特定特征的图像的技术;</p>
+<p>Feature Inversion（特征逆变换）是计算机视觉中一种用于 <strong>从神经网络的特征表示重建原始图像</strong> 的技术，通过逆向生成与特定特征匹配的图像，可以直观分析网络对输入数据的抽象表示能力。</p>
+<ul>
+<li>目标：给定某层特征图（如CNN中间层的输出），生成一张新图像，使其通过网络前传后在该层的特征尽可能接近目标特征。</li>
+<li>本质：通过优化输入图像，最小化生成图像与目标特征之间的差异，从而反推网络“认为”什么样的输入会激活该特征。</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec21-14.png" width="70%&quot;" />
+</figure>
+<p>可以看到，越往后，特征越抽象，越难以理解。</p>
+<div class="arithmatex">\[
+\mathbf{x}^* = \underset{\mathbf{x} \in \mathbb{R}^{H \times W \times C}}{\text{argmin}} \, \ell(\Phi(\mathbf{x}), \Phi_0) + \lambda \mathcal{R}(\mathbf{x})
+\]</div>
+<p>其中，特征匹配的损失函数定义为：</p>
+<div class="arithmatex">\[
+\ell(\Phi(\mathbf{x}), \Phi_0) = \|\Phi(\mathbf{x}) - \Phi_0\|^2
+\]</div>
+<div class="arithmatex">\[
+\mathcal{R}_{V^\beta}(\mathbf{x}) = \sum_{i,j} \left( (x_{i,j+1} - x_{i,j})^2 + (x_{i+1,j} - x_{i,j})^2 \right)^{\frac{\beta}{2}}
+\]</div>
+<p>通过最小化网络特征表示与目标特征之间的差异，同时加入正则化项以获得视觉上更合理的结果。</p>
+<h3 id="deepdream">DeepDream<a class="headerlink" href="#deepdream" title="Permanent link">&para;</a></h3>
+<p>DeepDream是一种基于深度学习的图像生成技术，通过神经网络的中间层特征来生成具有艺术风格的图像。</p>
+<p>即，比起生成图像，更像是特征的放大。</p>
+<p>其流程是，首先，选择一张图像，然后选择一个想要放大特征的层</p>
+<ul>
+<li>Forward： 计算选定层的特征激活值</li>
+<li>Set gradient of chosen layer equal to its activation</li>
+<li>Backward： 计算梯度</li>
+<li>Update： 更新图像</li>
+</ul>
+<p>通过将梯度设置为等于激活值，DeepDream算法实际上是在鼓励网络增强它已经检测到的特征。这是因为梯度通常指示如何改变输入以增加某个值，所以当梯度等于激活值时，这意味着我们希望增加已经存在的特征。</p>
+<p>这一步创造了一个反馈循环，使得图像中的特定模式越来越明显。网络检测到某个特征，然后通过梯度下降（实际上是梯度上升，因为我们想要最大化激活）来增强该特征，然后在下一次迭代中，网络可能会检测到更强的同一特征，进一步增强它，依此类推。</p>
+<p>普通的梯度上升通常是为了最大化某个特定类别的分数（如在对抗样本生成中）。而在DeepDream中，我们不关心特定类别，而是希望最大化选定层的整体激活，无论它们代表什么。通过将梯度设为激活值，我们实质上是说"给我更多已经存在的东西"。</p>
+<p>此时不再关注它到底属于什么类别，只在乎增强已经存在的特征。</p>
+<figure>
+<img alt="" src="../img/lec21-15.png" width="70%&quot;" />
+</figure>
+<p>这会生成很魔幻的图像</p>
+<h3 id="texture-synthesis">Texture Synthesis<a class="headerlink" href="#texture-synthesis" title="Permanent link">&para;</a></h3>
+<p>纹理合成（Texture Synthesis）是一种基于深度学习的图像生成技术，通过学习图像的纹理特征，生成具有相似纹理的图像。</p>
+<h4 id="nearest-neighbor">Nearest Neighbor<a class="headerlink" href="#nearest-neighbor" title="Permanent link">&para;</a></h4>
+<p>生成顺序是扫描线顺序，也就是逐行逐个生成像素。对于每一个待生成的像素，查看其周围的已生成像素（可能是左方、上方以及左上方的像素，因为扫描线顺序下右边的和下方的像素还未生成），组成一个邻域。然后，在输入的样本纹理中寻找与该邻域最匹配的位置，然后将该位置对应的下一个像素复制到当前生成的位置。</p>
+<h4 id="gram-matrix">Gram Matrix<a class="headerlink" href="#gram-matrix" title="Permanent link">&para;</a></h4>
+<p>Gram矩阵是用于描述图像纹理特征的矩阵。</p>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>给定一组向量 <span class="arithmatex">\( \{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\} \)</span>，Gram Matrix <span class="arithmatex">\( G \)</span> 是一个 <span class="arithmatex">\( n \times n \)</span> 的矩阵，其中每个元素 <span class="arithmatex">\( G_{i,j} \)</span> 是向量 <span class="arithmatex">\( \mathbf{v}_i \)</span> 和 <span class="arithmatex">\( \mathbf{v}_j \)</span> 的内积：</p>
+<div class="arithmatex">\[
+    G_{i,j} = \mathbf{v}_i \cdot \mathbf{v}_j
+\]</div>
+<p>每一层的卷积神经网络（CNN）都会生成一个形状为 C x H x W 的特征张量；即 H x W 的网格，每个网格包含一个 C 维的向量</p>
+<p><figure markdown="span">
+<img alt="" src="../img/lec21-16.png" width="70%&quot;" />
+</figure></p>
+<p>在这里，Gram Matrix 的维度是 CxC，每个位置就是对应通道特征图的内积；</p>
+<p>即，将每个通道的特征图展平为向量，得到矩阵 <span class="arithmatex">\( F_{\text{flat}} \in \mathbb{R}^{C \times (H \times W)} \)</span>。</p>
+<p>然后计算Gram Matrix：</p>
+<div class="arithmatex">\[
+G = F_{\text{flat}} \cdot F_{\text{flat}}^\top \in \mathbb{R}^{C \times C}
+\]</div>
+<p>其中 <span class="arithmatex">\( G_{i,j} \)</span> 表示第 <span class="arithmatex">\( i \)</span> 个通道与第 <span class="arithmatex">\( j \)</span> 个通道在所有空间位置上的相关性。</p>
+</div>
+<p>Gram Matrix 编码了不同通道特征之间的 <strong>协方差</strong> ，反映哪些特征倾向于同时激活。通过展平特征图，Gram Matrix 仅保留通道间的统计特性，更适合表示全局风格（如纹理、颜色分布）。</p>
+<figure>
+<img alt="" src="../img/lec21-17.png" width="70%&quot;" />
+</figure>
+<p>通过Gram Matrix生成纹理图像的步骤：</p>
+<p><strong>预训练CNN模型</strong>：</p>
+<ul>
+<li>使用在ImageNet上预训练好的CNN模型（如VGG-19）作为特征提取器</li>
+</ul>
+<p><strong>提取原始纹理特征</strong>：</p>
+<ul>
+<li>将原始纹理图像输入CNN</li>
+<li>
+<p>记录CNN各层的激活值（特征图）</p>
+</li>
+<li>
+<p>每一层的特征表示为 <span class="arithmatex">\(\mathbf{F}^l \in \mathbb{R}^{C_l \times H_l \times W_l}\)</span></p>
+</li>
+</ul>
+<p><strong>计算原始纹理的Gram矩阵</strong>：</p>
+<ul>
+<li>对每一层的特征图计算Gram矩阵</li>
+<li>Gram矩阵计算公式：<span class="arithmatex">\(G^l_{c,c'} = \sum_{h,w} F^l_{c,h,w} F^l_{c',h,w}\)</span></li>
+</ul>
+<p><strong>初始化生成图像</strong>：</p>
+<ul>
+<li>从随机噪声开始（通常是白噪声）</li>
+</ul>
+<p><strong>迭代优化过程</strong>：</p>
+<ul>
+<li>将当前生成的图像输入CNN</li>
+<li>计算生成图像在各层的特征图和Gram矩阵</li>
+</ul>
+<p><strong>计算损失函数</strong>：</p>
+<ul>
+<li>计算生成图像与原始纹理图像在各层Gram矩阵之间的L2距离</li>
+<li>损失函数：<span class="arithmatex">\(E_l = \frac{1}{4N_l^2M_l^2} \sum_{c,c'} (G^l_{c,c'} - G'^l_{c,c'})^2\)</span></li>
+<li>总损失：<span class="arithmatex">\(L = \sum_l w_l E_l\)</span>，其中 <span class="arithmatex">\(w_l\)</span> 是每层的权重</li>
+</ul>
+<p><strong>梯度下降更新</strong>：</p>
+<ul>
+<li>通过反向传播计算损失函数对生成图像的梯度</li>
+<li>根据梯度更新生成图像</li>
+</ul>
+<p><strong>重复迭代</strong>：</p>
+<ul>
+<li>重复步骤5-7，直到生成图像稳定或达到预设迭代次数</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec21-18.png" width="70%&quot;" />
+</figure>
+<p>从更高层重建纹理可以恢复输入纹理中的较大特征</p>
+<h3 id="neural-style-transfer">Neural Style Transfer<a class="headerlink" href="#neural-style-transfer" title="Permanent link">&para;</a></h3>
+<p>神经风格迁移（Neural Style Transfer）是一种基于深度学习的图像生成技术，通过将内容图像和风格图像的特征进行融合，生成具有艺术风格的图像。</p>
+<p>有两个输入，一个是内容图像(content image)，一个是风格图像(style image)。</p>
+<p>将特征与内容图像进行匹配，将Gram Matrix与风格图像进行匹配，然后进行优化，使得生成图像既具有内容图像的内容，又具有风格图像的风格。</p>
+<p>即同时结合feature reconstruction和texture synthesis。</p>
+<figure>
+<img alt="" src="../img/lec21-19.png" width="70%&quot;" />
+</figure>
+<p>通过调整两者结合的权重，可以生成不同风格的图像，更加写实还是更加抽象。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../lec17/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Attention">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Attention
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../Language/" class="md-footer__link md-footer__link--next" aria-label="下一页: 外语学习">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                外语学习
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../js/print-site.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="../../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../../javascripts/card.js"></script>
+      
+        <script src="../../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

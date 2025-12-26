@@ -1,0 +1,4636 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/CS/CV/lec13_15/">
+      
+      
+        <link rel="prev" href="../lec11_12/">
+      
+      
+        <link rel="next" href="../lec16/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Object Detection - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#object-detection" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Object Detection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_5" id="__nav_2_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机视觉 (Computer Vision)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Classification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Classifiers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Convolutional Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec7_8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN Architectures in history
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec9_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec11_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software in CV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Detection
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IoU
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detecting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detecting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple objects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiple objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#region-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Region Proposals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#categorize-region-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categorize region proposals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NMS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-object-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluating Object Detectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluating Object Detectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mean-average-precision-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mean Average Precision (mAP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object Detectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Detectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fast-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fast R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roi-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RoI Pooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roi-align" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROI Align
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faster R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Faster R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RPN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dealing-with-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dealing with Scale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dealing with Scale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-pyramid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Pyramid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-scale-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Scale Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-pyramid-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Pyramid Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-stage-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Stage Detectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Single-Stage Detectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yolo-you-only-look-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YOLO (You Only Look Once)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Segmentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semantic-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Segmentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantic Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convolutional-neural-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convolutional Neural Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downsampling-and-upsampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downsampling and Upsampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unpooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bilinear-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bilinear Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bicubic-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bicubic Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-unpooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Max Unpooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transposed-convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transposed Convolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-and-stuff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Things and stuff
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance Segmentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mask-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mask R-CNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visualize
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IoU
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detecting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detecting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple objects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiple objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#region-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Region Proposals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#categorize-region-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categorize region proposals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NMS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-object-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluating Object Detectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluating Object Detectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mean-average-precision-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mean Average Precision (mAP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object Detectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Detectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fast-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fast R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roi-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RoI Pooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roi-align" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROI Align
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faster R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Faster R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RPN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dealing-with-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dealing with Scale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dealing with Scale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-pyramid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Pyramid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-scale-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Scale Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-pyramid-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Pyramid Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-stage-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Stage Detectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Single-Stage Detectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yolo-you-only-look-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YOLO (You Only Look Once)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Segmentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semantic-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Segmentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantic Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convolutional-neural-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convolutional Neural Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downsampling-and-upsampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downsampling and Upsampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unpooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bilinear-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bilinear Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bicubic-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bicubic Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-unpooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Max Unpooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transposed-convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transposed Convolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-and-stuff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Things and stuff
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance Segmentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mask-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mask R-CNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    💻 自学笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    计算机视觉 (Computer Vision)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="object-detection">Object Detection<a class="headerlink" href="#object-detection" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 8975 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 33 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 31 分钟</p>
+</div>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>物体检测：</p>
+<ul>
+<li>分类问题：判断图片中是否存在某个物体</li>
+<li>检测问题：判断图片中存在哪些物体，并给出它们的位置</li>
+</ul>
+<p>Input: RGB image
+Output: </p>
+<ul>
+<li>Class</li>
+<li>Bounding box</li>
+</ul>
+<figure>
+
+<img alt="" src="../img/lec13-1.png" />
+
+</figure>
+<p>与图像分类不同，物体检测需要输出多个物体的位置和类别。</p>
+<ul>
+<li>Multiple outputs</li>
+<li>Multiple types of output </li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Modal vs. Amodal boxes</p>
+<p>一般的检测框只考虑物体在图片中的位置，而Amodal boxes则需要考虑整个物体在图片中的位置。</p>
+<figure markdown="span">
+<p><img alt="" src="../img/lec13-2.png" /></p>
+</figure>
+</div>
+<h2 id="iou">IoU<a class="headerlink" href="#iou" title="Permanent link">&para;</a></h2>
+<p>IoU（Intersection over Union）是用于评估物体检测模型性能的重要指标。它用于衡量预测边界框与真实边界框之间的重叠程度。</p>
+<div class="arithmatex">\[
+\text{IoU} = \frac{\text{Area of Overlap}}{\text{Area of Union}}
+\]</div>
+<ul>
+<li><strong>Area of Overlap</strong> ：预测框和真实框重叠部分的面积。</li>
+<li><strong>Area of Union</strong> 预测框和真实框的总面积（即两个框的面积之和减去重叠部分的面积）。</li>
+</ul>
+<p>IoU 的值介于 0 和 1 之间，值越接近 1 表示预测框与真实框的重叠程度越高。通常在物体检测任务中，会设定一个阈值（如 0.5）来判断预测是否为正确检测。</p>
+<figure>
+
+<img alt="" src="../img/lec13-3.png" />
+
+</figure>
+<p>一般而言，IoU 的阈值为 0.5 时，可以认为预测框与真实框的重叠程度较高。大于0.7时，已经是很好的检测了，大于0.9时，几乎可以认为预测框与真实框是相同的。</p>
+<h2 id="detecting">Detecting<a class="headerlink" href="#detecting" title="Permanent link">&para;</a></h2>
+<h3 id="single-object">Single object<a class="headerlink" href="#single-object" title="Permanent link">&para;</a></h3>
+<figure>
+
+<img alt="" src="../img/lec13-4.png" />
+
+<figcaption>
+Single object detection
+</figcaption>
+</figure>
+<p>首先输入图片到一个预训练的CNN模型(Tranfer Learning)，然后得到一个特征向量，将其通过两个神经网络分别得到分类结果和位置结果(一般是四个值,x,y,w,h,表示中心坐标和宽高)。将两个结果分别计算损失函数，然后相加，再加上正则化项，得到总的损失函数。</p>
+<p>但是这样的问题是，如果图片中存在多个物体，那么每个图片需要预测的输出数量是不同的，这样就无法使用一个固定的神经网络来处理所有图片。</p>
+<h3 id="multiple-objects">Multiple objects<a class="headerlink" href="#multiple-objects" title="Permanent link">&para;</a></h3>
+<h4 id="sliding-window">Sliding Window<a class="headerlink" href="#sliding-window" title="Permanent link">&para;</a></h4>
+<p>在滑动窗口方法中，将 CNN 应用于图像的多个不同裁剪，CNN 将每个裁剪分类为物体或背景。</p>
+<p>依次将裁剪后的部分输入到CNN模型中，然后得到分类结果和位置结果，并加上一个额外的类别作为背景。</p>
+<figure>
+
+<img alt="" src="../img/lec13-5.png" />
+
+</figure>
+<ul>
+<li>考虑一个大小为 <span class="arithmatex">\(h \times w\)</span> 的框：</li>
+<li>可能的 x 位置：<span class="arithmatex">\(W - w + 1\)</span></li>
+<li>可能的 y 位置：<span class="arithmatex">\(H - h + 1\)</span></li>
+<li>可能的位置总数：<span class="arithmatex">\((W - w + 1) \times (H - h + 1)\)</span></li>
+</ul>
+<div class="arithmatex">\[
+\sum_{h=1}^{H} \sum_{w=1}^{W} (W - w + 1)(H - h + 1) = \frac{H(H + 1)W(W + 1)}{4}
+\]</div>
+<ul>
+<li>对于一个 <span class="arithmatex">\(800 \times 600\)</span> 的图像，大约有 5800 万个框</li>
+<li>无法评估所有这些框。</li>
+</ul>
+<h4 id="region-proposals">Region Proposals<a class="headerlink" href="#region-proposals" title="Permanent link">&para;</a></h4>
+<p>Region Proposal 方法通过使用预训练的卷积神经网络（CNN）来生成候选区域，这些候选区域可能包含物体。</p>
+<p>一般来说，Region Proposal 方法可以在CPU上运行；</p>
+<p>然后真实框的生成是根据Region Proposal 方法生成的候选区域，然后通过IoU来判断是否为真实框。</p>
+<figure>
+
+<img alt="" src="../img/lec13-6.png" />
+
+</figure>
+<h3 id="r-cnn">R-CNN<a class="headerlink" href="#r-cnn" title="Permanent link">&para;</a></h3>
+<p>R-CNN（Region-based Convolutional Neural Network）是第一个基于Region Proposal的物体检测方法，由Ross Girshick等人于2014年提出。</p>
+<p>R-CNN的工作流程包括以下步骤：</p>
+<ol>
+<li>
+<p><strong>区域提议（Region Proposal）</strong>  ：使用选择性搜索（Selective Search）算法生成约2000个可能包含物体的候选区域。</p>
+</li>
+<li>
+<p><strong>特征提取</strong>：对每个候选区域，将其裁剪并缩放到固定大小（如227×227），然后通过预训练的CNN（如AlexNet）提取特征。</p>
+</li>
+<li>
+<p><strong>分类</strong>：对CNN提取的特征进行分类，确定每个区域属于哪一类物体或背景。</p>
+</li>
+<li>
+<p><strong>边界框回归</strong>：使用回归器对边界框位置进行微调，使其更准确地包围物体。</p>
+</li>
+</ol>
+<figure>
+
+<img alt="" src="../img/lec13-7.png" />
+
+<figcaption>R-CNN架构</figcaption>
+</figure>
+<p>在边界框回归(Box Regression)中,其过程一般是这样的:</p>
+<p>首先对于一个候选区域(Region Proposal生成的)，假设其中心位置为 <span class="arithmatex">\( (p_x, p_y) \)</span>，宽为 <span class="arithmatex">\( p_w \)</span>，高为 <span class="arithmatex">\( p_h \)</span>，其预测的中心位置为 <span class="arithmatex">\( (x, y) \)</span>，宽为 <span class="arithmatex">\( w \)</span>，高为 <span class="arithmatex">\( h \)</span>。</p>
+<p>假设回归时调整的四个参数为 <span class="arithmatex">\( (t_x, t_y, t_w, t_h) \)</span>，那么其回归的公式为：</p>
+<div class="arithmatex">\[
+    x' = p_x + t_x \cdot p_w
+\]</div>
+<div class="arithmatex">\[
+    y' = p_y + t_y \cdot p_h
+\]</div>
+<div class="arithmatex">\[
+    w' = p_w \cdot e^{t_w}
+\]</div>
+<div class="arithmatex">\[
+    h' = p_h \cdot e^{t_h}
+\]</div>
+<p>即对于中心位置，进行一个平移，对于宽高，进行一个缩放。</p>
+<h4 id="categorize-region-proposals">Categorize region proposals<a class="headerlink" href="#categorize-region-proposals" title="Permanent link">&para;</a></h4>
+<p>在R-CNN训练过程中，需要对每个候选区域（Region Proposal）进行分类，确定它们是前景（包含目标物体）还是背景。这个分类过程基于候选区域与真实标注边界框（Ground Truth Box）之间的IoU值。</p>
+<p>根据IoU值，候选区域被分为三类：</p>
+<ul>
+<li><strong>GT box</strong> ：真实区域</li>
+<li><strong>正样本（Positive）</strong> ：与某个真实标注框的IoU &gt; 0.5的区域，一般来说这种样本可以确定物体</li>
+<li><strong>负样本（Negative）</strong> ：与所有真实标注框的IoU &lt; 0.3的区域，一般来说这种样本可以确定为背景</li>
+<li><strong>中性样本（Neutral）</strong> ：IoU值在0.3到0.5之间的区域，一般来说这种样本可能是包含了物体的一部分，不太准确，但又不完全是背景。</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec13-8.png" />
+
+<figcaption>R-CNN中区域提议的分类</figcaption>
+</figure>
+<p>在训练过程中，正样本用于学习特定类别的特征，负样本用于学习背景类别的特征，而中性样本通常在训练中被忽略，因为它们既不是很好的正样本也不是很好的负样本，可能会引入噪声。</p>
+<p>对于每个正样本，R-CNN使用其对应的真实标注框类别作为训练标签；对于负样本，则将其标记为"背景"类别。这种分类策略有助于模型学习区分目标物体和背景，提高检测精度。</p>
+<p>在测试过程中，分为以下三个步骤</p>
+<ul>
+<li>生成候选区域</li>
+<li>对于每个候选区域，使用RCNN模型得到分类的分数和位置的回归结果</li>
+<li>调整分类阈值，得到最终的检测结果</li>
+</ul>
+<p>但是有以下两个问题</p>
+<ul>
+<li>预测的结果经常会出现重复的框</li>
+<li>如何设置阈值？</li>
+</ul>
+<h4 id="nms">NMS<a class="headerlink" href="#nms" title="Permanent link">&para;</a></h4>
+<p>非极大值抑制(Non-Maximum Suppression, NMS)是物体检测后处理的重要技术，用于解决检测算法可能产生的多个重叠边界框问题。</p>
+<p><strong>问题</strong>：物体检测器通常会为同一个物体生成多个重叠的检测框，尤其是当使用区域提议方法时。</p>
+<p><strong>解决方案</strong>：使用非极大值抑制对原始检测结果进行后处理，保留最可能的检测框，删除冗余的检测框。</p>
+<p>NMS算法步骤：</p>
+<ol>
+<li>选择具有最高置信度分数的检测框</li>
+<li>删除与该框IoU大于设定阈值(例如0.7)的所有低分框</li>
+<li>如果还有检测框剩余，返回步骤1继续处理</li>
+</ol>
+<figure>
+
+<img alt="" src="../img/lec13-9.png" />
+
+<figcaption>NMS示例</figcaption>
+</figure>
+<p>在上图示例中，多个框检测到同一只狗，置信度分别为0.9、0.8、0.75和0.7。</p>
+<p>首先对0.9的框进行NMS，删除与该框IoU大于0.7的所有低分框，即删除0.8的框，然后保留0.9的框。</p>
+<p>然后对0.75的框进行NMS，删除与该框IoU大于0.7的所有低分框，即删除0.7的框，然后保留0.75的框。</p>
+<p>没有剩下的框了，所以结束。</p>
+<p>NMS是几乎所有现代物体检测系统的标准后处理步骤，它显著提高了检测的准确性和可视化结果的质量。</p>
+<p><strong>R-CNN的缺点：</strong></p>
+<ul>
+<li><strong>速度慢</strong>：需要对每个候选区域单独进行特征提取，计算量大。一张图像的处理时间约为47秒。</li>
+<li><strong>训练复杂</strong>：分为多个阶段，需要分别训练CNN、SVM和边界框回归器。</li>
+<li><strong>存储需求大</strong>：需要存储所有候选区域的特征。</li>
+</ul>
+<p>尽管存在这些缺点，R-CNN作为深度学习在物体检测领域的早期应用，奠定了后续Fast R-CNN、Faster R-CNN等方法的基础。</p>
+<h3 id="evaluating-object-detectors">Evaluating Object Detectors<a class="headerlink" href="#evaluating-object-detectors" title="Permanent link">&para;</a></h3>
+<h4 id="mean-average-precision-map">Mean Average Precision (mAP)<a class="headerlink" href="#mean-average-precision-map" title="Permanent link">&para;</a></h4>
+<p>平均精度均值(Mean Average Precision, mAP)是评估物体检测模型性能最常用的指标。它综合考虑了模型的精确率(Precision)和召回率(Recall)。</p>
+<div class="admonition note">
+<p class="admonition-title">计算mAP的步骤</p>
+<ul>
+<li>在所有测试图像上运行物体检测器(应用NMS后)</li>
+<li>对于每个类别，计算平均精度(Average Precision, AP)：<ul>
+<li>AP = 精确率-召回率曲线下的面积</li>
+<li>具体计算过程：<ul>
+<li>将该类别的所有检测结果按置信度分数从高到低排序</li>
+<li>依次处理每个检测结果：</li>
+<li>如果检测与某个真实边界框(GT box)的IoU &gt; 0.5，则标记为正样本(TP)，并从考虑列表中移除该GT box</li>
+<li>否则标记为负样本(FP)</li>
+<li>根据累积的TP和FP，计算每个检测点的精确率和召回率</li>
+<li>绘制PR曲线并计算曲线下面积</li>
+</ul>
+</li>
+<li>计算所有类别AP值的平均值，得到mAP</li>
+</ul>
+</li>
+</ul>
+</div>
+<figure>
+<img alt="" src="../img/lec13-10.png" />
+
+<figcaption>PR曲线和检测结果排序</figcaption>
+</figure>
+<p>上面的例子中，其过程是这样的，首先，对于最高的0.99的框，其match了一个GT box，将这个GT box从考虑列表中移除，此时</p>
+<ul>
+<li>Precision = 1/1 = 1</li>
+<li>Recall = <span class="arithmatex">\(\frac{1}{3}\)</span></li>
+</ul>
+<p>所以在图中第一个点为(1, <span class="arithmatex">\(\frac{1}{3}\)</span>)</p>
+<p>接下来，对于0.95的框，也match了一个GT box，将这个GT box从考虑列表中移除，此时</p>
+<ul>
+<li>Precision = <span class="arithmatex">\(\frac{2}{2} = 1\)</span></li>
+<li>Recall = <span class="arithmatex">\(\frac{2}{3}\)</span></li>
+</ul>
+<p>所以在图中第二个点为(1, <span class="arithmatex">\(\frac{2}{3}\)</span>)</p>
+<p>对于0.90的框，其没有match任何GT box，所以此时</p>
+<ul>
+<li>Precision = <span class="arithmatex">\(\frac{2}{3}\)</span></li>
+<li>Recall = <span class="arithmatex">\(\frac{2}{3}\)</span></li>
+</ul>
+<p>所以在图中第三个点为(<span class="arithmatex">\(\frac{2}{3}\)</span>, <span class="arithmatex">\(\frac{2}{3}\)</span>)</p>
+<p>对于0.5的框，其没有match任何GT box，所以此时</p>
+<ul>
+<li>Precision = <span class="arithmatex">\(\frac{2}{4}\)</span></li>
+<li>Recall = <span class="arithmatex">\(\frac{2}{3}\)</span></li>
+</ul>
+<p>所以在图中第四个点为(<span class="arithmatex">\(\frac{2}{4}\)</span>, <span class="arithmatex">\(\frac{2}{3}\)</span>)</p>
+<p>最后一个点，对于0.1的框，其match最后的GT box，所以此时</p>
+<ul>
+<li>Precision = <span class="arithmatex">\(\frac{3}{5}\)</span></li>
+<li>Recall = <span class="arithmatex">\(\frac{3}{3}\)</span></li>
+</ul>
+<p>所以在图中第五个点为(<span class="arithmatex">\(\frac{3}{5}\)</span>, <span class="arithmatex">\(\frac{3}{3}\)</span>)</p>
+<p>然后计算PR曲线下面积，即AP，为0.86</p>
+<p>作为例子，上图显示"狗"类别的AP为0.86，表示该模型在检测狗方面有较好的性能。最终的mAP值将是所有类别AP值的平均。即例如APdog = 0.86, APcar = 0.75, APbike = 0.64, 那么mAP = <span class="arithmatex">\(\frac{APdog + APcar + APbike}{3}\)</span> = 0.75</p>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>
+<p>要获得AP=1.0，模型必须检测到所有IoU&gt;0.5的GT boxes，且不存在任何"假阳性"检测结果排在"真阳性"之，即若有n个GT box，那么模型需要检测到n个TP，且不存在任何FP排在TP之前。</p>
+</li>
+<li>
+<p>mAP可以在不同IoU阈值下计算，常见的有IoU=0.5(称为mAP@0.5)和IoU=0.5:0.95(多个IoU阈值的平均，如COCO数据集)</p>
+</li>
+<li>
+<p>较高的mAP值表示检测器在精确率和召回率方面都有良好表现</p>
+</li>
+</ul>
+<h2 id="object-detectors">Object Detectors<a class="headerlink" href="#object-detectors" title="Permanent link">&para;</a></h2>
+<h3 id="fast-r-cnn">Fast R-CNN<a class="headerlink" href="#fast-r-cnn" title="Permanent link">&para;</a></h3>
+<p>Fast R-CNN是R-CNN的改进版本</p>
+<p>Fast R-CNN的工作流程包括以下步骤：</p>
+<ol>
+<li>
+<p><strong>特征提取</strong> ：整个输入图像通过"backbone"网络（如AlexNet、VGG、ResNet等）一次性提取特征，生成特征图</p>
+</li>
+<li>
+<p><strong>区域提议</strong> ：使用某种区域提议方法（如Selective Search）生成候选区域（RoIs）</p>
+</li>
+<li>
+<p><strong>RoI池化</strong> ：对每个候选区域在特征图上进行裁剪和调整大小操作</p>
+</li>
+<li>
+<p><strong>特征分类与回归</strong> ：将处理后的特征通过一个每区域网络(Per-Region Network)，最终输出每个区域的类别(Class)和边界框(Bbox)位置</p>
+</li>
+</ol>
+<figure>
+<img alt="" src="../img/lec13-11.png" /> { width=70% }
+
+<figcaption>Fast R-CNN架构</figcaption>
+</figure>
+<h4 id="roi-pooling">RoI Pooling<a class="headerlink" href="#roi-pooling" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-12.png" />
+
+<figcaption>RoI Pooling</figcaption>
+</figure>
+<p>这张图片展示了Fast R-CNN中的RoI Pool（区域兴趣池化）操作，这是Fast R-CNN的核心创新之一。</p>
+<ul>
+<li>
+<p>输入图像（Input Image），尺寸例如3×640×480，显示一只小猫的照片，绿色方框代表一个候选区域（Region Proposal）。</p>
+</li>
+<li>
+<p>图像经过CNN backbone处理后得到的特征图（Image features），尺寸例如512×20×15（其中512是特征通道数）。</p>
+</li>
+<li>
+<p>操作过程：将原始图像上的候选区域"Project proposal onto features"（投影到特征图上），即将输入图像上的区域映射到对应的特征图位置。</p>
+</li>
+<li>
+<p>目标："Want features for the box of a fixed size"（想要获得固定大小的特征表示）：</p>
+<ul>
+<li>在这个例子中是2×2大小</li>
+<li>在实际应用中通常是7×7或14×14</li>
+</ul>
+</li>
+</ul>
+<p>RoI Pool的关键作用是：</p>
+<ul>
+<li>将不同大小的候选区域统一转换为固定大小的特征表示</li>
+<li>这样后续的全连接层就可以处理固定维度的输入</li>
+<li>大大提高了计算效率，因为整个图像只需要通过CNN一次</li>
+</ul>
+<p>这种操作解决了R-CNN中每个区域都需要单独通过CNN的低效问题，是Fast R-CNN速度快的关键原因之一。</p>
+<h4 id="roi-align">ROI Align<a class="headerlink" href="#roi-align" title="Permanent link">&para;</a></h4>
+<p>RoI Align是对RoI Pool的改进版本，主要解决了RoI Pool中的量化误差问题。</p>
+<ol>
+<li>
+<p><strong>无四舍五入操作</strong>：No snapping!，意味着RoI Align不像RoI Pool那样对区域坐标进行四舍五入，而是保留精确的浮点数位置。</p>
+</li>
+<li>
+<p><strong>双线性插值采样</strong>：在每个子区域中使用规则间隔的采样点，通过双线性插值(bilinear interpolation)来计算这些点的特征值,而不必进行四舍五入。</p>
+</li>
+<li>
+<p><strong>更精确的特征提取</strong>：图中右侧展示了如何计算一个采样点(x,y)的特征值：</p>
+</li>
+<li>找到该点周围的四个网格单元(如f6,5、f7,5、f6,6、f7,6)</li>
+<li>根据距离计算权重，进行加权平均</li>
+<li>例如：f6.5,5.8 = (f6,5 * 0.5 * 0.2) + (f7,5 * 0.5 * 0.2) + (f6,6 * 0.5 * 0.8) + (f7,6 * 0.5 * 0.8)</li>
+</ol>
+<figure>
+<img alt="" src="../img/lec13-13.png" width="400" />
+<img alt="" src="../img/lec13-14.png" width="400" />
+</figure>
+<ul>
+<li><strong>避免了量化误差</strong>：不再强制将浮点坐标四舍五入到整数位置</li>
+<li><strong>保留了更多空间信息</strong>：通过插值计算特征值，而不是直接max pooling</li>
+<li><strong>提高了检测精度</strong>：特别是对小物体和需要精确定位的任务效果明显</li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>当我们有一个特征图和一个感兴趣区域(RoI)时，需要从特征图中提取该区域的特征，并将其转换为固定大小（例如7×7）。</p>
+<p>第1步：映射RoI到特征图</p>
+<ul>
+<li>假设原始图像中有一个物体边界框（例如左上角坐标为(20,30)，右下角为(180,240)）</li>
+<li>由于图像经过CNN后特征图变小了（比如缩小了16倍），这个边界框在特征图上的坐标变为：(1.25, 1.875)到(11.25, 15)</li>
+<li><strong>注意</strong> : RoI Pool会将这些坐标四舍五入为整数，而RoI Align保留精确的浮点数坐标</li>
+</ul>
+<p>第2步：将RoI划分为固定数量的子区域</p>
+<ul>
+<li>假设我们要得到7×7大小的特征表示</li>
+<li>则将RoI在特征图上对应的区域均匀分成7×7=49个小格子</li>
+<li>每个小格子在特征图上可能不是整数大小（例如宽1.428，高1.875）</li>
+</ul>
+<p>第3步：在每个子区域内放置采样点</p>
+<ul>
+<li>在每个小格子内部放置一组规则间隔的采样点（通常是2×2或3×3个点）</li>
+<li>例如：一个小格子内放置4个采样点，它们的位置也是精确的浮点数坐标</li>
+</ul>
+<p>第4步：对每个采样点进行双线性插值</p>
+<ul>
+<li>每个采样点的坐标通常落在特征图的"像素网格"之间</li>
+<li>找出该采样点周围的4个特征图像素（如上图中的f6,5, f7,5, f6,6, f7,6）</li>
+<li>根据采样点到这4个像素的距离计算权重</li>
+<li>用这些权重对4个像素的特征值进行加权平均</li>
+</ul>
+<p>举个具体例子：</p>
+<ul>
+<li>采样点坐标为(6.5, 5.8)</li>
+<li>它周围的4个特征图像素坐标为(6,5), (7,5), (6,6), (7,6)</li>
+<li>计算水平和垂直方向的权重：</li>
+<li>水平距离：|6.5-6|=0.5和|6.5-7|=0.5</li>
+<li>垂直距离：|5.8-5|=0.8和|5.8-6|=0.2</li>
+<li>
+<p>最终特征值计算：</p>
+</li>
+<li>
+<p>f6.5,5.8 = (f6,5×0.5×0.2) + (f7,5×0.5×0.2) + (f6,6×0.5×0.8) + (f7,6×0.5×0.8)</p>
+</li>
+</ul>
+<p>第5步：聚合采样点特征</p>
+<ul>
+<li>计算完每个小格子内所有采样点的特征值后</li>
+<li>对这些采样点进行聚合（通常是取平均值或最大值）</li>
+<li>得到该小格子的最终特征值</li>
+</ul>
+<p>第6步：生成最终特征表示</p>
+<ul>
+<li>49个小格子分别得到一个特征值</li>
+<li>组合起来形成7×7大小的特征表示</li>
+<li>这个固定大小的特征表示会传递给后续网络进行分类、回归等任务</li>
+</ul>
+<p>RoI Align的核心创新就是在第4步，通过精确计算保留了更多的空间信息，避免了RoI Pool中的量化误差。</p>
+</details>
+<h3 id="faster-r-cnn">Faster R-CNN<a class="headerlink" href="#faster-r-cnn" title="Permanent link">&para;</a></h3>
+<p>有了Fast R-CNN后，限制时间的主要因素就在于Region Proposal，所以Faster R-CNN的提出就是为了解决这个问题。</p>
+<figure>
+<img alt="" src="../img/lec13-15.png" />
+
+<figcaption>Faster R-CNN架构</figcaption>
+</figure>
+<p>其创新点在于插入了一个RPN(Region Proposal Network)，用于生成Region Proposal。</p>
+<ul>
+<li>输入图像首先通过CNN骨干网络(如VGG、ResNet)进行处理</li>
+<li>
+<p>生成特征图(feature map)，包含了图像的高级特征表示</p>
+</li>
+<li>
+<p>特征图被送入区域提议网络(RPN)</p>
+</li>
+<li>RPN是一个小型的卷积神经网络，直接在特征图上滑动窗口</li>
+<li>
+<p>对于特征图上的每个位置，RPN预测：</p>
+<ul>
+<li>是否包含物体(二分类：前景/背景)</li>
+<li>多个不同尺寸和比例的边界框(称为"锚点框"，anchors)</li>
+<li>每个边界框的调整量(位置微调)</li>
+</ul>
+</li>
+<li>
+<p>应用非极大值抑制(NMS)筛选出最佳的区域提议</p>
+</li>
+<li>
+<p>将RPN生成的区域提议映射回特征图上</p>
+</li>
+<li>
+<p>使用RoI Pooling(或改进版RoI Align)将不同大小的区域转换为固定大小的特征表示</p>
+</li>
+<li>
+<p>这些固定大小的RoI特征通过两个并行的全连接层网络：</p>
+<ul>
+<li>分类网络：预测每个区域的物体类别(Classification loss)</li>
+<li>回归网络：进一步精细调整边界框位置(Bounding-box regression loss)</li>
+</ul>
+</li>
+<li>
+<p>应用NMS去除重复检测</p>
+</li>
+<li>生成最终的检测结果：物体类别和精确边界框</li>
+</ul>
+<p>与Fast R-CNN相比，Faster R-CNN将整个检测流程变成了一个完全可学习的端到端系统，大幅提高了检测速度和准确性。</p>
+<h4 id="rpn">RPN<a class="headerlink" href="#rpn" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-16.png" />
+
+<figcaption>RPN的工作流程</figcaption>
+</figure>
+<p>RPN的工作流程如下：</p>
+<ol>
+<li>
+<p>特征提取</p>
+<ul>
+<li>输入图像（例如3×640×480大小的猫咪图片）首先通过骨干CNN网络处理</li>
+<li>生成与输入图像对齐的特征图（例如512×5×6，其中512是特征通道数）</li>
+<li>特征图上的每个点对应原始输入图像上的一个区域</li>
+</ul>
+</li>
+<li>
+<p>锚点机制</p>
+<ul>
+<li>在特征图的每个位置上，生成多个预定义的边界框，称为"锚点"(anchors),在特征图上是一个点，对应到原图上感受野的中心点，然后生成多个不同尺寸和比例的边界框</li>
+<li>这些锚点有不同的尺寸和比例，以适应不同大小的物体</li>
+<li>图中没有直接显示，但通常每个位置会有k个锚点（比如k=9，3种尺寸×3种比例）</li>
+</ul>
+</li>
+<li>
+<p>锚点二分类</p>
+<ul>
+<li>使用卷积层对特征图进行处理（512个输入通道，2个输出通道）</li>
+<li>对每个锚点进行二分类：</li>
+<li>正样本（绿色）：可能包含物体的锚点</li>
+<li>负样本（红色）：不包含物体的锚点</li>
+<li>输出维度为2×5×6×k（k为每个位置的锚点数）</li>
+</ul>
+</li>
+<li>
+<p>锚点位置调整</p>
+<ul>
+<li>虽然图中没有明确显示，但RPN还包括一个边界框回归部分：</li>
+<li>对于每个锚点，预测位置调整量（中心点坐标x、y和宽高w、h的调整值）</li>
+<li>这部分通常是另一个卷积层，输出维度为4×5×6×k（每个锚点4个回归值）</li>
+</ul>
+</li>
+</ol>
+<p>在训练过程中，还需要根据生成的锚点框分类成</p>
+<ul>
+<li>Positive: 与GT box的IoU&gt;0.7，这样锚点框与GT box的IOU越大，表示越可能包含物体</li>
+<li>Negative: 与GT box的IoU&lt;0.3，这样锚点框与GT box的IOU越小，表示越不可能包含物体</li>
+<li>中性样本（Neutral）：IoU在0.3到0.7之间的锚点框，通常在训练中被忽略</li>
+</ul>
+<p>对于正样本锚点框，网络会同时学习分类（前景/背景）和边界框回归（位置调整）。
+而对于负样本锚点框，网络只学习分类任务（将其识别为背景），不监督其位置变换，因为这些区域不包含需要精确定位的物体。</p>
+<h3 id="dealing-with-scale">Dealing with Scale<a class="headerlink" href="#dealing-with-scale" title="Permanent link">&para;</a></h3>
+<p>我们需处理不同尺度的物体，如何增加detector的尺度不变性呢？</p>
+<h4 id="image-pyramid">Image Pyramid<a class="headerlink" href="#image-pyramid" title="Permanent link">&para;</a></h4>
+<p>图像金字塔(Image Pyramid)是处理不同尺度物体检测的经典方法。其基本思想是：</p>
+<ul>
+<li>将输入图像调整为多个不同尺度（大小）的版本，形成一个"金字塔"</li>
+<li>对每个尺度的图像独立运行物体检测器</li>
+<li>合并来自不同尺度的检测结果</li>
+</ul>
+<figure>
+
+<img alt="" src="../img/lec13-17.png" />
+
+</figure>
+<p>这种方法的主要优点是：</p>
+<ul>
+<li>简单直观，容易实现</li>
+<li>可以检测到不同大小的物体，特别是非常小的物体</li>
+<li>与任何物体检测算法兼容</li>
+</ul>
+<p>然而，图像金字塔也存在明显的缺点：</p>
+<ul>
+<li>计算成本高昂：需要对每个尺度的图像独立运行完整的检测流程</li>
+<li>不同尺度之间没有共享计算，导致大量冗余计算</li>
+<li>内存消耗大：需要存储多个尺度的图像和中间特征</li>
+<li>推理速度慢：处理时间与金字塔层数成正比</li>
+</ul>
+<p>这些缺点限制了图像金字塔在需要实时性能的应用中的使用，尤其是在计算资源有限的设备上。</p>
+<h4 id="multi-scale-features">Multi-Scale Features<a class="headerlink" href="#multi-scale-features" title="Permanent link">&para;</a></h4>
+<p>多尺度特征(Multi-Scale Features)是解决不同尺度物体检测的另一种方法，利用CNN网络内部不同层级的特征图进行检测。</p>
+<p>基本思想是：</p>
+<ul>
+<li>CNN网络有多个阶段(stages)，每个阶段的特征图分辨率不同</li>
+<li>较浅层(early stages)的特征图分辨率高，包含更多空间细节，适合检测小物体</li>
+<li>较深层(later stages)的特征图分辨率低，但包含更抽象的语义信息，适合检测大物体</li>
+<li>在多个不同分辨率的特征图上分别进行物体检测</li>
+</ul>
+<figure>
+
+<img alt="" src="../img/lec13-18.png" />
+
+</figure>
+<p>如图所示，一个典型的多尺度特征检测系统包括：</p>
+<ul>
+<li>输入图像(例如224×224大小)经过CNN网络的几个阶段处理</li>
+<li>从不同阶段提取特征图：</li>
+<li>Stage 2：产生56×56大小的特征图</li>
+<li>Stage 3：产生28×28大小的特征图</li>
+<li>Stage 4：产生14×14大小的特征图</li>
+<li>Stage 5：产生7×7大小的特征图</li>
+<li>对每个特征图使用独立的物体检测器</li>
+</ul>
+<p>这种方法的主要优点：</p>
+<ul>
+<li>计算效率高：只需要处理一次输入图像</li>
+<li>特征复用：不同尺度的检测共享早期计算结果</li>
+<li>适应性强：可以处理不同尺度的物体</li>
+</ul>
+<p>但也存在一些问题：</p>
+<ul>
+<li>检测器问题：在早期特征上的检测器无法利用整个backbone网络，无法访问高层次的语义特征</li>
+<li>特征不平衡：不同层级的特征具有不同的语义信息和分辨率，可能导致检测性能不一致</li>
+</ul>
+<p>为了解决这些问题，研究人员提出了特征金字塔网络(Feature Pyramid Network, FPN)等改进方法，通过自顶向下的路径和横向连接，将高层次语义信息融合到所有尺度的特征图中。</p>
+<h4 id="feature-pyramid-network">Feature Pyramid Network<a class="headerlink" href="#feature-pyramid-network" title="Permanent link">&para;</a></h4>
+<p>特征金字塔网络(Feature Pyramid Network, FPN)是解决多尺度物体检测问题的另一种方法，通过自顶向下的路径和横向连接，将高层次语义信息融合到所有尺度的特征图中。</p>
+<figure>
+<img alt="" src="../img/lec13-19.png" />
+
+<figcaption>特征金字塔网络架构</figcaption>
+</figure>
+<p>FPN的设计理念是结合了图像金字塔和多尺度特征的优点，同时克服了它们的缺点。主要组成部分包括：</p>
+<ol>
+<li>
+<p><strong>自底向上路径(Bottom-up Pathway)</strong></p>
+<ul>
+<li>这就是CNN骨干网络的前向传播</li>
+<li>从输入图像开始，通过卷积、池化等操作逐渐减小特征图尺寸</li>
+<li>生成不同分辨率的特征图(如上图中C2、C3、C4、C5)</li>
+</ul>
+</li>
+<li>
+<p><strong>自顶向下路径(Top-down Pathway)</strong></p>
+<ul>
+<li>从最高层(最小分辨率)的特征图开始</li>
+<li>通过上采样(通常是2倍放大)将特征图的空间尺寸逐步恢复</li>
+<li>生成与自底向上路径相同分辨率的特征图(P5、P4、P3、P2)</li>
+</ul>
+</li>
+<li>
+<p><strong>横向连接(Lateral Connections)</strong></p>
+</li>
+<li>将自底向上路径的特征图与上采样的特征图相连接</li>
+<li>通过1×1卷积调整通道数，使其匹配</li>
+<li>通过元素级加法融合两种特征，结合了高层语义信息和低层空间细节</li>
+</ol>
+<p>FPN的主要优势：</p>
+<ul>
+<li><strong>丰富的特征表示</strong>：每个尺度的特征图都包含了高级语义信息和适当的空间细节</li>
+<li><strong>计算效率</strong>：只需要处理一次输入图像，比图像金字塔高效得多</li>
+<li><strong>检测性能</strong>：各尺度的物体检测性能更一致，小物体的检测精度显著提升</li>
+<li><strong>通用性</strong>：可以与多种物体检测框架(如Faster R-CNN、RetinaNet等)结合使用</li>
+</ul>
+<p>在实际应用中，通常在P2-P5这四个特征图上分别运行RPN和检测器，然后合并结果。相比于单一尺度的特征图，FPN显著提高了物体检测的准确率，特别是对于小物体的检测。</p>
+<h3 id="single-stage-detectors">Single-Stage Detectors<a class="headerlink" href="#single-stage-detectors" title="Permanent link">&para;</a></h3>
+<p>上述介绍的R-CNN系列方法都是双阶段检测器，需要先生成候选区域，再进行分类和位置回归。而单阶段检测器则直接在图像上进行检测，跳过了区域提议这一步骤。</p>
+<h4 id="yolo-you-only-look-once">YOLO (You Only Look Once)<a class="headerlink" href="#yolo-you-only-look-once" title="Permanent link">&para;</a></h4>
+<p>YOLO是一种快速、准确的单阶段物体检测算法，由Joseph Redmon等人于2016年提出。其核心思想是将物体检测视为一个直接从图像像素到边界框坐标和类别概率的回归问题。</p>
+<ol>
+<li>
+<p><strong>网格划分</strong>：</p>
+</li>
+<li>
+<p>将输入图像划分为S×S个网格</p>
+</li>
+<li>
+<p>在原始YOLO中，通常S=7，即7×7=49个网格</p>
+</li>
+<li>
+<p><strong>预测</strong>：对于每个网格，预测：</p>
+</li>
+<li>
+<p>B个边界框(每个框包含5个值：x, y, w, h, confidence)</p>
+</li>
+<li>C个类别的条件概率</li>
+<li>
+<p>每个网格的输出维度为B×5+C</p>
+</li>
+<li>
+<p><strong>置信度评分</strong>：</p>
+</li>
+<li>
+<p>每个边界框有一个置信度分数：Pr(Object)×IoU</p>
+</li>
+<li>Pr(Object)：表示框中是否包含物体</li>
+<li>
+<p>IoU：如果包含物体，表示预测框与真实框的重叠程度</p>
+</li>
+<li>
+<p><strong>后处理</strong>：</p>
+</li>
+<li>
+<p>过滤低置信度的预测框</p>
+</li>
+<li>应用非极大值抑制(NMS)去除重复检测</li>
+<li>输出最终的检测结果</li>
+</ol>
+<p>YOLO的主要优点：</p>
+<ul>
+<li><strong>速度快</strong>：在强大的GPU上可以达到45-155 FPS的实时性能</li>
+<li><strong>全局推理</strong>：在预测时考虑整个图像的上下文，减少了背景错误</li>
+<li><strong>可泛化能力强</strong>：学到的表示更具泛化性，在新领域或不常见情景中表现更好</li>
+<li><strong>端到端训练</strong>：可以直接优化检测性能</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><strong>空间约束</strong>：由于每个网格只能预测有限数量的边界框，对于密集物体的检测性能有限</li>
+<li><strong>小物体检测性能较弱</strong>：特别是当多个小物体聚集在一个网格内时</li>
+<li><strong>分类精度略低于双阶段检测器</strong>：在某些基准测试上</li>
+</ul>
+<p>YOLO后来有多个改进版本，包括YOLOv2、YOLOv3、YOLOv4等，不断提升了检测精度和速度.</p>
+<h2 id="image-segmentation">Image Segmentation<a class="headerlink" href="#image-segmentation" title="Permanent link">&para;</a></h2>
+<p>图像分割(Image Segmentation)是计算机视觉领域的一个重要任务，旨在将图像中的每个像素分类为不同的语义类别，如物体、背景等。</p>
+<h3 id="semantic-segmentation">Semantic Segmentation<a class="headerlink" href="#semantic-segmentation" title="Permanent link">&para;</a></h3>
+<p>语义分割(Semantic Segmentation)是图像分割的一种形式，旨在将图像中的每个像素分类为不同的语义类别，如物体、背景等。</p>
+<figure>
+<img alt="" src="../img/lec13-20.png" />
+
+<figcaption>语义分割</figcaption>
+</figure>
+<p>但是这个并不区分每种类别的具体个数；</p>
+<h4 id="sliding-window_1">Sliding Window<a class="headerlink" href="#sliding-window_1" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-21.png" />
+
+<figcaption>Sliding Window</figcaption>
+</figure>
+<p>仍然可以通过滑动窗口的方式，来检测每个像素的类别，但是这样会存在大量的冗余计算</p>
+<h4 id="convolutional-neural-network">Convolutional Neural Network<a class="headerlink" href="#convolutional-neural-network" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-22.png" />
+
+<figcaption>Convolutional Neural Network</figcaption>
+</figure>
+<p>全卷积网络(Fully Convolutional Network, FCN)是一种端到端的语义分割方法，它可以一次性对整张图片进行像素级的分类预测。</p>
+<p><strong>网络结构</strong>：</p>
+<ol>
+<li>
+<p><strong>输入层</strong>：</p>
+<ul>
+<li>输入是一张 3×H×W 的图片（3个颜色通道，高度H，宽度W）</li>
+</ul>
+</li>
+<li>
+<p><strong>卷积层</strong>：</p>
+<ul>
+<li>包含多个连续的卷积层</li>
+<li>每层输出特征图大小为 D×H×W（D是特征通道数）</li>
+</ul>
+</li>
+<li>
+<p><strong>输出层</strong>：</p>
+<ul>
+<li>最后通过argmax得到每个像素的类别预测</li>
+<li>输出大小为 H×W，每个位置的值表示对应像素的类别</li>
+</ul>
+</li>
+</ol>
+<p><strong>工作原理</strong>：</p>
+<ul>
+<li>网络完全由卷积层组成，没有全连接层</li>
+<li>保持空间信息，实现像素级的预测</li>
+<li>对整张图片一次性进行预测，而不是逐像素滑动窗口</li>
+<li>最终输出与输入图像具有相同的空间尺寸</li>
+</ul>
+<p><strong>损失函数</strong>：</p>
+<ul>
+<li>使用逐像素的交叉熵损失（Per-Pixel cross-entropy）</li>
+<li>每个像素位置都有一个分类任务</li>
+<li>将所有像素位置的损失加总得到总体损失</li>
+</ul>
+<p>这种方法相比传统的滑动窗口方法更加高效，因为它可以一次性对整张图片进行预测，而不需要重复计算重叠区域。同时，由于网络是全卷积的，它可以自然地保持图像的空间信息，这对于语义分割任务来说是非常重要的。</p>
+<p>但是也有缺点：</p>
+<p><strong>1. 感受野问题</strong>：</p>
+<ul>
+<li>有效感受野的大小与卷积层数呈线性关系</li>
+<li>使用L个3×3的卷积层，感受野大小为1+2L</li>
+<li>需要很多层才能获得较大的感受野，从而捕获更大范围的上下文信息</li>
+</ul>
+<p><strong>2. 高分辨率图像的计算开销</strong>：</p>
+<ul>
+<li>对高分辨率图像进行卷积运算的计算成本很高</li>
+<li>ResNet等网络通常会积极地进行下采样以减少计算量</li>
+<li>但这可能导致空间细节信息的丢失</li>
+</ul>
+<h4 id="downsampling-and-upsampling">Downsampling and Upsampling<a class="headerlink" href="#downsampling-and-upsampling" title="Permanent link">&para;</a></h4>
+<p>为了解决上述问题，我们可以使用下采样(Downsampling)和上采样(Upsampling)来解决：</p>
+<figure>
+<img alt="" src="../img/lec13-23.png" />
+
+<figcaption>Downsampling and Upsampling</figcaption>
+</figure>
+<p><strong>网络结构设计</strong>：</p>
+<p>下采样阶段：</p>
+<ul>
+<li>输入：3×H×W的原始图像</li>
+<li>通过池化或步长卷积进行下采样</li>
+<li>逐步减小特征图的空间尺寸：</li>
+<li>High-res: <span class="arithmatex">\(D_1×H/2×W/2\)</span></li>
+<li>Med-res: <span class="arithmatex">\(D_2×H/4×W/4\)</span></li>
+<li>Low-res: <span class="arithmatex">\(D_3×H/4×W/4\)</span></li>
+</ul>
+<p>上采样阶段：</p>
+<ul>
+<li>从低分辨率特征图开始</li>
+<li>通过上采样操作逐步恢复空间分辨率</li>
+<li>最终输出H×W大小的预测图</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>下采样减少了特征图的空间维度，显著降低计算量</li>
+<li>在较低分辨率下进行主要的特征处理</li>
+<li>下采样使得网络能够用较少的层数获得更大的感受野</li>
+<li>有助于捕获更大范围的上下文信息</li>
+<li>网络同时具有高分辨率的细节信息和低分辨率的语义信息</li>
+<li>通过上采样过程将不同尺度的信息进行融合</li>
+</ul>
+<p>下采样可以通过池化层或步长卷积来实现</p>
+<p>上采样主要有两种方法</p>
+<h4 id="unpooling">Unpooling<a class="headerlink" href="#unpooling" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-24.png" />
+
+<figcaption>Unpooling</figcaption>
+</figure>
+<p>Bed of Nails方法，将周围值设置为0即可；</p>
+<p>Nearest Neighbor方法，将周围值设置为最近的一个值；</p>
+<h4 id="bilinear-interpolation">Bilinear Interpolation<a class="headerlink" href="#bilinear-interpolation" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-25.png" />
+
+<figcaption>Bilinear Interpolation</figcaption>
+</figure>
+<ul>
+<li>对于输出特征图中的每个位置(x,y)</li>
+<li>找到输入特征图中最近的四个点</li>
+<li>基于相对距离计算权重</li>
+<li>使用这些权重对四个点的值进行加权平均</li>
+</ul>
+<p>相比Bed of Nails和Nearest Neighbor方法，双线性插值能够产生更平滑的上采样结果，这对于语义分割等需要精细空间信息的任务特别重要。</p>
+<h4 id="bicubic-interpolation">Bicubic Interpolation<a class="headerlink" href="#bicubic-interpolation" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-26.png" />
+
+<figcaption>Bicubic Interpolation</figcaption>
+</figure>
+<p>双三次插值是一种更高级的插值方法，它使用x和y方向上最近的三个邻居来构建三次近似。这是图像处理中最常用的调整大小方法。</p>
+<ul>
+<li>在x和y方向上分别使用三个最近的邻居点</li>
+<li>构建三次多项式函数进行插值</li>
+<li>考虑更大范围的像素信息来生成新值</li>
+</ul>
+<p>这种方法虽然计算量较大，但在图像处理和计算机视觉任务中经常被使用，因为它能够提供更高质量的插值结果。</p>
+<h4 id="max-unpooling">Max Unpooling<a class="headerlink" href="#max-unpooling" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-27.png" />
+
+<figcaption>Max Unpooling</figcaption>
+</figure>
+<p>Max Unpooling是一种特殊的上采样方法，它与Max Pooling（最大池化）操作相对应。这种方法的特点是需要在下采样时记住最大值的位置，然后在上采样时将值放回原来的位置。</p>
+<p><strong>Max Pooling阶段</strong>：</p>
+<ul>
+<li>对输入特征图进行最大池化操作</li>
+<li>记录每个池化窗口中最大值的位置（switch variables）</li>
+<li>如图所示，4×4的输入经过池化后变为2×2</li>
+<li>同时保存了最大值的具体位置信息</li>
+</ul>
+<p><strong>Max Unpooling阶段</strong>：</p>
+<ul>
+<li>使用保存的位置信息（switch variables）</li>
+<li>将池化后的值放回原来的位置</li>
+<li>其他位置填充为0</li>
+<li>如图所示，2×2的特征图被还原为4×4</li>
+</ul>
+<p>输入特征图中值5被选为最大值，位置信息被记录，在反池化时，值5被放回原来的确切位置，未被选为最大值的位置填充为0，这样保证了重要特征的精确位置信息不会丢失</p>
+<p>这样的方法，保留了精确的空间位置信息，特征的定位更加准确，适合需要精确重建的任务，与最大池化层自然配对</p>
+<h4 id="transposed-convolution">Transposed Convolution<a class="headerlink" href="#transposed-convolution" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec13-28.png" />
+
+<figcaption>Transposed Convolution</figcaption>
+</figure>
+<p>转置卷积(Transposed Convolution)，也称为反卷积(Deconvolution)，是一种用于上采样的卷积操作。</p>
+<p>其基本过程如下：</p>
+<p>例如，输入是2×2的特征图，卷积核是3×3，步幅为2，填充为0，输出是4×4的特征图。</p>
+<p>将输入特征图对应位置的值与卷积核相乘，得到一个3×3的特征图，然后将其中心点作为输出图的第一个位置，然后依次进行，每次前进的步幅为2，对于重叠的部分，取相加；</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><figure markdown="span">
+<img alt="" src="../img/lec13-29.png" />
+<figcaption>Example</figcaption>
+</figure></p>
+<p>首先，将a与卷积核相乘，得到第一部分，将b与卷积核相乘，得到第二部分，两部分放到对应的位置上，然后重叠的部分进行相加；</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Transposed Convolution</p>
+<p>为什么叫做转置卷积呢？</p>
+<p>我们可以将卷积操作表示为矩阵乘法：</p>
+<ol>
+<li>
+<p><strong>普通卷积</strong>：</p>
+</li>
+<li>
+<p>可以表示为 <span class="arithmatex">\(\vec{x} * \vec{a} = X\vec{a}\)</span></p>
+</li>
+<li>a是输入，X是卷积核</li>
+<li>
+<p>例如，当步长为1时：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[x y z 0 0 0][a]   [ay + bz    ]
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>[0 x y z 0 0][b] = [ax + by + cz]
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>[0 0 x y z 0][c]   [bx + cy + dz]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>[0 0 0 x y z][d]   [cx + dy    ]
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>转置卷积</strong>：</p>
+</li>
+<li>
+<p>表示为 <span class="arithmatex">\(\vec{x} *^T \vec{a} = X^T\vec{a}\)</span></p>
+</li>
+<li>使用了原卷积矩阵的转置</li>
+<li>当步长为1时，就是普通卷积（但padding规则不同）
+   例如上面的转置卷积为
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[x 0 0 0]
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[y x 0 0][a]
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[z y x 0][b]
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[0 z y x][c]
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[0 0 z y][d]
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>[0 0 0 z]
+</span></code></pre></div>
+当步长大于1时，就不能使用普通的卷积来表示它了</li>
+</ol>
+<p><figure markdown="span">
+<img alt="" src="../img/lec13-30.png" width="500" />
+<figcaption>Example</figcaption>
+</figure></p>
+</div>
+<h4 id="things-and-stuff">Things and stuff<a class="headerlink" href="#things-and-stuff" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Things: 物体，有明确的边界，例如人、车、动物等</li>
+<li>Stuff: 背景，没有明确的边界，例如天空、草地、墙壁等</li>
+</ul>
+<p>在object detection中，我们通常需要区分things和stuff，但是只会把box给到things而不是stuff；</p>
+<p>在semantic segmentation中，我们通常需要区分things和stuff，同时关注这两个部分；</p>
+<h3 id="instance-segmentation">Instance Segmentation<a class="headerlink" href="#instance-segmentation" title="Permanent link">&para;</a></h3>
+<p>实例分割(Instance Segmentation)是图像分割的一种形式，旨在将图像中的每个像素分类为不同的语义类别，如物体、背景等。</p>
+<figure>
+<img alt="" src="../img/lec13-31.png" />
+
+<figcaption>Instance Segmentation</figcaption>
+</figure>
+<h4 id="mask-r-cnn">Mask R-CNN<a class="headerlink" href="#mask-r-cnn" title="Permanent link">&para;</a></h4>
+<p>Mask R-CNN是在Faster R-CNN的基础上扩展出来的实例分割模型，它不仅可以检测出物体的位置和类别，还能生成每个物体的像素级掩码（mask）。</p>
+<p>即在最后会输出：</p>
+<ul>
+<li><strong>分类分支</strong>：预测物体类别（Classification Scores: C）</li>
+<li><strong>边界框分支</strong>：预测边界框坐标（Box coordinates per class: 4×C）</li>
+<li><strong>掩码分支</strong>：为每个类别预测二值掩码（Mask Prediction: C×28×28）</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec13-32.png" />
+
+<figcaption>Mask R-CNN架构示意图</figcaption>
+</figure>
+<p>其工作流程如下</p>
+<figure>
+<img alt="" src="../img/lec13-33.png" />
+
+<figcaption>Mask R-CNN工作流程</figcaption>
+</figure>
+<p>即再输出了box和class之后，还会输出mask，共有C个通道，每个通道对应一个物体的mask，每个mask的大小为H×W，即与原图的大小相同；即在某个像素中，如果属于物体A的通道的值比较高，那么这个像素被归于物体A；</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../lec11_12/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Software in CV">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Software in CV
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lec16/" class="md-footer__link md-footer__link--next" aria-label="下一页: Recurrent Neural Networks">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Recurrent Neural Networks
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../js/print-site.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="../../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../../javascripts/card.js"></script>
+      
+        <script src="../../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

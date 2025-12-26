@@ -1,0 +1,3526 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/CS/TMS/overview-and-shell/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../shell-tools-and-scripts/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>概览与shell - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview-and-shell" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              概览与shell
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missing Semester (TMS)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概览与shell
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概览与shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#echo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        echo 命令
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境变量(PATH)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename-move-and-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rename move and delete
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重定向
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="重定向">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Find">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通配符查找
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课后习题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="课后习题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell-tools-and-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    shell工具与脚本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-wrangling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-line-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行环境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugging-and-profiling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试与性能分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metaprogramming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    元编程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-and-cryptography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安全和密码学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miscellaneous/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大杂烩
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#echo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        echo 命令
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境变量(PATH)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename-move-and-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rename move and delete
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重定向
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="重定向">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Find">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通配符查找
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        课后习题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="课后习题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    💻 自学笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Missing Semester (TMS)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="overview-and-shell">Overview and Shell<a class="headerlink" href="#overview-and-shell" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 4604 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 111 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 3 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 17 分钟</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">什么是终端和shell</p>
+<p>终端（Terminal）是用户与计算机系统交互的界面。它可以是一个物理设备，如早期的计算机终端，也可以是一个软件应用程序，如现代操作系统中的终端仿真器。通过终端，用户可以输入命令并查看计算机的输出。终端通常用于执行命令行操作，进行文件管理、系统配置和程序运行等任务。</p>
+<p>Shell 是一种命令行解释器，它提供了一个用户与操作系统内核交互的界面。用户在终端中输入的命令会被 Shell 解释并传递给操作系统执行。Shell 还提供了编程功能，如变量、控制结构和脚本编写，使用户能够编写复杂的自动化任务。</p>
+<p>常见的 Shell 包括：</p>
+<ul>
+<li>Bash（Bourne Again Shell）：大多数 Linux 发行版的默认 Shell。</li>
+<li>Zsh（Z Shell）：功能强大且可定制的 Shell，近年来越来越受欢迎。</li>
+<li>Fish（Friendly Interactive Shell）：用户友好的 Shell，提供了许多现代特性。</li>
+</ul>
+<p>Shell 是用户与操作系统之间的重要桥梁，通过它，用户可以高效地管理和控制计算机系统。</p>
+</div>
+<p>如果某些命令不记得了，可以使用<code>man</code>命令查看帮助文档，或者安装<code>tldr</code>命令查看简化的帮助文档</p>
+<h2 id="echo">echo 命令<a class="headerlink" href="#echo" title="Permanent link">&para;</a></h2>
+<p><code>echo</code> 命令用于在终端中显示一段文本或变量的值。它是一个非常基础且常用的命令，常用于脚本编写和调试。</p>
+<p>基本语法：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">echo</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>字符串<span class="o">]</span>
+</span></code></pre></div></p>
+<p>常用选项：
+- <code>-n</code>：不在输出的末尾添加换行符。
+- <code>-e</code>：启用反斜杠转义字符的解释。</p>
+<p>示例：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello, World!&quot;</span>
+</span></code></pre></div></p>
+<p>输出：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Hello,<span class="w"> </span>World!
+</span></code></pre></div></p>
+<p>使用 <code>-n</code> 选项：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;Hello, World!&quot;</span>
+</span></code></pre></div></p>
+<p>输出：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Hello,<span class="w"> </span>World!（没有换行）
+</span></code></pre></div></p>
+<p>使用 <code>-e</code> 选项：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Hello,\nWorld!&quot;</span>
+</span></code></pre></div></p>
+<p>输出：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Hello,
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>World!
+</span></code></pre></div></p>
+<p>参数之间使用空格分开</p>
+<h2 id="path">环境变量(PATH)<a class="headerlink" href="#path" title="Permanent link">&para;</a></h2>
+<p>环境变量是操作系统中用于存储系统设置和配置信息的变量。它们在操作系统和应用程序之间传递信息，控制程序的行为和运行环境。环境变量通常以键值对的形式存在，每个变量都有一个名称和一个对应的值。</p>
+<p>更通俗的说，当我们在终端里面输入命令时, 操作系统会根据 <code>PATH</code> 变量中定义的目录顺序搜索该命令对应的可执行文件，如果可以找到，则执行该文件。</p>
+<p>要想输出自己的环境变量，可以使用 <code>echo</code> 命令，例如：
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+</span></code></pre></div></p>
+<p>会返回绝对路径</p>
+<details class="question">
+<summary>路径</summary>
+<p>绝对路径就是完全确定文件位置的路径</p>
+<p>相对路径是相对于当前工作目录的路径</p>
+<p><code>.</code> 表示当前目录</p>
+<p><code>..</code> 表示上一级目录</p>
+<p><code>~</code> 表示当前用户的主目录</p>
+<p>输入 <code>pwd</code> 可以查看当前工作目录</p>
+<p>输入 <code>ls</code> 可以查看当前目录下的文件</p>
+<p>输入 <code>cd</code> 可以切换目录(<code>cd 目录名</code>)</p>
+</details>
+<p>在Linux中，路径通常以 <code>/</code> 开头，表示根目录。</p>
+<p>在windows中，路径通常以 <code>盘符:\</code> 开头。</p>
+<p>因为在windows中每一个盘都代表一个文件系统，所以我们经常会看到 <code>C:\</code> 这样的路径。\</p>
+<p>例如</p>
+<pre class="mermaid"><code>graph TD;
+    C("C:\\") --&gt; ProgramFiles("C:\\Program Files");
+    C("C:\\") --&gt; Users("C:\\Users");
+    C("C:\\") --&gt; Windows("C:\\Windows");
+    D("D:\\") --&gt; Documents("D:\\Documents");
+    D("D:\\") --&gt; Downloads("D:\\Downloads");
+    E("E:\\") --&gt; Music("E:\\Music");
+    E("E:\\") --&gt; Videos("E:\\Videos");
+    F("F:\\") --&gt; Backup("F:\\Backup");
+    F("F:\\") --&gt; Projects("F:\\Projects");</code></pre>
+<p>而在Linux中，文件结构是树状的，所以路径通常以 <code>/</code> 开头，表示根目录。</p>
+<pre class="mermaid"><code>graph TD;
+    root("/") --&gt; bin("/bin");
+    root("/") --&gt; boot("/boot");
+    root("/") --&gt; dev("/dev");
+    root("/") --&gt; etc("/etc");
+    root("/") --&gt; home("/home");
+    root("/") --&gt; lib("/lib");
+    root("/") --&gt; media("/media");
+    root("/") --&gt; mnt("/mnt");
+    root("/") --&gt; opt("/opt");
+    root("/") --&gt; proc("/proc");
+    root("/") --&gt; run("/run");
+    root("/") --&gt; sbin("/sbin");
+    root("/") --&gt; srv("/srv");
+    root("/") --&gt; sys("/sys");
+    root("/") --&gt; tmp("/tmp");
+    root("/") --&gt; usr("/usr");
+    root("/") --&gt; var("/var");</code></pre>
+<p>如果想知道某条命令具体在哪个目录下，可以使用 <code>which</code> 命令，例如：
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>which<span class="w"> </span><span class="nb">cd</span>
+</span></code></pre></div>
+会返回
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cd:<span class="w"> </span>shell<span class="w"> </span>built-in<span class="w"> </span><span class="nb">command</span>
+</span></code></pre></div></p>
+<h2 id="cd">cd<a class="headerlink" href="#cd" title="Permanent link">&para;</a></h2>
+<p><code>cd</code> 命令是一个用于在终端中更改当前工作目录的命令。它是 "change directory" 的缩写。使用 <code>cd</code> 命令，用户可以在文件系统中导航到不同的目录。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span><span class="o">[</span>目录路径<span class="o">]</span>
+</span></code></pre></div>
+<ul>
+<li>如果不带参数，<code>cd</code> 会将当前目录更改为用户的主目录。</li>
+<li>使用 <code>cd ..</code> 可以返回到上一级目录。</li>
+<li>使用 <code>cd -</code> 可以返回到上一个工作目录。</li>
+</ul>
+<p>一些常见的用法有</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/directory
+</span></code></pre></div>
+<p>这将把当前工作目录更改为 <code>/path/to/directory</code>。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>../path/to/directory
+</span></code></pre></div>
+<p>这将把当前工作目录更改为上一级目录的上一级目录的指定目录。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cd</span><span class="w"> </span>./path
+</span></code></pre></div>
+<p>这将把当前工作目录更改为当前目录的指定目录</p>
+<ul>
+<li>路径可以是绝对路径或相对路径。</li>
+<li>在 Linux 和 macOS 中，路径区分大小写。</li>
+<li>使用 <code>pwd</code> 命令可以查看当前工作目录。</li>
+</ul>
+<p>通过 <code>cd</code> 命令，用户可以方便地在文件系统中导航，执行文件管理和其他操作。</p>
+<h2 id="ls">ls<a class="headerlink" href="#ls" title="Permanent link">&para;</a></h2>
+<p><code>ls</code> 命令是一个用于列出目录内容的命令。它是 "list" 的缩写。使用 <code>ls</code> 命令，用户可以查看指定目录下的文件和子目录。</p>
+<details class="question">
+<summary>folder vs directory</summary>
+<p>directory 是目录, 是文件系统中的一个概念, 而 folder 是文件夹, 是图形化界面中的一个概念，folder 不一定是directory，除非它存在于文件系统中，directory 也不一定显示为是 folder，只有它在GUI环境下才是</p>
+</details>
+<p>使用<code>ls --help</code>可以查看<code>ls</code>命令的帮助文档</p>
+<p>常用的参数有</p>
+<p><code>-a</code>：显示所有文件和目录，包括隐藏文件（以<code>.</code>开头的文件,即隐藏文件 ）。</p>
+<p><code>-l</code>：以长格式显示文件和目录。
+例如在本人的<code>~</code>目录下输入<code>ls -l</code>会返回
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>total<span class="w"> </span><span class="m">15596</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">      </span><span class="m">787</span><span class="w"> </span>Dec<span class="w"> </span><span class="m">24</span><span class="w">  </span><span class="m">2023</span><span class="w"> </span><span class="m">1</span>.txt
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">      </span><span class="m">334</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">4</span><span class="w">  </span><span class="m">2024</span><span class="w"> </span>Kailqq.txt
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>drwxr-xr-x<span class="w">  </span><span class="m">3</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">4096</span><span class="w"> </span>Sep<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">11</span>:07<span class="w"> </span>MASM
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>drwxr-xr-x<span class="w">  </span><span class="m">7</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">4096</span><span class="w"> </span>Feb<span class="w"> </span><span class="m">27</span><span class="w">  </span><span class="m">2024</span><span class="w"> </span>autojump
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">  </span><span class="m">2634817</span><span class="w"> </span>Feb<span class="w">  </span><span class="m">2</span><span class="w">  </span><span class="m">2024</span><span class="w"> </span>get-pip.py
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">6140</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w">  </span><span class="m">2015</span><span class="w"> </span>mysql-community-release-el7-5.noarch.rpm
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>drwxr-xr-x<span class="w"> </span><span class="m">10</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">23</span>:54<span class="w"> </span>node_modules
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>drwxr-xr-x<span class="w">  </span><span class="m">2</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">21</span><span class="w">  </span><span class="m">2024</span><span class="w"> </span>ok
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">3843</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">23</span>:58<span class="w"> </span>package-lock.json
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">      </span><span class="m">152</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">23</span>:58<span class="w"> </span>package.json
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">        </span><span class="m">0</span><span class="w"> </span>Feb<span class="w"> </span><span class="m">20</span><span class="w">  </span><span class="m">2024</span><span class="w"> </span>selected
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>drwx------<span class="w">  </span><span class="m">4</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">14</span>:25<span class="w"> </span>snap
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>drwxr-xr-x<span class="w">  </span><span class="m">4</span><span class="w"> </span>kailoveq<span class="w"> </span>kailoveq<span class="w">     </span><span class="m">4096</span><span class="w"> </span>May<span class="w"> </span><span class="m">18</span><span class="w">  </span><span class="m">2024</span><span class="w"> </span>texmf
+</span></code></pre></div>
+首先看<code>total 15596</code>，表示该目录下有15596个文件和子目录。</p>
+<p>然后看包含<code>-</code>的行，如果前面有<code>d</code>，表示该文件是一个目录，如果前面是<code>-</code>，表示这是一个文件</p>
+<p>除第一个外，还剩下九个位置,每三个位置为一组，分别表示对应的权限</p>
+<p>前三位表示文件所有者的权限，中间三位表示文件所有者所在组的权限，最后三位表示其他人的权限</p>
+<p>例如对于<code>texmf</code>,前三位为<code>rwx</code>，表示文件所有者有读、写、执行的权限，中间三位为<code>r-x</code>，表示文件所有者所在组有读、执行的权限，最后三位为<code>r-x</code>，表示其他人有读、执行的权限</p>
+<p>目前而言,在我的<code>home</code>目录下,所有者和组都是<code>kailoveq</code></p>
+<p>如果对于文件而言</p>
+<ul>
+<li><code>r</code>表示可读文件的内容</li>
+<li><code>w</code>表示可对文件进行修改</li>
+<li><code>x</code>表示可以执行文件</li>
+</ul>
+<p>如果对于目录而言
+- <code>r</code>表示可以读取目录中的文件列表
+- <code>w</code>表示是否可以对目录中的文件进行重命名或者删除,这说明,如果有对于目录内文件的<code>w</code>权限,但是没有对于目录的<code>w</code>权限,那么不能删除目录内的文件,仅仅可以清空目录
+- <code>x</code>表示是否可以进入目录</p>
+<h2 id="rename-move-and-delete">rename move and delete<a class="headerlink" href="#rename-move-and-delete" title="Permanent link">&para;</a></h2>
+<p><code>mv</code>命令用于移动文件或目录，也可以用于重命名文件或目录。</p>
+<p><code>cp</code>命令用于复制文件或目录。</p>
+<p><code>mv</code>命令的基本语法是</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mv<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>源文件<span class="w"> </span>目标文件/目录
+</span></code></pre></div>
+<p><code>cp</code>命令的基本语法是</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cp<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>源文件<span class="w"> </span>目标文件/目录
+</span></code></pre></div>
+<p>例如我想要将<code>1.txt</code>重命名为<code>2.txt</code>，那么我可以在终端中输入</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>mv<span class="w"> </span><span class="m">1</span>.txt<span class="w"> </span><span class="m">2</span>.txt
+</span></code></pre></div>
+<p>然后我想要将它移动<code>./dir1</code>目录下，那么我可以在终端中输入</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>mv<span class="w"> </span><span class="m">2</span>.txt<span class="w"> </span>./dir1
+</span></code></pre></div>
+<p>这会在<code>./dir1</code>目录下创建一个<code>2.txt</code>文件，并且将原本的<code>2.txt</code>删除，其内容会移动到<code>./dir1</code>目录下</p>
+<p>其效果等同于</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>cp<span class="w"> </span><span class="m">2</span>.txt<span class="w"> </span>./dir1
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>rm<span class="w"> </span><span class="m">2</span>.txt
+</span></code></pre></div>
+<p><code>rm</code>命令用于删除文件或目录,它并不支持递归删除,所以如果想要删除目录,需要使用<code>-r</code>选项</p>
+<p>删除文件时</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>rm<span class="w"> </span><span class="m">1</span>.txt
+</span></code></pre></div>
+<p>删除目录时</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rm<span class="w"> </span>-r<span class="w"> </span>./dir1
+</span></code></pre></div>
+<p>或者当目录为空时,可以使用<code>rmdir</code>命令</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>rmdir<span class="w"> </span>./dir1
+</span></code></pre></div>
+<p>如果加上参数<code>-f</code>选项表示强制删除.</p>
+<div class="admonition note">
+<p class="admonition-title">创建目录</p>
+<p>创建目录时,可以使用<code>mkdir</code>命令</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>mkdir<span class="w"> </span>dir1<span class="w"> </span>
+</span></code></pre></div>
+会在当前目录下创建一个名为<code>dir1</code>的目录</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>mkdir my photo
+</span></code></pre></div>
+会在当前目录下创建一个名为<code>my</code>的目录和一个名为<code>photo</code>的目录</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>mkdir<span class="w"> </span>my<span class="se">\ </span>photo
+</span></code></pre></div>
+会在当前目录下创建一个名为<code>my photo</code>的目录,使用<code>\</code>来转义空格,也可以<code>mkdir "my photo"</code>来实现同样的效果</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>mkdir<span class="w">  </span>dir1/dir2/dir3
+</span></code></pre></div>
+会在进入到<code>dir1/dir2</code>目录后,创建一个名为<code>dir3</code>的目录</p>
+<p>如果想要创建多级目录,可以使用<code>mkdir -p</code>命令</p>
+<p><div class="language-zsh highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>dir1/dir2/dir3
+</span></code></pre></div>
+会在当前目录下创建一个名为<code>dir1</code>的目录,然后进入<code>dir1</code>目录,创建一个名为<code>dir2</code>的目录,然后进入<code>dir2</code>目录,创建一个名为<code>dir3</code>的目录</p>
+</div>
+<blockquote>
+<p>Tips:如果你的终端这时候已经很多东西了,可以使用<code>Ctrl+L</code>或者<code>clear</code>来清屏</p>
+</blockquote>
+<h2 id="_1">重定向<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在 shell 中，程序有两个主要的“流”：它们的输入流和输出流。 当程序尝试读取信息时，它们会从输入流中进行读取，当程序打印信息时，它们会将信息输出到输出流中。 通常，一个程序的输入输出流都是您的终端。也就是，您的键盘作为输入，显示器作为输出。 但是，我们也可以重定向这些流。</p>
+<p>最基本的有两个</p>
+<p><code>&gt;</code> 表示输出重定向，将命令的输出结果重定向到指定文件中。</p>
+<p><code>&lt;</code> 表示输入重定向，将指定文件作为命令的输入。</p>
+<p>例如</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello, World!&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</span></code></pre></div>
+这会创建一个名为<code>output.txt</code>的文件,并将其内容设置为<code>Hello, World!</code></p>
+<p>如果使用<code>cat</code>命令查看<code>output.txt</code>文件的内容,<code>cat output.txt</code>会返回</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>Hello,<span class="w"> </span>World!
+</span></code></pre></div>
+<p>我们也可以将<code>output.txt</code>文件的内容重定向到<code>input.txt</code>文件中</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cat<span class="w"> </span>output.txt<span class="w"> </span>&gt;<span class="w"> </span>input.txt
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>cat<span class="w"> </span>&lt;<span class="w"> </span>output.txt<span class="w"> </span>&gt;<span class="w"> </span>input.txt
+</span></code></pre></div>
+<p>这将把<code>output.txt</code>文件的内容重定向到<code>input.txt</code>文件中,如果<code>input.txt</code>文件不存在,将会创建一个<code>input.txt</code>文件,如果<code>input.txt</code>文件存在,将会覆盖<code>input.txt</code>文件的内容</p>
+<p>如果我们不想要覆盖<code>input.txt</code>文件的内容,而是想要在<code>input.txt</code>文件的末尾添加内容,可以使用<code>&gt;&gt;</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>cat<span class="w"> </span>output.txt<span class="w"> </span>&gt;&gt;<span class="w"> </span>input.txt
+</span></code></pre></div>
+<p>这将把<code>output.txt</code>文件的内容添加到<code>input.txt</code>文件的末尾(append)</p>
+<h3 id="pipe">Pipe<a class="headerlink" href="#pipe" title="Permanent link">&para;</a></h3>
+<p>管道<code>|</code>是一种将左边命令的输出作为右边命令的输入的机制。</p>
+<p>例如</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>cat<span class="w"> </span>output.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Hello&quot;</span>
+</span></code></pre></div>
+<p>这将把<code>output.txt</code>文件的内容作为<code>grep</code>命令的输入,并返回包含<code>Hello</code>的行</p>
+<p>假设我只想要<code>ls -l</code>的最后一行 </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ls<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</span></code></pre></div>
+<p>这将把<code>ls -l</code>的最后一行作为<code>tail</code>命令的输入,并把最后一行(<code>tail</code>命令的<code>-n</code>选项表示返回最后<code>n</code>行)输出到<code>output.txt</code>文件中</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在这个过程中，<code>ls</code>不知道什么是<code>tail</code>，<code>tail</code>也不知道什么是<code>ls</code>，它们只是正常的执行命令，而pipe机制将它们的输出和输入连接了起来</p>
+</div>
+<h2 id="root-user">Root user<a class="headerlink" href="#root-user" title="Permanent link">&para;</a></h2>
+<p>在Linux中，<code>root</code>用户是超级用户，拥有最高的权限，可以执行任何命令，修改任何文件，删除任何文件，创建任何文件，甚至可以删除其他用户。</p>
+<p><code>root</code>用户的UID是0，GID是0</p>
+<blockquote>
+<p>一般情况下，我们不会使用<code>root</code>用户登录，否则万一不小心以root权限执行了错误的命令，Oops，你的电脑崩溃了</p>
+</blockquote>
+<p>某些情况下，我们需要使用<code>root</code>用户的权限,这时候我们可以使用<code>sudo</code>命令(do as super user)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>sudo<span class="w"> </span><span class="o">[</span>命令<span class="o">]</span>
+</span></code></pre></div>
+<p>这将使用<code>root</code>用户的权限执行命令</p>
+<p>当使用<code>sudo</code>命令时，系统会提示你输入密码，这是为了防止误操作</p>
+<p>例如我们想要修改亮度的配置文件</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nb">echo</span><span class="w"> </span><span class="m">500</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/class/backlight/intel_backlight/brightness
+</span></code></pre></div>
+<p>这将得到</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>permission<span class="w"> </span>denied
+</span></code></pre></div>
+<p>这时候我们就可以使用<code>sudo</code>命令</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">500</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/class/backlight/intel_backlight/brightness
+</span></code></pre></div>
+<p>仍然是</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>permission<span class="w"> </span>denied
+</span></code></pre></div>
+<p>这是因为我们在前面说过,重定向两边并不知道彼此,也就是说shell看到的是我们以<code>root</code>权限执行了<code>echo 500</code> ，然后在**普通用户**下打开<code>brightness</code>文件将结果输入进去，所以会报错</p>
+<p>想要解决这个问题,可以切换到<code>root</code>用户</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>sudo<span class="w"> </span>su
+</span></code></pre></div>
+<p>这时候我们就可以直接执行,值得注意的一点是,切换为<code>root</code>用户后,提示符从<code>$</code>或者其它你自定义的提示符变为<code>#</code></p>
+<p>或者更加优雅的方式是</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nb">echo</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/backlight/intel_backlight/brightness
+</span></code></pre></div>
+<p>这时候我们告诉<code>shell</code>，正常执行<code>echo 500</code>，然后使用<code>sudo tee</code>命令将结果输出到<code>/sys/class/backlight/intel_backlight/brightness</code>文件。</p>
+<p><code>tee</code>命令会从标准输入读取数据，并同时写入到标准输出和文件。即写入文件的同时，也会在终端中显示出写入的内容。</p>
+<blockquote>
+<p>Tips: <code>xdg-open</code>命令可以以适当的程序打开一个文件</p>
+</blockquote>
+<h2 id="find">Find<a class="headerlink" href="#find" title="Permanent link">&para;</a></h2>
+<p><code>find</code> 命令是一个强大的工具，用于在文件系统中查找文件和目录。它可以根据各种条件（如名称、类型、大小、修改时间等）进行搜索，并支持递归搜索子目录。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>find<span class="w"> </span><span class="o">[</span>搜索路径<span class="o">]</span><span class="w"> </span><span class="o">[</span>搜索条件<span class="o">]</span><span class="w"> </span><span class="o">[</span>操作<span class="o">]</span>
+</span></code></pre></div>
+<ul>
+<li><strong>搜索路径</strong>：指定要搜索的目录路径。如果不指定，默认为当前目录。</li>
+<li><strong>搜索条件</strong>：指定查找文件的条件，如名称、类型、大小等。</li>
+<li>
+<p><strong>操作</strong>：指定对找到的文件执行的操作，如删除、打印等。</p>
+</li>
+<li>
+<p><code>-name [名称]</code>：按名称查找文件。</p>
+</li>
+<li><code>-type [类型]</code>：按文件类型查找，如 <code>f</code> 表示文件，<code>d</code> 表示目录。</li>
+<li><code>-size [大小]</code>：按文件大小查找。</li>
+<li><code>-mtime [天数]</code>：按修改时间查找，<code>-mtime +n</code> 表示 n 天前修改的文件，<code>-mtime -n</code> 表示 n 天内修改的文件。</li>
+<li><code>-exec [命令] {} \;</code>：对找到的文件执行指定命令。</li>
+<li><code>-L</code>：跟随符号链接，解析符号链接为其指向的实际文件或目录。</li>
+</ul>
+<p>一些例子如下</p>
+<ol>
+<li>
+<p><strong>查找当前目录下名为 <code>example.txt</code> 的文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;example.txt&quot;</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找 <code>/home/user</code> 目录下所有 <code>.txt</code> 文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>find<span class="w"> </span>/home/user<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找当前目录下所有大于 100MB 的文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-size<span class="w"> </span>+100M
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找 <code>/var/log</code> 目录下 7 天前修改的文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>find<span class="w"> </span>/var/log<span class="w"> </span>-mtime<span class="w"> </span>+7
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找并删除当前目录下所有 <code>.tmp</code> 文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.tmp&quot;</span><span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找并列出 <code>/etc</code> 目录下所有目录：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>find<span class="w"> </span>/etc<span class="w"> </span>-type<span class="w"> </span>d
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找并跟随符号链接：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>find<span class="w"> </span>-L<span class="w"> </span>/path/to/search<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;example.txt&quot;</span>
+</span></code></pre></div>
+<p>这将查找 <code>/path/to/search</code> 目录及其子目录中名为 <code>example.txt</code> 的文件，并跟随任何符号链接。</p>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">符号链接</p>
+<p>在文件系统中，符号链接（symbolic link）是一种特殊类型的文件，它指向另一个文件或目录。符号链接类似于 Windows 中的快捷方式，它们不包含实际数据，而是指向目标文件或目录的路径。</p>
+<p>当我们说“跟随符号链接”时，意思是当一个命令（如 <code>find</code>）遇到符号链接时，它会解析这个链接并继续在链接指向的目标文件或目录中执行操作。换句话说，命令会将符号链接视为其指向的实际文件或目录，而不是仅仅将其视为一个链接。</p>
+<p>假设我们有以下文件结构：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>/home/user
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>├── actual_file.txt
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>└── link_to_file.txt -&gt; /home/user/actual_file.txt
+</span></code></pre></div>
+<p>在这个例子中，<code>link_to_file.txt</code> 是一个符号链接，指向 <code>actual_file.txt</code>。</p>
+<ul>
+<li><strong>不跟随符号链接</strong>：默认情况下，<code>find</code> 不会跟随符号链接。这意味着如果你在 <code>/home/user</code> 目录中使用 <code>find</code> 查找文件，<code>link_to_file.txt</code> 会被视为一个符号链接，而不会进一步查找 <code>actual_file.txt</code>。</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>find<span class="w"> </span>/home/user<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;actual_file.txt&quot;</span>
+</span></code></pre></div>
+<p>这将直接找到 <code>actual_file.txt</code>，而不会考虑 <code>link_to_file.txt</code>。</p>
+<ul>
+<li><strong>跟随符号链接</strong>：使用 <code>-L</code> 参数，<code>find</code> 会跟随符号链接。这意味着 <code>find</code> 会将 <code>link_to_file.txt</code> 解析为 <code>actual_file.txt</code>，并在其指向的目标中继续查找。</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>find<span class="w"> </span>-L<span class="w"> </span>/home/user<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;actual_file.txt&quot;</span>
+</span></code></pre></div>
+<p>这将找到 <code>actual_file.txt</code>，即使它是通过 <code>link_to_file.txt</code> 访问的。</p>
+<p>跟随符号链接在某些情况下非常有用，特别是当你希望在符号链接指向的目录中执行操作时。</p>
+</div>
+<h3 id="_2">通配符查找<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><code>find</code> 命令支持使用通配符进行查找，常用的通配符包括 <code>*</code>、<code>?</code> 和 <code>[]</code>。</p>
+<ul>
+<li><code>*</code>：匹配零个或多个字符。</li>
+<li><code>?</code>：匹配单个字符。</li>
+<li><code>[]</code>：匹配括号内的任意一个字符。</li>
+<li>
+<p><code>{}</code>：扩展括号内的元素。</p>
+</li>
+<li>
+<p><strong>查找当前目录下所有以 <code>.log</code> 结尾的文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.log&quot;</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找当前目录下所有以 <code>file</code> 开头并以任意单个字符结尾的文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;file?&quot;</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>查找当前目录下所有以 <code>file</code> 开头并以 <code>1</code>、<code>2</code> 或 <code>3</code> 结尾的文件：</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;file[123]&quot;</span>
+</span></code></pre></div>
+</li>
+</ul>
+<p>通配符也可以在其它命令如<code>ls</code>中使用</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>ls<span class="w"> </span>*.txt
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>ls<span class="w"> </span>file<span class="o">[</span><span class="m">123</span><span class="o">]</span>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>ls<span class="w"> </span>file？
+</span></code></pre></div>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>ls<span class="w"> </span>file<span class="o">{</span><span class="m">1</span>,2,3<span class="o">}</span>
+</span></code></pre></div>
+将会变为</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ls<span class="w"> </span>file1<span class="w"> </span>file2<span class="w"> </span>file3
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">find 和 locate</p>
+<p><code>locate</code>命令和<code>find</code>命令类似，但是<code>locate</code>命令使用的是数据库，所以速度更快。</p>
+<p><code>locate</code>命令会返回所有包含指定字符串的文件路径。</p>
+</div>
+<h2 id="_3">课后习题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>题目如下</p>
+<figure>
+<img alt="" src="../img/lec1.png" width="70%" />
+
+<figcaption>课后习题</figcaption>
+</figure>
+<h3 id="solutions">solutions<a class="headerlink" href="#solutions" title="Permanent link">&para;</a></h3>
+<p>首先<code>cd /tmp</code>进入<code>tmp</code>目录,然后创建目录使用<code>mkdir</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>mkdir<span class="w"> </span>missing
+</span></code></pre></div>
+<p>然后<code>man</code>查看<code>touch</code>命令</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>man<span class="w"> </span>touch
+</span></code></pre></div>
+<p><code>touch</code> 是一个常用的命令行工具，主要用于在文件系统中创建新的空文件或更新现有文件的时间戳。以下是 <code>touch</code> 命令的基本用法和功能：</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>touch<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件名
+</span></code></pre></div>
+<ul>
+<li>
+<p>如果指定的文件不存在，<code>touch</code> 会创建一个新的空文件。例如：
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>touch<span class="w"> </span>newfile.txt
+</span></code></pre></div>
+  这将创建一个名为 <code>newfile.txt</code> 的新文件。</p>
+</li>
+<li>
+<p>如果指定的文件已经存在，<code>touch</code> 会更新该文件的访问时间（atime）和修改时间（mtime）为当前时间，而不改变文件的内容。例如：
+ <div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>touch<span class="w"> </span>existingfile.txt
+</span></code></pre></div></p>
+</li>
+<li>
+<p><code>-a</code>：仅更新访问时间。
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>touch<span class="w"> </span>-a<span class="w"> </span>filename
+</span></code></pre></div></p>
+</li>
+<li>
+<p><code>-m</code>：仅更新修改时间。
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>touch<span class="w"> </span>-m<span class="w"> </span>filename
+</span></code></pre></div></p>
+</li>
+<li>
+<p><code>-t</code>：使用指定的时间戳（格式为 <code>[[CC]YY]MMDDhhmm[.ss]</code>）。
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>touch<span class="w"> </span>-t<span class="w"> </span><span class="m">202310101200</span>.00<span class="w"> </span>filename
+</span></code></pre></div></p>
+</li>
+<li>
+<p><code>-c</code>：如果文件不存在，则不创建文件。
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>touch<span class="w"> </span>-c<span class="w"> </span>filename
+</span></code></pre></div></p>
+</li>
+</ul>
+<p>在这里我们直接</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>touch<span class="w"> </span>semester
+</span></code></pre></div>
+<p>即可</p>
+<p>然后向<code>semester</code>文件中写入两行,这里已经给出提示了</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="w"> </span><span class="c1">#!/bin/sh</span>
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="w"> </span>curl<span class="w"> </span>--head<span class="w"> </span>--silent<span class="w"> </span>https://missing.csail.mit.edu
+</span></code></pre></div>
+<p>需要用<code>''</code>而不是<code>" "</code>,官方文档的解释如下</p>
+<hr />
+<figure>
+<img alt="" src="../img/lec1-1.png" width="60%" />
+
+<figcaption>官方文档</figcaption>
+</figure>
+<hr />
+<p>也就是说在双引号中"!"仍然是有特殊意义的</p>
+<p>那么只要使用单引号就行了</p>
+<p>可以使用<code>echo</code>命令加上<code>&gt;&gt;</code>输入两次</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/sh&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>semester
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;curl --head --silent https://missing.csail.mit.edu&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>semester
+</span></code></pre></div>
+<p>或者加上参数<code>-e</code>使用换行符</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;#!/bin/sh\ncurl --head --silent https://missing.csail.mit.edu&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>semester
+</span></code></pre></div>
+<p>或者使用<code>tee</code>命令</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/sh&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>semester
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;curl --head --silent https://missing.csail.mit.edu&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>semester
+</span></code></pre></div>
+<p><code>-a</code>参数表示追加到文件末尾</p>
+<p>当然不使用pipe直接手动tee输入也是可以的,最后使用<code>^D</code>结束输入</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>tee<span class="w"> </span>semester
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="c1">#!/bin/sh   </span>
+</span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>curl<span class="w"> </span>--head<span class="w"> </span>--silent<span class="w"> </span>https://missing.csail.mit.edu
+</span><span id="__span-73-4"><a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a>^D
+</span></code></pre></div>
+<p>也可以</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>tee<span class="w"> </span>semester<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a><span class="s">#!/bin/sh</span>
+</span><span id="__span-74-3"><a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a>
+</span><span id="__span-74-4"><a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a><span class="s">curl --head --silent https://missing.csail.mit.edu</span>
+</span><span id="__span-74-5"><a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<p>然后尝试执行这个文件</p>
+<p>发现文件没有执行权限,<code>ls -l</code>之后发现就算是root用户也没有执行权限</p>
+<p>第一种方法是使用<code>sh</code>命令</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>sh<span class="w"> </span>semester
+</span></code></pre></div>
+<p>而我们能使用<code>sh</code>命令是因为<code>semester</code>文件的第一行是<code>#!/bin/sh</code></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在 Unix 和 Unix-like 操作系统中，shell 脚本通常通过文件的第一行（称为 shebang）来指定使用哪个解释器来执行脚本。Shebang 是一个由 #! 开头的行，后面跟着解释器的路径</p>
+</div>
+<p>不使用<code>sh</code>命令,使用<code>./</code>执行也是可以的，但是首先需要给文件添加执行权限</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>semester
+</span></code></pre></div>
+<p>这个给文件添加了执行权限,然后就可以使用<code>./semester</code>执行了</p>
+<p>或者</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>semester
+</span></code></pre></div>
+<p>777表示所有用户都有读写执行权限，这样写是因为权限是三位一组的，用二进制表示为111，即7，代表既可读又可写又可执行，777表示所有用户都有读写执行权限</p>
+<figure>
+<img alt="" src="../img/lec1-2.png" width="60%" />
+
+<figcaption>示意图</figcaption>
+</figure>
+<p>执行之后会给我们一堆信息，需要从中提取出<code>Last-Modified</code>存放到home directory下的<code>last-modified</code>文件中</p>
+<p>一开始我以为是<code>\home</code>目录,所以我的命令是</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>./semester<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;last-modified&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/home/last-modified.txt
+</span></code></pre></div>
+<p>然而题目要求使用<code>&gt;</code>,重定向，所以应该是<code>~</code>目录</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>./semester<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;last-modified&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>tee<span class="w"> </span>~/last-modified.txt
+</span></code></pre></div>
+<p>最后<code>cat</code>检查一下就好了</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="w">    </span>cat<span class="w"> </span>/home/last-modified.txt
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a><span class="w">    </span>cat<span class="w"> </span>~/last-modified
+</span></code></pre></div>
+<p>最后一个就简单了，只需要我们获取电量信息</p>
+<div class="language-zsh highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>cat<span class="w"> </span>/sys/class/power_supply/BAT1/capacity
+</span></code></pre></div>
+<blockquote>
+<p>不同的系统文件名好像不一样，可以进到power_supply目录下找一下</p>
+</blockquote>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: The Missing Semester">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                The Missing Semester
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../shell-tools-and-scripts/" class="md-footer__link md-footer__link--next" aria-label="下一页: shell工具与脚本">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                shell工具与脚本
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../js/print-site.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="../../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../../javascripts/card.js"></script>
+      
+        <script src="../../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

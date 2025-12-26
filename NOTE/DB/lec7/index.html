@@ -1,0 +1,4786 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/DB/lec7/">
+      
+      
+        <link rel="prev" href="../ER/">
+      
+      
+        <link rel="next" href="../lec8/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>关系数据库设计 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#relational-datavase-design" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              关系数据库设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ER模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系数据库设计
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系数据库设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First Normal Form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pitfalls-in-relational-database-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pitfalls in Relational Database Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pitfalls in Relational Database Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-use-of-functional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The use of functional dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-dependency-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional dependency types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#armstrongs-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Armstrong's axioms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-of-a-set-of-functional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure of a set of functional dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attribute closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical cover
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Canonical cover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#judging-extraneous-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Judging Extraneous Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computing-canonical-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computing canonical cover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decomposition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decomposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desirable-properties-of-a-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desirable properties of a decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boyce-codd-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boyce-Codd Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boyce-Codd Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-for-bcnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing for BCNF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing for BCNF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Warning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-for-bcnf-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm for BCNF Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#third-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Third Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Third Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-for-3nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing for 3NF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3nf-decomposition-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3NF Decomposition Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3NF Decomposition Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multivalued-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multivalued Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fourth-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fourth Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fourth Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements-for-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements for decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-for-4nf-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm for 4NF Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    查询处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    查询优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事务
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    并发控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    恢复
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First Normal Form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pitfalls-in-relational-database-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pitfalls in Relational Database Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pitfalls in Relational Database Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-use-of-functional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The use of functional dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-dependency-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional dependency types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#armstrongs-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Armstrong's axioms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closure-of-a-set-of-functional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closure of a set of functional dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attribute closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical cover
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Canonical cover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#judging-extraneous-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Judging Extraneous Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computing-canonical-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computing canonical cover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decomposition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decomposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desirable-properties-of-a-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desirable properties of a decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boyce-codd-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boyce-Codd Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boyce-Codd Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-for-bcnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing for BCNF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing for BCNF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Warning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-for-bcnf-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm for BCNF Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#third-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Third Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Third Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-for-3nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing for 3NF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3nf-decomposition-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3NF Decomposition Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3NF Decomposition Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multivalued-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multivalued Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fourth-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fourth Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fourth Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements-for-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements for decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-for-4nf-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm for 4NF Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🎓 课程笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    数据库系统
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="relational-datavase-design">Relational Datavase design<a class="headerlink" href="#relational-datavase-design" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 8186 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 1 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 28 分钟</p>
+</div>
+<h2 id="first-normal-form">First Normal Form<a class="headerlink" href="#first-normal-form" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>A relational schema R is infirst normal form(1NF)if the domains of all attributes of R are atomic. </p>
+</div>
+<p>第一范式（First Normal Form，简称1NF）是数据库规范化过程中的基本范式，也是其他所有高级范式的基础。一个关系模式满足第一范式需要符合以下条件：</p>
+<ul>
+<li><strong>原子性</strong>：表中的每个属性（列）必须是不可再分的原子值，不允许有复合值或多值属性。</li>
+<li><strong>每个关系有一个主键</strong>：每个关系（表）必须有一个主键，用于唯一标识表中的每一行数据。</li>
+<li><strong>每个属性只包含单一值</strong>：表中的每个单元格只能包含一个值，不允许有集合、数组或其他多值类型。</li>
+</ul>
+<p>不符合第一范式的表：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>学生姓名</th>
+<th>课程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>数学, 物理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>语文, 历史, 地理</td>
+</tr>
+</tbody>
+</table>
+<p>符合第一范式的表：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>学生姓名</th>
+<th>课程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>数学</td>
+</tr>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>物理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>语文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>历史</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>地理</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition eg">
+<p class="admonition-title">How to deal with non-atomic values</p>
+<ul>
+<li>
+<p>复合属性：使用多个单独的属性来代替复合值。</p>
+</li>
+<li>
+<p>多值属性：使用多个单独的属性来代替多值属性。或者使用一个单独的表，或者使用single field来表示多值属性。</p>
+</li>
+</ul>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>学生姓名</th>
+<th>课程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>数学</td>
+</tr>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>物理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>语文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>历史</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>地理</td>
+</tr>
+</tbody>
+</table>
+<p>可以将课程列分解为两个单独的列：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>学生姓名</th>
+<th>课程1</th>
+<th>课程2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>数学</td>
+<td>物理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>语文</td>
+<td>历史</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>地理</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>也可以使用一个单独的表来表示多值属性：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>课程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>数学</td>
+</tr>
+<tr>
+<td>1</td>
+<td>物理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>语文</td>
+</tr>
+</tbody>
+</table>
+<p>也可以使用一个新的属性来表示多值属性，合并成同一个字段，但是这种方式实际上在技术上仍然违反了1NF：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>学生姓名</th>
+<th>课程表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>张三</td>
+<td>数学, 物理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>语文, 历史, 地理</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一个域中的元素是否是原子的，取决于它们在关系中的使用方式。</p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>字符串一般来说会被认为是原子的；</p>
+<p>但是如果每个学生被机遇roll number，形如'CS0012'，'EE1127'等，如果前缀被挑选出来，用于标识学生所在的系，那么这个域的元素就不是原子的。</p>
+<p>但是这样做是不好的：这导致信息被编码在应用程序中，而不是在数据库中。</p>
+</div>
+<h2 id="pitfalls-in-relational-database-design">Pitfalls in Relational Database Design<a class="headerlink" href="#pitfalls-in-relational-database-design" title="Permanent link">&para;</a></h2>
+<p>关系数据库要求我们寻找一个好的schema，对于坏的schema，会出现以下问题：</p>
+<ul>
+<li>数据冗余</li>
+<li>更新异常</li>
+<li>插入异常</li>
+<li>删除异常</li>
+<li>表示信息的能力下降</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">一个设计不良的表</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>学生姓名</th>
+<th>系名</th>
+<th>系主任</th>
+<th>课程编号</th>
+<th>课程名称</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>张三</td>
+<td>计算机系</td>
+<td>王教授</td>
+<td>CS101</td>
+<td>数据库原理</td>
+<td>85</td>
+</tr>
+<tr>
+<td>101</td>
+<td>张三</td>
+<td>计算机系</td>
+<td>王教授</td>
+<td>CS102</td>
+<td>计算机网络</td>
+<td>92</td>
+</tr>
+<tr>
+<td>102</td>
+<td>李四</td>
+<td>物理系</td>
+<td>刘教授</td>
+<td>PH101</td>
+<td>力学</td>
+<td>78</td>
+</tr>
+<tr>
+<td>103</td>
+<td>王五</td>
+<td>计算机系</td>
+<td>王教授</td>
+<td>CS101</td>
+<td>数据库原理</td>
+<td>91</td>
+</tr>
+</tbody>
+</table>
+<p>这个表存在的问题：</p>
+<ul>
+<li><strong>冗余</strong>：系名和系主任信息在每个学生的多条记录中重复</li>
+<li><strong>更新异常</strong>：如果系主任变更，需要更新多行记录</li>
+<li><strong>删除异常</strong>：如果删除所有选修某课程的学生记录，课程信息也会丢失</li>
+<li><strong>插入异常</strong>：无法添加尚未选课的新生，因为成绩字段无法填写</li>
+</ul>
+</div>
+<ol>
+<li>
+<p><strong>缺乏适当的范式化</strong>：未能将表分解为合适的范式，导致上述异常问题</p>
+</li>
+<li>
+<p><strong>过度范式化</strong>：将表分解得过于细碎，导致需要大量连接操作，影响查询性能</p>
+</li>
+<li>
+<p><strong>不恰当的主键选择</strong>：</p>
+<ul>
+<li>使用不稳定的业务属性作为主键</li>
+<li>使用过于复杂的复合主键</li>
+<li>没有为表定义适当的主键</li>
+</ul>
+</li>
+<li>
+<p><strong>糟糕的命名约定</strong>：</p>
+<ul>
+<li>表名和列名不清晰</li>
+<li>不一致的命名风格</li>
+<li>使用保留字作为名称</li>
+</ul>
+</li>
+<li>
+<p><strong>未恰当使用索引</strong>：</p>
+<ul>
+<li>索引不足，导致查询性能差</li>
+<li>索引过多，影响数据修改操作的性能</li>
+</ul>
+</li>
+<li>
+<p><strong>忽视数据完整性约束</strong>：</p>
+<ul>
+<li>缺少必要的外键约束</li>
+<li>缺少检查约束或触发器来维护复杂的数据规则</li>
+</ul>
+</li>
+<li>
+<p><strong>不考虑数据增长</strong>：</p>
+<ul>
+<li>设计未考虑到数据随时间增长的需求</li>
+<li>表结构不灵活，难以扩展</li>
+</ul>
+</li>
+</ol>
+<h3 id="decomposition">Decomposition<a class="headerlink" href="#decomposition" title="Permanent link">&para;</a></h3>
+<p>一个调整schema的方法叫decomposition，它将一个关系分解为多个关系。</p>
+<p>例如将r(ABCD)分解为r1(AB)和r2(BCD)</p>
+<p><strong>要求1</strong></p>
+<p>如果<span class="arithmatex">\(R_1\)</span>和<span class="arithmatex">\(R_2\)</span>的是由<span class="arithmatex">\(R\)</span>通过decomposition得到的，那么<span class="arithmatex">\(R_1\)</span>和<span class="arithmatex">\(R_2\)</span>的属性并集是<span class="arithmatex">\(R\)</span>的属性</p>
+<div class="arithmatex">\[
+    R_1 \cup R_2 = R
+\]</div>
+<p><strong>要求2</strong></p>
+<p>无损连接分解(lossless join decomposition)即，对于所有可能的关系<span class="arithmatex">\(r \in R\)</span>，有</p>
+<div class="arithmatex">\[
+    \pi_{R_1}(r) \bowtie \pi_{R_2}(r) = r
+\]</div>
+<p>例如<span class="arithmatex">\(R=(A,B),R_1=(A),R_2=(B)\)</span>，那么</p>
+<figure>
+<img alt="" src="../img/lec7-1.png" width="60%" />
+</figure>
+<blockquote>
+<p>没有共同属性时，natural join相当于笛卡尔积</p>
+</blockquote>
+<p>这种分解是non-lossless的，因为<span class="arithmatex">\(R_1(r) \bowtie R_2(r) \neq r\)</span></p>
+<p>总的来说，无损分解要求子关系是原关系的投影，并且子关系通过自然连接可以恢复原关系。</p>
+<p>通过decomposition，可以去除冗余。</p>
+<h2 id="functional-dependencies">Functional Dependencies<a class="headerlink" href="#functional-dependencies" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="arithmatex">\(R\)</span> be a relation schema,<span class="arithmatex">\(\alpha\)</span> and <span class="arithmatex">\(\beta\)</span> be attributes of <span class="arithmatex">\(R\)</span>.</p>
+<p>The functional dependency 
+<span class="arithmatex">\(\alpha \rightarrow \beta\)</span> holds on <span class="arithmatex">\(R\)</span> if and only if for any legal relations <span class="arithmatex">\(r(R)\)</span>, whenever any two tuples <span class="arithmatex">\(t_1\)</span> and <span class="arithmatex">\(t_2\)</span> of <span class="arithmatex">\(r\)</span> agree on the attributes <span class="arithmatex">\(\alpha\)</span>, they also agree on the attributes <span class="arithmatex">\(\beta\)</span>, i.e., </p>
+<div class="arithmatex">\[
+    t_1[\alpha] = t_2[\alpha] \Rightarrow t_1[\beta] = t_2[\beta]
+\]</div>
+</div>
+<p>简单来说，功能依赖<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>表示：如果我们知道<span class="arithmatex">\(\alpha\)</span>的值，就能唯一确定<span class="arithmatex">\(\beta\)</span>的值。</p>
+<p>考虑一个学生选课关系：StudentCourse(学号, 姓名, 年龄, 课程号, 成绩, 学分)</p>
+<p>在这个关系中可能存在以下功能依赖：</p>
+<ul>
+<li>学号 <span class="arithmatex">\(\rightarrow\)</span> 姓名, 年龄</li>
+<li>学号, 课程号 <span class="arithmatex">\(\rightarrow\)</span> 成绩</li>
+<li>课程号 <span class="arithmatex">\(\rightarrow\)</span> 学分</li>
+</ul>
+<div class="admonition key-point">
+<p class="admonition-title">Functional dependency vs. key</p>
+<ul>
+<li>
+<p>A functional dependency is a generalization of the notion of a key.</p>
+</li>
+<li>
+<p><span class="arithmatex">\(K\)</span> is a superkey of <span class="arithmatex">\(R\)</span> if and only if <span class="arithmatex">\(K \rightarrow R\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(K\)</span> is a candidate key of <span class="arithmatex">\(R\)</span> if and only if <span class="arithmatex">\(K \rightarrow R\)</span> and for no <span class="arithmatex">\(\alpha \subset K\)</span>, <span class="arithmatex">\(\alpha \rightarrow R\)</span></p>
+</li>
+<li>
+<p>Functional dependencies allow us to express constraints that cannot be expressed using keys. </p>
+</li>
+</ul>
+</div>
+<h3 id="the-use-of-functional-dependencies">The use of functional dependencies<a class="headerlink" href="#the-use-of-functional-dependencies" title="Permanent link">&para;</a></h3>
+<p>We can use  functional dependencies to: </p>
+<ul>
+<li>Test relations to see if they are legal under a given set of functional dependencies <span class="arithmatex">\(F\)</span>.<blockquote>
+<p>如果r是R的合法关系，那么称r满足F(r satisfies F)。</p>
+</blockquote>
+</li>
+</ul>
+<p>例如 <span class="arithmatex">\(r\)</span> 的表如下</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a1</td>
+<td>b1</td>
+<td>c1</td>
+<td>d1</td>
+</tr>
+<tr>
+<td>a1</td>
+<td>b2</td>
+<td>c1</td>
+<td>d2</td>
+</tr>
+<tr>
+<td>a2</td>
+<td>b2</td>
+<td>c2</td>
+<td>d2</td>
+</tr>
+<tr>
+<td>a2</td>
+<td>b3</td>
+<td>c2</td>
+<td>d3</td>
+</tr>
+<tr>
+<td>a3</td>
+<td>b3</td>
+<td>c2</td>
+<td>d4</td>
+</tr>
+</tbody>
+</table>
+<p>那么F={A <span class="arithmatex">\(\rightarrow\)</span> C, AB <span class="arithmatex">\(\rightarrow\)</span> D(也可以写为(A,B) <span class="arithmatex">\(\rightarrow\)</span> D),ABC <span class="arithmatex">\(\rightarrow\)</span> D}</p>
+<p>但是A <span class="arithmatex">\(\rightarrow\)</span> B不成立;</p>
+<ul>
+<li>Specify constraints(F) on the set of legal relations--schema<blockquote>
+<p>我们说F在R上成立(F holds on R) 如果对于所有可能的合法关系r(R),r满足F。</p>
+</blockquote>
+</li>
+</ul>
+<p>在上面那个例子中，我们看到了一个合法的关系，但是它满足F，但是不能仅仅通过一个关系来确定。</p>
+<p>容易判别一个r是否满足给定的F;不易判别F是否在R上成立。不能仅由某个r推断出F。R上的函数依赖F, 通常由定义R的语义决定。</p>
+<h3 id="functional-dependency-types">Functional dependency types<a class="headerlink" href="#functional-dependency-types" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>平凡的功能依赖(trivial functional dependency)：如果<span class="arithmatex">\(Y \subseteq X\)</span>，那么<span class="arithmatex">\(X \rightarrow Y\)</span>是平凡的(trivial)。例如：<span class="arithmatex">\((学号, 姓名) \rightarrow 学号\)</span>。</p>
+</li>
+<li>
+<p>非平凡的功能依赖(non-trivial functional dependency)：如果<span class="arithmatex">\(Y \not\subseteq X\)</span>，那么<span class="arithmatex">\(X \rightarrow Y\)</span>是非平凡的(non-trivial)。例如：<span class="arithmatex">\(学号 \rightarrow 姓名\)</span>。</p>
+</li>
+<li>
+<p>完全功能依赖(fully functional dependency)：如果<span class="arithmatex">\(X \rightarrow Y\)</span>，且对于<span class="arithmatex">\(X\)</span>的任何真子集<span class="arithmatex">\(X'\)</span>，都不存在<span class="arithmatex">\(X' \rightarrow Y\)</span>，则称<span class="arithmatex">\(Y\)</span>完全功能依赖于<span class="arithmatex">\(X\)</span>。</p>
+</li>
+<li>
+<p>部分功能依赖(partial functional dependency)：如果<span class="arithmatex">\(X \rightarrow Y\)</span>，但存在<span class="arithmatex">\(X\)</span>的真子集<span class="arithmatex">\(X'\)</span>，使得<span class="arithmatex">\(X' \rightarrow Y\)</span>，则称<span class="arithmatex">\(Y\)</span>部分功能依赖于<span class="arithmatex">\(X\)</span>。</p>
+</li>
+</ol>
+<h3 id="armstrongs-axioms">Armstrong's axioms<a class="headerlink" href="#armstrongs-axioms" title="Permanent link">&para;</a></h3>
+<p>Armstrong公理是一组用于推导功能依赖的规则：</p>
+<ol>
+<li>
+<p><strong>自反律</strong> (reflexivity)：如果<span class="arithmatex">\(Y \subseteq X\)</span>，则<span class="arithmatex">\(X \rightarrow Y\)</span>（平凡依赖）</p>
+</li>
+<li>
+<p><strong>增广律</strong> (augmentation)：如果<span class="arithmatex">\(X \rightarrow Y\)</span>，则<span class="arithmatex">\(XZ \rightarrow YZ\)</span>,也有<span class="arithmatex">\(XZ \rightarrow Y\)</span>（对于任意属性集<span class="arithmatex">\(Z\)</span>）</p>
+</li>
+<li>
+<p><strong>传递律</strong> (transitivity)：如果<span class="arithmatex">\(X \rightarrow Y\)</span>且<span class="arithmatex">\(Y \rightarrow Z\)</span>，则<span class="arithmatex">\(X \rightarrow Z\)</span></p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>以上三条定律是</p>
+<ul>
+<li>Sound：从Armstrong公理推导出的所有功能依赖都是正确的。包对的。</li>
+<li>Complete：Armstrong公理可以推导出所有可能的功能依赖。完备的。</li>
+</ul>
+</div>
+<p>从Armstrong公理可以推导出以下规则：</p>
+<ol>
+<li><strong>合并规则</strong> (union rule)：如果<span class="arithmatex">\(X \rightarrow Y\)</span>且<span class="arithmatex">\(X \rightarrow Z\)</span>，则<span class="arithmatex">\(X \rightarrow YZ\)</span></li>
+</ol>
+<div class="admonition proof">
+<p class="admonition-title">Proof</p>
+<p><span class="arithmatex">\(X \rightarrow Y\)</span>,则两边添加<span class="arithmatex">\(X\)</span>，得到<span class="arithmatex">\(XX \rightarrow XY\)</span>，即<span class="arithmatex">\(X \rightarrow XY\)</span></p>
+<p>同理，<span class="arithmatex">\(X \rightarrow Z\)</span>，则两边添加<span class="arithmatex">\(Y\)</span>，得到<span class="arithmatex">\(XY \rightarrow YZ\)</span>，由传递律推导出<span class="arithmatex">\(X \rightarrow YZ\)</span></p>
+</div>
+<ol>
+<li><strong>分解规则</strong> (decomposition rule)：如果<span class="arithmatex">\(X \rightarrow YZ\)</span>，则<span class="arithmatex">\(X \rightarrow Y\)</span>且<span class="arithmatex">\(X \rightarrow Z\)</span> </li>
+</ol>
+<div class="admonition proof">
+<p class="admonition-title">Proof</p>
+<p><span class="arithmatex">\(YZ \rightarrow Y\)</span>，且<span class="arithmatex">\(YZ \rightarrow Z\)</span>，由传递律推导出<span class="arithmatex">\(X \rightarrow Y\)</span>和<span class="arithmatex">\(X \rightarrow Z\)</span></p>
+</div>
+<ul>
+<li><strong>伪传递规则</strong> (pseudo-transitivity rule)：如果<span class="arithmatex">\(X \rightarrow Y\)</span>且<span class="arithmatex">\(WY \rightarrow Z\)</span>，则<span class="arithmatex">\(XW \rightarrow Z\)</span></li>
+</ul>
+<div class="admonition proof">
+<p class="admonition-title">Proof</p>
+<p><span class="arithmatex">\(X \rightarrow Y\)</span>，则<span class="arithmatex">\(XW \rightarrow YW\)</span>，由传递律推导出<span class="arithmatex">\(XW \rightarrow Z\)</span></p>
+</div>
+<h3 id="closure-of-a-set-of-functional-dependencies">Closure of a set of functional dependencies<a class="headerlink" href="#closure-of-a-set-of-functional-dependencies" title="Permanent link">&para;</a></h3>
+<p>给定一组功能依赖<span class="arithmatex">\(F\)</span>，我们可以使用Armstrong公理推导出所有可能的功能依赖，这个集合称为<span class="arithmatex">\(F\)</span>的闭包，记作<span class="arithmatex">\(F^+\)</span>。</p>
+<div class="admonition info">
+<p class="admonition-title">How to find <span class="arithmatex">\(F^+\)</span></p>
+<p>repeat:</p>
+<p>For each functional dependency <span class="arithmatex">\(f \in F^+\)</span></p>
+<ul>
+<li>
+<p>Apply reflexivity and augmentation rules on <span class="arithmatex">\(f\)</span></p>
+</li>
+<li>
+<p>Add the resulting functional dependencies to <span class="arithmatex">\(F^+\)</span></p>
+</li>
+<li>
+<p>For each pair of functional dependencies <span class="arithmatex">\(f_1\)</span> and <span class="arithmatex">\(f_2\)</span> in <span class="arithmatex">\(F^+\)</span></p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(f_1\)</span> and <span class="arithmatex">\(f_2\)</span> can be combined using transitivity</p>
+</li>
+<li>
+<p>Then add the resulting functional dependency to <span class="arithmatex">\(F^+\)</span></p>
+</li>
+</ul>
+<p>Until <span class="arithmatex">\(F^+\)</span> does not change any further </p>
+</div>
+<h3 id="attribute-closure">Attribute closure<a class="headerlink" href="#attribute-closure" title="Permanent link">&para;</a></h3>
+<p>如何测试属性A是不是R的一个superkey?</p>
+<ul>
+<li>找到<span class="arithmatex">\(F^+\)</span></li>
+<li>检查<span class="arithmatex">\(A \rightarrow B_i \in F^+\)</span></li>
+<li>如果<span class="arithmatex">\(\bigcup B_i = R\)</span>，则A是superkey</li>
+</ul>
+<p>但是<span class="arithmatex">\(F^+\)</span>很难计算，所以需要使用属性闭包。直接计算能被<span class="arithmatex">\(A\)</span>属性确定的属性集合。</p>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>对于属性集<span class="arithmatex">\(X\)</span>，其属性闭包<span class="arithmatex">\(X^+\)</span>是所有被<span class="arithmatex">\(X\)</span>函数确定的属性的集合：</p>
+<div class="arithmatex">\[
+    X^+ = \{A | X \rightarrow A \ is \ in \ F^+ \}
+\]</div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>给定关系R(A,B,C,D,E)和功能依赖集F = {A → BC, CD → E, B → D, E → A}</p>
+<p>求属性集{A}的闭包：</p>
+<ol>
+<li>初始：{A}+ = {A}</li>
+<li>使用A → BC：{A}+ = {A,B,C}</li>
+<li>使用B → D：{A}+ = {A,B,C,D}</li>
+<li>使用CD → E：{A}+ = {A,B,C,D,E}</li>
+</ol>
+<p>因此{A}+ = {A,B,C,D,E}</p>
+<p>所以A是superkey。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">How to find <span class="arithmatex">\(A^+\)</span>?</p>
+<p>result = A
+while (changes to result):
+    for each functional dependency f in F:
+        if f.left subset of result:
+            result = result union f.right</p>
+<p>return result</p>
+<p>使用属性闭包可以避免反复使用公理寻找<span class="arithmatex">\(F^+\)</span>。</p>
+</div>
+<p>There are three kind uses if the atrribute set closure:</p>
+<ul>
+<li>Test if an attribute is a superkey,查看<span class="arithmatex">\(A^+\)</span>是否等于R</li>
+<li>Testing functional dependencies,查看<span class="arithmatex">\(X \rightarrow Y\)</span>是否在<span class="arithmatex">\(F^+\)</span>中，只需要查看<span class="arithmatex">\(Y \subseteq X^+\)</span></li>
+<li>Computing closure of F,计算<span class="arithmatex">\(F^+\)</span>，对于每个属性集<span class="arithmatex">\(X\)</span>，计算<span class="arithmatex">\(X^+\)</span>，对于每个<span class="arithmatex">\(Y \subseteq X^+\)</span>，<span class="arithmatex">\(X \rightarrow Y\)</span>在<span class="arithmatex">\(F^+\)</span>中,输出所有的<span class="arithmatex">\(X \rightarrow Y\)</span>组成<span class="arithmatex">\(F^+\)</span></li>
+</ul>
+<h3 id="canonical-cover">Canonical cover<a class="headerlink" href="#canonical-cover" title="Permanent link">&para;</a></h3>
+<p>DBMS should always check to ensure not violate any Functional Dependency (FD) in F. </p>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>一个关系模式<span class="arithmatex">\(R\)</span>的正则覆盖(canonical cover)是<span class="arithmatex">\(F\)</span>的一个最小超集，满足：</p>
+<ul>
+<li><span class="arithmatex">\(F\)</span>中的所有函数依赖(FD)都包含在<span class="arithmatex">\(F_c\)</span>中</li>
+<li><span class="arithmatex">\(F_c\)</span>中的所有函数依赖都满足<span class="arithmatex">\(F\)</span>中的所有函数依赖</li>
+<li><span class="arithmatex">\(F_c\)</span>中左边是唯一的</li>
+<li>对于<span class="arithmatex">\(FD \in F_c\)</span>，<span class="arithmatex">\(FD\)</span>不包含无关属性(Extraneous attribute)</li>
+</ul>
+</div>
+<p>将F中的多余属性去掉就得到F的正则覆盖。</p>
+<p>对于多余属性，有三种情况</p>
+<ul>
+<li>FD可从其它FD推导出</li>
+</ul>
+<p>Eg：</p>
+<div class="arithmatex">\[
+    F=\{A \rightarrow B, B \rightarrow C, A \rightarrow C\}
+\]</div>
+<p><span class="arithmatex">\(A \rightarrow C\)</span>可从<span class="arithmatex">\(A \rightarrow B\)</span>和<span class="arithmatex">\(B \rightarrow C\)</span>推导出，所以<span class="arithmatex">\(A \rightarrow C\)</span>是多余的。</p>
+<p><span class="arithmatex">\(F_c=\{A \rightarrow B, B \rightarrow C\}\)</span></p>
+<ul>
+<li>FD中左边是多余的</li>
+</ul>
+<p>Eg：</p>
+<div class="arithmatex">\[
+    F=\{A \rightarrow B, B \rightarrow C, AC \rightarrow D\}
+\]</div>
+<p>由于从前两个可以推导出<span class="arithmatex">\(A \rightarrow C\)</span>，所以<span class="arithmatex">\(A \rightarrow AC \rightarrow D\)</span>,所以属性<span class="arithmatex">\(C\)</span>是多余的。</p>
+<p><span class="arithmatex">\(F_c=\{A \rightarrow B, B \rightarrow C, A \rightarrow D\}\)</span></p>
+<ul>
+<li>FD中右边是多余的</li>
+</ul>
+<p>Eg：</p>
+<div class="arithmatex">\[
+    F=\{A \rightarrow B, B \rightarrow C, A \rightarrow CD\}
+\]</div>
+<p><span class="arithmatex">\(C\)</span>是多余的，因为<span class="arithmatex">\(A \rightarrow CD\)</span>可以写为<span class="arithmatex">\(A \rightarrow C\)</span>和<span class="arithmatex">\(A \rightarrow D\)</span>，而<span class="arithmatex">\(A \rightarrow C\)</span>已经可以由前两条推出<span class="arithmatex">\(F\)</span>。</p>
+<p><span class="arithmatex">\(F_c=\{A \rightarrow B, B \rightarrow C, A \rightarrow D\}\)</span></p>
+<h4 id="judging-extraneous-attributes">Judging Extraneous Attributes<a class="headerlink" href="#judging-extraneous-attributes" title="Permanent link">&para;</a></h4>
+<p>在寻找正则覆盖时，需要识别和移除多余属性。多余属性的判定可以分为以下两种情况：</p>
+<p>对于函数依赖 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> 在 <span class="arithmatex">\(F\)</span> 中：</p>
+<ul>
+<li><strong>左侧多余属性</strong></li>
+</ul>
+<p>如果属性 <span class="arithmatex">\(A \in \alpha\)</span>，且 <span class="arithmatex">\(F\)</span> 逻辑上等价于 <span class="arithmatex">\(F' = (F - \{\alpha \rightarrow \beta\}) \cup \{(\alpha - A) \rightarrow \beta\}\)</span>，则 <span class="arithmatex">\(A\)</span> 在 <span class="arithmatex">\(\alpha\)</span> 中是多余的。</p>
+<p>也就是说，如果移除了 <span class="arithmatex">\(A\)</span> 后的函数依赖仍能推导出相同的约束，则 <span class="arithmatex">\(A\)</span> 是多余的。</p>
+<p><strong>例如</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(\alpha = \{A\alpha'\}\)</span>，<span class="arithmatex">\(\{A\alpha'\} \rightarrow \beta\)</span>。若 <span class="arithmatex">\(F\)</span> 蕴涵 <span class="arithmatex">\(\alpha' \rightarrow \beta\)</span>，则 <span class="arithmatex">\(\{A\alpha'\} \rightarrow \beta\)</span> 多余，即 <span class="arithmatex">\(A\)</span> 多余。</li>
+<li>给定 <span class="arithmatex">\(F = \{A \rightarrow C, AB \rightarrow C\}\)</span>
+  因为 <span class="arithmatex">\(F = \{A \rightarrow C, AB \rightarrow C\}\)</span> 逻辑上蕴涵 <span class="arithmatex">\(A \rightarrow C\)</span>，所以 <span class="arithmatex">\(B\)</span> 在 <span class="arithmatex">\(AB \rightarrow C\)</span> 中是多余的，
+  <span class="arithmatex">\(F' = \{A \rightarrow C, A \rightarrow C\} = \{A \rightarrow C\}\)</span></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">testing</p>
+<p>testing if A is extraneous in <span class="arithmatex">\(\alpha\)</span></p>
+<p>Compute <span class="arithmatex">\((\alpha - A)^+\)</span> using F</p>
+<p>If <span class="arithmatex">\((\alpha - A)^+\)</span> contains <span class="arithmatex">\(\beta\)</span>, then A is extraneous in <span class="arithmatex">\(\alpha\)</span></p>
+<p>在原属性下移除A后，新的属性集能推出原来的FD，则A是多余的，因为不需要A参与左侧也能推出右侧。</p>
+</div>
+<ul>
+<li><strong>右侧多余属性</strong></li>
+</ul>
+<p>如果属性 <span class="arithmatex">\(A \in \beta\)</span>，且函数依赖集 <span class="arithmatex">\(F' = (F - \{\alpha \rightarrow \beta\}) \cup \{\alpha \rightarrow (\beta - A)\}\)</span> 逻辑上蕴涵 <span class="arithmatex">\(F\)</span>，则 <span class="arithmatex">\(A\)</span> 在 <span class="arithmatex">\(\beta\)</span> 中是多余的。</p>
+<p><strong>例如</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(\beta = \{A\beta'\}\)</span>, <span class="arithmatex">\(\alpha \rightarrow \{A\beta'\}\)</span>，有 <span class="arithmatex">\(\{\alpha \rightarrow A, \alpha \rightarrow \beta\}\)</span>。若 <span class="arithmatex">\(F'\)</span> 蕴涵 <span class="arithmatex">\(\alpha \rightarrow A\)</span>，则 <span class="arithmatex">\(\alpha \rightarrow A\)</span> 多余（即可用 <span class="arithmatex">\(F'\)</span> 代替 <span class="arithmatex">\(F\)</span>）。</li>
+<li>给定 <span class="arithmatex">\(F = \{A \rightarrow C, AB \rightarrow CD\}\)</span>
+  由于 <span class="arithmatex">\(AB \rightarrow CD \Rightarrow \{AB \rightarrow C, AB \rightarrow D\}\)</span>，且 <span class="arithmatex">\(AB \rightarrow C\)</span> 可以从 <span class="arithmatex">\(F' = \{A \rightarrow C, AB \rightarrow D\}\)</span> 推导出，
+  因此 <span class="arithmatex">\(C\)</span> 在 <span class="arithmatex">\(AB \rightarrow CD\)</span> 中是多余的。</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">testing</p>
+<p>testing if A is extraneous in <span class="arithmatex">\(\beta\)</span></p>
+<p>Compute <span class="arithmatex">\(\alpha^+\)</span> using <span class="arithmatex">\(F'\)</span></p>
+<p>where <span class="arithmatex">\(F' = (F - \{\alpha \rightarrow \beta\}) \cup \{\alpha \rightarrow (\beta - A)\}\)</span></p>
+<p>If <span class="arithmatex">\(\alpha^+\)</span> contains A, then A is extraneous in <span class="arithmatex">\(\beta\)</span></p>
+<p>在移除了包含可疑属性FD的新的F中，如果仍能推出A，则A是多余的。
+因为A已经蕴含在新的F中。</p>
+</div>
+<div class="admonition key-point">
+<p class="admonition-title">Key-point</p>
+<p>将包含可疑的多余属性的FD从F中去掉之后，再加上去掉多余属性的FD，得到新的F'，如果F'与F等价，则去掉的可疑属性确实是多余的。</p>
+</div>
+<h4 id="computing-canonical-cover">Computing canonical cover<a class="headerlink" href="#computing-canonical-cover" title="Permanent link">&para;</a></h4>
+<p>要计算函数依赖集F的规范覆盖，需要执行以下步骤：</p>
+<p><strong>重复执行以下操作</strong>：</p>
+<ul>
+<li>使用合并规则，将<span class="arithmatex">\(F\)</span>中形如 <span class="arithmatex">\(\alpha_1 \rightarrow \beta_1\)</span> 和 <span class="arithmatex">\(\alpha_1 \rightarrow \beta_2\)</span> 的依赖替换为 <span class="arithmatex">\(\alpha_1 \rightarrow \beta_1\beta_2\)</span></li>
+<li>查找具有多余属性的函数依赖 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span>（多余属性可能出现在<span class="arithmatex">\(\alpha\)</span>或<span class="arithmatex">\(\beta\)</span>中）</li>
+<li>如果发现多余属性，则从 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> 中删除该属性</li>
+</ul>
+<p><strong>直到F不再变化为止</strong></p>
+<p><strong>注意</strong>：当某些多余属性被删除后，合并规则可能变得适用，因此需要重新应用合并规则。</p>
+<h2 id="decomposition_1">Decomposition<a class="headerlink" href="#decomposition_1" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Goals of Normalization</p>
+<p>judge whether a particular relation is in a good form,i.e.,</p>
+<ul>
+<li>No redundant</li>
+<li>No insert ,delete ,update anomalies</li>
+</ul>
+<p>In the case that a relationm is not in a good form,we decompose it into a set
+of relations that：</p>
+<ul>
+<li>The decomposition is a lossless-join decomposition(无损连接分解).</li>
+<li>The decomposition is dependency preservation(依赖保持).</li>
+<li>Each relation Ri is in a good form(BCNF or 3NF)</li>
+</ul>
+</div>
+<h3 id="desirable-properties-of-a-decomposition">Desirable properties of a decomposition<a class="headerlink" href="#desirable-properties-of-a-decomposition" title="Permanent link">&para;</a></h3>
+<ul>
+<li>子关系属性的并必须覆盖原属性</li>
+<li>子关系必须是无损连接的,对于一分为二的分解，分解后的两个子模式的共同属性必须是R1或者R2</li>
+<li>
+<p>子关系必须保持函数依赖(Dependency preserving)</p>
+</li>
+<li>
+<p>为了高效地检查更新（确保不违反任何FD），允许在子关系<span class="arithmatex">\(R_i\)</span>中分别进行更新验证，而无需执行它们的连接操作。</p>
+</li>
+<li>
+<p>F对<span class="arithmatex">\(R_i\)</span>的限制是：<span class="arithmatex">\(F_i \subseteq F^+\)</span>；<span class="arithmatex">\(F_i\)</span>只包含<span class="arithmatex">\(R_i\)</span>的属性。</p>
+</li>
+<li>
+<p><span class="arithmatex">\((F_1 \cup F_2 \cup ... \cup F_n)^+ = F^+\)</span>，其中<span class="arithmatex">\(F_i\)</span>是包含在<span class="arithmatex">\(F^+\)</span>中且只包含<span class="arithmatex">\(R_i\)</span>属性的依赖集。</p>
+</li>
+<li>
+<p>子关系必须满足一定的范式.Boyce-Codd范式（BCNF）或第三范式（3NF）。</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>R(A,B,C),F={A <span class="arithmatex">\(\rightarrow\)</span> B,B <span class="arithmatex">\(\rightarrow\)</span> C}</p>
+<p>分解为R1(A,B),R2(B,C)</p>
+<ul>
+<li>无损分解验证：</li>
+</ul>
+<div class="arithmatex">\[
+    R1 \cap R2 = B
+\]</div>
+<p>而<span class="arithmatex">\(B^+ = \{B,C\}\)</span>，所以<span class="arithmatex">\(B\)</span>是<span class="arithmatex">\(R_2\)</span>的Key，所以<span class="arithmatex">\(R_1\)</span>和<span class="arithmatex">\(R_2\)</span>是无损分解</p>
+<ul>
+<li>依赖保持验证：</li>
+</ul>
+<div class="arithmatex">\[
+    F1 = \{A \rightarrow B\}
+\]</div>
+<div class="arithmatex">\[
+    F2 = \{B \rightarrow C\}
+\]</div>
+<div class="arithmatex">\[
+    F1 \cup F2 = \{A \rightarrow B, B \rightarrow C\}
+\]</div>
+<div class="arithmatex">\[
+    (F1 \cup F2)^+ = \{A \rightarrow B, B \rightarrow C\}=F
+\]</div>
+<p>所以正确</p>
+<p>若是分解为R1(A,B),R2(A,C)</p>
+<p>则对于依赖保持，有</p>
+<div class="arithmatex">\[
+    F1 = \{A \rightarrow B\}
+\]</div>
+<div class="arithmatex">\[
+    F2 = \{A \rightarrow C\}
+\]</div>
+<div class="arithmatex">\[
+    F1 \cup F2 = \{A \rightarrow B, A \rightarrow C\} \neq F
+\]</div>
+<p>所以不正确</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">tesing for Dependency Preservation</p>
+<p>To check if dependency <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> is preserved in a decomposition of </p>
+<p>R into R1,R2,...,Rn</p>
+<p>initial result = <span class="arithmatex">\(\alpha\)</span></p>
+<p>while (changes to result):
+    for each Ri in the decomposition:
+        t= (result <span class="arithmatex">\(\cap\)</span> Ri)+ <span class="arithmatex">\(\cap\)</span> Ri
+        result = result <span class="arithmatex">\(\cup\)</span> t</p>
+<p>if result contains all attributes in <span class="arithmatex">\(\beta\)</span>,then the dependency is preserved</p>
+<p>即对于每个子关系Ri：取result与Ri的交集，找出当前已知属性中属于Ri的部分</p>
+<p>计算这些属性在Ri关系上的闭包(使用Ri上有效的函数依赖)再与Ri取交集，确保结果仍在Ri的属性范围内</p>
+<p>将计算结果并入result集合</p>
+<p>apply this process to each dependency in F</p>
+</div>
+<h2 id="boyce-codd-normal-form">Boyce-Codd Normal Form<a class="headerlink" href="#boyce-codd-normal-form" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>关系模式<span class="arithmatex">\(R\)</span>在功能依赖集<span class="arithmatex">\(F\)</span>下满足BCNF(Boyce-Codd Normal Form)，如果对于<span class="arithmatex">\(F^+\)</span>中所有形如<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>的功能依赖，其中<span class="arithmatex">\(\alpha \subseteq R\)</span>且<span class="arithmatex">\(\beta \subseteq R\)</span>，至少满足以下条件之一：</p>
+<ul>
+<li><span class="arithmatex">\(\alpha \rightarrow \beta\)</span>是平凡的（即<span class="arithmatex">\(\beta \subseteq \alpha\)</span>）</li>
+<li>或</li>
+<li><span class="arithmatex">\(\alpha\)</span>是<span class="arithmatex">\(R\)</span>的超键（即<span class="arithmatex">\(R \subseteq \alpha^+\)</span>，<span class="arithmatex">\(\alpha \rightarrow R\)</span>）</li>
+</ul>
+<p>简单来说，BCNF要求所有非平凡的功能依赖，其左侧必须是超键。这个范式比第一范式更加严格，能够消除更多的数据冗余和异常问题。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>R(A,B,C),F={A <span class="arithmatex">\(\rightarrow\)</span> B,B <span class="arithmatex">\(\rightarrow\)</span> C}，Key={A}</p>
+<p>R不是BCNF，因为<span class="arithmatex">\(B \rightarrow C\)</span>的左侧不是超键，也不是平凡的。</p>
+<p>R分解为R1(A,B),R2(B,C)</p>
+<ul>
+<li>
+<p>无损分解验证和依赖保持验证成立；</p>
+</li>
+<li>
+<p>此时R1和R2都是BCNF</p>
+</li>
+</ul>
+</div>
+<h3 id="testing-for-bcnf">Testing for BCNF<a class="headerlink" href="#testing-for-bcnf" title="Permanent link">&para;</a></h3>
+<p>要检查一个非平凡依赖 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> 是否违反BCNF：</p>
+<ul>
+<li>计算 <span class="arithmatex">\(\alpha^+\)</span>（属性 <span class="arithmatex">\(\alpha\)</span> 的闭包）</li>
+<li>验证 <span class="arithmatex">\(\alpha^+\)</span> 是否包含关系 <span class="arithmatex">\(R\)</span> 的所有属性，即 <span class="arithmatex">\(\alpha\)</span> 是否是 <span class="arithmatex">\(R\)</span> 的超键</li>
+</ul>
+<p>简化测试：要检查关系模式 <span class="arithmatex">\(R\)</span> 是否满足BCNF，只需检查给定集合 <span class="arithmatex">\(F\)</span> 中的依赖是否违反BCNF，而不必检查 <span class="arithmatex">\(F^+\)</span> 中的所有依赖。</p>
+<ul>
+<li>如果 <span class="arithmatex">\(F\)</span> 中没有依赖违反BCNF，那么 <span class="arithmatex">\(F^+\)</span> 中的依赖也不会违反BCNF</li>
+</ul>
+<blockquote>
+<p><span class="arithmatex">\(F^+\)</span> 是由Armstrong的3个公理从 <span class="arithmatex">\(F\)</span> 推出的，而任何公理都不会使函数依赖(FD)左边变小(拆分)，故如果 <span class="arithmatex">\(F\)</span> 中没有违反BCNF的FD(即左边是superkey)，则 <span class="arithmatex">\(F^+\)</span> 中也不会。</p>
+</blockquote>
+<h4 id="warning">Warning<a class="headerlink" href="#warning" title="Permanent link">&para;</a></h4>
+<p>然而，仅使用 <span class="arithmatex">\(F\)</span> 来测试BCNF可能在测试分解关系 <span class="arithmatex">\(R_i\)</span> 时出现错误。</p>
+<p>例如，考虑 <span class="arithmatex">\(R(A, B, C, D)\)</span>，函数依赖 <span class="arithmatex">\(F = \{A \rightarrow B, B \rightarrow C\}\)</span></p>
+<ul>
+<li><span class="arithmatex">\(R\)</span> 是否满足BCNF？候选键是什么？</li>
+<li>将 <span class="arithmatex">\(R\)</span> 分解为 <span class="arithmatex">\(R_1(A, B)\)</span> 和 <span class="arithmatex">\(R_2(A, C, D)\)</span></li>
+<li><span class="arithmatex">\(F\)</span> 中没有仅包含 <span class="arithmatex">\((A, C, D)\)</span> 属性的函数依赖，因此可能误认为 <span class="arithmatex">\(R_2\)</span> 满足BCNF</li>
+<li>实际上，<span class="arithmatex">\(F^+\)</span> 中的依赖 <span class="arithmatex">\(A \rightarrow C\)</span> 表明 <span class="arithmatex">\(R_2\)</span> 不满足BCNF，因为<span class="arithmatex">\(A\)</span>不是<span class="arithmatex">\(R_2\)</span>的超键，它不能确定<span class="arithmatex">\(D\)</span></li>
+</ul>
+<blockquote>
+<p>可在 <span class="arithmatex">\(F\)</span> 下判别 <span class="arithmatex">\(R\)</span> 是否违反BCNF，但必须在 <span class="arithmatex">\(F^+\)</span> 下判别 <span class="arithmatex">\(R\)</span> 的分解式是否违反BCNF。</p>
+</blockquote>
+<h4 id="algorithm-for-bcnf-decomposition">Algorithm for BCNF Decomposition<a class="headerlink" href="#algorithm-for-bcnf-decomposition" title="Permanent link">&para;</a></h4>
+<p>result := {R};</p>
+<p>done := false;</p>
+<p>compute F+;</p>
+<p>while (not done) do</p>
+<p>if (there is a schema Ri in result that is not in BCNF)</p>
+<p>then begin</p>
+<p>let <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> be a nontrivial functional </p>
+<p>dependency that holds on Ri such</p>
+<p>that <span class="arithmatex">\(\alpha \rightarrow Ri\)</span> is not in F+, and <span class="arithmatex">\(\alpha \cap \beta = \emptyset\)</span>;</p>
+<p>result := (result - Ri)  <span class="arithmatex">\(\cup\)</span> (<span class="arithmatex">\(\alpha, \beta\)</span>)  <span class="arithmatex">\(\cup\)</span> (Ri - <span class="arithmatex">\(\beta\)</span>);</p>
+<p>end</p>
+<p>else done := true;</p>
+<blockquote>
+<p>注：最终，每个子模式都满足BCNF，且分解是无损连接的。</p>
+</blockquote>
+<p>说明：</p>
+<ul>
+<li>当发现结果集中存在不满足BCNF的关系模式Ri时，这意味着Ri中存在非平凡函数依赖<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>，且<span class="arithmatex">\(\alpha\)</span>不是键</li>
+<li>将Ri分解为两个子模式：</li>
+<li>Ri1 = (<span class="arithmatex">\(\alpha, \beta\)</span>) </li>
+<li>Ri2 = (Ri - <span class="arithmatex">\(\beta\)</span>, <span class="arithmatex">\(\alpha\)</span>)</li>
+<li>其中<span class="arithmatex">\(\alpha\)</span>是Ri1和Ri2的共同属性</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">BCNF分解实例</p>
+<p>考虑关系模式：</p>
+<p>R = (branch-name, branch-city, assets, customer-name, loan-number, amount)</p>
+<p>函数依赖集：</p>
+<p>F = {branch-name <span class="arithmatex">\(\rightarrow\)</span> branch-city assets, 
+     loan-number <span class="arithmatex">\(\rightarrow\)</span> amount branch-name}</p>
+<p>候选键是 {loan-number, customer-name}</p>
+<p><strong>分解过程</strong>：</p>
+<ol>
+<li>
+<p>首先检查R是否满足BCNF</p>
+<ul>
+<li>函数依赖 branch-name <span class="arithmatex">\(\rightarrow\)</span> branch-city assets 中，branch-name 不是超键</li>
+<li>所以R违反BCNF</li>
+</ul>
+</li>
+<li>
+<p>使用算法进行分解：</p>
+<ul>
+<li>选择依赖 branch-name <span class="arithmatex">\(\rightarrow\)</span> branch-city assets</li>
+<li><span class="arithmatex">\(\alpha\)</span> = branch-name, <span class="arithmatex">\(\beta\)</span> = {branch-city assets}</li>
+<li>得到 R1= (branch-name, branch-city, assets)</li>
+<li>和 R2 = (branch-name, customer-name, loan-number, amount)</li>
+</ul>
+</li>
+<li>
+<p>检查R1是否满足BCNF</p>
+<ul>
+<li>R1中唯一的非平凡依赖是 branch-name <span class="arithmatex">\(\rightarrow\)</span> branch-city assets</li>
+<li>branch-name 是 R1 的候选键</li>
+<li>所以R1满足BCNF</li>
+</ul>
+</li>
+<li>
+<p>检查R2是否满足BCNF</p>
+<ul>
+<li>R2中有依赖 loan-number <span class="arithmatex">\(\rightarrow\)</span> amount branch-name</li>
+<li>loan-number 不是 R2 的超键（不能决定customer-name）</li>
+<li>所以R2违反BCNF</li>
+</ul>
+</li>
+<li>
+<p>继续分解R2：</p>
+<ul>
+<li>选择依赖 loan-number <span class="arithmatex">\(\rightarrow\)</span> amount branch-name</li>
+<li>得到 R3 = (loan-number, amount, branch-name)</li>
+<li>和 R4 = (loan-number, customer-name)</li>
+</ul>
+</li>
+<li>
+<p>检查R3和R4是否满足BCNF</p>
+<ul>
+<li>R3满足BCNF（loan-number是R3的候选键）</li>
+<li>R4满足BCNF（{loan-number, customer-name}是R4的候选键）</li>
+</ul>
+</li>
+</ol>
+<p><strong>最终分解</strong>：</p>
+<ul>
+<li>R1 = (branch-name, branch-city, assets)</li>
+<li>R3 = (loan-number, branch-name, amount)</li>
+<li>R4 = (customer-name, loan-number)</li>
+</ul>
+<p>所有最终的关系模式都满足BCNF，且整个分解是无损连接的。</p>
+</div>
+<h2 id="third-normal-form">Third Normal Form<a class="headerlink" href="#third-normal-form" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">Motivation</p>
+<p>实际生活中，存在这样的情况：</p>
+<ul>
+<li>Decompose into BCNF is not dependency preserving</li>
+<li>But efficient checking for FD violation on updates is important</li>
+</ul>
+</div>
+<div class="admonition solution">
+<p class="admonition-title">Solution</p>
+<p>Use 3NF, which is weaker than BCNF, but </p>
+<ul>
+<li>allows some redundancy</li>
+<li>But FDs can be checked on individual relations without computing a join</li>
+<li>There is always a lossless-join, dependency-preserving decomposition into 3NF. </li>
+</ul>
+</div>
+<p>第三范式（3NF）是比BCNF稍弱的范式，它允许某些非平凡依赖的左侧不是超键，但要求右侧属性必须是主键的一部分。</p>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>关系模式 <span class="arithmatex">\(R\)</span> 在函数依赖集 <span class="arithmatex">\(F\)</span> 下满足第三范式（3NF），如果对于 <span class="arithmatex">\(F^+\)</span> 中所有形如 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span> 的函数依赖，至少满足以下条件之一：</p>
+<ul>
+<li><span class="arithmatex">\(\alpha \rightarrow \beta\)</span> 是平凡的（即 <span class="arithmatex">\(\beta \subseteq \alpha\)</span>）</li>
+<li>或者 <span class="arithmatex">\(\alpha\)</span> 是 <span class="arithmatex">\(R\)</span> 的超键</li>
+<li>或者 <span class="arithmatex">\(\beta - \alpha\)</span> 中的每个属性都是 <span class="arithmatex">\(R\)</span> 的某个候选键的成员,如果<span class="arithmatex">\(\beta\)</span>中没有<span class="arithmatex">\(\alpha\)</span>的属性，则<span class="arithmatex">\(\beta\)</span>是候选键的一部分</li>
+<li>Note: 每个属性可能属于不同的候选键</li>
+</ul>
+<p>任何BCNF都是3NF，但3NF不一定是BCNF</p>
+<p><em>Third condition is a minimal relaxation of BCNF to ensure dependency preservation</em> </p>
+</div>
+<p>第三范式的特点：</p>
+<ul>
+<li>比BCNF更容易实现，但允许一定程度的冗余</li>
+<li>总能找到一个无损连接且保持依赖的分解</li>
+<li>实际应用中，当BCNF分解导致依赖不保持时，会采用3NF</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>R(J,K,L),F={JK <span class="arithmatex">\(\rightarrow\)</span> L,L <span class="arithmatex">\(\rightarrow\)</span> K}</p>
+<p>有两个candidate key:JK,JL</p>
+<p>那么R是3NF，因为在第一个FD中，JK是superkey，在第二个FD中，K是candidate key的一部分</p>
+<p>但是R不是BCNF，因为L <span class="arithmatex">\(\rightarrow\)</span> K，L不是superkey</p>
+<p>例如J是student，K是course，L是teacher；</p>
+<p>一门课有多个教师，一个教师上一门课，一门课多个学生选；</p>
+<table>
+<thead>
+<tr>
+<th>J</th>
+<th>L</th>
+<th>K</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>j1</td>
+<td>l1</td>
+<td>k1</td>
+</tr>
+<tr>
+<td>j2</td>
+<td>l1</td>
+<td>k1</td>
+</tr>
+<tr>
+<td>j3</td>
+<td>l1</td>
+<td>k1</td>
+</tr>
+<tr>
+<td>null</td>
+<td>l2</td>
+<td>k2</td>
+</tr>
+</tbody>
+</table>
+<p>A schema that is in 3NF but not in BCNF has the problems of repetition of information (e.g., the relationship l1, k1), and may need to use null values (e.g., to represent the relationship l2, k2, where there is no corresponding value for J).  </p>
+</div>
+<h3 id="testing-for-3nf">Testing for 3NF<a class="headerlink" href="#testing-for-3nf" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>只需检查依赖集 <span class="arithmatex">\(F\)</span> 中的函数依赖，无需检查 <span class="arithmatex">\(F^+\)</span> 中的所有函数依赖。</p>
+</li>
+<li>
+<p>使用 <strong>属性闭包</strong> 来检查每个依赖 <span class="arithmatex">\(\alpha \rightarrow \beta\)</span>，以判断 <span class="arithmatex">\(\alpha\)</span> 是否为 <strong>超键</strong> 。</p>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(\alpha\)</span> 不是超键时</p>
+<ul>
+<li>需要验证 <span class="arithmatex">\(\beta\)</span> 中的每个属性是否包含在关系 <span class="arithmatex">\(R\)</span> 的某个候选键中。</li>
+<li>这个测试相对昂贵，因为涉及到查找所有候选键。</li>
+<li>测试关系是否满足<span class="arithmatex">\(3NF\)</span>已被证明是 NP-hard。</li>
+<li>有趣的是，将关系分解为第三范式（稍后会描述）可以在多项式时间内完成。</li>
+</ul>
+</li>
+</ul>
+<p>注：第三范式比BCNF稍弱，但可以保证依赖保持性，这在实际应用中非常重要。</p>
+<h3 id="3nf-decomposition-algorithm">3NF Decomposition Algorithm<a class="headerlink" href="#3nf-decomposition-algorithm" title="Permanent link">&para;</a></h3>
+<p>3NF分解算法是一种能够保证无损连接和依赖保持的分解方法，该算法可以在多项式时间内完成。</p>
+<h4 id="algorithm-steps">Algorithm steps<a class="headerlink" href="#algorithm-steps" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>找到函数依赖集<span class="arithmatex">\(F\)</span>的正则覆盖<span class="arithmatex">\(F_c\)</span></p>
+</li>
+<li>
+<p>为<span class="arithmatex">\(F_c\)</span>中的每个函数依赖<span class="arithmatex">\(\alpha \rightarrow \beta\)</span>创建一个关系模式<span class="arithmatex">\(R_i = (\alpha, \beta)\)</span></p>
+</li>
+<li>
+<p>如果没有任何关系模式包含原关系的候选键，则添加一个包含候选键的关系模式</p>
+</li>
+<li>
+<p>消除冗余的关系模式（如果有）</p>
+</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Let Fc be a canonical cover for F;
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>i := 0;
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>for each functional dependency α → β in Fc do
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    if none of the schemas Rj, 1 ≤ j ≤ i contains αβ
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        then begin
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            i := i + 1;
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            Ri := (α, β)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        end
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>if none of the schemas Rj, 1 ≤ j ≤ i contains a candidate key for R then
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    begin
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        i := i + 1;
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        Ri := any candidate key for R;
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    end
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>return (R1, R2, ..., Ri)
+</span></code></pre></div>
+<p>这个算法的特点：</p>
+<ul>
+<li>第2步确保了依赖保持性，因为<span class="arithmatex">\(F_c\)</span>中的每个函数依赖都被包含在某个子模式中</li>
+<li>第3步确保了无损连接性，因为至少有一个子模式包含原关系的候选键</li>
+<li>生成的所有关系模式都满足3NF</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">3NF分解示例</p>
+<p>原始关系模式
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Banker-info-schema = (branch-name, customer-name, banker-name, office-number)
+</span></code></pre></div></p>
+<p>功能依赖集
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>F = {banker-name → branch-name office-number, 
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    customer-name branch-name → banker-name}
+</span></code></pre></div></p>
+<p>候选键
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{customer-name, branch-name}
+</span></code></pre></div></p>
+<p>3NF分解过程</p>
+<p>根据3NF分解算法，我们需要对关系模式进行分解：</p>
+<ol>
+<li>首先确认F即为规范覆盖Fc（没有多余属性）</li>
+<li>为每个功能依赖创建关系模式：<ul>
+<li>处理 banker-name → branch-name office-number：
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Banker-office-schema = (banker-name, branch-name, office-number)
+</span></code></pre></div></li>
+<li>处理 customer-name branch-name → banker-name：
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Banker-schema = (customer-name, branch-name, banker-name)
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>检查是否包含候选键：Banker-schema包含了原关系的候选键(customer-name, branch-name)</li>
+<li>检查冗余关系：两个模式都不冗余</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Banker-office-schema = (banker-name, branch-name, office-number)
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Banker-schema = (customer-name, branch-name, banker-name)
+</span></code></pre></div>
+<p>这个分解具有无损连接性和依赖保持性，且两个关系模式都满足第三范式。这样的分解消除了原关系中可能存在的更新、插入和删除异常问题。</p>
+<p>在实际银行系统中，这样的分解使得银行职员信息和客户-银行职员对应关系可以独立管理，更有效地避免了数据冗余和不一致性问题。</p>
+</div>
+<div class="admonition summary">
+<p class="admonition-title">BCNF与3NF的比较</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>BCNF</th>
+<th>3NF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>所有非平凡依赖的左侧必须是超键</td>
+<td>所有非平凡依赖的左侧是超键，或右侧是候选键的一部分</td>
+</tr>
+<tr>
+<td>数据冗余</td>
+<td>较少</td>
+<td>可能存在一些冗余</td>
+</tr>
+<tr>
+<td>依赖保持</td>
+<td>不保证</td>
+<td>总是保证</td>
+</tr>
+<tr>
+<td>无损连接</td>
+<td>保证</td>
+<td>保证</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>NP-complete</td>
+<td>多项式时间可解</td>
+</tr>
+</tbody>
+</table>
+<p>在实际数据库设计中：</p>
+<ul>
+<li>如果能够得到无损连接且保持依赖的BCNF分解，优先选择BCNF</li>
+<li>如果BCNF分解无法保持依赖，而效率检查很重要，则选择3NF</li>
+<li>有时也会选择混合方案：一部分关系采用BCNF，一部分采用3NF</li>
+</ul>
+</div>
+<h2 id="multivalued-dependencies">Multivalued Dependencies<a class="headerlink" href="#multivalued-dependencies" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="arithmatex">\(R\)</span> be a relation schema and let <span class="arithmatex">\(\alpha \in R\)</span> and <span class="arithmatex">\(\beta \in R\)</span>, the multivalued dependency</p>
+<div class="arithmatex">\[ 
+    \alpha \rightarrow\rightarrow \beta 
+\]</div>
+<p>holds on <span class="arithmatex">\(R\)</span>, if in any legal relation <span class="arithmatex">\(r(R)\)</span>, for <strong>all pairs</strong> of tuples <span class="arithmatex">\(t_1\)</span> and <span class="arithmatex">\(t_2\)</span> 
+in <span class="arithmatex">\(r\)</span> such that <span class="arithmatex">\(t_1[\alpha] = t_2[\alpha]\)</span>, there exist tuples <span class="arithmatex">\(t_3\)</span> and <span class="arithmatex">\(t_4\)</span> in <span class="arithmatex">\(r\)</span> such that:</p>
+<div class="arithmatex">\[t_1[\alpha] = t_2[\alpha] = t_3[\alpha] = t_4[\alpha]\]</div>
+<div class="arithmatex">\[t_3[\beta] = t_1[\beta]\]</div>
+<div class="arithmatex">\[t_3[R - \alpha - \beta] = t_2[R - \alpha - \beta]\]</div>
+<div class="arithmatex">\[t_4[\beta] = t_2[\beta]\]</div>
+<div class="arithmatex">\[t_4[R - \alpha - \beta] = t_1[R - \alpha - \beta]\]</div>
+<p>Let <span class="arithmatex">\(R - \alpha - \beta = Z\)</span>:</p>
+<div class="arithmatex">\[t_3[Z] = t_2[Z]\]</div>
+<div class="arithmatex">\[t_4[Z] = t_1[Z]\]</div>
+<p>如果<span class="arithmatex">\(\beta \in \alpha\)</span>，则<span class="arithmatex">\(\alpha \rightarrow\rightarrow \beta\)</span>是平凡的</p>
+<p>如果<span class="arithmatex">\(\alpha \cup \beta = R\)</span>，则<span class="arithmatex">\(\alpha \rightarrow\rightarrow \beta\)</span>是平凡的</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Let R be a relation schema with a set of attributes that are partitioned into 3 nonempty subsets. </p>
+<div class="arithmatex">\[Y, Z, W\]</div>
+<p>We say that <span class="arithmatex">\(Y \rightarrow\rightarrow Z\)</span> (Y multi-determines Z) if and only if for all possible relations r(R) <span class="arithmatex">\(t_1=(y1, z1, w1) \in r\)</span> and <span class="arithmatex">\(t_2=(y1, z2, w2) \in r\)</span> </p>
+<p>then <span class="arithmatex">\(t_3=(y1, z1, w2) \in r\)</span> and <span class="arithmatex">\(t_4=(y1, z2, w1) \in r\)</span> </p>
+<p>Note that since the behavior of Z and W are identical, it follows that <span class="arithmatex">\(Y \rightarrow\rightarrow Z\)</span> if <span class="arithmatex">\(Y \rightarrow\rightarrow W\)</span>. </p>
+</div>
+<p>多值依赖可以这样理解：当一个属性A(<span class="arithmatex">\(\alpha\)</span>)确定了另一组属性B(<span class="arithmatex">\(\beta\)</span>)的一组值，并且这组值 <strong>独立于</strong> 其他属性C(<span class="arithmatex">\(R-\alpha-\beta\)</span>)时，我们说A多值依赖于B（写作A→→B）。</p>
+<p>简单来说："如果我知道A的值，那么B的值集合与C的值集合是相互独立的组合"。</p>
+<p>想象一个学生选课表：</p>
+<ul>
+<li>每个学生可以选多门课程</li>
+<li>每个学生有多个爱好</li>
+<li>学生选什么课与他有什么爱好没有关系</li>
+</ul>
+<p>这就形成了：</p>
+<ul>
+<li>学生ID →→ 课程（学生ID多值依赖于课程）</li>
+<li>学生ID →→ 爱好（学生ID多值依赖于爱好）</li>
+</ul>
+<p>假设张三选了数学和物理两门课，他有绘画和游泳两个爱好，表中就会出现：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>课程</th>
+<th>爱好</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>张三</td>
+<td>数学</td>
+<td>绘画</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>数学</td>
+<td>游泳</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>物理</td>
+<td>绘画</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>物理</td>
+<td>游泳</td>
+</tr>
+</tbody>
+</table>
+<p>注意：表中每个课程都与每个爱好组合出现了一次，这就是多值依赖导致的**数据冗余**。</p>
+<p>因为多值依赖表示的是"独立的多对多关系"：</p>
+<ul>
+<li>学生与课程是多对多关系</li>
+<li>学生与爱好是多对多关系</li>
+<li>这两种关系相互独立</li>
+</ul>
+<p>当我们把独立的关系放在同一张表中，必然会产生所有可能组合，导致冗余。</p>
+<p>将表分解为两个独立的关系：</p>
+<ol>
+<li>学生-课程表：(学生ID, 课程)</li>
+<li>学生-爱好表：(学生ID, 爱好)</li>
+</ol>
+<p>这样既减少了冗余，也反映了数据的真实语义：课程选择和爱好是两个独立的多值事实。</p>
+<p>这就是为什么我们需要第四范式(4NF)：消除非平凡且非函数依赖的多值依赖。</p>
+<h2 id="fourth-normal-form">Fourth Normal Form<a class="headerlink" href="#fourth-normal-form" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>The closure <span class="arithmatex">\(D^+\)</span> of <span class="arithmatex">\(D\)</span> is the set of all functional and multivalued dependencies logically implied by <span class="arithmatex">\(D\)</span>. 即D的闭包</p>
+<p>一个关系模式<span class="arithmatex">\(R\)</span>在给定的函数依赖集和多值依赖集<span class="arithmatex">\(D\)</span>下满足第四范式(4NF)，当且仅当对于所有在<span class="arithmatex">\(D^+\)</span>中的多值依赖<span class="arithmatex">\(\alpha \rightarrow\rightarrow \beta\)</span>（其中<span class="arithmatex">\(\alpha \subseteq R\)</span>且<span class="arithmatex">\(\beta \subseteq R\)</span>），至少满足以下条件之一：</p>
+<ul>
+<li><strong>平凡依赖</strong>：<span class="arithmatex">\(\alpha \rightarrow\rightarrow \beta\)</span>是平凡的，意味着<span class="arithmatex">\(\beta \subseteq \alpha\)</span>（<span class="arithmatex">\(\beta\)</span>是<span class="arithmatex">\(\alpha\)</span>的子集）或<span class="arithmatex">\(\alpha \cup \beta = R\)</span>（<span class="arithmatex">\(\alpha\)</span>和<span class="arithmatex">\(\beta\)</span>的并集等于整个关系）</li>
+<li><strong>超键约束</strong>：<span class="arithmatex">\(\alpha\)</span>是<span class="arithmatex">\(R\)</span>的超键</li>
+</ul>
+</div>
+<ul>
+<li>如果一个关系满足4NF，它必然满足BCNF</li>
+<li>4NF主要解决了多值依赖导致的数据冗余问题</li>
+<li>4NF比BCNF更严格</li>
+</ul>
+<p>以学生-课程-爱好关系为例：</p>
+<table>
+<thead>
+<tr>
+<th>学生ID</th>
+<th>课程</th>
+<th>爱好</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>张三</td>
+<td>数学</td>
+<td>绘画</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>数学</td>
+<td>游泳</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>物理</td>
+<td>绘画</td>
+</tr>
+<tr>
+<td>张三</td>
+<td>物理</td>
+<td>游泳</td>
+</tr>
+</tbody>
+</table>
+<p>这个关系存在多值依赖：
+- 学生ID →→ 课程
+- 学生ID →→ 爱好</p>
+<p>但学生ID不是该关系的超键，因此违反4NF。</p>
+<p>将违反4NF的关系分解为满足4NF的关系：</p>
+<ol>
+<li>学生-课程关系：(学生ID, 课程)</li>
+<li>学生-爱好关系：(学生ID, 爱好)</li>
+</ol>
+<h3 id="requirements-for-decomposition">Requirements for decomposition<a class="headerlink" href="#requirements-for-decomposition" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Restriction of MVDs</p>
+</blockquote>
+<p>Assume <span class="arithmatex">\(R\)</span> is decomposed into <span class="arithmatex">\(R_1, R_2, ..., R_n\)</span>, each <span class="arithmatex">\(R_i\)</span> is required to conform to 4NF. </p>
+<p>The restriction of <span class="arithmatex">\(D\)</span> to <span class="arithmatex">\(R_i\)</span> is the set <span class="arithmatex">\(D_i\)</span> consisting of :</p>
+<ul>
+<li>All functional dependencies in <span class="arithmatex">\(D^+\)</span> that include only attributes of <span class="arithmatex">\(R_i\)</span></li>
+<li>All multivalued dependencies of the form </li>
+</ul>
+<div class="arithmatex">\[\alpha \rightarrow\rightarrow (\beta \cap R_i)\]</div>
+<p>where <span class="arithmatex">\(\alpha \subseteq R_i\)</span> and <span class="arithmatex">\(\alpha \rightarrow\rightarrow \beta\)</span> is in <span class="arithmatex">\(D^+\)</span></p>
+<p>所有在<span class="arithmatex">\(D^+\)</span>中（<span class="arithmatex">\(D\)</span>的闭包）仅包含<span class="arithmatex">\(R_i\)</span>属性的函数依赖会被保留在<span class="arithmatex">\(D_i\)</span>中。</p>
+<p>例如：如果原关系有依赖<span class="arithmatex">\(A \rightarrow B\)</span>，且<span class="arithmatex">\(A\)</span>和<span class="arithmatex">\(B\)</span>都在子关系<span class="arithmatex">\(R_i\)</span>中，则<span class="arithmatex">\(A \rightarrow B\)</span>会保留在<span class="arithmatex">\(D_i\)</span>中。</p>
+<p>对于<span class="arithmatex">\(D^+\)</span>中的每个多值依赖<span class="arithmatex">\(\alpha \rightarrow\rightarrow \beta\)</span>：</p>
+<p>如果<span class="arithmatex">\(\alpha\)</span>包含在<span class="arithmatex">\(R_i\)</span>中</p>
+<p>则<span class="arithmatex">\(\alpha \rightarrow\rightarrow (\beta \cap R_i)\)</span>会被包含在<span class="arithmatex">\(D_i\)</span>中</p>
+<p>这表示在子关系上，多值依赖的右侧被"裁剪"为只包含该子关系的属性</p>
+<h3 id="algorithm-for-4nf-decomposition">Algorithm for 4NF Decomposition<a class="headerlink" href="#algorithm-for-4nf-decomposition" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>result := {R};        // 初始结果集包含原始关系R
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>done := false;        // 设置循环继续标志
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>compute D+;           // 计算依赖集D的闭包
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Let Di denote the restriction of D+ to Ri  // 确定D+对每个关系的限
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>while (not done) {
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    // 检查result中是否存在不满足4NF的关系
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    if (存在关系Ri不满足4NF) {
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        // 找到一个违反4NF的多值依赖
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        选择非平凡多值依赖 α →→ β，使得:
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>            - α不是Ri的超键
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>            - α与β没有交集(α∩β=∅)
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        // 分解关系Ri
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        result := (result - Ri) ∪ (α, β) ∪ (Ri - β);
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    }
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    else {
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        done := true;  // 所有关系都满足4NF，算法结束
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    }
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>}
+</span></code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">4NF分解示例</p>
+<p>有关系模式 <span class="arithmatex">\(R = (A, B, C, G, H, I)\)</span></p>
+<p>函数依赖和多值依赖集：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>D = {A →→ B
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>     B →→ HI
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>     CG →→ H}
+</span></code></pre></div>
+<p>从中也可以推导出<span class="arithmatex">\(A \rightarrow\rightarrow H\)</span>,<span class="arithmatex">\(A \rightarrow\rightarrow I\)</span>$</p>
+<p><span class="arithmatex">\(R\)</span> 不满足4NF，因为 <span class="arithmatex">\(A →→ B\)</span> 中 <span class="arithmatex">\(A\)</span> 不是超键。</p>
+<p><strong>分解过程</strong>：</p>
+<p>a) <span class="arithmatex">\(R_1 = (A, B)\)</span> (<span class="arithmatex">\(R_1\)</span> 满足4NF)</p>
+<p>b) <span class="arithmatex">\(R_2 = (A, C, G, H, I)\)</span> (<span class="arithmatex">\(R_2\)</span> 不满足4NF,将其分解为<span class="arithmatex">\(R_3\)</span>和<span class="arithmatex">\(R_4\)</span>)</p>
+<p>c) <span class="arithmatex">\(R_3 = (C, G, H)\)</span> (<span class="arithmatex">\(R_3\)</span> 满足4NF)</p>
+<p>d) <span class="arithmatex">\(R_4 = (A, C, G, I)\)</span> (<span class="arithmatex">\(R_4\)</span> 不满足4NF,因为<span class="arithmatex">\(A →→ I\)</span>中<span class="arithmatex">\(A\)</span>不是超键)</p>
+<p>e) <span class="arithmatex">\(R_5 = (A, I)\)</span> (<span class="arithmatex">\(R_5\)</span> 满足4NF)</p>
+<p>f) <span class="arithmatex">\(R_6 = (A, C, G)\)</span> (<span class="arithmatex">\(R_6\)</span> 满足4NF)</p>
+<p>最终的分解结果是：<span class="arithmatex">\(R_1\)</span>, <span class="arithmatex">\(R_3\)</span>, <span class="arithmatex">\(R_5\)</span>, <span class="arithmatex">\(R_6\)</span>，所有这些关系都满足4NF，并且分解是无损连接的。</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../ER/" class="md-footer__link md-footer__link--prev" aria-label="上一页: ER模型">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                ER模型
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lec8/" class="md-footer__link md-footer__link--next" aria-label="下一页: 内存管理">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                内存管理
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3294 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/DataMarket/mab/">
+      
+      
+        <link rel="prev" href="../GameTheory/">
+      
+      
+        <link rel="next" href="../Shapley/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>多臂老虎机算法 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multi-armed-bandit" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              多臂老虎机算法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据要素市场
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GameTheory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    博弈论基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多臂老虎机算法
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多臂老虎机算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        随机多臂老虎机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="随机多臂老虎机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贪心算法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贪心算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贪心算法期望遗憾界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        上置信界算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        汤普森采样算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对抗性多臂老虎机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对抗性多臂老虎机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        遗憾的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        跟风算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mwu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MWU算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多臂老虎机应用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多臂老虎机应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        改进算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Shapley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shapley值
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    拍卖与机制设计基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optauction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最优机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Beyesian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯劝说
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        随机多臂老虎机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="随机多臂老虎机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贪心算法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贪心算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贪心算法期望遗憾界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        上置信界算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        汤普森采样算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对抗性多臂老虎机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对抗性多臂老虎机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        遗憾的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        跟风算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mwu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MWU算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多臂老虎机应用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多臂老虎机应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        改进算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../DB/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🎓 课程笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    数据要素市场
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="multi-armed-bandit">多臂老虎机 (Multi-Armed Bandit)<a class="headerlink" href="#multi-armed-bandit" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 4574 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 13 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 16 分钟</p>
+</div>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>一个赌鬼要玩多臂老虎机，摆在他面前有 <span class="arithmatex">\(K\)</span> 个臂（Arms）或动作选择（Actions），每一轮游戏中，他要选择拉动一个臂并会获得一个随机奖励（reward）（这一随机奖励来源于一个赌场设定好的分布，但赌鬼一开始不知道这一分布）。如果总共玩 <span class="arithmatex">\(T\)</span> 轮，他该如何最大化奖励</p>
+<p><figure markdown="span">
+    <img alt="Multi-Armed Bandit" src="../img/mab.png" />
+    <figcaption>多臂老虎机</figcaption>
+</figure></p>
+</div>
+<h2 id="_1">随机多臂老虎机<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">随机多臂老虎机</p>
+<p>在每一步 <span class="arithmatex">\(t=1,2,\ldots,T\)</span> 中：</p>
+<ol>
+<li>玩家选择一个臂 <span class="arithmatex">\(a_t \in A = \{a_1, \ldots, a_K\}\)</span>；</li>
+<li>玩家获得该臂对应的随机奖励 <span class="arithmatex">\(r_t \sim R(a_t)\)</span>（<span class="arithmatex">\(r_t \in [0,1]\)</span>）；</li>
+<li>玩家依据过往轮次的奖励情况调整选择策略，实现奖励最大化。</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>奖励分布的均值记为 <span class="arithmatex">\(\mu(a_k) = \mathbb{E}[R(a_k)]\)</span>，<span class="arithmatex">\(k \in [K]\)</span>；</li>
+<li>最优臂 <span class="arithmatex">\(a^*\)</span> 的奖励均值 <span class="arithmatex">\(\mu^* = \max_{a \in A} \mu(a)\)</span>；</li>
+<li>奖励均值差异 <span class="arithmatex">\(\Delta(a) = \mu^* - \mu(a)\)</span>。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>奖励均值差异和奖励均值是未知的，玩家需要通过探索来估计这些值。定义这些值是为了在上帝视角分析算法的性能。</p>
+</div>
+</div>
+<p>遗憾分析</p>
+<mark class="critic block">
+<p>伪遗憾</p>
+<div class="arithmatex">\[
+    \text{伪遗憾} = \sum_{t=1}^T \left( \mu^* - \mu(a_t) \right) = \mu^*T - \sum_{t=1}^T \mu(a_t)
+\]</div>
+<p>期望遗憾</p>
+<div class="arithmatex">\[
+    \text{期望遗憾} = \mathbb{E}[\text{伪遗憾}] = \mu^*T - \mathbb{E}[\sum_{t=1}^T \mu(a_t)]
+\]</div>
+</mark>
+<p>由于选择策略的随机性，<span class="arithmatex">\(\mu(a_t)\)</span> 是随机变量。</p>
+<div class="admonition info">
+<p class="admonition-title">次线性</p>
+<p>一个函数 <span class="arithmatex">\(f(x)\)</span> 是次线性的，如果对于所有 <span class="arithmatex">\(x\)</span>，有 <span class="arithmatex">\(f(x) \leqslant cx\)</span> 成立，其中 <span class="arithmatex">\(c\)</span> 是一个常数。</p>
+<p>在MAB问题中，我们常常关注算法遗憾界（regret bound）。一个好的遗憾界是次线性的（sub-linear），这意味着算法能逐渐学到最优臂，即</p>
+<div class="arithmatex">\[
+    \lim_{T \to \infty} \frac{RegretBound(T)}{T} = 0
+\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Hoeffding不等式</p>
+<p>设 <span class="arithmatex">\(X_1, X_2, \ldots, X_n\)</span> 是独立同分布的随机变量，且 <span class="arithmatex">\(X_i \in [0,1]\)</span>。则对于任意 <span class="arithmatex">\(\epsilon &gt; 0\)</span>，有</p>
+<div class="arithmatex">\[
+    \mathbb{P}\left( \left| \frac{1}{n} \sum_{i=1}^n X_i - \mathbb{E}[X_i] \right| \geqslant \epsilon \right) \leqslant 2e^{-2n\epsilon^2}
+\]</div>
+<p>称 <span class="arithmatex">\([\mu - \epsilon, \mu + \epsilon]\)</span> 是置信区间（confidence interval），<span class="arithmatex">\(\epsilon\)</span> 是置信半径（confidence radius）。</p>
+<p>若令 <span class="arithmatex">\(\epsilon = \sqrt{\frac{\alpha \log T}{n}}\)</span>，则有</p>
+<div class="arithmatex">\[
+    \mathbb{P}(|\mu - \overline{X}_n| \geqslant \epsilon) = \mathbb{P}\left( \left| \mu - \overline{X}_n \right| \geqslant \sqrt{\frac{\alpha \log T}{n}} \right) \leqslant 2T^{-2\alpha}, \forall \alpha &gt; 0
+\]</div>
+<p>一般取 <span class="arithmatex">\(\alpha = 2\)</span></p>
+</div>
+<h3 id="_2">贪心算法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<figure>
+    <img alt="贪心算法" src="../img/greedy.png" width="500" />
+    <figcaption>贪心算法</figcaption>
+</figure>
+<h4 id="_3">贪心算法期望遗憾界<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>贪心算法期望遗憾界为 <span class="arithmatex">\(O\left(T^{\frac{2}{3}}(K\log T)^{\frac{1}{3}}\right)\)</span>。</p>
+<p>分析框架：好事件 vs. 坏事件</p>
+<p>我们将利用阶段的期望遗憾 <span class="arithmatex">\(\mathbb{E}[R(\text{exploitation})]\)</span> 分解为两部分：</p>
+<div class="arithmatex">\[
+\mathbb{E}[R] = \mathbb{E}[R | E] \cdot P(E) + \mathbb{E}[R | \bar{E}] \cdot P(\bar{E})
+\]</div>
+<ul>
+<li>
+<p><strong>事件 <span class="arithmatex">\(E\)</span> (好事件)</strong>: 我们的采样估计是"准确"的。具体来说，所有臂 <span class="arithmatex">\(a\)</span> 的样本均值 <span class="arithmatex">\(Q(a)\)</span> 与其真实均值 <span class="arithmatex">\(\mu(a)\)</span> 的差距都小于某个范围 <span class="arithmatex">\(\text{rad}\)</span>。
+    $$ E = { \forall a, |\mu(a) - Q(a)| \le \text{rad} } $$
+    其中我们定义 <span class="arithmatex">\(\text{rad}\)</span> 为 <span class="arithmatex">\(\sqrt{\frac{2\log T}{N}}\)</span>。</p>
+</li>
+<li>
+<p><strong>事件 <span class="arithmatex">\(\bar{E}\)</span> (坏事件)</strong>: 事件 <span class="arithmatex">\(E\)</span> 的补集，即至少有一个臂的采样估计"不准确"，超出了 <span class="arithmatex">\(\text{rad}\)</span> 的范围。</p>
+</li>
+</ul>
+<p>分析坏事件 <span class="arithmatex">\(\bar{E}\)</span> 的贡献</p>
+<p>根据霍夫丁不等式和联合界，坏事件发生的概率 <span class="arithmatex">\(P(\bar{E})\)</span> 极小：</p>
+<div class="arithmatex">\[
+    P(\bar{E}) \le \sum_{a=1}^K P(|\mu(a) - Q(a)| &gt; \text{rad}) \le \sum_{a=1}^K 2e^{-2N(\text{rad})^2} = \sum_{a=1}^K 2e^{-4\log T} = 2K T^{-4} 
+\]</div>
+<p>在坏事件中，最坏情况下的遗憾为 <span class="arithmatex">\(T\)</span>。因此，这部分对总遗憾的贡献可以忽略不计：</p>
+<div class="arithmatex">\[
+    \mathbb{E}[R | \bar{E}] \cdot P(\bar{E}) \le T \cdot O(K T^{-4}) = O(K T^{-3}) 
+\]</div>
+<p>分析好事件 <span class="arithmatex">\(E\)</span> 的贡献</p>
+<p>假设我们处在"好事件" <span class="arithmatex">\(E\)</span> 中，即 <span class="arithmatex">\(|\mu(a) - Q(a)| \le \text{rad}\)</span> 对所有臂都成立。
+只有当我们选错了臂（即选择了次优臂 <span class="arithmatex">\(a\)</span> 而非最优臂 <span class="arithmatex">\(a^*\)</span>)时，才会产生遗憾。这种情况发生的条件是 <span class="arithmatex">\(Q(a) &gt; Q(a^*)\)</span>。
+利用好事件的定义，我们可以推导出一系列不等式：</p>
+<div class="arithmatex">\[
+    \mu(a) + \text{rad} \ge Q(a) &gt; Q(a^*) \ge \mu(a^*) - \text{rad} 
+\]</div>
+<p>整理上式可得，单步遗憾的上界为：</p>
+<div class="arithmatex">\[
+    \Delta_a = \mu(a^*) - \mu(a) &lt; 2 \cdot \text{rad} 
+\]</div>
+<p>这意味着，在好事件中，即便我们选错了，这个次优臂也不会太差。因此，利用阶段的总遗憾上
+界为：</p>
+<div class="arithmatex">\[
+    \mathbb{E}[R(\text{exploitation}) | E] \le (T - KN) \cdot (2 \cdot \text{rad}) 
+\]</div>
+<p>综合与优化</p>
+<p>将所有部分的遗憾相加，我们得到总期望遗憾 <span class="arithmatex">\(R(T)\)</span> 的上界：</p>
+<div class="arithmatex">\[
+    \mathbb{E}[R(T)] \lesssim \underbrace{(K-1)N}_{\text{探索遗憾}} + \underbrace{(T - KN) \cdot (2 \cdot \text{rad})}_{\text{利用遗憾}} + \underbrace{O(K T^{-3})}_{\text{可忽略}} 
+\]</div>
+<p>代入 <span class="arithmatex">\(\text{rad}\)</span> 的定义，并忽略一些小项：</p>
+<div class="arithmatex">\[
+    \mathbb{E}[R(T)] \lesssim KN + 2T \sqrt{\frac{2\log T}{N}} 
+\]</div>
+<p>为了最小化这个上界，我们需要平衡探索成本（随 <span class="arithmatex">\(N\)</span> 增加）和利用遗憾（随 <span class="arithmatex">\(N\)</span> 减小）。我们令两项的量级相等来找到最优的 <span class="arithmatex">\(N\)</span>：</p>
+<div class="arithmatex">\[
+    KN \approx T\sqrt{\frac{\log T}{N}} \implies N^{3/2} \approx \frac{T\sqrt{\log T}}{K} \implies N \approx \left(\frac{T\sqrt{\log T}}{K}\right)^{2/3} 
+\]</div>
+<p>将这个最优的 <span class="arithmatex">\(N\)</span> 代回遗憾表达式 <span class="arithmatex">\(KN\)</span> 中：</p>
+<div class="arithmatex">\[
+    \mathbb{E}[R(T)] \approx K \cdot \left(\frac{T\sqrt{\log T}}{K}\right)^{2/3} = K \cdot \frac{T^{2/3}(\log T)^{1/3}}{K^{2/3}} = K^{1/3}T^{2/3}(\log T)^{1/3} 
+\]</div>
+<p>最终得到遗憾界为：</p>
+<div class="arithmatex">\[
+    \mathbb{E}[R(T)] = O\left(T^{\frac{2}{3}}(K\log T)^{\frac{1}{3}}\right) 
+\]</div>
+<div class="admonition info">
+<p class="admonition-title"><span class="arithmatex">\(\epsilon\)</span>-贪心算法</p>
+<p><figure markdown="span">
+    <img alt="\(\epsilon\)-贪心算法" src="../img/epsilon-greedy.png" width="500" />
+    <figcaption><span class="arithmatex">\(\epsilon\)</span>-贪心算法</figcaption>
+</figure></p>
+</div>
+<h3 id="_4">上置信界算法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<figure>
+    <img alt="" src="../img/UCB1.png" />
+    <img alt="" src="../img/UCB2.png" />
+</figure>
+<p>UCB算法期望遗憾界为 <span class="arithmatex">\(O\left(\sqrt{KT\log T}\right)\)</span>。</p>
+<h3 id="_5">汤普森采样算法<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>汤普森采样采用贝叶斯方法来解决探索-利用困境。其核心思想是为每一个臂（选项）维护一个关于其奖励概率的"信念"，这个"信念"通过一个概率分布来表示。</p>
+<p>在做决策时，算法并不是直接选择当前看起来最好的臂，而是**为每个臂的"信念"分布进行一次采样**，然后选择被采样出最高值的那个臂。</p>
+<ul>
+<li>
+<p><strong>探索</strong> ：如果一个臂的"信念"分布很宽（意味着不确定性很高），那么它既有可能被采样出很高的值（从而被选中去探索），也有可能被采样出很低的值。</p>
+</li>
+<li>
+<p><strong>利用</strong> ：如果一个臂被选择了很多次，其"信念"分布会变得很窄，集中在其真实的奖励概率附近。如果这个概率很高，那么每次采样出的值都会很高，从而被稳定地利用。</p>
+</li>
+</ul>
+<p>在获得奖励后，算法会根据奖励结果更新被选择臂的"信念"分布，使其更接近真实情况。</p>
+<p>具体而言，汤普森采样算法通常使用 **Beta 分布**来作为每个臂的奖励概率的信念分布。这在奖励为二元（成功/失败，即伯努利试验）的场景下尤其方便。</p>
+<div class="admonition info">
+<p class="admonition-title">算法流程</p>
+<ul>
+<li><strong>Beta 分布</strong>:<ul>
+<li>我们使用 Beta 分布 <span class="arithmatex">\(\text{Beta}(\alpha, \beta)\)</span> 来为每个臂的成功概率建模。</li>
+<li>参数 <span class="arithmatex">\(\alpha\)</span> 和 <span class="arithmatex">\(\beta\)</span> 可以直观地理解为观测到的 <strong>成功次数</strong> 和 <strong>失败次数</strong> 。</li>
+</ul>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(\alpha\)</span> 增大时，分布的质量会向 1 集中；当 <span class="arithmatex">\(\beta\)</span> 增大时，分布会向 0 集中。</p>
+</li>
+<li>
+<p><strong>算法流程</strong>:</p>
+<ol>
+<li><strong>初始化</strong>: 为每个选项 <span class="arithmatex">\(k\)</span>，初始化其成功次数 <span class="arithmatex">\(S(a_k) = 0\)</span> 和失败次数 <span class="arithmatex">\(F(a_k) = 0\)</span>。</li>
+<li><strong>循环</strong>: 在每一轮 <span class="arithmatex">\(t = 1, \dots, T\)</span> 中：
+    a. <strong>采样</strong>: 对每个臂 <span class="arithmatex">\(k\)</span>，从其当前的信念分布 <span class="arithmatex">\(\text{Beta}(S(a_k) + 1, F(a_k) + 1)\)</span> 中采样一个随机值 <span class="arithmatex">\(\theta_k\)</span>。
+    b. <strong>选择</strong>: 选择本轮采样值 <span class="arithmatex">\(\theta\)</span> 最高的臂 <span class="arithmatex">\(a_t = \underset{k}{\operatorname{argmax}}(\theta_k)\)</span>。
+    c. <strong>执行与更新</strong>: 拉动臂 <span class="arithmatex">\(a_t\)</span>，观察奖励 <span class="arithmatex">\(r_t\)</span>。<ul>
+<li>如果成功 (<span class="arithmatex">\(r_t = 1\)</span>)，则更新该臂的成功计数：<span class="arithmatex">\(S(a_t) \leftarrow S(a_t) + 1\)</span>。</li>
+<li>如果失败 (<span class="arithmatex">\(r_t = 0\)</span>)，则更新该臂的失败计数：<span class="arithmatex">\(F(a_t) \leftarrow F(a_t) + 1\)</span>。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p><figure markdown="span">
+    <img alt="" src="../img/ts.png" width="500" />
+</figure></p>
+<p>这个过程会不断重复，通过贝叶斯更新，每个臂的 Beta 分布会越来越准确地反映其真实的成功概率，从而使得算法能更快地收敛到最优臂。</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><figure markdown="span">
+    <img alt="" src="../img/ts-question.png" width="500" />
+</figure>
+Beta分布经过更新<span class="arithmatex">\(\alpha\)</span>和<span class="arithmatex">\(\beta\)</span>后仍然是Beta分布。</p>
+</div>
+<h2 id="_6">对抗性多臂老虎机<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">对抗性多臂老虎机</p>
+<p>对抗性多臂老虎机（Adversarial MAB）问题是多臂老虎机（MAB）问题的一种变体。
+与随机多臂老虎机问题不同，对抗性多臂老虎机中的奖励（或代价）是由对手动态生成的，而不是从固定的奖励分布中随机抽取的。对手可能会根据玩家的策略进行调整，从而形成对抗性。其基本模型如下：
+在每一步 <span class="arithmatex">\(t=1,2,\dots,T\)</span> 中：</p>
+<ol>
+<li>玩家在行动集合 <span class="arithmatex">\([n]=\{1,\dots,n\}\)</span> 上选择一个概率分布 <span class="arithmatex">\(p_t\)</span>；</li>
+<li>对手在已知 <span class="arithmatex">\(p_t\)</span> 的情况下选择一个代价向量 <span class="arithmatex">\(c_t\in[0,1]^n\)</span>，为每个行动分配一个代价；</li>
+<li>玩家根据概率分布 <span class="arithmatex">\(p_t\)</span> 选择一个行动 <span class="arithmatex">\(i_t\)</span>，并观察到该行动的代价 <span class="arithmatex">\(c_t(i_t)\)</span>；</li>
+<li>玩家学习整个代价向量 <span class="arithmatex">\(c_t\)</span>，以调整未来的策略。</li>
+</ol>
+<p>注：</p>
+<ol>
+<li>玩家的目标是选择一个策略序列 <span class="arithmatex">\(p_1,p_2,\dots,p_T\)</span>，使得总代价最小化（相对于奖励最大化），即最小化期望代价 <span class="arithmatex">\(\mathbb{E}_{i_t\sim p_t} \left[\sum_{t=1}^{T} c_t(i_t)\right]\)</span>。</li>
+<li>对手不一定真实存在，这只是一个最坏情况分析；</li>
+<li>在这种情况下，玩家不仅能学习到所选行动的代价，还能学习到所有行动的代价，因此这是一个全反馈的情境，与之前的情况不同。</li>
+</ol>
+<details class="idea" open="open">
+<summary>通俗的解释</summary>
+<p>你面前有一排老虎机。每台机器的中奖概率是固定的，但你不知道具体是多少。你的任务是通过不断尝试，尽快找出哪台机器最好（中奖概率最高），然后一直玩那台。这就像是在和一个"诚实但守口如瓶"的赌场老板玩，规则是固定的，只是你不知道而已。
+现在，我们来看看对抗性多臂老虎机：
+这次，你面对的不再是固定的机器，而是一个"狡猾的"赌场老板。这个老板知道你心里在想什么。</p>
+<ul>
+<li>不再有固定的"最佳选择"：与之前不同，这里没有哪一台机器是永远最好的。老板会每一轮都重新设置所有机器的"代价"（你可以理解为玩一次要花的钱，或者奖励的反面）。</li>
+<li>对手知道你的策略：在你出手之前，你可能会想好一个策略，比如"我今天有70%的可能去玩1号机，30%的可能去玩2号机"。这个狡猾的老板能看穿你的策略。</li>
+<li>对手会针对你：老板看到你今天大概率要玩1号机，他就会立刻把1号机的代价调得非常高，让你付出惨重代价。同时，他可能会把你基本不考虑的那些机器的代价调得很低。</li>
+<li>"事后诸葛亮"：在你玩完一把之后（比如你按计划玩了1号机，付出了高昂代价），老板会把所有机器这一轮的代价都告诉你。你会发现，果然你没选的那些机器代价都很低。这个"事后全盘信息"（在模型里叫 full feedback）是这个模型的一个关键特点，能帮助你调整下一轮的策略。</li>
+</ul>
+</details>
+</div>
+<h3 id="_7">遗憾的定义<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>第一种遗憾定义的想法是，与所有轮次结束后（每一轮的成本都已知）的事后最优作差，然而下面的例子表明这一定义是不合理的</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>设行动集合为 <span class="arithmatex">\(\{1,2\}\)</span>，在每一轮 <span class="arithmatex">\(t\)</span>，对手按如下步骤选择代价向量：假设算法选择一个概率分布 <span class="arithmatex">\(p_t\)</span>，如果在此分布下选择行动 1 的概率至少为 <span class="arithmatex">\(\frac{1}{2}\)</span>，那么 <span class="arithmatex">\(c_t = (1,0)\)</span>，反之 <span class="arithmatex">\(c_t = (0,1)\)</span>。在此情况下，在线算法期望代价至少为 <span class="arithmatex">\(\frac{T}{2}\)</span>，而在事先知晓代价向量的情况下，最优算法的期望代价为 0。 </p>
+<p>这一例子表明，与事后最优比较可能出现线性级别的遗憾，因此这一基准太强了。因此转而将遗憾定义为在线算法与最优固定行动事后代价之差。</p>
+</div>
+<div class="admonition definition">
+<p class="admonition-title">遗憾的定义</p>
+<p>固定代价向量 <span class="arithmatex">\(c_1, c_2, \ldots, c_T\)</span>，决策序列 <span class="arithmatex">\(p_1, p_2, \ldots, p_T\)</span> 的遗憾为</p>
+<div class="arithmatex">\[
+R_T = \mathbb{E}_{i_t \sim p_t} \left[ \sum_{t=1}^{T} c_t(i_t) \right] - \min_{i \in [n]} \sum_{t=1}^{T} c_t(i).
+\]</div>
+<p>即遗憾被定义为和每轮都选择同一行动的最优的固定行动的代价之差，这样的定义相对而言更加合理：</p>
+<ul>
+<li>在前面的例子中，固定策略序列（全选 0 或 1）的遗憾不再是简单的 0；</li>
+<li>平均遗憾：<span class="arithmatex">\(\frac{R_T}{T}\)</span>。若 <span class="arithmatex">\(T \to \infty\)</span>，<span class="arithmatex">\(R_T = o(T)\)</span>，则称算法是无遗憾（no-regret）的，等价的即 <span class="arithmatex">\(R_T\)</span> 关于 <span class="arithmatex">\(T\)</span> 是次线性的；</li>
+<li>这一定义的合理在于，有自然的算法实现无遗憾，但无悔的实现也不是平凡的。</li>
+</ul>
+</div>
+<h3 id="_8">跟风算法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="admonition definition">
+<p class="admonition-title">跟风算法</p>
+<p>跟风算法指在每一个时间点<span class="arithmatex">\(t\)</span>，选择最小累积代价</p>
+<div class="arithmatex">\[
+    \sum_{s=1}^{t-1} c_s(i)
+\]</div>
+<p>的行动<span class="arithmatex">\(i\)</span>。</p>
+</div>
+<figure>
+    <img alt="" src="../img/FTL.png" width="500" />
+    <figcaption>FTL算法不是无悔的</figcaption>
+</figure>
+<div class="admonition info">
+<p class="admonition-title">随机化是无悔的必要条件</p>
+<p>若算法是无悔的，则策略是随机化的，只需要证明若策略是确定性的，则算法不是无悔的。</p>
+<p>对于确定性算法，对手可以直接推断出我们的行为，从而在每一步设置我们选择的行为代价为1，其它代价为0；</p>
+<p>这样，总代价为<span class="arithmatex">\(T\)</span>，而最优固定行动的代价不会超过<span class="arithmatex">\(\dfrac{T}{n}\)</span>，因此遗憾为<span class="arithmatex">\(1-\dfrac{1}{n}\)</span>，不是无悔的。</p>
+<p>如果采用随机策略，则对手只能推断出我们的概率分布 <span class="arithmatex">\(p_t\)</span>，而不能推断出我们的具体行动 <span class="arithmatex">\(i_t \sim p_t\)</span>，因此对手无法完美利用我们的算法。</p>
+</div>
+<h3 id="mwu">MWU算法<a class="headerlink" href="#mwu" title="Permanent link">&para;</a></h3>
+<div class="admonition quote">
+<p class="admonition-title">引入</p>
+<p>考虑一个简化的在线学习场景，每个行动的代价之可能为 0 或 1，并且存在一个完美的行动，其代价永远为 0（但玩家一开始不知道哪个是完美行动），是否存在次线性遗憾的算法？</p>
+<p>观察：只要一个行动出现了非零代价，那就可以永远排除它，但我们并不知道剩余行动中哪个最好；
+可以设计算法如下：对每一步 <span class="arithmatex">\(t=1,2,\dots,T\)</span>，记录截至目前从没出现过代价 1 的行动，然后在这些行动中根据均匀分布随机选择一个行动。</p>
+<p>对于任意 <span class="arithmatex">\(\epsilon \in (0, 1)\)</span>，下面两种情况之一一定会发生：</p>
+<ul>
+<li><span class="arithmatex">\(S_{\text{good}}\)</span> 中至少 <span class="arithmatex">\(\epsilon k\)</span> 个行动有代价 1，此时这一阶段的期望代价至多为 <span class="arithmatex">\(\epsilon\)</span>(均匀分布，每个行动的概率为<span class="arithmatex">\(\dfrac{1}{k}\)</span>，选中<span class="arithmatex">\(\epsilon k\)</span>个行动的概率为<span class="arithmatex">\(\epsilon\)</span>，因此期望代价为<span class="arithmatex">\(\epsilon\)</span>)；</li>
+<li><span class="arithmatex">\(S_{\text{good}}\)</span> 中至多 <span class="arithmatex">\(\epsilon k\)</span> 个行动有代价 1，每次出现这一情况时，下一步就可以排除掉至少 <span class="arithmatex">\(\epsilon k\)</span> 个行动，因此这种情况最多出现 <span class="arithmatex">\(\log_{1-\epsilon} \frac{1}{n}\)</span> 次(每一次都只剩下<span class="arithmatex">\(k(1-\epsilon)\)</span>个行动，因此最多出现<span class="arithmatex">\(m\)</span>次,有<span class="arithmatex">\(n(1-\epsilon)^m = 1\)</span>)。</li>
+</ul>
+<p>因此总的遗憾至多为(放缩后)</p>
+<div class="arithmatex">\[
+R_T \leqslant T \times \epsilon + \log_{1-\epsilon} \frac{1}{n} = T \epsilon + \frac{\ln n}{-\ln(1-\epsilon)} \leqslant T \epsilon + \frac{\ln n}{\epsilon}
+\]</div>
+<p>最后的不等号导来源于 <span class="arithmatex">\(-\ln(1-\epsilon) \geq \epsilon (0 &lt; \epsilon &lt; 1)\)</span>。显然当 <span class="arithmatex">\(\epsilon = \sqrt{\frac{\ln n}{T}}\)</span> 时，<span class="arithmatex">\(R_T \leq 2\sqrt{T \ln n}\)</span>，即次线性遗憾。</p>
+</div>
+<figure>
+    <img alt="" src="../img/MWU.png" width="500" />
+    <figcaption>更一般的情况</figcaption>
+</figure>
+<blockquote>
+<p>初始化权重为1，每次挑选之后，查看此次的代价向量<span class="arithmatex">\(c_t\)</span>，如果<span class="arithmatex">\(c_t(i) = 1\)</span>，则将<span class="arithmatex">\(i\)</span>的权重变小，下一次根据权重随机挑选</p>
+</blockquote>
+<p>上图中第二种算法就是乘性权重（Multiplicative Weights Update, MWU）算法。算法的直观是，根据每个行动在之前阶段的表现来决定下一阶段的权重，即表现好的行动权重增加，表现差的行动权重减少。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>乘性权重算法在之前的问题设定下的遗憾至多为 <span class="arithmatex">\(O(\sqrt{T \ln n})\)</span>。</p>
+<details class="proof">
+<summary>Proof</summary>
+<p><figure markdown="span">
+    <img alt="" src="../img/MWU-proof1.png" />
+    <img alt="" src="../img/MWU-proof2.png" />
+    <img alt="" src="../img/MWU-proof3.png" />
+</figure></p>
+</details>
+</div>
+<h2 id="_9">多臂老虎机应用<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>动态定价问题</p>
+</blockquote>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>假设你要出售一份数据，你知道会有 <span class="arithmatex">\(N\)</span> 个人来购买你的数据，并且每个人对数据的估值 <span class="arithmatex">\(v\)</span> 都完全一致，都在 <span class="arithmatex">\([0,1]\)</span> 中。买家是逐个到达的，你需要提供一个价格 <span class="arithmatex">\(p\)</span>，如果 <span class="arithmatex">\(v \geq p\)</span>，买家就会购买你的数据，否则买家会离开。你的目标是尽快地学习到 <span class="arithmatex">\(v\)</span> 的值，误差范围是 <span class="arithmatex">\(\epsilon = \frac{1}{N}\)</span>。</p>
+<p>如果你确遇到了最坏的情况，<span class="arithmatex">\(\log N\)</span> 次搜索之后，可以设置到价格 <span class="arithmatex">\(p \geq \bar{v} - \frac{2}{N}\)</span>，其中 <span class="arithmatex">\(\bar{v}\)</span> 是我们第 <span class="arithmatex">\(\log N\)</span> 轮学习到的值；</p>
+<p>在这种情况下，<span class="arithmatex">\(N\)</span> 轮之后的总收益是：</p>
+<div class="arithmatex">\[
+    \overbrace{0}^{\text{前 log N 轮}} + \overbrace{(N-\log N)(v - \frac{2}{N})}^{\text{后 N-log N 轮}} \approx vN - v\log N - 2.
+\]</div>
+<ul>
+<li>则二分搜索的遗憾为 <span class="arithmatex">\(R \approx vN - (vN - v\log N - 2) = v\log N + 2\)</span>;</li>
+<li>这是最小的可能遗憾吗?</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">定理</p>
+<p>存在一个改进的算法，使得其遗憾至多为 <span class="arithmatex">\(1 + 2\log\log N\)</span>。</p>
+</div>
+<ul>
+<li>尽管二分搜索是在没有任何先验信息的情况下能搜索到 <span class="arithmatex">\(N\)</span> 的最快算法, 但当猜测的 <span class="arithmatex">\(p_i &gt; v\)</span> 时, 卖家一分钱也赚不到;</li>
+<li>也就是说, 二分搜索在向上探索的时候可能过于激进, 因此改进的算法需要在探索时更加保守</li>
+</ul>
+</div>
+<h3 id="_10">改进算法<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<figure>
+    <img alt="" src="../img/improved-algo.png" width="500" />
+    <figcaption>改进算法</figcaption>
+</figure>
+<details class="proof" open="open">
+<summary>证明</summary>
+<p>首先需要分析区间长度 <span class="arithmatex">\(b_i - a_i\)</span> 的特点，有如下结论：</p>
+<div class="admonition abstract">
+<p class="admonition-title">引理</p>
+<p><span class="arithmatex">\(\Delta_i = 2^{-2^{j-1}}\)</span>，并且当 <span class="arithmatex">\(\Delta_{i+1} = (\Delta_i)^2\)</span> 时，<span class="arithmatex">\(b_{i+1} - a_{i+1} = \Delta_i = \sqrt{\Delta_{i+1}}\)</span>。</p>
+</div>
+<p>第一个结论根据数学归纳法可以证明：</p>
+<ol>
+<li>当 <span class="arithmatex">\(i=1\)</span> 时，<span class="arithmatex">\(\Delta_1 = \frac{1}{2} = 2^{-2^0}\)</span>；</li>
+<li>假设对于 <span class="arithmatex">\(i=k\)</span> 成立，即 <span class="arithmatex">\(\Delta_k = 2^{-2^{j-1}}\)</span>，则</li>
+</ol>
+<div class="arithmatex">\[ 
+    \Delta_{k+1} = (\Delta_k)^2 = (2^{-2^{j-1}})^2 = 2^{-2^{j-1} \cdot 2} = 2^{-2^j} 
+\]</div>
+<p>第二个结论，当 <span class="arithmatex">\(\Delta_{i+1} = (\Delta_i)^2\)</span> 时，根据算法直接得到 <span class="arithmatex">\(b_{i+1} - a_{i+1} = \Delta_i = \sqrt{\Delta_{i+1}}\)</span>。</p>
+<hr />
+<ul>
+<li>在 <span class="arithmatex">\(b_i - a_i \le \frac{1}{N}\)</span> 后，总的遗憾最多为 <span class="arithmatex">\(N \times \frac{1}{N} = 1\)</span>；</li>
+<li>因此重点在于分析达到这一步之前的遗憾；</li>
+<li>在达到这一步之前 <span class="arithmatex">\(\Delta\)</span> 更新了多少次？<ul>
+<li><span class="arithmatex">\(\log \log N\)</span>：令 <span class="arithmatex">\(2^{-2^i} = \frac{1}{N}\)</span>，则 <span class="arithmatex">\(2^i = \log N\)</span>，则 <span class="arithmatex">\(i = \log \log N\)</span>；</li>
+</ul>
+</li>
+<li>接下来就要证明每个 <span class="arithmatex">\(\Delta_i\)</span> 内产生的遗憾是有限的。</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">引理</p>
+<p>任意的步长 <span class="arithmatex">\(\Delta_i\)</span> 内的遗憾至多为 2。</p>
+</div>
+<ul>
+<li>如果在 <span class="arithmatex">\(\Delta_i\)</span> 下直接被拒绝，遗憾至多为 1；</li>
+<li>如果发生出售，则最多出售 <span class="arithmatex">\(\frac{\sqrt{\Delta_i}}{\Delta_i}\)</span> 次，因为 <span class="arithmatex">\(\Delta_{i-1} = \sqrt{\Delta_i}\)</span>，如果超出这个次数，那么 <span class="arithmatex">\(\Delta_{i-1}\)</span> 在前面的步骤不会更新；</li>
+<li>
+<p>因此出售过程中的遗憾最多为</p>
+<div class="arithmatex">\[
+    \frac{\sqrt{\Delta_i}}{\Delta_i} \times \sqrt{\Delta_i} = 1.
+\]</div>
+</li>
+</ul>
+<p>综合上述两个引理可以得到改进算法的遗憾为 <span class="arithmatex">\(1 + 2\log\log N\)</span>。</p>
+</details>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../GameTheory/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 博弈论基础">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                博弈论基础
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Shapley/" class="md-footer__link md-footer__link--next" aria-label="下一页: Shapley值">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Shapley值
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>

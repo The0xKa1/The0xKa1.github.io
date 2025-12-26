@@ -1,0 +1,3565 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/DataMarket/Beyesian/">
+      
+      
+        <link rel="prev" href="../optauction/">
+      
+      
+        <link rel="next" href="../../LA/linear-algebra/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>贝叶斯劝说 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              贝叶斯劝说
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据要素市场
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GameTheory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    博弈论基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多臂老虎机算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Shapley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shapley值
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    拍卖与机制设计基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optauction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最优机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯劝说
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯劝说
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        背景与例子
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="背景与例子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参与者设定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学生类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先验分布
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        效用函数定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贝叶斯劝说
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝叶斯劝说">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般化的贝叶斯劝说模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        博弈的行动顺序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贝叶斯可行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝叶斯可行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        后验概率分布的性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贝叶斯可行的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最优机制问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最优机制问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题转化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显示原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凹包络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对接收者的影响
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对接收者的影响">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        背景与例子
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="背景与例子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参与者设定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学生类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先验分布
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        效用函数定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贝叶斯劝说
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝叶斯劝说">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般化的贝叶斯劝说模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        博弈的行动顺序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贝叶斯可行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝叶斯可行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        后验概率分布的性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        贝叶斯可行的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最优机制问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最优机制问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题转化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显示原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        凹包络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对接收者的影响
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对接收者的影响">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../DB/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🎓 课程笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    数据要素市场
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">贝叶斯劝说<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 5579 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 2 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 19 分钟</p>
+</div>
+<h2 id="_2">背景与例子<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>考虑导师写推荐信将学生推荐至企业的例子：</p>
+<h3 id="_3">参与者设定<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>两个参与人：</strong></p>
+<ul>
+<li><strong>导师（信号发送者）</strong></li>
+<li><strong>企业（信号接收者）</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>导师的任务：</strong> 是向企业为每位学生写推荐信，通过推荐信的好坏向企业发送信号</p>
+</li>
+<li><strong>企业的任务：</strong> 是对一个学生，在接收到导师的推荐信（信号）后必须做出以下两种决策之一：<ul>
+<li><strong>雇用（hiring）</strong></li>
+<li><strong>不雇用（not hiring）</strong></li>
+</ul>
+</li>
+<li><strong>学生不是博弈参与方：</strong> 因为学生只被动接受结果，没有自己的策略</li>
+</ul>
+<h3 id="_4">学生类型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>学生有两种类型：</strong></p>
+<ul>
+<li><strong>优秀（excellent）</strong></li>
+<li><strong>一般（average）</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>学生的类型对导师而言是已知的，对企业则是不完全信息</strong></p>
+</li>
+<li><strong>与不完全信息博弈中的假设一致：</strong> 可以认为学生的类型是自然按一定的先验概率随机抽取的</li>
+</ul>
+<h3 id="_5">先验分布<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>企业对学生类型有先验分布：</strong></p>
+<ul>
+<li><span class="arithmatex">\(\mu_0\)</span>(average) = 0.75</li>
+<li><span class="arithmatex">\(\mu_0\)</span>(excellent) = 0.25</li>
+</ul>
+</li>
+<li>
+<p><strong>这一先验概率分布也符合导师已知的实际学生类型分布</strong></p>
+</li>
+<li><strong>因此如果随机抽取一个学生，则企业和导师对学生类型有共同的先验分布</strong></li>
+</ul>
+<h3 id="_6">效用函数定义<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>导师的效用函数：</strong></li>
+<li>
+<p>假设导师希望推荐出去的学生越多越好，因此企业只要雇用一个学生，则导师获得效用1，否则效用为0</p>
+</li>
+<li>
+<p><strong>企业的效用函数：</strong></p>
+</li>
+<li>企业则希望招收到优秀的学生，因此在招收到优秀的学生时获得效用为1，招收普通学生时获得效用为-0.5</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>综上所述，目前定义了：</p>
+<ul>
+<li><strong>两个参与人</strong></li>
+<li><strong>企业的策略</strong></li>
+<li><strong>两个参与人的效用函数</strong></li>
+<li><strong>不完全信息的先验分布</strong></li>
+</ul>
+<p>因此接下来需要形式化定义导师的策略，即形式化"发信号"这一策略。</p>
+<p>形式地说，发信号就是通过好或坏的推荐信来向企业表明学生是优秀的或一般的。形式化地说，导师写推荐信的策略就是如下两个条件概率分布 <span class="arithmatex">\(\pi(\cdot | \text{excellent})\)</span> 和 <span class="arithmatex">\(\pi(\cdot | \text{average})\)</span>（又称信号机制（signaling scheme））：</p>
+<ul>
+<li><span class="arithmatex">\(\pi(e | \text{excellent}), \pi(a | \text{excellent})\)</span></li>
+<li><span class="arithmatex">\(\pi(e | \text{average}), \pi(a | \text{average})\)</span></li>
+</ul>
+<p>其中 <span class="arithmatex">\(e\)</span> 和 <span class="arithmatex">\(a\)</span> 分别表示描述学生为优秀类型和一般类型的推荐信；
+- <span class="arithmatex">\(\pi(A | B)\)</span> 表示当学生属于 <span class="arithmatex">\(B\)</span> 类型时，导师在推荐信中给学生描述的类型为 <span class="arithmatex">\(A\)</span> 的概率；
+- 例如 <span class="arithmatex">\(\pi(e | \text{average})\)</span> 表示学生一般时导师在推荐信中将其描述为优秀学生的概率。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>导师和企业之间存在长期关系，因此导师的策略是企业在看到推荐信之前就已知的，因为企业在与导师的长期关系中可以验证导师的策略。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>第一个信号的例子是，导师完全诚实地推荐学生，即为优秀的学生写好的推荐信，为一般的学生写一般的推荐信，故此时信号机制为</p>
+<ul>
+<li><span class="arithmatex">\(\pi(e | \text{excellent}) = 1, \pi(a | \text{excellent}) = 0;\)</span></li>
+<li>
+<p><span class="arithmatex">\(\pi(e | \text{average}) = 0, \pi(a | \text{average}) = 1.\)</span></p>
+</li>
+<li>
+<p>企业知道导师的推荐信是诚实的，因此将接收所有推荐信中写优秀的学生，拒绝所有推荐信中写一般的学生：</p>
+<ul>
+<li>此时导师期望的同学雇出，故在每个学生上的期望效用为0.25；</li>
+<li>企业接收所有优秀同学，故在每个学生上的期望效用为0.25。</li>
+</ul>
+</li>
+</ul>
+<p>第二个例子是导师总是推荐学生为优秀，即</p>
+<ul>
+<li><span class="arithmatex">\(\pi(e | \text{excellent}) = 1, \pi(a | \text{excellent}) = 0;\)</span></li>
+<li>
+<p><span class="arithmatex">\(\pi(e | \text{average}) = 1, \pi(a | \text{average}) = 0.\)</span></p>
+</li>
+<li>
+<p>因此此时企业看到的全是好的推荐信，因此只能保持先验概率去判断学生的好坏：</p>
+<ul>
+<li>由于每个学生是优秀类型的概率只有 0.25，因此如果企业雇用任意一个学生，其期望效用为 <span class="arithmatex">\(0.25 \times 1 - 0.75 \times 0.5 = -0.125\)</span>，因此企业不会雇用任何一个学生；</li>
+<li>此时导师和企业的期望效用均为 0。</li>
+</ul>
+</li>
+</ul>
+<p>最优情况(导师效用最大化)为</p>
+<p>最优情况为导师在推荐信中对优秀学生诚实，而对一般学生有一定的美化，即信号机制为：</p>
+<ul>
+<li><span class="arithmatex">\(\pi(e | \text{excellent}) = 1, \pi(a | \text{excellent}) = 0;\)</span></li>
+<li><span class="arithmatex">\(\pi(e | \text{average}) = \frac{2}{3}, \pi(a | \text{average}) = \frac{1}{3}.\)</span></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">贝叶斯公式</p>
+<div class="arithmatex">\[
+P(A | B) = \frac{P(B | A)P(A)}{\sum_{x \in X} P(B | x)P(x)}
+\]</div>
+</div>
+<p>通过贝叶斯公式可以计算出企业看到推荐信后对学生的后验概率分布<span class="arithmatex">\(\mu_A(B)\)</span>,即看到类型<span class="arithmatex">\(A\)</span>的推荐信后，认为学生是类型<span class="arithmatex">\(B\)</span>的概率。 <br />
+也就是<span class="arithmatex">\(\mu(B | A)\)</span></p>
+<p>所以</p>
+<div class="arithmatex">\[
+    \mu_e(excellent) = \dfrac{\pi(e | \text{excellent}) \mu_0(excellent)}{\pi(e | \text{excellent}) \mu_0(excellent) + \pi(e | \text{average}) \mu_0(average)} = \dfrac{1}{3}
+\]</div>
+<div class="arithmatex">\[
+    \mu_e(average) = 1-\mu_e(excellent) = \dfrac{2}{3}
+\]</div>
+<div class="arithmatex">\[
+    \mu_a(average) = \dfrac{\pi(a | \text{average}) \mu_0(average)}{\pi(a | \text{average}) \mu_0(average) + \pi(a | \text{excellent}) \mu_0(excellent)} = 1
+\]</div>
+<div class="arithmatex">\[
+    \mu_a(excellent) = 1-\mu_a(average) = 0
+\]</div>
+<p>还可以计算出企业看到好的推荐信和一般的推荐信的概率</p>
+<div class="arithmatex">\[
+    P(e) = \pi(e | \text{excellent}) \mu_0(excellent) + \pi(e | \text{average}) \mu_0(average) = 0.75
+\]</div>
+<div class="arithmatex">\[
+    P(a) = \pi(a | \text{excellent}) \mu_0(excellent) + \pi(a | \text{average}) \mu_0(average) = 0.25
+\]</div>
+<p>在这种情况下，当企业看到好的推荐信时，对学生的后验分布更新为<span class="arithmatex">\(1/3\)</span>的概率是好学生，此时它的期望效用为</p>
+<div class="arithmatex">\[
+    \frac{1}{3} \times 1 + \frac{2}{3} \times -0.5 = 0
+\]</div>
+<p>与不雇佣期望效用一样，但是企业在这种情况下会选择雇佣，<em>假设在信号接收者策略无差异的情况下，信号接收者会选择有利于信
+号发送者的决策</em></p>
+<p>当企业看到一般的推荐信时，对学生的后验分布更新为<span class="arithmatex">\(1\)</span>的概率是不好学生，此时它的期望效用为0，选择不雇佣</p>
+<p>综合来说，企业的期望效用是0；</p>
+<p>对于导师而言，由于企业采取的策略是雇佣所有好的推荐信，不雇佣所有的一般推荐信，因此导师的期望效用为所有的好学生和<span class="arithmatex">\(2/3\)</span>的一般学生的期望效用之和，即</p>
+<div class="arithmatex">\[
+    0.25 \times 1 + \frac{2}{3} \times 0.75 = 0.75
+\]</div>
+<p>或者还有一种计算方法，只要给出了好的推荐信，效用就是1，所以</p>
+<div class="arithmatex">\[
+    1*P(e) + 0*P(a) = 0.75
+\]</div>
+</div>
+<h2 id="_7">贝叶斯劝说<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">一般化的贝叶斯劝说模型<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>从导师写推荐信的例子中可以提炼出一般的贝叶斯劝说（<strong>Bayesian persuasion</strong> ）模型：</p>
+<ul>
+<li>
+<p><strong>两个参与人：</strong> 信号发送者（导师）和信号接收者（企业）；</p>
+</li>
+<li>
+<p><strong>他们对自然的真实状态</strong> <span class="arithmatex">\(\omega \in \Omega\)</span>（一个学生优秀/一般）<strong>有相同的先验分布</strong> <span class="arithmatex">\(\mu_0 \in \text{int}(\Delta(\Omega))\)</span>，<strong>信号发送者知道状态的实现值</strong>（即具体每个学生是优秀还是一般的），<strong>但信号接收者不知道：</strong></p>
+</li>
+<li><span class="arithmatex">\(\Delta(\Omega)\)</span> 表示 <span class="arithmatex">\(\Omega\)</span> 上的概率分布；</li>
+<li>
+<p><span class="arithmatex">\(\text{int}\)</span> 含义是内点，即先验分布保证每个状态的概率都是正的；</p>
+</li>
+<li>
+<p><strong>假定双方都是理性的，即追求效用最大化的，并且都是按照贝叶斯公式更新信念的；</strong></p>
+</li>
+<li>
+<p><strong>发送者的效用为</strong> <span class="arithmatex">\(v(a,\omega)\)</span>，<strong>接收者的效用为</strong> <span class="arithmatex">\(u(a,\omega)\)</span>：</p>
+</li>
+<li>导师的效用为 <span class="arithmatex">\(v(\text{hiring}, \omega) = 1, v(\text{not hiring}, \omega) = 0\)</span>（与 <span class="arithmatex">\(\omega\)</span> 无关）；</li>
+<li>企业的效用为 <span class="arithmatex">\(u(\text{hiring}, \text{average}) = -0.5\)</span> 等。</li>
+</ul>
+<h3 id="_9">博弈的行动顺序<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>博弈的行动顺序如下（<strong>动态博弈需要说明顺序</strong>）：</p>
+<ol>
+<li>
+<p><strong>发送者公开（承诺（commit））信号机制</strong> <span class="arithmatex">\((S, \pi(s | \omega)), \forall s \in S, \omega \in \Omega\)</span>：</p>
+<ul>
+<li><span class="arithmatex">\(S\)</span> 称为信号实现空间，例如前面的例子中 <span class="arithmatex">\(S = \{e, a\}\)</span>；</li>
+<li>故信号机制包含信号实现空间 <span class="arithmatex">\(S\)</span> 及其在所有现实状态下的条件分布；</li>
+<li>于是接收者可以利用贝叶斯公式计算出后验概率 <span class="arithmatex">\(\mu_s(\omega)\)</span>；</li>
+</ul>
+</li>
+<li>
+<p><strong>自然以分布</strong> <span class="arithmatex">\(\mu_0\)</span> <strong>选择</strong> <span class="arithmatex">\(\omega \in \Omega\)</span>（抽出一个学生是优秀/一般的）；</p>
+</li>
+<li>
+<p><strong>类型为</strong> <span class="arithmatex">\(\omega\)</span> <strong>时发送者以概率</strong> <span class="arithmatex">\(\pi(s | \omega)\)</span> <strong>发送信号</strong> <span class="arithmatex">\(s \in S\)</span>；</p>
+</li>
+<li>
+<p><strong>接收者收到信号</strong> <span class="arithmatex">\(s\)</span> <strong>并选择一个行动</strong> <span class="arithmatex">\(a \in A\)</span>（企业雇用/不雇用学生）：</p>
+</li>
+<li>
+<p><span class="arithmatex">\(a\)</span> 的选择应当最大化接收者的效用，即挑选一个行动使得在这个后验概率分布下期望效用最大，例如企业在看到优秀的推荐信后，选择雇佣学生</p>
+<div class="arithmatex">\[
+    a = \arg \max_{a \in A} \mathbb{E}_{\mu_s}[u(a, w)]
+\]</div>
+</li>
+</ol>
+<p>如果有多个最大化效用的选择，假设其选择最大化发送者效用的行动（企业雇用和不雇用无差异时，选择雇用学生）。</p>
+<ol>
+<li><strong>发送者获得效用</strong> <span class="arithmatex">\(v(a, \omega)\)</span>，<strong>接收者获得效用</strong> <span class="arithmatex">\(u(a, \omega)\)</span>。</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>注意贝叶斯劝说的第一步就是信号发送者公开承诺信号机制：
+    - 回忆导师写推荐信的例子，这样的情况可以发生在结果可验证的情况；
+    - 例如企业可以在雇用后看出学生的能力，或者消费者在购买后能够判断产品的真实价值；
+    - 因此贝叶斯劝说在这些场景下尤为重要；</p>
+<p>此外，贝叶斯劝说模型中，信号发送者优先行动，接收者在看到信号发
+送者的行动后行动，故最优化问题实际是一个双层优化问题；</p>
+<p>此时信号发送者和信号接收者的策略相对于对方的策略都是最优的，并且信号接收者的信念通过贝叶斯公式进行了更新，这一均衡被称为完美贝叶斯均衡（perfect Bayesian equilibrium）。</p>
+</div>
+<hr />
+<p>贝叶斯劝说主要希望研究以下三个问题</p>
+<ol>
+<li>
+<p>发送者是否总是可以通过设计信号机制来影响接收者的行为，从而提升
+自己的效用？如果不是，什么情况下可以？</p>
+</li>
+<li>
+<p>发送者如何设计信号机制以达到最大化自己的效用？最大化效用时信号
+以及接收者的行为的特点是什么样的？</p>
+</li>
+<li>
+<p>接收者是否愿意接受发送者的信号机制？如果不是，什么情况下可以？</p>
+</li>
+</ol>
+<hr />
+<h3 id="_10">贝叶斯可行<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>为了解决前两个问题，首先要定义贝叶斯可行（<strong>Bayesian plausible</strong>）的概念，然后将设计最优信号机制的问题转化为更容易解决的问题。</p>
+<h4 id="_11">后验概率分布的性质<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>给定信号机制 <span class="arithmatex">\((S, \pi(s | \omega))\)</span>，任一信号实现 <span class="arithmatex">\(s\)</span> 都会导致一个后验概率分布 <span class="arithmatex">\(\mu_s \in \Delta(\Omega)\)</span>，即对任意的 <span class="arithmatex">\(s \in S, \omega \in \Omega\)</span>：</p>
+<div class="arithmatex">\[
+\mu_s(\omega) = \frac{\pi(s | \omega)\mu_0(\omega)}{\sum_{\omega' \in \Omega} \pi(s | \omega')\mu_0(\omega')}
+\]</div>
+<p>由于每个 <span class="arithmatex">\(s\)</span> 都会导致一个后验概率分布，所以所有的 <span class="arithmatex">\(s\)</span> 将导致 <span class="arithmatex">\(|S|\)</span> 个后验概率分布，并且所有的后验概率分布本质上都是 <span class="arithmatex">\(\Omega\)</span> 上的分布。根据全概率公式，每个 <span class="arithmatex">\(s\)</span> 被发出的概率为：</p>
+<div class="arithmatex">\[
+\mathbb{P}(s) = \sum_{\omega' \in \Omega} \pi(s | \omega')\mu_0(\omega')
+\]</div>
+<p>所有 <span class="arithmatex">\(s\)</span> 将导致一个后验概率分布的分布 <span class="arithmatex">\(\tau \in \Delta(\Delta(\Omega))\)</span>，其中概率分布支撑为 <span class="arithmatex">\(\text{Supp}(\tau) = \{\mu_s\}_{s \in S}\)</span>，支撑中每一个后验概率 <span class="arithmatex">\(\mu \in \Delta(\Omega)\)</span> 的概率为：</p>
+<div class="arithmatex">\[
+\tau(\mu) = \sum_{s:\mu_s=\mu} \mathbb{P}(s) = \sum_{s:\mu_s=\mu} \sum_{\omega' \in \Omega} \pi(s | \omega')\mu_0(\omega')
+\]</div>
+<p>如果每个后验概率都不同，则支撑中每一个后验概率 <span class="arithmatex">\(\mu \in \Delta(\Omega)\)</span> 的概率为：</p>
+<div class="arithmatex">\[
+\tau(\mu) = \mathbb{P}(s) = \sum_{\omega' \in \Omega} \pi(s | \omega')\mu_0(\omega')
+\]</div>
+<div class="admonition eaxmple">
+<p class="admonition-title">Eaxmple</p>
+<p>例如，回忆导师写推荐信的例子，在最优机制下，信号机制导致的两个后验概率分布分别为：</p>
+<div class="arithmatex">\[
+   \mu_e(\text{excellent}) = 1/3, \mu_e(\text{average}) = 2/3
+\]</div>
+<p>和</p>
+<div class="arithmatex">\[
+   \mu_a(\text{excellent}) = 0, \mu_a(\text{average}) = 1
+\]</div>
+<p>这两个后验概率分布不相同，因此 <span class="arithmatex">\(\text{Supp}(\tau) = \{\mu_e, \mu_a\}\)</span>，二者概率为：</p>
+<div class="arithmatex">\[
+   \mathbb{P}(e) = \pi(e | \text{excellent})\mu_0(\text{excellent}) + \pi(e | \text{average})\mu_0(\text{average}) = 0.75
+\]</div>
+<div class="arithmatex">\[
+   \mathbb{P}(a) = \pi(a | \text{excellent})\mu_0(\text{excellent}) + \pi(a | \text{average})\mu_0(\text{average}) = 0.25
+\]</div>
+<p>在这里，后验分布指的是知道信号后，对学生类型的判断(<span class="arithmatex">\(\mu_e, \mu_a\)</span>是学生类型的分布)。后验分布的分布指的是接收到不同信号的分布(<span class="arithmatex">\(\tau\)</span>是<span class="arithmatex">\(\mu_e, \mu_a\)</span>的分布,即满足某一分布的概率是什么)。</p>
+</div>
+<h4 id="_12">贝叶斯可行的定义<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p>基于上述记号，可以给出贝叶斯可行的定义：</p>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>称 <span class="arithmatex">\(\tau\)</span> 由信号导致，如果存在信号机制 <span class="arithmatex">\((S, \pi(s | \omega))\)</span> 对应的后验概率分布的分布为 <span class="arithmatex">\(\tau\)</span>。称一个后验概率分布的分布 <span class="arithmatex">\(\tau\)</span> 是贝叶斯可行的，如果</p>
+<div class="arithmatex">\[
+\sum_{\text{Supp}(\tau)} \mu\tau(\mu) = \mu_0
+\]</div>
+<p>即后验概率的期望等于先验概率。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>这里不同的后验概率分布可以求和的原因在于，本质上不同的后验概率分布都是 <span class="arithmatex">\(\Omega\)</span> 上的概率分布。例如可以检查导师写推荐信的例子是否满足贝叶斯可行性：</p>
+<p>原先验概率分布为<span class="arithmatex">\(\mu_0 = (\mu_0(\text{excellent}), \mu_0(\text{average})) = (0.25, 0.75)\)</span>，后验概率分布为<span class="arithmatex">\(\mu_e = (1/3, 2/3)\)</span>和<span class="arithmatex">\(\mu_a = (0, 1)\)</span>，后验概率分布的分布为<span class="arithmatex">\(\tau = (\tau(\mu_e), \tau(\mu_a)) = (0.75, 0.25)\)</span>。</p>
+<p>因此有</p>
+<div class="arithmatex">\[
+    \mathbb{E}_{\tau}[\mu] = 0.75 \mu_e + 0.25 \mu_a = 0.75 \times (1/3, 2/3) + 0.25 \times (0, 1) = (0.25, 0.75) = \mu_0
+\]</div>
+<p>因此，导师写推荐信的例子中的信号机制是贝叶斯可行的。</p>
+</div>
+<p>下面这个定理给出了信号机制导致和贝叶斯可行之间的联系</p>
+<div class="admonition theorem">
+<p class="admonition-title">Theorem</p>
+<p>一个后验概率分布的分布 <span class="arithmatex">\(\tau \in \Delta(\Delta(\Omega))\)</span> 是贝叶斯可行的当且仅当存在一个信号机制 <span class="arithmatex">\((S, \pi(s | \omega))\)</span> 使得 <span class="arithmatex">\(\tau\)</span> 是由该信号机制导致的。</p>
+<p>即对该后验分布的分布求期望分布，该期望分布等于先验分布。</p>
+<div class="admonition success">
+<p class="admonition-title">证明</p>
+<p>首先证明信号机制推出贝叶斯可行性</p>
+<div class="arithmatex">\[
+\begin{align*}
+\sum_{\text{Supp}(\tau)} \mu(\omega)\tau(\mu) &amp;= \sum_{s \in S} \mu_s(\omega)\mathbb{P}(s) \\
+&amp;= \sum_{s \in S} \frac{\pi(s \mid \omega)\mu_0(\omega)}{\sum_{\omega' \in \Omega} \pi(s \mid \omega')\mu_0(\omega')}\mathbb{P}(s) \\
+&amp;= \sum_{s \in S} \pi(s \mid \omega)\mu_0(\omega) = \mu_0(\omega)
+\end{align*}
+\]</div>
+<p>接下来，由贝叶斯可行性，我们可以构造一个信号机制 <span class="arithmatex">\((S, \pi(s | \omega))\)</span> </p>
+<p>由</p>
+<div class="arithmatex">\[
+    \mu_s(\omega) = \frac{\pi(s | \omega)\mu_0(\omega)}{\mathbb{P}(s)}
+\]</div>
+<p>可以得到</p>
+<div class="arithmatex">\[
+    \pi(s | \omega) = \frac{\mathbb{P}(s)\mu_s(\omega)}{\mu_0(\omega)} = \frac{\tau(\mu_s)\mu_s(\omega)}{\mu_0(\omega)}
+\]</div>
+<p>接下来验证对于所有的<span class="arithmatex">\(s\)</span>求和等于1即可</p>
+<div class="arithmatex">\[
+    \sum_{s \in S} \pi(s | \omega) = \sum_{s \in S} \frac{\tau(\mu_s)\mu_s(\omega)}{\mu_0(\omega)} = \frac{\sum_{s \in S} \tau(\mu_s)\mu_s(\omega)}{\mu_0(\omega)} = \frac{\mu_0(\omega)}{\mu_0(\omega)} = 1
+\]</div>
+<p>最后一步是由于<span class="arithmatex">\(\sum_{\text{Supp}(\tau)} \mu\tau(\mu) = \mu_0\)</span>。这是贝叶斯可行的定义。</p>
+</div>
+</div>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>因此，一个信号机制等价于一个贝叶斯可行的后验概率分布的分布；</p>
+<ul>
+<li>
+<p>进而可以导致接收者行动的分布，因为一个后验概率分布就对应接收者的一个最优行动；</p>
+</li>
+<li>
+<p>显然，只要接收者行动分布一定，那么发送者的效用也是确定的；</p>
+</li>
+<li>因此是否存在一个信号机制使得发送者达到效用 <span class="arithmatex">\(v^*\)</span>，只需要考虑是否存在一个贝叶斯可行的后验概率分布的分布 <span class="arithmatex">\(\tau\)</span> 使得发送者效用达到 <span class="arithmatex">\(v^*\)</span>；</li>
+<li>因此设计最优信号机制的问题可以转化为设计一个贝叶斯可行的后验概率分布的分布 <span class="arithmatex">\(\tau\)</span> </li>
+</ul>
+</div>
+<h2 id="_13">最优机制问题<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h3 id="_14">问题转化<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>问题转化后，我们需要解决的问题是设计一个贝叶斯可行的后验概率分布的分布 <span class="arithmatex">\(\tau\)</span> 使得发送者的效用最大化。首先将问题形式化：记后验概率为 <span class="arithmatex">\(\mu\)</span> 时，接收者的最优行动为 <span class="arithmatex">\(\hat{a}(\mu)\)</span>，则发送者的期望效用为：</p>
+<div class="arithmatex">\[
+\hat{v}(\mu) = \mathbb{E}_{\mu} v(\hat{a}(\mu), \omega)
+\]</div>
+<p>此处求期望是考虑到一般的情况下 <span class="arithmatex">\(v\)</span> 的表达式为 <span class="arithmatex">\(v(a, \omega)\)</span>，因此需要针对 <span class="arithmatex">\(\omega\)</span> 求期望。而在导师写推荐信的例子中，因为 <span class="arithmatex">\(v\)</span> 与 <span class="arithmatex">\(\omega\)</span> 无关，故是可以省略的。基于此，可以定义最优信号机制问题：</p>
+<div class="arithmatex">\[
+\max_{\tau} \mathbb{E}_{\tau} \hat{v}(\mu)
+\]</div>
+<div class="arithmatex">\[
+\text{s.t. } \sum_{\text{Supp}(\tau)} \mu\tau(\mu) = \mu_0
+\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>看起来这个形式化的式子比较复杂，但实际上还是很好理解的</p>
+<p>首先<span class="arithmatex">\(\hat{v}(\mu)\)</span>一项表示对于一个后验概率(知道信号后对学生类型的判断)，接收者的最优行动(雇用/不雇用)，发送者在这一情况下的期望效用</p>
+<p><span class="arithmatex">\(\max_{\tau} \mathbb{E}_{\tau} \hat{v}(\mu)\)</span>表示我们希望在所有可能的后验概率分布的分布中，找到使得发送者的期望效用最大的那一种。</p>
+<p><span class="arithmatex">\(\text{s.t. } \sum_{\text{Supp}(\tau)} \mu\tau(\mu) = \mu_0\)</span>表示我们希望后验概率分布的分布是贝叶斯可行的。</p>
+</div>
+<h3 id="_15">显示原理<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<div class="admonition theorem">
+<p class="admonition-title">显示原理</p>
+<p>存在一个信号机制使得发送者的效用达到 <span class="arithmatex">\(v^*\)</span> 当且仅当存在一个直接（<strong>straightforward</strong>）信号机制使得发送者的效用达到 <span class="arithmatex">\(v^*\)</span>。其中直接信号机制是指满足 <span class="arithmatex">\(S \subseteq A\)</span> 且接收者的最优行动等于信号实现的信号。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">导师推荐信中的直接信号机制</p>
+<ul>
+<li>放在导师写推荐信的例子中，直接信号机制指信号实现空间 <span class="arithmatex">\(S \subseteq \{\text{excellent}, \text{average}\}\)</span> 且当接收者看到优秀的推荐信的信号时雇用，看到一般的推荐信的信号时不雇用的信号；</li>
+<li>事实上此前给出的最优信号机制的确满足直接信号机制的定义；</li>
+<li>总而言之，显示原理表明，最优信号机制设计所需的信号实现数目（后验概率数目）是不超过接收者行动数目的；</li>
+</ul>
+</div>
+<p>基于显示原理，原始的最优信号机制设计问题可以简化为：</p>
+<div class="arithmatex">\[
+\max_{\tau} \sum_{\mu \in \text{Supp}(\tau)} \hat{v}(\mu) \tau(\mu)
+\]</div>
+<div class="arithmatex">\[
+\text{s.t. } \sum_{\mu \in \text{Supp}(\tau)} \mu \tau(\mu) = \mu_0
+\]</div>
+<p>其中 <span class="arithmatex">\(\text{Supp}(\tau)\)</span> 的大小不超过 <span class="arithmatex">\(|A|\)</span>（接收者行动集合的大小）。</p>
+<h3 id="_16">凹包络<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<div class="admonition definition">
+<p class="admonition-title">凹包络</p>
+<p>函数 <span class="arithmatex">\(\hat{v}\)</span> 的凹包络（concave closure）<span class="arithmatex">\(V\)</span> 定义为：</p>
+<div class="arithmatex">\[
+V(\mu) = \sup\{z \mid (\mu, z) \in \text{co}(\hat{v})\}
+\]</div>
+<p>其中 <span class="arithmatex">\(\text{co}(\hat{v})\)</span> 表示函数 <span class="arithmatex">\(\hat{v}\)</span> 的图像的凹包。</p>
+<p>直观而言，一个函数的凹包络就是大于等于这个函数的最小凹函数。</p>
+<p><figure markdown="span">
+    <img alt="凹包络" src="../img/%E5%87%B9%E5%8C%85%E7%BB%9C.png" width="500" />
+</figure></p>
+</div>
+<h3 id="_17">关键性质<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>函数 <span class="arithmatex">\(\hat{v}\)</span> 的凹包络是求解最优信号机制问题的关键：</p>
+<ul>
+<li>
+<p><strong>存在性</strong>：注意到如果 <span class="arithmatex">\((\mu_0, z) \in \text{co}(\hat{v})\)</span>，则必然存在后验概率分布的分布 <span class="arithmatex">\(\tau\)</span> 使得 <span class="arithmatex">\(\mathbb{E}_\mu = \mu_0\)</span> 且 <span class="arithmatex">\(\mathbb{E}_\tau \hat{v}(\mu) = z\)</span>（因为期望也是凸组合）；</p>
+</li>
+<li>
+<p><strong>最优性</strong>：<span class="arithmatex">\(V(\mu_0)\)</span> 则是所有这样的 <span class="arithmatex">\(z\)</span> 中的最大值；</p>
+</li>
+</ul>
+<p>因此 <span class="arithmatex">\(V(\mu_0)\)</span> 就是最优信号机制问题的解。总而言之我们可以得到下面的推论，从而回答了之前提出的所有问题：</p>
+<div class="admonition theorem">
+<p class="admonition-title">主要推论</p>
+<p>最优信号机制问题的解存在，最大值为 <span class="arithmatex">\(V(\mu_0)\)</span>。进一步地，发送者设计信号能提升自己的效用当且仅当 <span class="arithmatex">\(V(\mu_0) &gt; \hat{v}(\mu_0)\)</span>。</p>
+</div>
+<figure>
+    <img alt="凹包络" src="../img/ex9.png" width="600" />
+    <figcaption>运用结论解之前的例子</figcaption>
+</figure>
+<p>只要企业的后验概率中好学生的概率占比大于<span class="arithmatex">\(1/3\)</span>，则企业一定会雇佣，因为此时雇佣效用为</p>
+<div class="arithmatex">\[
+    1 \times 1/3 - 0.5 \times 2/3 &gt; 0
+\]</div>
+<p>比不雇佣好</p>
+<p>这个凹包络前半部分的解析式为<span class="arithmatex">\(V(\mu) = 3\mu\)</span>,</p>
+<p>原例子中<span class="arithmatex">\(V(0.25) = 0.75\)</span>，故导师最佳效用为<span class="arithmatex">\(0.75\)</span></p>
+<p>并且此时两个后验分布设为两个端点，即在一个后验分布中认为所有学生都是一般，在另一个后验分布中认为<span class="arithmatex">\(1/3\)</span>的学生是优秀，<span class="arithmatex">\(2/3\)</span>的学生是普通</p>
+<div class="arithmatex">\[
+    \mu_1 = (0, 1), \mu_2 = (1/3, 2/3)
+\]</div>
+<p>设后验分布的分布为<span class="arithmatex">\(\tau = (\tau(\mu_1), \tau(\mu_2)) = (x, 1-x)\)</span>，则</p>
+<div class="arithmatex">\[
+   x(0,1)+(1-x)(1/3,2/3) = ((1-x)/3, x/3+2/3) = (0.25, 0.75)
+\]</div>
+<p>解得<span class="arithmatex">\(x = 0.25\)</span>，即<span class="arithmatex">\(\mu_1\)</span>的概率为<span class="arithmatex">\(0.25\)</span>，<span class="arithmatex">\(\mu_2\)</span>的概率为<span class="arithmatex">\(0.75\)</span></p>
+<p>进一步的，可以利用</p>
+<div class="arithmatex">\[
+    \pi(s | \omega) = \frac{\mathbb{P}(s)\mu_s(\omega)}{\mu_0(\omega)} = \frac{\tau(\mu_s)\mu_s(\omega)}{\mu_0(\omega)}
+\]</div>
+<p>计算出对应的信号机制</p>
+<div class="arithmatex">\[
+    \pi(1 | ex) = \frac{P(1)\mu_1(ex)}{\mu_0(ex)} = \frac{0.25 \times 0}{0.25} = 0
+\]</div>
+<div class="arithmatex">\[
+    \pi(1 | av) = \frac{P(1)\mu_1(av)}{\mu_0(av)} = \frac{0.25 \times 1}{0.75} = 1/3
+\]</div>
+<div class="arithmatex">\[
+    \pi(2 | ex) = \frac{P(2)\mu_2(ex)}{\mu_0(ex)} = \frac{0.75 \times 1/3}{0.25} = 1
+\]</div>
+<div class="arithmatex">\[
+    \pi(2 | av) = \frac{P(2)\mu_2(av)}{\mu_0(av)} = \frac{0.75 \times 2/3}{0.75} = 2/3
+\]</div>
+<p>这与之前的结果一致。所以<span class="arithmatex">\(\mu_1\)</span>对应一般的推荐信，<span class="arithmatex">\(\mu_2\)</span>对应优秀的推荐信，这个例子也说明信号的名称不重要。</p>
+<h3 id="_18">对接收者的影响<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>最后解决第三个问题：信号接收者是否愿意接受发送者的信号机制？</p>
+<div class="admonition theorem">
+<p class="admonition-title">命题</p>
+<p>在任意信号机制 <span class="arithmatex">\(S, \pi(s | \omega)\)</span> 下，接收者的效用都不会低于其在没有信号的情况下的效用。</p>
+</div>
+<h4 id="_19">证明过程<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<p>任取信号机制 <span class="arithmatex">\(S, \pi(s | \omega)\)</span>，当接收者看到 <span class="arithmatex">\(s \in S\)</span> 时，其效用为：</p>
+<div class="arithmatex">\[
+\max_{a \in A} \mathbb{E}_{\mu_s}[u(a, w)] = \max_{a \in A} \sum_{\omega \in \Omega} \mu_s(\omega)u(a, \omega)
+\]</div>
+<div class="arithmatex">\[
+= \max_{a \in A} \sum_{\omega \in \Omega} \frac{\pi(s | \omega)\mu_0(\omega)}{\sum_{\omega' \in \Omega} \pi(s | \omega')\mu_0(\omega')} u(a, \omega)
+\]</div>
+<p>因此在信号机制 <span class="arithmatex">\(S, \pi(s | \omega)\)</span> 下，其期望效用为：</p>
+<div class="arithmatex">\[
+\begin{align}
+\sum_{s \in S} \mathbb{P}(s) \cdot \max_{a \in A} \mathbb{E}_{\mu_s}[u(a, w)] &amp;= \sum_{s \in S} \left(\sum_{\omega' \in \Omega} \pi(s | \omega')\mu_0(\omega')\right) \cdot \max_{a \in A} \mathbb{E}_{\mu_s}[u(a, w)]\\
+&amp;= \sum_{s \in S} \max_{a \in A} \sum_{\omega \in \Omega} \pi(s | \omega)\mu_0(\omega)u(a, \omega)\\
+&amp;\geq \max_{a \in A} \sum_{s \in S} \sum_{\omega \in \Omega} \pi(s | \omega)\mu_0(\omega)u(a, \omega)\\
+&amp;= \max_{a \in A} \sum_{\omega \in \Omega} \left(\sum_{s \in S} \pi(s | \omega)\right) \mu_0(\omega)u(a, \omega)\\
+&amp;= \max_{a \in A} \sum_{\omega \in \Omega} \mu_0(\omega)u(a, \omega) = \max_{a \in A} \mathbb{E}_{\mu_0}[u(a, w)]
+\end{align}
+\]</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../optauction/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 最优机制">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                最优机制
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../LA/linear-algebra/" class="md-footer__link md-footer__link--next" aria-label="下一页: 线性代数个人笔记">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                线性代数个人笔记
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+    
+  </body>
+</html>
