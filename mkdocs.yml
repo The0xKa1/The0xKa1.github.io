@@ -1,15 +1,15 @@
 # 项目信息
 site_name: 71229号港湾 # 项目名称
-site_url: https://note.kailqq.cc
+site_url: https://note.the0xka1.cc
 site_author: Kailqq # 作者
 site_description: >- # 项目描述
     人生苦短，纵情燃烧
 # 代码仓库信息
-repo_name: 𝓚𝓪𝓲𝓵𝓺𝓺 # 仓库名称
-repo_url: https://github.com/kailqq/kailqq.github.io # 仓库地址
+repo_name: 𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏 # 仓库名称
+repo_url: https://github.com/The0xKa1/The0xKa1.github.io.git # 仓库地址
 
 # 版权信息
-copyright: Copyright &copy; 2023 ~ now |  Kailqq 
+copyright: Copyright &copy; 2023 ~ now |  The0xKa1 
 
 # 配置
 theme:
@@ -119,7 +119,7 @@ extra:
           name: 对您有帮助的话，给我一个star吧！
           data: 5
           note: >-
-                <a href="https://github.com/kailqq/kailqq.github.io">
+                <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
                   <div class="button"  target="_blank">Give me a star⭐</div>
                 </a>
 
@@ -135,10 +135,10 @@ extra:
            
   social: # 社交媒体
     - icon: fontawesome/brands/github
-      link: https://github.com/kailqq
+      link: https://github.com/The0xKa1
       name: My GitHub
     - icon: fontawesome/brands/qq
-      link: tencent://message/?uin=2725913404&Site=Kailqq&Menu=yes
+      link: tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes
       name: QQ
     - icon: fontawesome/brands/steam
       link: https://steamcommunity.com/profiles/76561199513750344

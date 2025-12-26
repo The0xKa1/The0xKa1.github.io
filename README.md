@@ -1,6 +1,6 @@
 # 基于Mkdocs搭建的笔记网站👋
 
-:point_right: note.kailqq.cc :point_left:
+:point_right: note.the0xka1.cc :point_left:
 
 欢迎访问我的个人网站的 GitHub 仓库！这个仓库包含了我个人网站的所有源代码和相关资源。
 ## 简介
@@ -21,7 +21,7 @@ Markdown 是一种轻量级标记语言，易于学习和使用，适合用于�
 1. 克隆此仓库到本地：
 
    ```bash
-   git clone https://github.com/kailqq/kailqq.github.io.git
+   git clone https://github.com/The0xKa1/The0xKa1.github.io.git
    ```
 
 2. 安装 MkDocs 和所需插件（如果还未安装）：
