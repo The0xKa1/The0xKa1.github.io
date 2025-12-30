@@ -305,6 +305,16 @@ nav:
               - 最优机制: NOTE/DataMarket/optauction.md
               - 贝叶斯劝说: NOTE/DataMarket/Beyesian.md
               
+          - 汇编与接口:
+              - NOTE/ASM/index.md
+              - Chapter 1: NOTE/ASM/chap1.md
+              - Chapter 2: NOTE/ASM/chap2.md
+              - Chapter 3: NOTE/ASM/chap3.md
+              - Chapter 4: NOTE/ASM/chap4.md
+              - Chapter 5: NOTE/ASM/chap5.md
+              - Chapter 6: NOTE/ASM/chap6.md
+              - Chapter 9: NOTE/ASM/chap9.md
+              - Chapter 11: NOTE/ASM/chap11.md
       # 数学与物理
       - 🔬 数学与物理:
           - 线性代数 (LINEAR-ALGEBRA):
@@ -333,16 +343,6 @@ nav:
               - 光学: NOTE/Physics/light.md
               - 量子力学: NOTE/Physics/Quantum.md
           
-          - 汇编与接口:
-              - NOTE/ASM/index.md
-              - Chapter 1: NOTE/ASM/chap1.md
-              - Chapter 2: NOTE/ASM/chap2.md
-              - Chapter 3: NOTE/ASM/chap3.md
-              - Chapter 4: NOTE/ASM/chap4.md
-              - Chapter 5: NOTE/ASM/chap5.md
-              - Chapter 6: NOTE/ASM/chap6.md
-              - Chapter 9: NOTE/ASM/chap9.md
-              - Chapter 11: NOTE/ASM/chap11.md
               
       # 自学笔记
       - 💻 自学笔记:

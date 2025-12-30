@@ -13,7 +13,5 @@ comments: true
 - [chap4](./chap4.md)
 - [chap5](./chap5.md)
 - [chap6](./chap6.md)
-- [chap7](./chap7.md)
-- [chap8](./chap8.md)
 - [chap9](./chap9.md)
-- [chap10](./chap10.md)
+- [chap11](./chap11.md)
