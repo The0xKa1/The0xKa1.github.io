@@ -223,6 +223,7 @@ extra_javascript:
   - javascripts/auto-render.min.js
   - javascripts/card.js
   - javascripts/toc.js
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
 
   
 extra_css:
