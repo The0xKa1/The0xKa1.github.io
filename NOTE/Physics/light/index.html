@@ -1,0 +1,4855 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/Physics/light/">
+      
+      
+        <link rel="prev" href="../maxwell/">
+      
+      
+        <link rel="next" href="../Quantum/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>光学 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              光学
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ASM/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    汇编与接口
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    普通物理学二
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eletronic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../magnetism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    磁学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../electrodynamincs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电动力学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maxwell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maxwell方程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    光学
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    光学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可见光
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可见光">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        波的多普勒效应
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        几何光学
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="几何光学">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全反射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        色散
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        惠更斯原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        费马原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-formation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        成像(Image Formation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="成像(Image Formation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        球面镜成像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        球面镜反射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        放大倍数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        薄透镜成像
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="薄透镜成像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lens-makers-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        磨镜者公式(Lens Maker's Equation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        符号约定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        横向放大倍数与屈光度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人眼成像
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人眼成像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        放大镜
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        波动光学
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="波动光学">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的干涉(Interference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光的干涉(Interference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的叠加
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        媒质中的光程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        杨氏双缝干涉实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        洛埃德镜实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        等厚干涉
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的衍射(Diffraction)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光的衍射(Diffraction)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单缝夫琅禾费衍射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        菲涅尔半波带法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        衍射受限与瑞利判据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光栅衍射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光栅衍射的缺极
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bragg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bragg 公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的偏振(Polarization)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光的偏振(Polarization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线偏振光
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见偏振态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brewster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brewster 角
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#birefringence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        双折射现象(Birefringence)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optical-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光轴(Optical Axis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Quantum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    量子力学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可见光
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可见光">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        波的多普勒效应
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        几何光学
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="几何光学">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全反射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        色散
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        惠更斯原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        费马原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-formation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        成像(Image Formation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="成像(Image Formation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        球面镜成像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        球面镜反射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        放大倍数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        薄透镜成像
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="薄透镜成像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lens-makers-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        磨镜者公式(Lens Maker's Equation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        符号约定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        横向放大倍数与屈光度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        人眼成像
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人眼成像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        放大镜
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        波动光学
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="波动光学">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的干涉(Interference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光的干涉(Interference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的叠加
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        媒质中的光程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        杨氏双缝干涉实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        洛埃德镜实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        等厚干涉
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的衍射(Diffraction)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光的衍射(Diffraction)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单缝夫琅禾费衍射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        菲涅尔半波带法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        衍射受限与瑞利判据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光栅衍射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光栅衍射的缺极
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bragg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bragg 公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光的偏振(Polarization)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="光的偏振(Polarization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线偏振光
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见偏振态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brewster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brewster 角
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#birefringence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        双折射现象(Birefringence)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optical-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        光轴(Optical Axis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../LA/linear-algebra/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🔬 数学与物理
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    普通物理学二
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">光学<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 8317 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 63 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 29 分钟</p>
+</div>
+<h2 id="_2">可见光<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>在电磁波中，可见光只占了很小一部分</p>
+<div align=center>
+<img src="../img/light/light1.png" width="70%">
+</div>
+
+<div class="admonition property">
+<p class="admonition-title">Property</p>
+<ul>
+<li>可见光波长范围：<span class="arithmatex">\(400nm-700nm\)</span></li>
+<li>可见光频率范围：<span class="arithmatex">\(4.3\times10^{14}Hz-7.5\times10^{14}Hz\)</span></li>
+<li>可见光波长与频率的关系：<span class="arithmatex">\(\lambda f=c\)</span></li>
+<li>人眼最敏感的波长<span class="arithmatex">\(550nm\)</span>左右为黄绿光</li>
+<li>波长越长，频率越低，能量越低,所以红光能量最低，紫光能量最高</li>
+<li></li>
+</ul>
+</div>
+<h3 id="_3">波的多普勒效应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+f'=\dfrac{v\pm v_0}{v\pm v_s}f
+\]</div>
+<p>其中，<span class="arithmatex">\(v\)</span>为波在介质中的传播速度，波源速度为<span class="arithmatex">\(v_s\)</span>，接收者速度为<span class="arithmatex">\(v_0\)</span>，<span class="arithmatex">\(f\)</span>为波的频率</p>
+<p>对于光波，有红移和蓝移</p>
+<ul>
+<li>红移：波源远离接收者，波长变长，频率变小，光谱向红色移动</li>
+</ul>
+<div class="arithmatex">\[
+    f=f_0 \sqrt{\dfrac{1-\frac{u}{c}}{1+\frac{u}{c}}}
+\]</div>
+<ul>
+<li>蓝移：波源靠近接收者，波长变短，频率变大，光谱向蓝色移动</li>
+</ul>
+<div class="arithmatex">\[
+    f=f_0 \sqrt{\dfrac{1+\frac{u}{c}}{1-\frac{u}{c}}}
+\]</div>
+<div class="admonition key-point">
+<p class="admonition-title">Key-point</p>
+<p>通式为</p>
+<div class="arithmatex">\[
+    f = f_0 \dfrac{\sqrt{1-\frac{u^2}{c^2}}}{1-\frac{u}{c}\cos \theta}
+\]</div>
+<p>其中<span class="arithmatex">\(\theta\)</span>为速度与光波运动的夹角</p>
+</div>
+<h2 id="_4">几何光学<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">全反射<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>全反射是光波在传播过程中发生的一种物理现象。当光从光密介质（如玻璃或水）进入光疏介质（如空气）时，如果入射角大于某个临界角（称为临界角），光就不会发生折射，而是全部被反射回光密介质，这种现象称为全反射</p>
+<div align=center>
+<img src="../img/light/light2.png" width="70%">
+</div>
+
+<p>例如，在玻璃中，<span class="arithmatex">\(n=1.5\)</span>，在空气中，<span class="arithmatex">\(n_0=1\)</span>;又有</p>
+<div class="arithmatex">\[
+   \dfrac{\sin \theta_2}{\sin \theta_1}=\dfrac{n_1}{n_2}
+\]</div>
+<p>临界角为<span class="arithmatex">\(\theta_2 = 90^\circ\)</span>，所以此时</p>
+<div class="arithmatex">\[
+    \sin \theta_c = \dfrac{n_2}{n_1}
+\]</div>
+<p>如果入射角大于临界角，光就会发生全反射，被束缚在光密介质中,在这个例子中，临界角为<span class="arithmatex">\(\theta_c = \arcsin \dfrac{1}{1.5} = 41.8^\circ\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>求折射率,可以通过以下公式求解</p>
+<div class="arithmatex">\[
+    n = \dfrac{\sin \theta_1}{\sin \theta_2}
+\]</div>
+<p>其中<span class="arithmatex">\(\theta_1\)</span>为空气中入射角，<span class="arithmatex">\(\theta_2\)</span>为折射角</p>
+</div>
+<h3 id="_6">色散<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>**色散现象**是指当白光或复色光通过介质（如棱镜、光栅）时，不同波长的光由于折射率不同而发生不同程度的偏折，从而使光被分解成各种单色光的现象。它是光的波动特性的一种表现，主要由介质的**折射率随波长的变化**引起。</p>
+<div class="arithmatex">\[
+n = \frac{c}{v}
+\]</div>
+<p>由于 <span class="arithmatex">\( v \)</span> 与波长 <span class="arithmatex">\( \lambda \)</span> 相关，介质对不同波长的光折射率不同，导致折射角不同。通常情况下：</p>
+<ul>
+<li>短波长光（如紫光）折射率较大，偏折角较大。</li>
+<li>长波长光（如红光）折射率较小，偏折角较小。</li>
+</ul>
+<p>这种波长依赖性导致了色散。</p>
+<div align=center>
+<img src="../img/light/light3.png" width="70%">
+</div>
+
+<h3 id="_7">惠更斯原理<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="admonition summary">
+<p class="admonition-title">定理内容</p>
+<p>波前上的每一个点都可以看作是新的球面波（次波）源，这些次波相干叠加后形成了波的传播方向和波前。</p>
+</div>
+<div align=center>
+<img src="../img/light/light4.png" width="30%">
+</div>
+
+<div class="admonition example">
+<p class="admonition-title">惠更斯原理证明光的反射与折射</p>
+<p><div align=center>
+<img src="../img/light/light5.png" width="50%">
+</div></p>
+<p><strong>反射</strong></p>
+<p>证明三角形全等，运用等角互余</p>
+<div class="arithmatex">\[
+A_1 C_1 = A_n B_n = v_1 t_n
+\]</div>
+<div class="arithmatex">\[
+\Delta A_1 C_1 B_n \cong \Delta B_n A_n A_1
+\]</div>
+<div class="arithmatex">\[
+\therefore \angle A_n A_1 B_n = \angle C_1 B_n A_1
+\]</div>
+<div class="arithmatex">\[
+\Rightarrow i_1' = i_1 
+\]</div>
+<p><strong>折射</strong></p>
+<div class="arithmatex">\[
+\angle D_1B_nA_1 = i_2
+\]</div>
+<div class="arithmatex">\[
+\sin i_2 = \frac{A_1D_1}{A_1B_n}
+\]</div>
+<div class="arithmatex">\[
+\sin i_1 = \frac{A_nB_n}{A_1B_n}
+\]</div>
+<div class="arithmatex">\[
+\therefore \frac{\sin i_1}{\sin i_2} = \frac{A_nB_n}{A_1D_1} = \frac{v_1 t}{v_2 t} = \frac{v_1}{v_2}
+\]</div>
+<p>再运用</p>
+<div class="arithmatex">\[
+    v=\dfrac{c}{n}
+\]</div>
+<p>带入即可</p>
+</div>
+<h3 id="_8">费马原理<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>光程定义为</p>
+<div class="arithmatex">\[
+    L = n_1 s_1 + n_2 s_2
+\]</div>
+<p>其中<span class="arithmatex">\(n_1\)</span>和<span class="arithmatex">\(n_2\)</span>分别为两个介质的折射率，<span class="arithmatex">\(s_1\)</span>和<span class="arithmatex">\(s_2\)</span>分别为两个介质中光线的实际路径长度</p>
+<p>积分形式为</p>
+<div class="arithmatex">\[
+    L = \int n ds
+\]</div>
+<p>费马原理是指光线在传播过程中，若可以成像，则光程的变分为零(对某一个变量求偏导为零)</p>
+<p>即</p>
+<div class="arithmatex">\[
+    \delta \int n ds = 0
+\]</div>
+<div class="admonition example">
+<p class="admonition-title">费马原理证明反射和折射</p>
+<p><div align=center>
+<img src="../img/light/light6.png" width="50%">
+</div></p>
+<div class="arithmatex">\[
+L = \sqrt{a^2 + x^2} + \sqrt{b^2 + (d - x)^2}
+\]</div>
+<div class="arithmatex">\[
+\frac{dL}{dx} = \frac{1}{2} \cdot \frac{2x}{\sqrt{a^2 + x^2}} - \frac{1}{2} \cdot \frac{2(d - x)}{\sqrt{b^2 + (d - x)^2}} = 0
+\]</div>
+<div class="arithmatex">\[
+\frac{x}{\sqrt{a^2 + x^2}} = \frac{(d - x)}{\sqrt{b^2 + (d - x)^2}}
+\]</div>
+<div class="arithmatex">\[
+\sin \theta_1 = \sin \theta_1' \quad \theta_1 = \theta_1'
+\]</div>
+<p><div align=center>
+<img src="../img/light/light7.png" width="50%">
+</div></p>
+<div class="arithmatex">\[
+L = n_1 \sqrt{a^2 + x^2} + n_2 \sqrt{b^2 + (d - x)^2}
+\]</div>
+<div class="arithmatex">\[
+\frac{dL}{dx} = \frac{1}{2} n_1 \frac{2x}{\sqrt{a^2 + x^2}} - \frac{1}{2} n_2 \frac{2(d - x)}{\sqrt{b^2 + (d - x)^2}} = 0
+\]</div>
+<div class="arithmatex">\[
+n_1 \frac{x}{\sqrt{a^2 + x^2}} = n_2 \frac{(d - x)}{\sqrt{b^2 + (d - x)^2}}, \quad n_1 \sin \theta_1 = n_2 \sin \theta_2
+\]</div>
+</div>
+<h2 id="image-formation">成像(Image Formation)<a class="headerlink" href="#image-formation" title="Permanent link">&para;</a></h2>
+<div align=center>
+<img src="../img/light/light8.png" width="50%">
+</div>
+
+<p>成像的基本原则是等光程</p>
+<p>左边称为物方，右边称为像方</p>
+<h3 id="_9">球面镜成像<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>C为球心;r为球半径;</p>
+<div align=center>
+<img src="../img/light/light9.png" width="50%">
+</div>
+
+<p>首先，使用正弦定理</p>
+<div class="arithmatex">\[
+\begin{cases}
+\dfrac{p}{\sin \phi} = \dfrac{o + r}{\sin \theta} = \dfrac{r}{\sin u} \\
+\dfrac{p'}{\sin \phi} = \dfrac{i - r}{\sin \theta'} = \dfrac{r}{\sin u'}
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\begin{align*}
+n \sin \theta &amp;= n' \sin \theta' \\
+\theta - u &amp;= \theta' + u' = \phi
+\end{align*}
+\]</div>
+<div class="arithmatex">\[
+\begin{cases}
+\dfrac{p}{o + r} = \dfrac{\sin \phi}{\sin \theta} \\
+\dfrac{p'}{i - r} = \dfrac{\sin \phi}{\sin \theta'}
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\therefore \frac{p}{n(o + r)} = \frac{p'}{n'(i - r)}
+\]</div>
+<p>使用余弦定理</p>
+<div class="arithmatex">\[
+\begin{cases}
+p^2 = (o + r)^2 + r^2 - 2r(o + r) \cos \phi = o^2 + 4r(o + r) \sin^2 \frac{\phi}{2} \\
+p'^2 = (i - r)^2 + r^2 + 2r(i - r) \cos \phi = i^2 - 4r(i - r) \sin^2 \frac{\phi}{2}
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\cos \phi = 1 - 2 \sin^2 \frac{\phi}{2}
+\]</div>
+<div class="arithmatex">\[
+\Rightarrow \frac{o^2}{n^2(o + r)^2} - \frac{i^2}{n'^2(i - r)^2} = -4r \sin^2 \frac{\phi}{2} \left[ \frac{1}{n^2(o + r)} + \frac{1}{n'^2(i - r)} \right]
+\]</div>
+<p>不同的<span class="arithmatex">\(\phi\)</span>对应不同的成像位置,球面不能成像；</p>
+<p>唯一可能的位置为两边为0；</p>
+<div class="arithmatex">\[
+\begin{cases}
+\dfrac{o^2}{n^2(o + r)^2} - \dfrac{i^2}{n'^2(i - r)^2} = 0 \\
+\dfrac{1}{n^2(o + r)} + \dfrac{1}{n'^2(i - r)} = 0
+\end{cases}
+\]</div>
+<p>或者使用旁轴近似,即<span class="arithmatex">\(\phi\)</span>很小,右边为0；</p>
+<div class="arithmatex">\[
+\frac{o^2}{n^2(o + r)^2} = \frac{i^2}{n'^2(i - r)^2}
+\]</div>
+<div class="arithmatex">\[
+\frac{n(o + r)}{o} = \frac{n'(i - r)}{i}
+\]</div>
+<mark class="critic block">
+<div class="arithmatex">\[
+\frac{n'}{i} + \frac{n}{o} = \frac{n' - n}{r}
+\]</div>
+</mark>
+<p>又有</p>
+<div class="arithmatex">\[
+\begin{cases}
+i \to \infty, \quad o = f = \dfrac{n}{n' - n} r \\
+o \to \infty, \quad i = f' = \dfrac{n'}{n' - n} r
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\dfrac{f}{f'} = \dfrac{n}{n'}, \quad \dfrac{f}{o} + \dfrac{f'}{i} = 1
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">符号的约定</p>
+<ul>
+<li><span class="arithmatex">\(o\)</span>,实为+，虚为-(Q，在左为+，右为-)</li>
+<li><span class="arithmatex">\(i\)</span>,实为+，虚为-(Q'，在左为-，右为+)</li>
+<li><span class="arithmatex">\(r\)</span>,凸为+，凹为-(C,在左为-，右为+)</li>
+</ul>
+<p><div align=center>
+<img src="../img/light/light10.png" width="50%">
+</div></p>
+<p><div align=center>
+<img src="../img/light/light11.png" width="50%">
+</div></p>
+</div>
+<h3 id="_10">球面镜反射<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div align=center>
+<img src="../img/light/light12.png" width="50%">
+</div>
+
+<div class="arithmatex">\[
+n \sin \theta = n' \sin \theta' \quad \text{if } \theta &gt; 0, \text{ then } \theta' &lt; 0
+\]</div>
+<div class="arithmatex">\[
+n = -n'
+\]</div>
+<div class="arithmatex">\[
+f = \frac{n}{n' - n} r = -\frac{r}{2}
+\]</div>
+<div class="arithmatex">\[
+f' = \frac{n'}{n' - n} r = \frac{1}{2} r
+\]</div>
+<p>带入折射公式</p>
+<div class="arithmatex">\[
+\Rightarrow \frac{1}{o} + \frac{1}{i} = -\frac{2}{r}
+\]</div>
+<p>如果是平面镜，那么<span class="arithmatex">\(r \to \infty\)</span>，成虚像；</p>
+<h3 id="_11">放大倍数<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<div align=center>
+<img src="../img/light/light13.png" width="50%">
+</div>
+
+<p>首先，由旁轴近似</p>
+<div class="arithmatex">\[
+    n \sin \theta = n' \sin \theta' \Rightarrow  n \theta = n' \theta'
+\]</div>
+<p><span class="arithmatex">\(y'&lt;0\)</span></p>
+<div class="arithmatex">\[
+y \approx o \cdot \theta, \, -y' = i \cdot \theta'
+\]</div>
+<div class="arithmatex">\[
+\therefore m = \frac{y'}{y} = -\frac{i\theta'}{o\theta} = -\frac{n \cdot i}{n' \cdot o}
+\]</div>
+<p>如果<span class="arithmatex">\(n=n'\)</span>，则<span class="arithmatex">\(m=-\dfrac{i}{o}\)</span> 负号表示倒像</p>
+<h3 id="_12">薄透镜成像<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div align=center>
+<img src="../img/light/light24.png" width="50%">
+</div>
+
+<p>首先，对于<span class="arithmatex">\(n\)</span>和<span class="arithmatex">\(n_L\)</span>,<span class="arithmatex">\(n_L\)</span>和<span class="arithmatex">\(n'\)</span>，分别使用球面镜成像公式</p>
+<div class="arithmatex">\[
+\begin{cases} 
+\frac{f_1'}{i_1} + \frac{f_1}{o_1} = 1  \\ 
+\frac{f_2'}{i_2} + \frac{f_2}{o_2} = 1 
+\end{cases}
+\]</div>
+<p>其中</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f_1 &amp;= \frac{n}{n_L - n} r_1, \quad f_1' = \frac{n_L}{n_L - n} r_1 \\
+f_2 &amp;= \frac{n_L}{n' - n_L} r_2, \quad f_2' = \frac{n'}{n' - n_L} r_2
+\end{aligned}
+\]</div>
+<p><span class="arithmatex">\(o_2\)</span>是Q经过第一个球面镜的虚像像距,所以</p>
+<div class="arithmatex">\[
+-o_2 = i_1 - d, \quad o_2 = d - i_1
+\]</div>
+<p>对于(1)式两边同时乘以<span class="arithmatex">\(f_2\)</span>，对于(2)式两边同时乘以<span class="arithmatex">\(f_1'\)</span></p>
+<div class="arithmatex">\[
+\begin{cases} 
+\frac{f_1' f_2}{i_1} + \frac{f_1 f_2}{o_1} = f_2 \\ 
+\frac{f_1' f_2'}{i_2} + \frac{f_1' f_2}{-i_1} = f_1'
+\end{cases}
+\]</div>
+<p>相加</p>
+<div class="arithmatex">\[
+\frac{f_1' f_2'}{i_2} + \frac{f_1 f_2}{o_1} = f_1' + f_2
+\]</div>
+<div class="arithmatex">\[
+\frac{f_1' f_2'}{i} + \frac{f_1 f_2}{o} = f_1' + f_2
+\]</div>
+<p>除过去,得到</p>
+<div class="arithmatex">\[
+\frac{f'}{i} + \frac{f}{o} = 1
+\]</div>
+<p>其中，令</p>
+<div class="arithmatex">\[
+    f' = \frac{f_1' f_2'}{f_1' + f_2}
+\]</div>
+<div class="arithmatex">\[
+    f = \frac{f_1 f_2}{f_1' + f_2}
+\]</div>
+<h4 id="lens-makers-equation">磨镜者公式(Lens Maker's Equation)<a class="headerlink" href="#lens-makers-equation" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+f' = \frac{f_1' f_2'}{f_1' + f_2} = \frac{\frac{n_L}{n_L - n} \cdot \frac{n'}{n' - n_L} r_1 r_2}{\frac{n_L}{n_L - n} r_1 + \frac{n'}{n' - n_L} r_2} = \frac{n'}{\frac{n_L - n}{r_1} + \frac{n' - n_L}{r_2}}
+\]</div>
+<div class="arithmatex">\[
+f = \frac{f_1 f_2}{f_1' + f_2} = \frac{\frac{n}{n_L - n} \cdot \frac{n_L}{n' - n_L} r_1 r_2}{\frac{n_L}{n_L - n} r_1 + \frac{n_L}{n' - n_L} r_2} = \frac{n}{\frac{n_L - n}{r_1} + \frac{n' - n_L}{r_2}}
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+    \dfrac{f'}{f} = \dfrac{n'}{n}
+\]</div>
+<p>如果<span class="arithmatex">\(n=n'=1\)</span>，则<span class="arithmatex">\(f' = f\)</span></p>
+<div class="arithmatex">\[
+f = f' = \frac{1}{(n_L - 1) \left( \frac{1}{r_1} - \frac{1}{r_2} \right)}
+\]</div>
+<p>如果<span class="arithmatex">\(f'和f\)</span>都为正，则透镜为凸透镜，反之<span class="arithmatex">\(f，f'\)</span>为负，则透镜为凹透镜</p>
+<h4 id="_13">符号约定<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<div align=center>
+<img src="../img/light/light25.png" width="70%">
+</div>
+
+<ul>
+<li>如果 <span class="arithmatex">\(Q\)</span> 在 <span class="arithmatex">\(F\)</span> 点的左侧，<span class="arithmatex">\(x &gt; 0\)</span></li>
+<li>如果 <span class="arithmatex">\(Q\)</span> 在 <span class="arithmatex">\(F\)</span> 点的右侧，<span class="arithmatex">\(x &lt; 0\)</span></li>
+<li>如果 <span class="arithmatex">\(Q'\)</span> 在 <span class="arithmatex">\(F'\)</span> 点的左侧，<span class="arithmatex">\(x' &lt; 0\)</span></li>
+<li>如果 <span class="arithmatex">\(Q'\)</span> 在 <span class="arithmatex">\(F'\)</span> 点的右侧，<span class="arithmatex">\(x' &gt; 0\)</span></li>
+</ul>
+<div class="arithmatex">\[
+o = f + x
+\]</div>
+<div class="arithmatex">\[
+i = f' + x'
+\]</div>
+<div class="arithmatex">\[
+\frac{1}{f + x} + \frac{1}{f' + x'} = \frac{1}{f}
+\]</div>
+<p>可以化简为</p>
+<div class="arithmatex">\[
+xx' = ff'
+\]</div>
+<h4 id="_14">横向放大倍数与屈光度<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<div align=center>
+<img src="../img/light/light13.png" width="70%">
+</div>
+
+<p>对于单个镜面，放大倍数为</p>
+<div class="arithmatex">\[
+m_1 = -\dfrac{ni_1}{n_L o_1}, \quad m_2 = -\dfrac{n i_2}{n' o_2}
+\]</div>
+<p>其中<span class="arithmatex">\(o_2\)</span>是Q经过第一个球面镜的虚像像距,是负的；</p>
+<div class="arithmatex">\[
+m = m_1 m_2 = \dfrac{n i_1}{n_L o_1} \cdot \dfrac{n_L i_2}{n' o_2} = \dfrac{n i_1}{n_L o_1} \cdot \dfrac{n_L i}{n' (-i_1)} = -\dfrac{n i}{n' o} = -\dfrac{fi}{f' o}
+\]</div>
+<p>定义屈光度</p>
+<div class="arithmatex">\[
+D = \dfrac{1}{f}
+\]</div>
+<p>眼镜度数定义为100D；</p>
+<h3 id="_15">人眼成像<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>人眼最近可以看清的距离为25cm，最远可以看清的距离为无穷远；</p>
+<div align=center>
+<img src="../img/light/light26.png" width="70%">
+</div>
+
+<div class="arithmatex">\[
+\frac{1}{250 \, \text{mm}} + \frac{1}{25 \, \text{mm}} = \frac{1}{f}
+\]</div>
+<p>此时<span class="arithmatex">\(f = 22.7mm\)</span></p>
+<p>看无穷远时,<span class="arithmatex">\(d_o = \infty, d_i = 25mm\)</span>,此时<span class="arithmatex">\(f = 25mm\)</span></p>
+<div class="admonition idea">
+<p class="admonition-title">近视眼和远视眼可以抵消吗？</p>
+<p>近视眼和远视眼不能抵消，近视眼是看不清无穷远，成像在视网膜前方，远视眼是看不清25cm，成像在视网膜后方；两者都是因为人的晶状体变化跟不上，如果同时有近视眼和远视眼，可能只能看到特定距离的物体；</p>
+</div>
+<h4 id="_16">放大镜<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>对于很小的物体，我们可以把它凑得离眼睛很近，但是这样对晶状体的压力很大，所以我们使用放大镜，凑得很近的时候，利用放大镜成一个放大的虚像</p>
+<p>例如，原本在<span class="arithmatex">\(N\)</span>的地方有一个小物体，高度为<span class="arithmatex">\(d_0\)</span></p>
+<div align=center>
+<img src="../img/light/light27.png" width="60%">
+</div>
+
+<div class="arithmatex">\[
+    \tan \theta = \frac{h_0}{N} \sim \theta = \frac{h_0}{N}
+\]</div>
+<p>利用放大镜</p>
+<div align=center>
+<img src="../img/light/light28.png" width="60%">
+</div>
+
+<div class="arithmatex">\[
+\text{Compare to unaided eye:} \quad \theta = \frac{h_0}{N}, \quad \theta' = \frac{h_i}{d_i} = \frac{h_o}{d_o}
+\]</div>
+<p>放大倍数</p>
+<div class="arithmatex">\[
+M = \frac{\theta'}{\theta} = \frac{h_o/d_o}{h_o/N} = \frac{N}{d_o}
+\]</div>
+<p>对于该放大镜</p>
+<div class="arithmatex">\[
+\frac{1}{d_o} + \frac{1}{d_i} = \frac{1}{f} \quad \Rightarrow \quad \frac{1}{d_o} = \frac{1}{f} - \frac{1}{d_i}
+\]</div>
+<p>我们要把像成在N处，<span class="arithmatex">\(d_i\)</span>是虚像，所以<span class="arithmatex">\(-d_i = N\)</span></p>
+<p>也就是说</p>
+<div class="arithmatex">\[
+\frac{1}{d_o} = \frac{1}{f} + \frac{1}{N}
+\]</div>
+<p>得到放大倍数为</p>
+<div class="arithmatex">\[
+M = \frac{N}{d_o} = N(\frac{1}{f} + \frac{1}{N}) = \frac{N}{f}+1
+\]</div>
+<h2 id="_17">波动光学<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h3 id="interference">光的干涉(Interference)<a class="headerlink" href="#interference" title="Permanent link">&para;</a></h3>
+<h4 id="_18">光的叠加<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<p>电场强度 <span class="arithmatex">\(E\)</span> 的振动在空间的传播可以表示为：</p>
+<div class="arithmatex">\[
+E = E_0 \cos(\omega t + \varphi_1 - 2\pi \frac{x}{\lambda})
+\]</div>
+<p>对于两列光波的叠加：</p>
+<ul>
+<li><span class="arithmatex">\(\omega_1 = \omega_2 = \omega\)</span></li>
+<li><span class="arithmatex">\(E_1 = E_{10} \cos(\omega t + \varphi_{10})\)</span></li>
+<li><span class="arithmatex">\(E_2 = E_{20} \cos(\omega t + \varphi_{20})\)</span></li>
+</ul>
+<p>叠加电场：</p>
+<div class="arithmatex">\[
+E = E_1 + E_2
+\]</div>
+<div align=center>
+<img src="../img/light/light14.png" width="70%">
+</div>
+<div align=center>
+<img src="../img/light/light15.png" width="70%">
+</div>
+
+<ul>
+<li>同相位：<span class="arithmatex">\(\Delta \varphi = 0\)</span>,相干，in phase</li>
+<li>反相位：<span class="arithmatex">\(\Delta \varphi = \pi\)</span>，out of phase</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">复平面矢量推导</p>
+<p>对于两列光波的叠加：</p>
+<ul>
+<li><span class="arithmatex">\(\omega_1 = \omega_2 = \omega\)</span></li>
+<li><span class="arithmatex">\(E_1 = E_{10} \cos(\omega t + \varphi_{10})\)</span></li>
+<li><span class="arithmatex">\(E_2 = E_{20} \cos(\omega t + \varphi_{20})\)</span></li>
+</ul>
+<p>叠加电场：</p>
+<div class="arithmatex">\[
+E = E_1 + E_2 = E_0 \cos(\omega t + \varphi_0)
+\]</div>
+<p>光强：</p>
+<div class="arithmatex">\[
+I_0 = E_0^2 = E_{10}^2 + E_{20}^2 + 2E_{10}E_{20}\cos\Delta\varphi
+\]</div>
+<p>其中，<span class="arithmatex">\(\Delta\varphi = \varphi_{20} - \varphi_{10}\)</span></p>
+<p><div align=center>
+<img src="../img/light/light16.png" width="60%"/>
+</div></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">干涉的光强分布</p>
+<p>干涉现象的光强分布可以表示为：</p>
+<div class="arithmatex">\[
+I = I_1 + I_2 + 2\sqrt{I_1 I_2} \cos \Delta \varphi
+\]</div>
+<p>其中，<span class="arithmatex">\(I_1\)</span> 和 <span class="arithmatex">\(I_2\)</span> 是两列光波的强度，<span class="arithmatex">\(\Delta \varphi\)</span> 是相位差。</p>
+<p>当 <span class="arithmatex">\(I_1 = I_2\)</span> 时，光强分布为：</p>
+<div class="arithmatex">\[
+I = 4I_1 \cos^2 \frac{\Delta \varphi}{2}
+\]</div>
+<p>这表明光强的最大值为 <span class="arithmatex">\(I_{\text{max}} = 4I_1\)</span>，最小值为 <span class="arithmatex">\(I_{\text{min}} = 0\)</span>。</p>
+<p><div align=center>
+<img src="../img/light/light17.png" width="60%"/>
+    </div></p>
+</div>
+<h4 id="_19">媒质中的光程<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<p>相位差在分析光的干涉时十分重要，为便于计算光通过不同媒质时的相位差，引入“光程差”的概念。(光程是 <span class="arithmatex">\(\int n ds\)</span>)</p>
+<div class="arithmatex">\[
+    \Delta \varphi = \dfrac{2\pi}{\lambda} \Delta L
+\]</div>
+<p>如果在介质中</p>
+<div class="arithmatex">\[
+\lambda_n = \dfrac{v}{f} = \dfrac{c/n}{f} = \dfrac{c/f}{n} = \dfrac{\lambda_0}{n}
+\]</div>
+<p>此时</p>
+<div class="arithmatex">\[
+     \Delta \varphi = \dfrac{2\pi}{\lambda} n \Delta  L
+\]</div>
+<div class="admonition summary">
+<p class="admonition-title">结论</p>
+<ul>
+<li>相干条件：振动方向相同，相位差恒定,频率相同</li>
+</ul>
+<p>干涉判断：</p>
+<div class="arithmatex">\[
+\Delta \varphi = 
+\begin{cases} 
+\pm 2k\pi, &amp; k = 0,1,2,\ldots \quad (\text{干涉加强}) \\
+\pm (2k + 1)\pi, &amp; k = 0,1,2,\ldots \quad (\text{干涉减弱})
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\delta = 
+\begin{cases} 
+\pm k\lambda_0, &amp; k = 0,1,2,\ldots \quad (\text{干涉加强}) \\
+\pm \left(2k + 1\right)\dfrac{\lambda_0}{2}, &amp; k = 0,1,2,\ldots \quad (\text{干涉减弱})
+\end{cases}
+\]</div>
+</div>
+<h4 id="_20">杨氏双缝干涉实验<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<div align=center>
+    <img src="../img/light/light18.png" width="60%"/>
+</div>
+
+<div align=center>
+    <img src="../img/light/light19.png" width="60%"/>
+</div>
+
+<ul>
+<li>干涉相长，明纹：<span class="arithmatex">\(\delta = d \cdot \frac{x}{D} = \pm k\lambda\)</span></li>
+<li>干涉相消，暗纹：<span class="arithmatex">\(\delta = d \cdot \frac{x}{D} = \pm (2k - 1)\frac{\lambda}{2}\)</span></li>
+<li>暗纹中心：<span class="arithmatex">\(x_{\pm(2k+1)} = \pm (2k - 1)\frac{D}{2d}\lambda, \, k = 1,2,3\ldots\)</span></li>
+<li>明纹中心：<span class="arithmatex">\(x_{\pm k} = \pm k\frac{D}{d}\lambda, \, k = 0,1,2,3\ldots\)</span></li>
+<li>两相邻明纹（或暗纹）间距：<span class="arithmatex">\(\Delta x = \frac{D}{d}\lambda\)</span></li>
+</ul>
+<details class="question">
+<summary>Question</summary>
+<ul>
+<li>
+<p>若S1、S2两条缝的宽度不等，条纹有何变化？ 
+两条缝的宽度不等，使两光束的强度不等；虽然干涉条纹中心距不变，但原极小处的强度不再为零，条纹的可见度变差。</p>
+</li>
+<li>
+<p>若使用白光进行干涉实验，条纹有何变化？
+若使用白光光源，则在中央零级出现白色亮纹，两侧对称排列若干彩色条纹。</p>
+</li>
+<li>
+<p>用白光 作双缝干涉实验时，能观察 到几级清晰可辨的彩色光谱？
+在中央白色明纹两侧， 只有第一级彩色光谱是清晰可辨的。</p>
+</li>
+</ul>
+</details>
+<h4 id="_21">洛埃德镜实验<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
+<div align=center>
+    <img src="../img/light/light20.png" width="60%"/>
+</div>
+
+<p>当屏移到A'B'位置时，在屏上的P点出现暗条纹。这一结论证实，光在镜子表面反射时有相位<span class="arithmatex">\(\pi\)</span>突变。</p>
+<p><mark class="critic">Reflection Phase Shifts</mark>半波损失</p>
+<p>如果光是从光 疏媒质传向光密媒质，在其分界面上反射时将发生半波损失，折射波无半波损失。在上述实验中，光从空气传向玻璃，因此在反射时发生半波损失。产生<span class="arithmatex">\(\pi\)</span>的相位差，因此为暗纹。</p>
+<h4 id="_22">等厚干涉<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
+<p>当一束平行光入射到厚度不均匀的透明介质薄膜上，如图所示，两光线 <span class="arithmatex">\(a\)</span> 和 <span class="arithmatex">\(b\)</span> 的光程差：</p>
+<div class="arithmatex">\[
+\delta = 2n_2e + \delta'
+\]</div>
+<p>其中，<span class="arithmatex">\(\delta'\)</span> 为因为半波损失而产生的附加光程差。</p>
+<ul>
+<li>当 <span class="arithmatex">\(e\)</span> 保持不变时，光程差仅与膜的厚度有关，凡厚度相同的地方光程差相同，从而对应同一条干涉条纹 —— 等厚干涉条纹。</li>
+</ul>
+<div align=center>
+    <img src="../img/light/light21.png" width="60%"/>
+</div>
+
+<p><strong>劈尖膜</strong></p>
+<div align=center>
+    <img src="../img/light/light22.png" width="60%"/>
+</div>
+
+<p>从空气到玻璃存在半波损失</p>
+<div class="arithmatex">\[
+    \delta = 2ne + \frac{\lambda}{2}
+\]</div>
+<p>发生干涉时</p>
+<div class="arithmatex">\[
+    \delta = \begin{cases}
+    2ne + \frac{\lambda}{2} = k\lambda, &amp; \text{明纹} \\
+    2ne + \frac{\lambda}{2} = (2k - 1)\frac{\lambda}{2}, &amp; \text{暗纹}
+    \end{cases}
+\]</div>
+<p>相邻明纹（或暗纹）</p>
+<div class="arithmatex">\[
+    \Delta e = \frac{\lambda}{2n}
+\]</div>
+<details class="example">
+<summary>利用劈尖测量工件凹凸</summary>
+<p><div align=center>
+    <img src="../img/light/light23.png" width="60%"/>
+</div>
+如果工件表面是精确的平面,等厚干涉条纹应该是等距离的平行直条纹，现在观察到的干涉条纹弯向空气膜的左端。因此，可判断工件表面是下凹的</p>
+<p>利用相似三角形关系，我们可以得到：</p>
+<div class="arithmatex">\[
+\frac{a}{b} = \frac{\Delta h}{(e_k - e_{k-1})} = \frac{\Delta h}{\frac{\lambda}{2}}
+\]</div>
+<p>所以：</p>
+<div class="arithmatex">\[
+\Delta h = \frac{a \lambda}{b \cdot 2}
+\]</div>
+</details>
+<p><strong>牛顿环实验</strong></p>
+<div align=center>
+    <img src="../img/light/light29.png" width="60%"/>
+</div>
+
+<p>光程差为</p>
+<div class="arithmatex">\[
+    \delta = 2e + \frac{\lambda}{2}
+\]</div>
+<div class="arithmatex">\[
+\delta = 2e + \frac{\lambda}{2} = 
+\begin{cases} 
+k\lambda, &amp; (k = 1, 2, 3, \ldots) \quad \text{明纹} \\ 
+(2k + 1)\frac{\lambda}{2}, &amp; (k = 0, 1, 2, \ldots) \quad \text{暗纹} 
+\end{cases}
+\]</div>
+<p>由几何关系可知</p>
+<div class="arithmatex">\[
+(R - e)^2 + r^2 = R^2
+\]</div>
+<p>展开并简化得到：</p>
+<div class="arithmatex">\[
+R^2 - 2Re + e^2 + r^2 = R^2
+\]</div>
+<p>忽略 <span class="arithmatex">\(e^2\)</span> 项，得到：</p>
+<div class="arithmatex">\[
+e = \frac{r^2}{2R}
+\]</div>
+<div class="arithmatex">\[
+r = 
+\begin{cases} 
+\sqrt{(k - \frac{1}{2})R\lambda}, &amp; k = 1, 2, 3, \ldots \quad \text{明环} \\ 
+\sqrt{kR\lambda}, &amp; k = 0, 1, 2, \ldots \quad \text{暗环} 
+\end{cases}
+\]</div>
+<p>对于 <span class="arithmatex">\(k = 0\)</span>，<span class="arithmatex">\(r = 0\)</span>，中心是暗斑。</p>
+<p>对于 <span class="arithmatex">\(k = 1\)</span>，</p>
+<div class="arithmatex">\[
+r = 
+\begin{cases} 
+\sqrt{\frac{1}{2}R\lambda}, &amp; k = 1, 2, 3, \ldots \quad \text{明环} \\ 
+\sqrt{R\lambda}, &amp; k = 0, 1, 2, \ldots \quad \text{暗环} 
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\Delta r = r_{k+1} - r_k = \frac{\sqrt{R\lambda}}{\sqrt{k} + \sqrt{k+1}}
+\]</div>
+<p>牛顿环是等厚干涉，其干涉条纹是内疏外密的同心圆环。</p>
+<div align=center>
+    <img src="../img/light/light30.png" width="60%"/>
+</div>
+
+<h3 id="diffraction">光的衍射(Diffraction)<a class="headerlink" href="#diffraction" title="Permanent link">&para;</a></h3>
+<p>光在传播过程中遇到障碍物时，会绕过障碍物继续传播，这种现象称为光的衍射。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>菲涅尔衍射:菲涅耳衍射是指当光源和观察屏，或两者之一离障碍物（衍射屏）的距离为<mark class="critic">有限远</mark>时，所发生的衍射现象</li>
+<li>夫琅禾费衍射:当光源和观察屏两者均离障碍物（衍射屏）的距离为<mark class="critic">无限远</mark>时，所发生的衍射现象</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">惠更斯-菲涅尔原理</p>
+<ul>
+<li>惠更斯原理：波面上的每一点都可以看作是新的次波源，这些次波源发出的球面次波(wavelets)的包络面就是新的波c面。</li>
+<li>惠更斯-菲涅尔原理：次波源发出的球面次波在空间某点的相干叠加，决定了该点波的强度。</li>
+</ul>
+<div class="arithmatex">\[
+dE = CK(\theta) \frac{dS}{r} \cos\left(\omega t - \frac{2\pi r}{\lambda}\right)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(K(\theta)\)</span> 为倾斜因子，当 <span class="arithmatex">\(\theta = 0\)</span> 时，<span class="arithmatex">\(K(\theta) = 1\)</span>( 沿原波传播方向的子波振幅最大)，<span class="arithmatex">\(\theta\)</span> 越大，<span class="arithmatex">\(K(\theta)\)</span> 越小, 当 <span class="arithmatex">\(\theta = \frac{\pi}{2}\)</span> 时，<span class="arithmatex">\(K(\theta) = 0\)</span>。大于 <span class="arithmatex">\(\frac{\pi}{2}\)</span> 时，<span class="arithmatex">\(K(\theta)\)</span> 为0，子波不能向后传播。</li>
+</ul>
+</div>
+<div class="admonition key-point">
+<p class="admonition-title">惠更斯-菲涅尔原理的数学表示</p>
+<div class="arithmatex">\[
+E(P) = \int_S \frac{CK(\theta)}{r} \cos\left(\omega t - \frac{2\pi r}{\lambda}\right) dS
+\]</div>
+<p>在夫琅禾费衍射中，由于距离是无限远，所以 <span class="arithmatex">\(r\)</span> 和 <span class="arithmatex">\(\theta\)</span> 都是常数，可以写成：</p>
+<div class="arithmatex">\[ 
+E(P) \propto \int_S  \cos\left(\omega t - \frac{2\pi r}{\lambda}\right)  dS 
+\]</div>
+</div>
+<h4 id="_23">单缝夫琅禾费衍射<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
+<p>光路图如下：</p>
+<div align=center>
+    <img src="../img/light/light31.png" width="60%"/>
+</div>
+
+<ul>
+<li>光程差：<span class="arithmatex">\(\delta = a \sin \theta\)</span>，这是因为费马原理等光程</li>
+</ul>
+<div align=center>
+    <img src="../img/light/light32.png" width="60%"/>
+</div>
+
+<p>当 <span class="arithmatex">\(\theta = 0\)</span> 时，<span class="arithmatex">\(a \sin \theta = 0\)</span>，此时为中央明纹</p>
+<h4 id="_24">菲涅尔半波带法<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
+<p>在波阵面上截取一个条状带，使它上下两边缘发的光在屏上处的光程差为 <span class="arithmatex">\(\lambda/2\)</span>，此带称为半波带。</p>
+<ul>
+<li>当 <span class="arithmatex">\(a \sin \theta = \lambda\)</span> 时，可将缝分为两个“半波带”。</li>
+</ul>
+<div align=center>
+    <img src="../img/light/light33.png" width="60%"/>
+</div>
+
+<ul>
+<li>相邻半波带上对应点发的光在 <span class="arithmatex">\(P\)</span> 处干涉相消形成暗纹。</li>
+</ul>
+<p>由半波带法可得明暗纹条件：</p>
+<ul>
+<li>暗纹：<span class="arithmatex">\(a \sin \theta = \pm k\lambda\)</span>, <span class="arithmatex">\(k = 1,2,3,\ldots\)</span></li>
+<li>明纹：<span class="arithmatex">\(a \sin \theta = \pm (2k + 1)\frac{\lambda}{2}\)</span>, <span class="arithmatex">\(k = 1,2,\ldots\)</span></li>
+<li>中央明纹：<span class="arithmatex">\(a \sin \theta = 0\)</span></li>
+</ul>
+<p>对于其它角度，使用振幅矢量叠加法；</p>
+<div class="arithmatex">\[
+A_\theta = A_1 + A_1 e^{i\Delta\varphi} + A_1 e^{i2\Delta\varphi} + \ldots + A_1 e^{i(N-1)\Delta\varphi}
+\]</div>
+<p>通过公式推导，我们可以得到：</p>
+<div class="arithmatex">\[
+A_\theta = A_1 \frac{e^{iN\Delta\varphi} - 1}{e^{i\Delta\varphi} - 1} = A_1 \frac{e^{iN\Delta\varphi/2} \left(e^{iN\Delta\varphi/2} - e^{-iN\Delta\varphi/2}\right)}{e^{i\Delta\varphi/2} \left(e^{i\Delta\varphi/2} - e^{-i\Delta\varphi/2}\right)}
+\]</div>
+<p>这可以进一步简化为：</p>
+<div class="arithmatex">\[
+A_\theta = A_1 \frac{\sin(N\Delta\varphi/2)}{\sin(\Delta\varphi/2)}
+\]</div>
+<p>振幅的绝对值为：</p>
+<div class="arithmatex">\[
+|A_\theta| = A_1 \frac{\sin(N\Delta\varphi/2)}{\sin(\Delta\varphi/2)}
+\]</div>
+<p>当 <span class="arithmatex">\(N\Delta\varphi = \frac{2\pi}{\lambda} a \sin \theta\)</span> 时，我们可以定义：</p>
+<mark class="critic block">
+<div class="arithmatex">\[
+u = \frac{\pi}{\lambda} a \sin \theta
+\]</div>
+</mark>
+<p>因此，振幅可以近似为：</p>
+<div class="arithmatex">\[
+|A_\theta| \approx A_1 N \frac{\sin u}{u}
+\]</div>
+<p>这表明光的强度分布与 <span class="arithmatex">\(\sin u / u\)</span> 的形式有关，称为“sinc”函数。</p>
+<div align=center>
+    <img src="../img/light/light34.png" width="60%"/>
+</div>
+
+<p>暗纹当 sinc 函数为 0, <span class="arithmatex">\( u = \pi \)</span>, <span class="arithmatex">\( a \sin \theta = k \lambda \)</span>, 即 <span class="arithmatex">\( \sin \theta = \frac{k \lambda}{a} \)</span></p>
+<p>次级大宽度为两个相邻暗纹之间的距离，即：</p>
+<div class="arithmatex">\[
+\Delta \sin \theta = \frac{\lambda}{a}
+\]</div>
+<p>如果问实际距离，则需要乘以 <span class="arithmatex">\(D\)</span>(前提是角度很小)</p>
+<div class="admonition note">
+<p class="admonition-title">波长变化对于衍射条纹的影响</p>
+<p>假设固定<span class="arithmatex">\(\lambda\)</span>，变化<span class="arithmatex">\(a\)</span>，则条纹间距会变化。</p>
+<ul>
+<li>
+<p>当 <span class="arithmatex">\(\frac{\lambda}{a} \to 1\)</span> 时，<span class="arithmatex">\(\sin \theta_0 \to 1\)</span>，此时屏幕已无暗纹；</p>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(\frac{\lambda}{a} \to \infty\)</span> 时，<span class="arithmatex">\(\Delta x_0 = \infty\)</span>，此时屏幕亮度均匀；</p>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(\frac{\lambda}{a} \to 0\)</span> 时，<span class="arithmatex">\(\Delta x_0 \to 0\)</span> 此时衍射图样聚集在一起，屏幕上只显出单一的亮线——单缝的几何光学像。(a很大，相当于没有阻挡，正常的几何光学成像)</p>
+</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">圆孔的夫琅禾费衍射</p>
+<p>实验装置如下：</p>
+<p><div align=center>
+    <img src="../img/light/light35.png" width="60%"/>
+</div></p>
+<p>其会形成一系列的同心圆环，称为“爱里斑”。</p>
+<p><div align=center>
+    <img src="../img/light/light36.png" width="60%"/>
+</div></p>
+</div>
+<h4 id="_25">衍射受限与瑞利判据<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
+<p>理想点光源的像是一个点，但实际上由于衍射，像是一个爱里斑。(可以近似为一个宽度为透镜高度，后面是无限大透镜的衍射)</p>
+<div align=center>
+    <img src="../img/light/light37.png" width="60%"/>
+</div>
+
+<p>很近的两个物点象斑有可能重叠，从而分辨不清。</p>
+<div class="admonition tip">
+<p class="admonition-title">瑞利判据</p>
+<p>对于两个等光强的非相干物点,若其中一点的象斑中心恰好落在另一点的象斑的边缘(第一暗纹处),则此两物点被认为是刚刚可以分辨。此时两个爱里斑重叠部分的光强为爱里斑中心光强的80%。</p>
+<p><div align=center>
+    <img src="../img/light/light38.png" width="60%"/>
+</div></p>
+</div>
+<h4 id="_26">光栅衍射<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<div class="admonition definition">
+<p class="admonition-title">光栅</p>
+<p>光栅—大量等宽等间距的平行狭缝(或反射面) 构成的光学元件。</p>
+<p>光栅常数：周期长度 <span class="arithmatex">\(d = a + b\)</span></p>
+<p><div align=center>
+    <img src="../img/light/grating.png" width="60%"/>
+</div></p>
+</div>
+<p>光栅的衍射图样为在原单缝的中央明纹中，出现暗纹，随着 <span class="arithmatex">\(N\)</span> 的增加，衍射条纹的亮度会逐渐增加，但是也逐渐变细。</p>
+<p>是多个单缝衍射的干涉结果。</p>
+<div align=center>
+    <img src="../img/light/light39.png" width="60%"/>
+</div>
+
+<p>相邻两光的相位差为</p>
+<div class="arithmatex">\[
+\Delta \varphi = \frac{2\pi d \sin \theta}{\lambda}
+\]</div>
+<p>相邻振动的振幅 <span class="arithmatex">\(A_1, A_2, \ldots, A_N\)</span></p>
+<div class="arithmatex">\[
+A_2 = A_1 e^{i \Delta \varphi}
+\]</div>
+<div class="arithmatex">\[
+A_3 = A_1 e^{i 2 \Delta \varphi}
+\]</div>
+<div class="arithmatex">\[
+\vdots
+\]</div>
+<div class="arithmatex">\[
+A_N = A_1 e^{i (N-1) \Delta \varphi}
+\]</div>
+<div class="arithmatex">\[
+A_p = A_1 + A_2 + \ldots + A_N
+\]</div>
+<div class="arithmatex">\[
+= A_1 + A_1 e^{i \Delta \varphi} + \ldots + A_1 e^{i (N-1) \Delta \varphi}
+\]</div>
+<div class="arithmatex">\[
+= A_1 \frac{e^{iN\Delta \varphi/2}}{e^{i\Delta \varphi/2}} \frac{\sin(N\Delta \varphi/2)}{\sin(\Delta \varphi/2)}
+\]</div>
+<div class="arithmatex">\[
+|A_p| = A_1 \frac{\sin(N\Delta \varphi/2)}{\sin(\Delta \varphi/2)}
+\]</div>
+<p>这里类似于单缝衍射的振幅矢量叠加法，但是也有所不同。</p>
+<ul>
+<li>当 <span class="arithmatex">\(\Delta \varphi = 2k\pi\)</span> 时，每一个振幅矢量方向相同，所以 <span class="arithmatex">\(A_p = NA_1\)</span>，此时为最大值。</li>
+</ul>
+<p>即</p>
+<div class="arithmatex">\[
+d \sin \theta = \pm k \lambda \quad k = 0, 1, 2, \ldots \quad k &lt; \frac{d}{\lambda} \quad 
+\]</div>
+<p>这里的<span class="arithmatex">\(k\)</span>有范围，因为<span class="arithmatex">\(d \sin \theta\)</span> 最大为 <span class="arithmatex">\(d\)</span>，所以 <span class="arithmatex">\(k\)</span> 最大为 <span class="arithmatex">\(\frac{d}{\lambda}\)</span>。</p>
+<p><strong>k为主极大级数，k=0称中央明纹。光栅极大的位置由相邻狭缝间的干涉极大决定</strong></p>
+<ul>
+<li>当<span class="arithmatex">\(N\Delta \varphi = 2k\pi\)</span>时，此时矢量叠加闭合，<span class="arithmatex">\(A_p = 0\)</span>，此时为暗纹。</li>
+</ul>
+<div class="arithmatex">\[
+N d \sin \theta = \pm k' \lambda \quad k' = 1, 2, 3, \ldots, N - 1 \quad (k' \neq kN)
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>k'不能取N的整数倍，因为这时是主极大的位置。</p>
+</div>
+<div class="admonition summary">
+<p class="admonition-title">光栅衍射的谱线特点</p>
+<p><img alt="alt text" src="../image-10.png" /></p>
+<p>1）主级大明纹的位置与缝数N无关，它们对称地分布在中央明纹的两侧，中央明纹光强最大；</p>
+<p>2）在相邻的两个主级大之间，有N−1个极小（暗纹）和N−2个光强很小的次极大，当N很大时，实际上在相邻的主极大之间形成一片暗区，即能获得又细又亮暗区很宽的光栅衍射条纹。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">定量分析光栅衍射的光强</p>
+<div class="arithmatex">\[
+I = I_0 \left( \frac{\sin u}{u} \right)^2 \left( \frac{\sin N \beta}{\sin \beta} \right)^2
+\]</div>
+<p>其中</p>
+<div class="arithmatex">\[
+u = \frac{\pi a \sin \theta}{\lambda}
+\]</div>
+<div class="arithmatex">\[
+\beta = \frac{\pi d \sin \theta}{\lambda}
+\]</div>
+<p>当 <span class="arithmatex">\(\theta \to 0\)</span> 时，<span class="arithmatex">\(I_m \to N^2 I_0\)</span>，所以缝数越多，光强越大。</p>
+<p><mark class="critic">半角宽度</mark></p>
+<p><img alt="alt text" src="../image-13.png" /></p>
+<p>如果 <span class="arithmatex">\(\theta\)</span> 不小，<span class="arithmatex">\(\sin \theta \neq \theta\)</span></p>
+<div class="arithmatex">\[
+d \sin \theta = m \lambda
+\]</div>
+<p>与它最近的0点为(<span class="arithmatex">\(Nd\sin \theta' = (mN + 1) \lambda\)</span>)</p>
+<div class="arithmatex">\[
+d \sin (\theta + \Delta \theta) = (m + \frac{1}{N}) \lambda
+\]</div>
+<p>所以使用拉格朗日中值定理，有</p>
+<div class="arithmatex">\[
+d \cos \theta \cdot \Delta \theta = \frac{1}{N} \lambda
+\]</div>
+<div class="arithmatex">\[
+\Delta \theta = \frac{\lambda}{N d \cos \theta}
+\]</div>
+<p><span class="arithmatex">\(\theta\)</span> 很小时，<span class="arithmatex">\(\cos \theta \to 1\)</span>，所以</p>
+<div class="arithmatex">\[
+\Delta \theta = \frac{\lambda}{N d}
+\]</div>
+<p>所以缝越多，半角宽度越小，条纹越细。</p>
+</div>
+<h4 id="_27">光栅衍射的缺极<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h4>
+<p>缺级：缺级是指光栅中不同单缝衍射互相干涉的主极大位置于单缝衍射的暗纹位置重合，导致光栅衍射的明纹消失。</p>
+<p>即</p>
+<div class="arithmatex">\[
+    d \sin \theta = \pm k \lambda 
+\]</div>
+<div class="arithmatex">\[
+    a \sin \theta = \pm k' \lambda
+\]</div>
+<p>当 <span class="arithmatex">\(\dfrac{a}{d} = \dfrac{k'}{k}\)</span> 时，光栅衍射的明纹消失。</p>
+<p>如果说第一个缺级出现在<span class="arithmatex">\(k=2\)</span>(<span class="arithmatex">\(k'=1\)</span>),这说明<span class="arithmatex">\(d=2a=a+b\)</span>，即<span class="arithmatex">\(b=a\)</span>。</p>
+<p><img alt="{alt text}" src="../image-11.png" /></p>
+<p>图例给出的是<span class="arithmatex">\(d=4a\)</span>的情况；</p>
+<p><br></p>
+<div class="admonition info">
+<p class="admonition-title">光栅光谱</p>
+<p>光栅光谱是指复色光照射光栅时，谱线按波长向外侧依次分开排列，形成的光谱；</p>
+<p><div align=center>
+    <img src="../img/light/light40.png" width="60%"/>
+</div></p>
+<p>只有第一级，第二级开始有重叠。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">光栅光谱的分辨本领</p>
+<p>光栅的分辨本领是指把波长靠得很近的两条谱线分辨的清楚的本领。</p>
+<p>与瑞利判据类似，当两条谱线刚好能分辨时，一个在极大，一个在极小。</p>
+<p><img align="right" alt="{alt text}" src="../image-12.png" /></p>
+<p>波长为 <span class="arithmatex">\(\lambda + \Delta \lambda\)</span> 的第 <span class="arithmatex">\(k\)</span> 级主极大的角位置为：</p>
+<div class="arithmatex">\[
+(a + b) \sin \theta = k (\lambda + \Delta \lambda)
+\]</div>
+<p>波长为 <span class="arithmatex">\(\lambda\)</span> 的第 <span class="arithmatex">\(kN+1\)</span> 级极小的角位置为：</p>
+<div class="arithmatex">\[
+N (a + b) \sin \theta = (kN + 1) \lambda
+\]</div>
+<p>因此，分辨本领 <span class="arithmatex">\(R\)</span> 为：</p>
+<div class="arithmatex">\[
+R = \dfrac{\lambda}{\Delta \lambda} = kN
+\]</div>
+<p>即要分辨清楚第<span class="arithmatex">\(k\)</span>级谱线，需要<span class="arithmatex">\(N\)</span>条缝。这里的<span class="arithmatex">\(\lambda\)</span>是平均波长，<span class="arithmatex">\(\Delta \lambda\)</span>是波长偏移。</p>
+</div>
+<div class="admonition answer">
+<p class="admonition-title">色散本领与分辨本领</p>
+<p>首先，对于<span class="arithmatex">\(m\)</span>级的主极大，有</p>
+<div class="arithmatex">\[
+d \sin \theta = m \lambda
+\]</div>
+<p>所以两边同时取微分，有</p>
+<div class="arithmatex">\[
+d \cos \theta \cdot \Delta \theta = m \cdot \Delta \lambda
+\]</div>
+<p>所以可以定义色散本领</p>
+<div class="arithmatex">\[
+D = \frac{\Delta \theta}{\Delta \lambda} = \frac{m}{d \cos \theta}
+\]</div>
+<p>使用瑞利判据，当其可以分辨时，两者角度相差为半角宽度，即</p>
+<div class="arithmatex">\[
+\Delta \theta = \frac{\lambda}{N d \cos \theta} 
+\]</div>
+<p>所以此时可以分辨的极限波长差为</p>
+<div class="arithmatex">\[
+\Delta \lambda =  \dfrac{\Delta \theta}{D} = \frac{\lambda}{N d \cos \theta} \cdot \frac{d \cos \theta}{m} = \frac{\lambda}{N m}
+\]</div>
+<p>所以分辨本领定义为</p>
+<div class="arithmatex">\[
+R = \frac{\lambda}{\Delta \lambda} = Nm
+\]</div>
+</div>
+<h4 id="bragg">Bragg 公式<a class="headerlink" href="#bragg" title="Permanent link">&para;</a></h4>
+<div align=center>
+    <img src="../img/light/light41.png" width="60%"/>
+</div>
+
+<p>布拉格公式：</p>
+<div class="arithmatex">\[
+2d \sin \theta = n \lambda
+\]</div>
+<p>其中<span class="arithmatex">\(d\)</span>是晶格常数，<span class="arithmatex">\(\theta\)</span>是入射角，<span class="arithmatex">\(n\)</span>是整数，<span class="arithmatex">\(\lambda\)</span>是波长。</p>
+<p>解释了不同晶面间反射的干涉增强条件.</p>
+<h3 id="polarization">光的偏振(Polarization)<a class="headerlink" href="#polarization" title="Permanent link">&para;</a></h3>
+<p>在自然光中，光波的电矢量在任意时刻和任意位置的方向都是随机的，这种光称为非偏振光。而在某些情况下，光波的电矢量在某一方向上的振动，而在另一方向上的振动为零，这种光称为偏振光。</p>
+<h4 id="_28">线偏振光<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h4>
+<p>自然光通过偏振片之后，只有在某一方向上的电矢量振动，这种光称为线偏振光。
+只有与偏振片的缝方向<mark class="critic">垂直</mark>的电矢量才能通过;其它的电矢量会被吸收。</p>
+<p>在自然光中，任意两个垂直分量的振幅是相等的，即可以把自然光分解为任意两个垂直方向的线偏振光的叠加，那么经过偏振片后，只有与偏振片允许(TA)的分量通过，其它分量被吸收。假设自然光的电矢量为<span class="arithmatex">\(E_0\)</span>,则经过偏振片后的电矢量为<span class="arithmatex">\(\dfrac{E_0}{\sqrt{2}}\)</span>。光强为<span class="arithmatex">\(I_0\)</span>，则经过偏振片后的光强为<span class="arithmatex">\(\dfrac{I_0}{2}\)</span>。(<span class="arithmatex">\(I_0 \propto E_0^2\)</span>)</p>
+<div class="admonition info">
+<p class="admonition-title">马隆定律</p>
+<p>线偏振光通过与振动方向成<span class="arithmatex">\(\theta\)</span>角的偏振片后，光强为<span class="arithmatex">\(I = I_0 \cos^2 \theta\)</span>。</p>
+<p><div align=center>
+    <img src="../img/light/light42.png" width="60%"/> <br />
+</div></p>
+<p>所以在上图中<span class="arithmatex">\(I_2=I_1 \cos^2 \theta\)</span></p>
+</div>
+<div class="admonition key-point">
+<p class="admonition-title">利用马隆定律推导自然光通过偏振片后的光强</p>
+<p>我们知道自然光通过任意方向偏振片光强都变为原来的一半；我们可以使用马隆定律来推导这一结论。</p>
+<p>首先，对于自然光，可以将其看作无数个方向上的振动，它与偏振片的夹角为<span class="arithmatex">\(\alpha\)</span>,<span class="arithmatex">\(\alpha\)</span>满足<span class="arithmatex">\(0\)</span>到<span class="arithmatex">\(2\pi\)</span>的均匀分布。</p>
+<p>概率密度为<span class="arithmatex">\(p=\dfrac{1}{2\pi}\)</span>，所以通过偏振片后的光强为
+对应的光强为<span class="arithmatex">\(I = I_0 \cos^2 \alpha\)</span>，所以平均光强为</p>
+<div class="arithmatex">\[
+\overline{I} = \int_0^{2\pi} \dfrac{1}{2\pi} I_0 \cos^2 \alpha d\alpha = \dfrac{1}{2} I_0
+\]</div>
+</div>
+<div class="admonition eg">
+<p class="admonition-title">例子</p>
+<p><div align=center>
+    <img src="../img/light/light43.png" width="60%"/>
+</div></p>
+<p>一束沿<span class="arithmatex">\(x\)</span>方向的线偏振光,经过两个偏振片，第一个偏振片(TA方向)与<span class="arithmatex">\(x\)</span>轴成<span class="arithmatex">\(\theta\)</span>角，第二个偏振片与<span class="arithmatex">\(y\)</span>轴平行,求<span class="arithmatex">\(\theta\)</span>为多少时，第二个偏振片的透射光强最大。</p>
+<div class="arithmatex">\[
+    I_2 = I_1 \cos^2 \theta \cos^2(90^\circ - \theta) = I_1 \cos^2 \theta \sin^2 \theta
+\]</div>
+<p>基本不等式可知，当<span class="arithmatex">\(\theta = 45^\circ\)</span>时，透射光强最大。</p>
+</div>
+<h4 id="_29">常见偏振态<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h4>
+<p><strong>线偏振光</strong>
+对于两束等强正交线偏振光，如果其相位差为<span class="arithmatex">\(k \pi\)</span>，则同时变大，同时变小，合成的为线偏振光。</p>
+<p><strong>圆偏振光</strong></p>
+<figure>
+  <img alt="alt text" src="../image-15.png" />
+<br />
+<figcaption>RCP</figcaption>
+</figure>
+<figure>
+  <img alt="alt text" src="../image-16.png" />
+<br />
+<figcaption>LCP</figcaption>
+</figure>
+<p>如果两束等强正交线偏振光的相位差为<span class="arithmatex">\(\dfrac{\pi}{2}+k \pi\)</span>，则其中一束光最大时，另一束光最小，周期性振动，合成的为圆偏振光。</p>
+<p>由先到达最大的向后到达最大的旋转.</p>
+<p><strong>椭圆偏振光</strong></p>
+<p>当两束线偏振光不等强，或者相位差不是<span class="arithmatex">\(k \dfrac{\pi}{2}\)</span>时，合成的光为椭圆偏振光。</p>
+<figure>
+  <img alt="Image title" src="../img/im.png" width="70%" />
+<br />
+<figcaption>偏振光分类</figcaption>
+</figure>
+<p><strong>无偏振光</strong></p>
+<p>即最常见的自然光，可以向任意方向振动，没有固定的振动方向。自然光可以看作是由两个振动方向垂直、<mark class="critic">相互间没有固定相位差、等振幅的线偏振光（非相干光）</mark>组合而成的。</p>
+<p>无偏振光与圆偏振光的区别在于，传播的时候，无偏振光的振动方向是随机变化的，而圆偏振光的矢量轨迹是一个圆;</p>
+<p><strong>部分偏振光</strong></p>
+<p>按比例的含有自然光和偏振光的光。振动方向是随机变化的，在其中一个方向上的振动是最强的;</p>
+<p><mark class="critic"> 部分偏振光可分解为两束振动方向相互垂直的、不等幅的、不相干的线偏振光。</mark></p>
+<p>部分偏振光与椭圆偏振光的区别在于，部分偏振光的振动方向是随机变化的，而椭圆偏振光的矢量轨迹是一个椭圆。</p>
+<div class="admonition definition">
+<p class="admonition-title">偏振度</p>
+<div class="arithmatex">\[
+P = \frac{I_{max} - I_{min}}{I_{max} + I_{min}}
+\]</div>
+<p>其中<span class="arithmatex">\(I_{max}\)</span>是强度最大方向最大光强，<span class="arithmatex">\(I_{min}\)</span>是强度最小方向光强,相减即为偏振光的光强，相加即为总光强。</p>
+<p>对于线偏振光，<span class="arithmatex">\(I_{min}=0\)</span>,偏振度为1；对于自然光，<span class="arithmatex">\(I_{max}=I_{min}\)</span>,偏振度为0。</p>
+</div>
+<h4 id="brewster">Brewster 角<a class="headerlink" href="#brewster" title="Permanent link">&para;</a></h4>
+<p>当自然光以某一角度入射时(反射角与折射角之和为90度),反射光为线偏振光。</p>
+<p>假设入射角为<span class="arithmatex">\(\theta_1\)</span>，折射角为<span class="arithmatex">\(\theta_2\)</span>，则有</p>
+<div class="arithmatex">\[
+\theta_1 + \theta_2 = 90^\circ
+\]</div>
+<p>根据折射定律，有</p>
+<div class="arithmatex">\[
+n_1 \sin \theta_1 = n_2 \sin \theta_2
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+    n_1 \sin \theta_1 = n_2 \sin \theta_2   =   n_2 \cos \theta_1
+\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+    \tan \theta_1 = \frac{n_2}{n_1}
+\]</div>
+<div align=center>
+    <img src="../img/light/light44.png" width="60%"/>
+</div>
+
+<p>如果经过多次反射，每一次都为brewster角，则最后折射出来的光大部分都为线偏振光。</p>
+<h4 id="birefringence">双折射现象(Birefringence)<a class="headerlink" href="#birefringence" title="Permanent link">&para;</a></h4>
+<div class="admonition definition">
+<p class="admonition-title">双折射现象</p>
+<p>双折射现象是指当光线通过某些各向异性介质（如方解石晶体）时，会分裂成两束偏振方向互相垂直的光线。这两束光线分别称为普通光（o光）和非常光（e光）;</p>
+<p>具体来说，当一束未偏振的光进入双折射介质时，会分裂成两束光线：一束遵循常规折射定律（斯涅尔定律），称为普通光(ordinary light, o光)；另一束则不遵循常规折射定律，称为非常光(extraordinary light, e光)。</p>
+<p>对于o光来说，其在介质中四面八方的折射率相同,其速度恒等于<span class="arithmatex">\(v_o\)</span>,对于e光来说，其在介质中四面八方的折射率不同，其速度在不同方向上从<span class="arithmatex">\(v_e\)</span>到<span class="arithmatex">\(v_o\)</span>变化。</p>
+<p>称<span class="arithmatex">\(n_o=\dfrac{c}{v_o}\)</span>，<span class="arithmatex">\(n_e=\dfrac{c}{v_e}\)</span>为主折射率；</p>
+<p>双折射现象广泛应用于光学仪器中，如偏光显微镜、液晶显示器等。</p>
+<p><div align=center>
+    <img src="../img/light/birefringence.png" width="60%"/>
+</div></p>
+</div>
+<div class="admonition definition">
+<p class="admonition-title">光的快慢轴</p>
+<p>对于e光来说，其折射率在介质中不同方向不同，所以其传播速度不同，而频率不变，所以波长会变化；</p>
+<p>对于传播方向快的；有</p>
+<div class="arithmatex">\[
+     v_{fast} = f \lambda_{fast}
+\]</div>
+<p>对于传播方向慢的；有</p>
+<div class="arithmatex">\[
+     v_{slow} = f \lambda_{slow}
+\]</div>
+<p>其中<span class="arithmatex">\(f\)</span>是频率，<span class="arithmatex">\(\lambda\)</span>是波长。</p>
+<p>所以<span class="arithmatex">\(\lambda_{fast} &gt; \lambda_{slow}\)</span>。</p>
+<p><div align=center>
+    <img src="../img/light/light45.png" width="60%"/>
+</div></p>
+</div>
+<h4 id="optical-axis">光轴(Optical Axis)<a class="headerlink" href="#optical-axis" title="Permanent link">&para;</a></h4>
+<p>o光和e光沿着光轴方向传播时，速度相同，折射率相同，对于 <strong>负晶体而言</strong> ,<span class="arithmatex">\(n_o &gt; n_e\)</span>,<span class="arithmatex">\(v_o&lt; v_e\)</span>，对于 <strong>正晶体而言</strong> ，<span class="arithmatex">\(n_o &lt; n_e\)</span>，<span class="arithmatex">\(v_o &gt; v_e\)</span>。</p>
+<figure>
+  <img alt="alt text" src="../image-17.png" />
+<br />
+<figcaption>负晶体</figcaption>
+</figure>
+<p>常见的负晶体有<span class="arithmatex">\(CaCO_3\)</span></p>
+<figure>
+  <img alt="alt text" src="../image-18.png" />
+<br />
+<figcaption>正晶体</figcaption>
+</figure>
+<p>常见的正晶体有二氧化硅<span class="arithmatex">\(SiO_2\)</span></p>
+<p><mark class="critic"> 将光轴和光的传播方向构成的平面称为主平面(Principal Plane)。</mark></p>
+<ul>
+<li>o光：振动方向垂直于主平面；</li>
+<li>e光：振动方向平行于主平面；</li>
+</ul>
+<div class="admonition idea">
+<p class="admonition-title">光轴与快慢轴之间的关系</p>
+<p>负晶体而言,e光在光轴方向传播速度最慢，其它地方比o光快，光轴为慢轴，与光轴垂直的，传播速度最快的方向为快轴；</p>
+<p>正晶体而言,e光在光轴方向传播速度最快，其它地方比o光慢，光轴为快轴，与光轴垂直的，传播速度最慢的方向为慢轴；</p>
+</div>
+<div align=center>
+    <img src="../img/light/light46.png" width="60%"/>
+</div>
+
+<p>图中画虚线的为光轴，当一束光照向这样的结构时，<mark class="critic">可以将其振动方向分解为o光和e光的振动方向</mark>，由于光轴方向上o光和e光的速度相同，所以o光和e光在光轴方向上传播的距离相同，所以o光和e光在光轴方向上的相位差为0，但是在传播方向上，e光的速度为<span class="arithmatex">\(v_e\)</span>，o光的速度为<span class="arithmatex">\(v_o\)</span>，所以e光和o光的相位差为</p>
+<div align=center>
+    <img src="../img/light/light47.png" width="60%"/>
+</div>
+
+<div class="arithmatex">\[
+    \Delta \phi = \dfrac{2\pi}{\lambda} (n_e - n_o) d
+\]</div>
+<p>其中<span class="arithmatex">\(d\)</span>是片的厚度</p>
+<div class="admonition note">
+<p class="admonition-title">QWP和FWP</p>
+<ul>
+<li>QWP：Quarter Wave Plate，四分之一波片，<span class="arithmatex">\(\Delta \phi = \dfrac{\pi}{2}\)</span></li>
+</ul>
+<div class="arithmatex">\[
+    (n_o-n_e)d = \pm \dfrac{\lambda}{4}
+\]</div>
+<ul>
+<li>HWP：Half Wave Plate，半波片，<span class="arithmatex">\(\Delta \phi = \pi\)</span></li>
+</ul>
+<div class="arithmatex">\[
+     (n_o-n_e)d = \pm \dfrac{\lambda}{2}
+\]</div>
+<ul>
+<li>FWP：Full Wave Plate，全波片，<span class="arithmatex">\(\Delta \phi = 2\pi\)</span></li>
+</ul>
+<div class="arithmatex">\[
+    (n_o-n_e)d = \pm \lambda
+\]</div>
+</div>
+<p>当光通过QWP时,o光和e光的相位差为<span class="arithmatex">\(\dfrac{\pi}{2}\)</span>;</p>
+<ul>
+<li>
+<p>如果是线偏振光,则一开始将其分解为o光和e光的振动方向,原本的相位差为<span class="arithmatex">\(k\pi\)</span>,通过QWP后,相位差为<span class="arithmatex">\(k\pi+\dfrac{\pi}{2}\)</span>,所以合成后出射的光为圆偏振光。</p>
+</li>
+<li>
+<p>如果是圆偏振光,则通过QWP后,相位差为<span class="arithmatex">\(k\pi\)</span>。所以合成后出射的光为线偏振光。</p>
+</li>
+</ul>
+<div class="admonition eg">
+<p class="admonition-title">例子</p>
+<p><div align=center>
+    <img src="../img/light/light48.png" width="40%"/>
+</div></p>
+<p>一束自然光通过45度偏振片后，出射的光为线偏振光，再通过QWP后，出射光满足</p>
+<div class="arithmatex">\[
+E_x =E_0 \sin (kz-\omega t)
+\]</div>
+<div class="arithmatex">\[
+E_y =-E_0 \cos (kz-\omega t)
+\]</div>
+<p>即慢轴不变，快轴变为<span class="arithmatex">\(\sin(kz-\omega t-\dfrac{\pi}{2})\)</span>，所以合成后出射的光为圆偏振光。为RCP,注意，快轴领先，所以它会先到达最大，所以是减去，在图上看来也是如此,从缝里出来后，先遇到了快轴的最大(<span class="arithmatex">\(-y\)</span>方向上)，然后才是慢轴的最大。</p>
+<p><div align=center>
+    <img src="../img/light/light49.png" width="40%"/>
+</div></p>
+</div>
+<div class="admonition eg">
+<p class="admonition-title">例子</p>
+<p><div align=center>
+    <img src="../img/light/light50.png" width="40%"/>
+</div></p>
+<p>对于3A,第一次无法将振动方向分解为o光和e光的振动方向，所以出射的光仍为原光，第二次完全被阻挡，所以出射的光为0，<span class="arithmatex">\(I_1=0\)</span></p>
+<p>对于3B,第一次将振动方向分解为o光和e光的振动方向，由于是<span class="arithmatex">\(1/4\)</span>波片，所以出射的光为圆偏振光,</p>
+<div class="arithmatex">\[
+    E_s =E_f  = \dfrac{E_0}{\sqrt{2}}
+\]</div>
+<p>第二次相当于两束线偏振光经过,由马隆定律可知</p>
+<div class="arithmatex">\[
+    E'_s = E'_f =  \dfrac{E_0}{\sqrt{2}} \cos 45^\circ = \dfrac{E_0}{2}
+\]</div>
+<p>由于快慢光独立衰减，所以最后的光强为</p>
+<div class="arithmatex">\[
+    I_2 = I_s + I_f = \dfrac{E_0^2}{4} + \dfrac{E_0^2}{4} = \dfrac{I_0}{2}
+\]</div>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>虽说e光并不满足折射定律，但是有一种例外，当光轴与入射面垂直时(主平面与入射面垂直,光轴和法线平行)，e光满足折射定律,有</p>
+<div class="arithmatex">\[
+    n_e \sin \theta_e = n_1 \sin \theta_1
+\]</div>
+<p>和</p>
+<div class="arithmatex">\[
+    n_o \sin \theta_o  = n_1 \sin \theta_1
+\]</div>
+<p><figure markdown="span">
+    <img alt="alt text" src="../image-19.png" width="60%" />
+    <figcaption>示意图</figcaption>
+</figure></p>
+<p>不要把法线和光轴搞混了(-_-)</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../maxwell/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Maxwell方程">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Maxwell方程
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Quantum/" class="md-footer__link md-footer__link--next" aria-label="下一页: 量子力学">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                量子力学
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

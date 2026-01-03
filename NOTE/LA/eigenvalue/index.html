@@ -1,0 +1,3550 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/LA/eigenvalue/">
+      
+      
+        <link rel="prev" href="../note/">
+      
+      
+        <link rel="next" href="../../Probability/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>讲义 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              讲义
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ASM/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    汇编与接口
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数个人笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../note/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    停更
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    讲义
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    讲义
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引入
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征值与特征向量
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征值与特征向量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征多项式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相似与特征多项式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征值的性质与结论
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征向量与特征子空间的性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可对角化的条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可对角化的条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对角化的基本步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        经典问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引入
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征值与特征向量
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征值与特征向量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征多项式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相似与特征多项式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征值的性质与结论
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征向量与特征子空间的性质
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可对角化的条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可对角化的条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对角化的基本步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        经典问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../linear-algebra/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🔬 数学与物理
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../linear-algebra/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    线性代数 (LINEAR-ALGEBRA)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="-">讲义-特征值专题<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 8170 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 28 分钟</p>
+</div>
+<blockquote>
+<p>参考书目：《线性代数:未竟之美》</p>
+<p>本讲义用于竺可桢学院线性代数线上辅学课程，奈何本人水平有限，有些地方在课程中可能表述不清晰，还请多多包涵。</p>
+</blockquote>
+<h2 id="_1">引入<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>线性代数的一大目标是:我们希望找到出发空间和到达空间合适的基使得线性映射在这两组基下的表示更简单(尽可能多的零,尽量向对角矩阵靠近).我们将眼光放在线性变换，即出发空间和到达空间相同的线性映射，并且我们关注 <strong>出发空间与到达空间取同一组基的时候，如何取基，可以把同一个线性映射的矩阵尽可能表示得简单</strong> ；</p>
+</div>
+<div class="admonition summary">
+<p class="admonition-title">基的转换&lt;-&gt;矩阵的转换</p>
+<p>从矩阵在不同基下的的表示出发</p>
+<p>假设我们有一个在 <span class="arithmatex">\(n\)</span> 维线性空间 <span class="arithmatex">\(\mathbf{V}\)</span> 上线性变换 <span class="arithmatex">\(\sigma\)</span> ,其在基 <span class="arithmatex">\(\mathbf{B}=\{\varepsilon_1,\varepsilon_2,\ldots,\varepsilon_n\}\)</span> (<span class="arithmatex">\(\mathbf{B}\)</span> 的每个列向量是都是一个基)下的矩阵为 <span class="arithmatex">\(A\)</span>,即</p>
+<div class="arithmatex">\[
+    \sigma (\varepsilon_1,\varepsilon_2,\ldots,\varepsilon_n) = (\varepsilon_1,\varepsilon_2,\ldots,\varepsilon_n)A
+\]</div>
+<p>假设我们很幸运,找到了另外一组基 <span class="arithmatex">\(\mathbf{B'}=\{\varepsilon_1',\varepsilon_2',\ldots,\varepsilon_n'\}\)</span>,并且已知这个线性映射在这组基下的矩阵很漂亮,是对角的<span class="arithmatex">\(\Lambda\)</span>,即</p>
+<div class="arithmatex">\[
+    \sigma (\varepsilon_1',\varepsilon_2',\ldots,\varepsilon_n') = (\varepsilon_1',\varepsilon_2',\ldots,\varepsilon_n') \Lambda
+\]</div>
+<p>如果又恰好知道两组基之间的过渡矩阵</p>
+<div class="arithmatex">\[
+\{\varepsilon_1',\varepsilon_2',\ldots,\varepsilon_n'\} = \{ \varepsilon_1,\varepsilon_2,\ldots,\varepsilon_n \} P
+\]</div>
+<p>那么我们可以推导出</p>
+<div class="arithmatex">\[
+     A P = P \Lambda \tag{1}
+\]</div>
+<div class="arithmatex">\[
+    P^{-1} A P = \Lambda
+\]</div>
+<p><span class="arithmatex">\(P\)</span>为什么一定可逆？(基之间的互相表示)</p>
+<p>继续由上面的式子(1)，我们展开,<span class="arithmatex">\(p_i\)</span>为矩阵<span class="arithmatex">\(P\)</span>的第<span class="arithmatex">\(i\)</span>个列向量</p>
+<div class="arithmatex">\[
+    A P = A ( p_1, p_2,\ldots,p_n ) = ( p_1, p_2,\ldots,p_n )\begin{pmatrix}
+                \lambda_1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+                0 &amp; \lambda_2 &amp; 0 &amp; \cdots &amp; 0 \\
+                0 &amp; 0 &amp; \lambda_3 &amp; \cdots &amp; 0 \\
+                \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+                0 &amp; 0 &amp; 0 &amp; \cdots &amp; \lambda_n
+                \end{pmatrix}
+\]</div>
+<p>展开对应相等</p>
+<div class="arithmatex">\[
+    Ap_i = \lambda_i p_i
+\]</div>
+<div class="admonition key-point">
+<p class="admonition-title">Key-point</p>
+<p>这一过程给我们的启发是，如果我们知道<span class="arithmatex">\(A\)</span>可以达到的对角化的矩阵是怎么样的,那么可以逆推出变换矩阵,从而找出这组基是怎么样的;上面的<span class="arithmatex">\(\lambda_i\)</span>,与<span class="arithmatex">\(p_i\)</span>就是我们今天要讨论的特征值与特征向量，如何寻找它们就是我们今天的重点；</p>
+</div>
+</div>
+<h2 id="_2">特征值与特征向量<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">定义<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<p>设<span class="arithmatex">\(\sigma\)</span>是线性空间<span class="arithmatex">\(V(\mathbf{F})\)</span>上的一个线性变换，如果存在数<span class="arithmatex">\(\lambda\in\mathbf{F}\)</span>和非零向量<span class="arithmatex">\(\xi\in V\)</span>使得<span class="arithmatex">\(\sigma(\xi)=\lambda\xi\)</span>，则称数<span class="arithmatex">\(\lambda\)</span>为<span class="arithmatex">\(\sigma\)</span>的一个特征值，并称非零向量<span class="arithmatex">\(\xi\)</span>为<span class="arithmatex">\(\sigma\)</span>属于其特征值<span class="arithmatex">\(\lambda\)</span>的特征向量</p>
+<p>同构地，对于矩阵而言，有:</p>
+<p>设矩阵<span class="arithmatex">\(A\in \mathbf{M}_n(\mathbf{F})\)</span>，如果存在数<span class="arithmatex">\(\lambda\in\mathbf{F}\)</span>和非零向量<span class="arithmatex">\(X\in\mathbf{F}^n\)</span>使得<span class="arithmatex">\(AX=\lambda X\)</span>，则称数<span class="arithmatex">\(\lambda\)</span>为<span class="arithmatex">\(A\)</span>的一个特征值，称非零向量<span class="arithmatex">\(X\)</span>为<span class="arithmatex">\(A\)</span>属于其特征值<span class="arithmatex">\(\lambda\)</span>的特征向量.</p>
+</div>
+<div class="admonition property">
+<p class="admonition-title">Property</p>
+<p>设 <span class="arithmatex">\(\sigma\)</span> 是 <span class="arithmatex">\(V(\mathbf{F})\)</span> 上的线性变换，<span class="arithmatex">\(I\)</span> 为恒等映射，则下述条件等价：</p>
+<ol>
+<li><span class="arithmatex">\(\lambda \in \mathbf{F}\)</span> 是 <span class="arithmatex">\(\sigma\)</span> 的特征值；</li>
+<li><span class="arithmatex">\(\sigma - \lambda I\)</span> 不是单射 <span class="arithmatex">\(\Leftrightarrow\)</span> <span class="arithmatex">\(A-\lambda E\)</span> 列不满秩；</li>
+<li><span class="arithmatex">\(\sigma - \lambda I\)</span> 不是满射 <span class="arithmatex">\(\Leftrightarrow\)</span> <span class="arithmatex">\(A-\lambda E\)</span> 行不满秩；</li>
+<li><span class="arithmatex">\(\sigma - \lambda I\)</span> 不可逆  <span class="arithmatex">\(\Leftrightarrow\)</span>   <span class="arithmatex">\(A-\lambda E\)</span> 不可逆(<mark class="critic">行列式为0</mark>)</li>
+</ol>
+</div>
+<p>对于第二第三条的矩阵版本有疑问的同学可以回顾 <strong>LALU</strong> 相抵标准型一节给出的定理:</p>
+<p>线性映射是单射当且仅当其矩阵表示为列满秩矩阵,线性映射是满射当且仅当其矩阵表示为行满秩矩阵.</p>
+<h3 id="_4">特征多项式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>由上述性质，<span class="arithmatex">\(\lambda\in\mathbf{F}\)</span>是<span class="arithmatex">\(\sigma\)</span>的特征值等价于<span class="arithmatex">\(|\lambda E-A|=0\)</span>，故我们可以通过<span class="arithmatex">\(|\lambda E-A|=0\)</span>求解特征值，其中<span class="arithmatex">\(A\)</span>为<span class="arithmatex">\(\sigma\)</span>在某组基下的矩阵，<span class="arithmatex">\(E\)</span>为单位矩阵. 对于特征向量的求解，求出<span class="arithmatex">\((\lambda E-A)X=0\)</span>的非零解就是特征向量在基<span class="arithmatex">\(\alpha_1,\ldots,\alpha_n\)</span>下的坐标，如果是矩阵的特征向量，那么<span class="arithmatex">\(X\)</span>就是解.</p>
+<p>上述求解特征向量的方法需要我们求解<span class="arithmatex">\(f(\lambda)=|\lambda E-A|\)</span>的根，我们将<span class="arithmatex">\(f(\lambda)\)</span>称为<mark class="critic">特征多项式</mark>；</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>设<span class="arithmatex">\(A=\begin{pmatrix}
+     1 &amp; -1 &amp; 0 \\ 2 &amp; 0 &amp; 1 \\ 1 &amp; a &amp; 0
+ \end{pmatrix}\)</span>，且存在非零向量<span class="arithmatex">\(\alpha\)</span>使得<span class="arithmatex">\(A\alpha=2\alpha\)</span>，求<span class="arithmatex">\(a\)</span>.</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>由题意知2是矩阵<span class="arithmatex">\(A\)</span>的特征值，因此我们有</p>
+<div class="arithmatex">\[|2E-A|=\begin{vmatrix}
+       1 &amp; 1 &amp; 0 \\ -2 &amp; 2 &amp; -1 \\ -1 &amp; -a &amp; 2
+   \end{vmatrix}=9-a=0
+\]</div>
+<p>因此<span class="arithmatex">\(a=9\)</span>.</p>
+</details>
+</div>
+<p>特征多项式可以写为以下的形式</p>
+<p>对于<span class="arithmatex">\(n\)</span>级矩阵<span class="arithmatex">\(A=(a_{ij})\)</span>，记</p>
+<div class="arithmatex">\[f(\lambda)=|\lambda E-A|=a_0\lambda^n+a_1\lambda^{n-1}+\cdots+a_{n-1}\lambda+a_n\]</div>
+<p>则<span class="arithmatex">\(a_0=1\)</span>，<span class="arithmatex">\(a_1=-\mathbf{tr}(A)\)</span> ，<span class="arithmatex">\(a_n=(-1)^n|A|\)</span> ，且<span class="arithmatex">\(a_k\)</span>等于所有<span class="arithmatex">\(k\)</span>级主子式之和乘以<span class="arithmatex">\((-1)^k\)</span>.</p>
+<p>由韦达定理</p>
+<details class="note">
+<summary>一元n次韦达定理</summary>
+<p>设方程 <span class="arithmatex">\( a_0 x^n + a_{1} x^{n-1} + \cdots + a_{n-1} x + a_n = 0 \)</span> 有根 <span class="arithmatex">\( x_1, x_2, \ldots, x_n \)</span>. 那么:</p>
+<ul>
+<li>各根之和:</li>
+</ul>
+<div class="arithmatex">\[
+x_1 + x_2 + \cdots + x_n = \sum_{i=1}^{n} x_i = -\frac{a_{1}}{a_0}
+\]</div>
+<ul>
+<li>各根之积:</li>
+</ul>
+<div class="arithmatex">\[
+x_1 x_2 \cdots x_n = \prod_{i=1}^{n} x_i = (-1)^n \frac{a_n}{a_0}
+\]</div>
+</details>
+<ul>
+<li>
+<p><span class="arithmatex">\(\displaystyle\sum_{i=1}^{n}\lambda_i=\sum_{i=1}^{n}a_{ii}\)</span>；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\displaystyle\prod_{i=1}^{n}\lambda_i=|A|\)</span>. </p>
+</li>
+</ul>
+<h4 id="_5">相似与特征多项式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<ul>
+<li>相似矩阵有相同的特征多项式?（从而有相同的迹，行列式，特征值;），即<span class="arithmatex">\(A\sim B\)</span>有<span class="arithmatex">\(|\lambda E-A|=|\lambda E-B|\)</span>吗？反过来呢？</li>
+</ul>
+<details class="answer">
+<summary>Answer</summary>
+<p>设<span class="arithmatex">\(B=P^{-1}AP\)</span>，则<span class="arithmatex">\(|\lambda E-B|=|\lambda E-P^{-1}AP|=|P^{-1}(\lambda E-A)P|=|P^{-1}||\lambda E-A||P|=|\lambda E-A|\)</span>. 因此<span class="arithmatex">\(A\sim B\)</span>有<span class="arithmatex">\(|\lambda E-A|=|\lambda E-B|\)</span>.</p>
+<p>我们知道特征多项式相同则特征值相同，迹等于所有特征值之和，行列式等于所有特征值之积，因此相似矩阵有相同的迹，行列式，特征值.</p>
+</details>
+<ul>
+<li>如果是，那么同一特征值的特征向量之间有什么关系？</li>
+</ul>
+<details class="answer">
+<summary>Answer</summary>
+<p>设<span class="arithmatex">\(P^{-1}AP=B\)</span>，则<span class="arithmatex">\(A,B\)</span>分别属于同一特征值<span class="arithmatex">\(\lambda\)</span>的特征向量<span class="arithmatex">\(X\)</span>和<span class="arithmatex">\(Y\)</span>满足<span class="arithmatex">\(Y=P^{-1}X\)</span>.</p>
+<p>由<span class="arithmatex">\(AX=\lambda_0 X\)</span>以及<span class="arithmatex">\(A=PBP^{-1}\)</span>，我们有<span class="arithmatex">\(PBP^{-1}X=\lambda_0 X\)</span>，即<span class="arithmatex">\(BP^{-1}X=\lambda_0 P^{-1}X\)</span>，因此<span class="arithmatex">\(P^{-1}X\)</span>是<span class="arithmatex">\(B\)</span>属于<span class="arithmatex">\(\lambda_0\)</span>的特征向量，即<span class="arithmatex">\(P^{-1}X\)</span>是<span class="arithmatex">\(B\)</span>的特征向量，即<span class="arithmatex">\(Y=P^{-1}X\)</span>.</p>
+<p>回忆<mark class="critic">基的选择导致同一向量在不同基下的坐标表示</mark>,实际上这个问题就是该定理的推论;</p>
+<details class="info">
+<summary>同一向量在不同基下的坐标表示</summary>
+<p>设线性空间<span class="arithmatex">\(V\)</span>的两组基为<span class="arithmatex">\(B_1\)</span>和<span class="arithmatex">\(B_2\)</span>，且基<span class="arithmatex">\(B_1\)</span>到<span class="arithmatex">\(B_2\)</span>的变换矩阵（过渡矩阵）为<span class="arithmatex">\(A\)</span>，如果<span class="arithmatex">\(\xi \in V(\mathbf{F})\)</span>在<span class="arithmatex">\(B_1\)</span>和<span class="arithmatex">\(B_2\)</span>下的坐标分别为<span class="arithmatex">\(X\)</span>和<span class="arithmatex">\(Y\)</span>，则<span class="arithmatex">\(Y=A^{-1}X\)</span>.</p>
+<div class="arithmatex">\[\xi=(\alpha_1,\ldots,\alpha_n)X=(\beta_1,\ldots,\beta_n)Y.\]</div>
+<p>将过渡矩阵的条件<span class="arithmatex">\(B_2=B_1A\)</span>，即<span class="arithmatex">\((\beta_1,\ldots,\beta_n)=(\alpha_1,\ldots,\alpha_n)A\)</span>代入上式可得：</p>
+<div class="arithmatex">\[\xi=(\alpha_1,\ldots,\alpha_n)X=(\alpha_1,\ldots,\alpha_n)AY.\]</div>
+<p>又由于<span class="arithmatex">\(\xi\)</span>在线性无关向量组<span class="arithmatex">\(\alpha_1,\ldots,\alpha_n\)</span>下的坐标唯一，故我们有<span class="arithmatex">\(X=AY\)</span>，即<span class="arithmatex">\(Y=A^{-1}X\)</span>.</p>
+</details>
+</details>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>回答以下两个问题：</p>
+<ol>
+<li>
+<p>设 <span class="arithmatex">\(A,B\)</span> 均为 <span class="arithmatex">\(n\)</span> 阶矩阵，证明：<span class="arithmatex">\(\lambda\neq 0\)</span> 是 <span class="arithmatex">\(AB\)</span> 的特征值，则 <span class="arithmatex">\(\lambda\)</span> 也是 <span class="arithmatex">\(BA\)</span> 的特征值；</p>
+</li>
+<li>
+<p>设 <span class="arithmatex">\(A\in \mathbf{M}_{m\times n}(\mathbf{C}),\enspace B\in \mathbf{M}_{n\times m}(\mathbf{C})\)</span>，证明：</p>
+</li>
+</ol>
+<div class="arithmatex">\[
+   \begin{pmatrix}
+       AB &amp; O \\ B &amp; O
+   \end{pmatrix} \sim \begin{pmatrix}
+       O &amp; O \\ B &amp; BA
+   \end{pmatrix}
+\]</div>
+<p>并由此推出 <span class="arithmatex">\(AB\)</span> 和 <span class="arithmatex">\(BA\)</span> 非零特征值相同，且 <span class="arithmatex">\(m=n\)</span> 时有 <span class="arithmatex">\(|\lambda E-AB|=|\lambda E-BA|\)</span>.</p>
+<details class="proof">
+<summary>Proof</summary>
+<ol>
+<li>设 <span class="arithmatex">\(X\)</span> 是 <span class="arithmatex">\(AB\)</span> 属于 <span class="arithmatex">\(\lambda\)</span> 的特征向量，则 <span class="arithmatex">\(ABX=\lambda X\)</span>，因此 <span class="arithmatex">\(B(ABX)=B(\lambda X)\)</span>，即 <span class="arithmatex">\((BA)(BX)=\lambda(BX)\)</span>，因此 <span class="arithmatex">\(BX\)</span> 是 <span class="arithmatex">\(BA\)</span> 属于 <span class="arithmatex">\(\lambda\)</span> 的特征向量，故 <span class="arithmatex">\(\lambda\)</span> 也是 <span class="arithmatex">\(BA\)</span> 的特征值。</li>
+</ol>
+<p>实际上这里还有一点需要说明，就是 <span class="arithmatex">\(BX\neq 0\)</span>，否则它将不能作为特征向量。事实上证明是简单的，假设 <span class="arithmatex">\(BX=0\)</span>，则 <span class="arithmatex">\(ABX=0\)</span>，由于 <span class="arithmatex">\(\lambda\neq 0\)</span>，因此必然有 <span class="arithmatex">\(X=0\)</span>，但这与 <span class="arithmatex">\(X\)</span> 是 <span class="arithmatex">\(AB\)</span> 属于 <span class="arithmatex">\(\lambda\)</span> 的特征向量矛盾，因此 <span class="arithmatex">\(BX\neq 0\)</span>。</p>
+<ol>
+<li>根据分块矩阵初等变换的性质，我们可以通过不断尝试选取到 <span class="arithmatex">\(P=\begin{pmatrix}
+     E_m &amp; A \\ O &amp; E_n
+   \end{pmatrix}\)</span>，其逆矩阵为 <span class="arithmatex">\(P^{-1}=\begin{pmatrix}
+     E_m &amp; -A \\ O &amp; E_n
+ \end{pmatrix}\)</span>，我们发现恰有</li>
+</ol>
+<div class="arithmatex">\[
+    \begin{pmatrix}
+        E_m &amp; -A \\ O &amp; E_n
+    \end{pmatrix} \begin{pmatrix}
+        AB &amp; O \\ B &amp; O
+    \end{pmatrix} \begin{pmatrix}
+        E_m &amp; A \\ O &amp; E_n
+    \end{pmatrix} = \begin{pmatrix}
+        O &amp; O \\ B &amp; BA
+    \end{pmatrix}.
+\]</div>
+<p>因此 <span class="arithmatex">\(\begin{pmatrix}
+     AB &amp; O \\ B &amp; O
+ \end{pmatrix}\)</span> 与 <span class="arithmatex">\(\begin{pmatrix}
+     O &amp; O \\ B &amp; BA
+ \end{pmatrix}\)</span> 相似，因此它们的特征多项式相同，即</p>
+<div class="arithmatex">\[
+ \begin{vmatrix}
+     \lambda E_m-AB &amp; O \\ -B &amp; \lambda E_n
+ \end{vmatrix} = \begin{vmatrix}
+     \lambda E_m &amp; O \\ -B &amp; \lambda E_n-BA
+ \end{vmatrix}.
+\]</div>
+<p>根据行列式的计算性质 <span class="arithmatex">\(\begin{vmatrix}
+     A &amp; O \\ C &amp; B
+ \end{vmatrix} = |A||B|\)</span>，我们有</p>
+<div class="arithmatex">\[
+ |\lambda E_m-AB||\lambda E_n| = |\lambda E_m||\lambda E_n-BA|,
+\]</div>
+<p>即 <span class="arithmatex">\(\lambda^n|\lambda E_m-AB| = \lambda^m|\lambda E_n-BA|\)</span>，因此 <span class="arithmatex">\(AB\)</span> 和 <span class="arithmatex">\(BA\)</span> 非零特征值相同，且 <span class="arithmatex">\(m=n\)</span> 时有 <span class="arithmatex">\(|\lambda E-AB|=|\lambda E-BA|\)</span>.</p>
+</details>
+</div>
+<p>对于可逆矩阵<span class="arithmatex">\(P\)</span>,我们知道了<span class="arithmatex">\(A\)</span>与<span class="arithmatex">\(B=P^{-1}AP\)</span>有相同的特征值，如果<span class="arithmatex">\(P\)</span>不可逆，两个矩阵又有什么关系呢？</p>
+<p>我们有以下结论</p>
+<div class="admonition property">
+<p class="admonition-title">Property</p>
+<p>设<span class="arithmatex">\(A,B\)</span>分别为数域<span class="arithmatex">\(\mathbf{F}\)</span>上<span class="arithmatex">\(n\)</span>阶、<span class="arithmatex">\(m\)</span>阶方阵，<span class="arithmatex">\(A,B\)</span>有<span class="arithmatex">\(r\)</span>个两两不等的公共特征值，则矩阵方程<span class="arithmatex">\(AX-XB=O\)</span>有秩为<span class="arithmatex">\(r\)</span>的矩阵解. 反之，若数域为复数域，矩阵方程<span class="arithmatex">\(AX-XB=O\)</span>有秩为<span class="arithmatex">\(r\)</span>的矩阵解，则<span class="arithmatex">\(A,B\)</span>至少有<span class="arithmatex">\(r\)</span>个公共的特征值（计重数）.</p>
+<p>证明见 《LALU》.P465</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>设<span class="arithmatex">\(m\)</span>阶矩阵<span class="arithmatex">\(A\)</span>与<span class="arithmatex">\(n\)</span>阶矩阵<span class="arithmatex">\(B\)</span>无公共复特征值，<span class="arithmatex">\(C\)</span>为<span class="arithmatex">\(m\times n\)</span>矩阵，则矩阵方程<span class="arithmatex">\(AX-XB=C\)</span>存在唯一解.</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>设<span class="arithmatex">\(V\)</span>是所有<span class="arithmatex">\(m\times n\)</span>矩阵构成的线性空间，定义<span class="arithmatex">\(V\)</span>上的线性变换<span class="arithmatex">\(\sigma(X)=AX-XB,\enspace X\in V\)</span>. 由于<span class="arithmatex">\(A\)</span>和<span class="arithmatex">\(B\)</span>无公共复特征值，所以<span class="arithmatex">\(\sigma(X)=AX-XB=O\)</span>只有零解，即<span class="arithmatex">\(\sigma\)</span>为<span class="arithmatex">\(V\)</span>上单射，可知<span class="arithmatex">\(\sigma\)</span>是满射且是同构映射. 于是，对任意的<span class="arithmatex">\(C\in V\)</span>，都存在唯一的<span class="arithmatex">\(X_0\in V\)</span>使得<span class="arithmatex">\(\sigma(X_0)=C\)</span>，即矩阵方程<span class="arithmatex">\(AX-XB=C\)</span>存在唯一解<span class="arithmatex">\(X_0\)</span>.</p>
+</details>
+</div>
+<h3 id="_6">特征值的性质与结论<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>设<span class="arithmatex">\(\lambda\)</span>是线性空间<span class="arithmatex">\(V(\mathbf{F})\)</span>上的线性变换<span class="arithmatex">\(\sigma\)</span>的特征值，<span class="arithmatex">\(\xi\)</span>是<span class="arithmatex">\(\sigma\)</span>属于<span class="arithmatex">\(\lambda\)</span>的特征向量，则</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(k\lambda\)</span>是<span class="arithmatex">\(k\sigma\)</span>的特征值，<span class="arithmatex">\(\lambda^m\)</span>是<span class="arithmatex">\(\sigma^m\)</span>的特征值，且<span class="arithmatex">\(\xi\)</span>仍是相应特征向量；</p>
+</li>
+<li>
+<p>若<span class="arithmatex">\(f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\)</span>是<span class="arithmatex">\(\mathbf{F}\)</span>上的多项式，则<span class="arithmatex">\(f(\sigma)(\xi)=f(\lambda)\xi\)</span>；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>设<span class="arithmatex">\(\lambda\)</span>是<span class="arithmatex">\(n\)</span>阶矩阵<span class="arithmatex">\(A\)</span>的特征值，<span class="arithmatex">\(A\)</span>可逆，则<span class="arithmatex">\(\lambda^{-1}\)</span>是<span class="arithmatex">\(A^{-1}\)</span>的特征值，<span class="arithmatex">\(|A|\lambda^{-1}\)</span>是<span class="arithmatex">\(A\)</span>的伴随矩阵<span class="arithmatex">\(A^*\)</span>的特征值，且特征向量不变.</p>
+</li>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为<span class="arithmatex">\(n\)</span>阶矩阵，则<span class="arithmatex">\(A\)</span>与<span class="arithmatex">\(A^\mathrm{T}\)</span>有相同的特征值（含重数）.</p>
+</li>
+<li>
+<p><span class="arithmatex">\(A\)</span>可逆/<span class="arithmatex">\(A\)</span>不可逆/<span class="arithmatex">\(E+A\)</span>可逆/<span class="arithmatex">\(4E+A\)</span>不可逆；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(|E-A^2|=0\)</span>；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(A^2=E\)</span>（对合）/<span class="arithmatex">\(A^2=A\)</span>（幂等）/<span class="arithmatex">\(A^k=0\)</span>（幂零）；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(A=\lambda_0E+B\)</span>（<span class="arithmatex">\(\lambda_0\)</span>为常数，且已知<span class="arithmatex">\(B\)</span>的<span class="arithmatex">\(n\)</span>个特征值为<span class="arithmatex">\(\lambda_1,\lambda_2,\ldots,\lambda_n\)</span>）；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(A\)</span>为对角块矩阵，即<span class="arithmatex">\(A=\mathbf{diag}(A_1,A_2,\ldots,A_m)\)</span>.</p>
+</li>
+</ul>
+<details class="proof">
+<summary>Proof</summary>
+<p>1 
+<strong>由于</strong><span class="arithmatex">\(\sigma(\xi) = \lambda\xi\)</span>，则<span class="arithmatex">\((k\sigma)(\xi) = k\lambda\xi\)</span>，即<span class="arithmatex">\(k\lambda\)</span>是<span class="arithmatex">\(k\sigma\)</span>的特征值，<span class="arithmatex">\(\xi\)</span>仍是相应特征向量。</p>
+<p>而<span class="arithmatex">\(\sigma^m(\xi) = \sigma^{m-1}(\sigma(\xi)) = \sigma^{m-1}(\lambda\xi) = \lambda\sigma^{m-1}(\xi) = \cdots = \lambda^m\xi\)</span>，即<span class="arithmatex">\(\lambda^m\)</span>是<span class="arithmatex">\(\sigma^m\)</span>的特征值，<span class="arithmatex">\(\xi\)</span>仍是相应特征向量。</p>
+<p>2 
+<strong>利用前述<span class="arithmatex">\(\sigma^m\)</span>的相关性质，我们有</strong><br />
+   $$ f(\sigma)(\xi) = (a_n\sigma^n + a_{n-1}\sigma^{n-1} + \cdots + a_1\sigma + a_0I)(\xi) $$<br />
+   $$ = a_n\sigma^n(\xi) + a_{n-1}\sigma^{n-1}(\xi) + \cdots + a_1\sigma(\xi) + a_0I(\xi) $$<br />
+   $$ = a_n\lambda^n\xi + a_{n-1}\lambda^{n-1}\xi + \cdots + a_1\lambda\xi + a_0\xi $$<br />
+   $$ = f(\lambda)\xi. $$</p>
+<p>3 
+<strong>设<span class="arithmatex">\(\xi\)</span>是<span class="arithmatex">\(A\)</span>的特征值，即<span class="arithmatex">\(A\xi = \lambda\xi\)</span>，则<span class="arithmatex">\(\xi = A^{-1}A\xi = A^{-1}\lambda\xi\)</span>，即<span class="arithmatex">\(A^{-1}\xi = \lambda^{-1}\xi\)</span>，因此<span class="arithmatex">\(\lambda^{-1}\)</span>是<span class="arithmatex">\(A^{-1}\)</span>的特征值，<span class="arithmatex">\(\xi\)</span>仍是相应特征向量。</strong></p>
+<p>又由于<span class="arithmatex">\(A\)</span>可逆时<span class="arithmatex">\(A^* = |A|A^{-1}\)</span>，根据前面关于<span class="arithmatex">\(k\sigma\)</span>和<span class="arithmatex">\(A^{-1}\)</span>特征值的讨论可知，<span class="arithmatex">\(|A|\lambda^{-1}\)</span>是<span class="arithmatex">\(A\)</span>的伴随矩阵<span class="arithmatex">\(A^*\)</span>的特征值，<span class="arithmatex">\(\xi\)</span>仍是相应特征向量。</p>
+<p>4
+ <strong>我们用特征多项式证明</strong>。实际情况是，<span class="arithmatex">\(A^\mathrm{T}\)</span>的特征多项式为<span class="arithmatex">\(|\lambda E - A^\mathrm{T}| = |(\lambda E - A)^\mathrm{T}| = |\lambda E - A|\)</span>（回忆转置不改变行列式），实际上与<span class="arithmatex">\(A\)</span>的特征多项式完全一致，因此<span class="arithmatex">\(A^\mathrm{T}\)</span>与<span class="arithmatex">\(A\)</span>有相同的特征值（含重数）。</p>
+<p>5
+ <strong><span class="arithmatex">\(A\)</span>可逆时有</strong> <span class="arithmatex">\(|A| = \lambda_1 \cdots \lambda_n \neq 0\)</span>，因此<span class="arithmatex">\(A\)</span>的特征值都不为0。 同理，<span class="arithmatex">\(A\)</span>不可逆同理表明存在特征值等于0，<span class="arithmatex">\(E+A\)</span>可逆表明<span class="arithmatex">\(-1\)</span>不是<span class="arithmatex">\(A\)</span>的特征值，<span class="arithmatex">\(4E+A\)</span>不可逆表明<span class="arithmatex">\(-4\)</span>是<span class="arithmatex">\(A\)</span>的特征值。</p>
+<p>6
+ <strong><span class="arithmatex">\(|E - A^2| = |E - A||E + A| = 0\)</span></strong>，因此<span class="arithmatex">\(\pm 1\)</span>都是<span class="arithmatex">\(A\)</span>的特征值。</p>
+<p>7
+ <strong>我们首先考虑对合矩阵，接下来的同理可以得到类似结论</strong>。由于<span class="arithmatex">\(A^2 = E\)</span>，设<span class="arithmatex">\(AX = \lambda X\)</span>，则<span class="arithmatex">\(A^2 X = \lambda^2 X = X\)</span>，因此<span class="arithmatex">\(\lambda^2 = 1\)</span>，即<span class="arithmatex">\(\lambda = \pm 1\)</span>，因此<span class="arithmatex">\(1\)</span>或<span class="arithmatex">\(-1\)</span>是<span class="arithmatex">\(A\)</span>的特征值。</p>
+<p><strong>注</strong>：本题解决过程中告诉我们一个解题技巧，如果看到<span class="arithmatex">\(A\)</span>的多项式<span class="arithmatex">\(f(A) = O\)</span>这种形式的表达式，事实上<span class="arithmatex">\(A\)</span>的特征值只能是<span class="arithmatex">\(f(\lambda) = 0\)</span>的根，如上题中<span class="arithmatex">\(f(A) = A^2 - E\)</span>，则<span class="arithmatex">\(f(\lambda) = \lambda^2 - 1\)</span>，因此<span class="arithmatex">\(A\)</span>的特征值只能是<span class="arithmatex">\(\pm 1\)</span>。</p>
+<p>同理，我们可以知道幂等矩阵的特征值只能是0和1，幂零矩阵的特征值只能是0（这是一个重要的幂零矩阵等价条件，未来我们会再次遇到）。</p>
+<p>8
+ <strong>设</strong> <span class="arithmatex">\(BX = \lambda_i X_i\ (X_i \neq 0,\enspace i = 1,\ldots,n)\)</span>，则<br />
+   $$ AX_i = \lambda_0 X_i + BX_i = \lambda_0 X_i + \lambda_i X_i = (\lambda_0 + \lambda_i) X_i $$<br />
+   因此<span class="arithmatex">\(\lambda_0 + \lambda_i \ (i = 1,\ldots,n)\)</span>都是<span class="arithmatex">\(A\)</span>的特征值。</p>
+<p>9
+ <strong>证明</strong>：</p>
+<div class="arithmatex">\[ |\lambda E - A| = \begin{vmatrix}
+       \lambda E_1 - A_1 &amp; 0 &amp; \cdots &amp; 0 \\
+       0 &amp; \lambda E_2 - A_2 &amp; \cdots &amp; 0 \\
+       \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+       0 &amp; 0 &amp; \cdots &amp; \lambda E_m - A_m
+   \end{vmatrix} = \prod_{i=1}^{m} |\lambda E_i - A_i| = 0 
+\]</div>
+<p>因此，<span class="arithmatex">\(A_i,\enspace i = 1,\ldots,m\)</span>的特征值都是<span class="arithmatex">\(A\)</span>的特征值。</p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<ul>
+<li>
+<p>设<span class="arithmatex">\(\alpha=(1,0,-1)^\mathrm{T}\)</span>，且<span class="arithmatex">\(A=\alpha\alpha^\mathrm{T}\)</span>，求<span class="arithmatex">\(|6E-A^n|\)</span>；</p>
+</li>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为三阶矩阵，其特征值为<span class="arithmatex">\(1,-2,-1\)</span>，求<span class="arithmatex">\(|A|\)</span>，<span class="arithmatex">\(A^*+3E\)</span>的特征值，<span class="arithmatex">\((A^{-1})^2+2E\)</span>的特征值以及<span class="arithmatex">\(|A^2-A+E|\)</span>；</p>
+</li>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为三阶矩阵，<span class="arithmatex">\(A^2-A-2E=O\)</span>，<span class="arithmatex">\(|A|=2\)</span>，求<span class="arithmatex">\(|A^*+3E|\)</span>；</p>
+</li>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为三阶矩阵，其特征值为<span class="arithmatex">\(-1,-1,5\)</span>，求<span class="arithmatex">\(A_{11}+A_{22}+A_{33}\)</span>；</p>
+</li>
+</ul>
+<details class="answer">
+<summary>Answer</summary>
+<ul>
+<li>
+<p>事实上<span class="arithmatex">\(A=\alpha\alpha^\mathrm{T}=\begin{pmatrix}
+              1 &amp; 0 &amp; -1 \\ 0 &amp; 0 &amp; 0 \\ -1 &amp; 0 &amp; 1
+          \end{pmatrix}\)</span>，由<span class="arithmatex">\(|\lambda E-A|=0\)</span>解得<span class="arithmatex">\(A\)</span>的特征值为<span class="arithmatex">\(\lambda_1=\lambda_2=0,\lambda_3=2\)</span>，而根据<span class="arithmatex">\(A^n\)</span>的特征值性质可知，<span class="arithmatex">\(6E-A^n\)</span>的特征值为<span class="arithmatex">\(6-\lambda_1^n,6-\lambda_2^n,6-\lambda_3^n\)</span>，即<span class="arithmatex">\(6,6,6-2^n\)</span>，因此<span class="arithmatex">\(|6E-A^n|=6^2(6-2^n)=36(6-2^n)\)</span>.</p>
+</li>
+<li>
+<p>由于<span class="arithmatex">\(A\)</span>的特征值为<span class="arithmatex">\(1,-2,-1\)</span>，因此<span class="arithmatex">\(|A|=1\times(-2)\times(-1)=2\)</span>，而<span class="arithmatex">\(A^*\)</span>的特征值为<span class="arithmatex">\(|A|\lambda^{-1}\)</span>，因此<span class="arithmatex">\(A^*\)</span>的特征值为<span class="arithmatex">\(2,-1,-2\)</span>，故<span class="arithmatex">\(A^*+3E\)</span>的特征值为<span class="arithmatex">\(A^*\)</span>的特征值加3（即为<span class="arithmatex">\(5,2,1\)</span>，又根据<span class="arithmatex">\(A^{-1}\)</span>和<span class="arithmatex">\(A^2\)</span>特征值的性质可知，<span class="arithmatex">\((A^{-1})^2+2E\)</span>的特征值为<span class="arithmatex">\(1^2+2,(-1/2)^2+2,(-1)^2+2\)</span>，即为<span class="arithmatex">\(3,9/4,3\)</span>，而<span class="arithmatex">\(A^2-A+E\)</span>的特征值根据<span class="arithmatex">\(f(\sigma)\)</span>特征值性质的讨论可知为<span class="arithmatex">\(1^2-1+1,(-2)^2-(-2)+1,(-1)^2-(-1)+1\)</span>，即为<span class="arithmatex">\(1,7,3\)</span>，因此<span class="arithmatex">\(|A^2-A+E|=1\times 7\times 3=21\)</span>.</p>
+</li>
+<li>
+<p>设<span class="arithmatex">\(AX=\lambda X(X\neq 0)\)</span>，则<span class="arithmatex">\((A^2-A-2E)X=(\lambda^2-\lambda-2)X=O\)</span>，因此<span class="arithmatex">\(\lambda=-1\)</span>或<span class="arithmatex">\(\lambda=2\)</span>，根据对合矩阵的讨论可知，<span class="arithmatex">\(A\)</span>的特征值恰为-1和2. 又<span class="arithmatex">\(|A|=2\)</span>，且<span class="arithmatex">\(A\)</span>为3阶矩阵，因此<span class="arithmatex">\(A\)</span>的3个特征值必为-1，-1，2.</p>
+</li>
+</ul>
+<p>又<span class="arithmatex">\(A^*\)</span>的特征值为<span class="arithmatex">\(|A|\lambda^{-1}\)</span>，因此<span class="arithmatex">\(A^*\)</span>的特征值为<span class="arithmatex">\(1,-2,-2\)</span>，<span class="arithmatex">\(A^*+3E\)</span>的特征值为<span class="arithmatex">\(A^*\)</span>的特征值加3，即<span class="arithmatex">\(\lambda_1=\lambda_2=1,\lambda_3=4\)</span>，故<span class="arithmatex">\(|A^*+3E|=\lambda_1\lambda_2\lambda_3=4\)</span>.</p>
+<ul>
+<li>由题意知<span class="arithmatex">\(|A|=5\)</span>，故<span class="arithmatex">\(A^*\)</span>的特征值为<span class="arithmatex">\(|A|\lambda^{-1}\)</span>即为<span class="arithmatex">\(\mu_1=\mu_2=-5,\mu_3=1\)</span>，而<span class="arithmatex">\(A_{11}+A_{22}+A_{33}\)</span>就是<span class="arithmatex">\(A^*\)</span>的迹（即矩阵对角线元素之和），因此<span class="arithmatex">\(A_{11}+A_{22}+A_{33}=\mu_1+\mu_2+\mu_3=-9\)</span>.</li>
+</ul>
+</details>
+</div>
+<h3 id="_7">特征向量与特征子空间的性质<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><span class="arithmatex">\(\sigma\)</span>的不同特征值对应的特征向量线性无关；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\sigma\)</span>的不同特征值对应的特征子空间的和为直和；</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\sigma\)</span>最多有<span class="arithmatex">\(\dim V\)</span>个不同的特征值.</p>
+</li>
+</ul>
+<p>有以下推论</p>
+<details class="proof">
+<summary>Proof</summary>
+<ul>
+<li><strong>设</strong> <span class="arithmatex">\(\lambda_1, \ldots, \lambda_m\)</span> 是 <span class="arithmatex">\(\sigma\)</span> 的互异特征值，<span class="arithmatex">\(\xi_1, \ldots, \xi_m\)</span> 是相应的特征向量。反证法，我们假设 <span class="arithmatex">\(\xi_1, \ldots, \xi_m\)</span> 线性相关，由线性相关性引理可知，存在 <span class="arithmatex">\(k\)</span> 是使得  </li>
+</ul>
+<div class="arithmatex">\[ \xi_k \in \mathbf{spa}(\xi_1, \ldots, \xi_{k-1}) \]</div>
+<p>成立的最小整数，则存在 <span class="arithmatex">\(c_1, \ldots, c_{k-1}\)</span> 使得  </p>
+<p>$$ \xi_k = c_1\xi_1 + \cdots + c_{k-1}\xi_{k-1}. $$  </p>
+<p>将 <span class="arithmatex">\(\sigma\)</span> 作用到上式两边，我们有  </p>
+<p>$$ \lambda_k \xi_k = c_1 \lambda_1 \xi_1 + \cdots + c_{k-1} \lambda_{k-1} \xi_{k-1}. $$  </p>
+<p>将上式两边乘以 <span class="arithmatex">\(\lambda_k\)</span>，然后减去上式，我们有  </p>
+<p>$$ 0 = c_1 (\lambda_k - \lambda_1)\xi_1 + \cdots + c_{k-1} (\lambda_k - \lambda_{k-1})\xi_{k-1}. $$  </p>
+<p>由于我们选取的 <span class="arithmatex">\(k\)</span> 是满足 <span class="arithmatex">\(\xi_k \in \mathbf{spa}(\xi_1, \ldots, \xi_{k-1})\)</span> 的最小整数，因此 <span class="arithmatex">\(\xi_1, \ldots, \xi_{k-1}\)</span> 线性无关，故 <span class="arithmatex">\(c_1 = \cdots = c_{k-1} = 0\)</span>，因此 <span class="arithmatex">\(\xi_k = 0\)</span>，这与 <span class="arithmatex">\(\xi_k\)</span> 是特征向量矛盾，因此 <span class="arithmatex">\(\xi_1, \ldots, \xi_m\)</span> 线性无关。</p>
+<ul>
+<li><strong>回忆直和的证明方法</strong>，我们选取合适等价命题进行证明。假设  </li>
+</ul>
+<p>$$ \xi_1 + \cdots + \xi_m = 0, $$  </p>
+<p>其中 <span class="arithmatex">\(\xi_i \in V_{\lambda_i}\)</span>，由于 <span class="arithmatex">\(\sigma\)</span> 的不同特征值对应的特征向量线性无关，因此 <span class="arithmatex">\(\xi_1, \ldots, \xi_m\)</span> 不可能是特征向量，否则可知它们线性相关，故必有 <span class="arithmatex">\(\xi_1 = \cdots = \xi_m = 0\)</span>，这表明 <span class="arithmatex">\(\sigma\)</span> 的不同特征值对应的特征子空间的和为直和。</p>
+<ul>
+<li><strong>设</strong> <span class="arithmatex">\(\lambda_1, \ldots, \lambda_m\)</span> 是 <span class="arithmatex">\(\sigma\)</span> 的互异特征值，<span class="arithmatex">\(\xi_1, \ldots, \xi_m\)</span> 是相应的特征向量。前面已经证明了 <span class="arithmatex">\(\xi_1, \ldots, \xi_m\)</span> 线性无关，因此 <span class="arithmatex">\(\dim V \geqslant m\)</span>，得证。</li>
+</ul>
+</details>
+<ul>
+<li>
+<p>若<span class="arithmatex">\(\lambda_1,\ldots,\lambda_m\)</span>是线性映射<span class="arithmatex">\(\sigma\)</span>互异的特征值，则<span class="arithmatex">\(V_{\lambda_i}\cap\sum\limits_{j\neq i}V_{\lambda_j}=\{0\}
+              \enspace(i=1,\ldots,m)\)</span>，则一个特征向量不能属于多个特征值. </p>
+</li>
+<li>
+<p><span class="arithmatex">\(\sigma\)</span>的不同特征值<span class="arithmatex">\(\lambda_1,\ldots,\lambda_m\)</span>对应的特征子空间<span class="arithmatex">\(V_{\lambda_1},\ldots,V_{\lambda_m}\)</span>的基向量合在一起构成的向量组线性无关，且是<span class="arithmatex">\(V_{\lambda_1}+V_{\lambda_2}+\cdots+V_{\lambda_m}\)</span>的基.</p>
+</li>
+</ul>
+<div class="admonition definition">
+<p class="admonition-title">Definition</p>
+<ul>
+<li>代数重数:某一特征值<span class="arithmatex">\(\lambda\)</span>的代数重数指重根的个数；</li>
+<li>几何重数:某一特征值的几何重数指特征向量生成线性空间的维数</li>
+</ul>
+</div>
+<p><mark class="critic">若<span class="arithmatex">\(\lambda\)</span>是<span class="arithmatex">\(\sigma\)</span>的特征值，则<span class="arithmatex">\(\lambda\)</span>的代数重数大于等于几何重数</mark></p>
+<p>我们思考，如果所有的特征子空间已经是全空间<span class="arithmatex">\(V\)</span>,那么是否所有向量都是特征向量呢?下面的例子告诉我们不是这样的,事实上，只有当特征值唯一的时候，这个结论才正确:</p>
+<div class="admonition example">
+<p class="admonition-title">2013-2014期末</p>
+<p>设 <span class="arithmatex">\(V(\mathbf{F})\)</span> 是 <span class="arithmatex">\(n\)</span> 维线性空间，<span class="arithmatex">\(\sigma \in \mathcal{L}(V)\)</span>，证明：</p>
+<ol>
+<li>若 <span class="arithmatex">\(\alpha, \beta\)</span> 是 <span class="arithmatex">\(\sigma\)</span> 的属于不同特征值的特征向量，则 <span class="arithmatex">\(c_1c_2 \neq 0\)</span> 时，<span class="arithmatex">\(c_1 \alpha + c_2 \beta\)</span> 不是 <span class="arithmatex">\(\sigma\)</span> 的特征向量；</li>
+<li><span class="arithmatex">\(V\)</span> 中的每一非零向量都是 <span class="arithmatex">\(\sigma\)</span> 的特征向量 <span class="arithmatex">\(\iff \sigma = c_0 I_V\)</span>，其中 <span class="arithmatex">\(c_0 \in \mathbf{F}\)</span> 是一个常数，<span class="arithmatex">\(I_V\)</span> 是恒等变换。</li>
+</ol>
+<details class="proof">
+<summary>Proof</summary>
+<ol>
+<li>
+<p>设 <span class="arithmatex">\(\sigma(\alpha) = \lambda_1 \alpha, \sigma(\beta) = \lambda_2 \beta\)</span>，其中 <span class="arithmatex">\(\lambda_1 \neq \lambda_2\)</span>，并假设 <span class="arithmatex">\(c_1 \alpha + c_2 \beta\)</span> 是 <span class="arithmatex">\(\sigma\)</span> 的特征向量，即存在 <span class="arithmatex">\(\lambda_0 \in \mathbf{F}\)</span> 使得<br />
+   $$ \sigma(c_1 \alpha + c_2 \beta) = \lambda_0 (c_1 \alpha + c_2 \beta). $$<br />
+   展开括号，我们有<br />
+   $$ c_1 \sigma(\alpha) + c_2 \sigma(\beta) = c_1 \lambda_0 \alpha + c_2 \lambda_0 \beta. $$<br />
+   即<br />
+   $$ c_1 \lambda_1 \alpha + c_2 \lambda_2 \beta = c_1 \lambda_0 \alpha + c_2 \lambda_0 \beta, $$<br />
+   即<br />
+   $$ (\lambda_1 - \lambda_0) c_1 \alpha + (\lambda_2 - \lambda_0) c_2 \beta = 0. $$<br />
+   由于 <span class="arithmatex">\(\alpha, \beta\)</span> 线性无关，因此<br />
+   $$ c_1 (\lambda_1 - \lambda_0) = c_2 (\lambda_2 - \lambda_0) = 0. $$<br />
+   当 <span class="arithmatex">\(c_1 c_2 \neq 0\)</span> 时，我们有 <span class="arithmatex">\(\lambda_1 = \lambda_0 = \lambda_2\)</span>，这与 <span class="arithmatex">\(\lambda_1 \neq \lambda_2\)</span> 矛盾，因此 <span class="arithmatex">\(c_1 \alpha + c_2 \beta\)</span> 不是 <span class="arithmatex">\(\sigma\)</span> 的特征向量。</p>
+</li>
+<li>
+<p>右推左显然，我们只考虑左推右的证明。由上一小问结论可知，若 <span class="arithmatex">\(V\)</span> 中的每一非零向量都是 <span class="arithmatex">\(\sigma\)</span> 的特征向量，<span class="arithmatex">\(\sigma\)</span> 不可能有不同的特征值（因为有不同的特征值就有不同特征值对应的特征向量，但它们的线性组合一定仍在 <span class="arithmatex">\(V\)</span> 中，这与从第一问中得到的结论，即它不是 <span class="arithmatex">\(\sigma\)</span> 的特征向量矛盾）。设 <span class="arithmatex">\(c_0\)</span> 是 <span class="arithmatex">\(\sigma\)</span> 的唯一的特征值，则对于任意 <span class="arithmatex">\(\alpha \in V\)</span>，我们有 <span class="arithmatex">\(\sigma(\alpha) = c_0 \alpha\)</span>，即 <span class="arithmatex">\(\sigma\)</span> 在任意元素上的像都已经唯一确定，则显然在 <span class="arithmatex">\(V\)</span> 的一组基上的像也唯一确定，由线性映射唯一确定的定理可知这样的线性映射是唯一的，<span class="arithmatex">\(\sigma = c_0 I_V\)</span> 符合要求，因此它就是我们要找的线性映射。</p>
+</li>
+</ol>
+</details>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>设 <span class="arithmatex">\(A\)</span> 是数域 <span class="arithmatex">\(\mathbf{F}\)</span> 上一个 <span class="arithmatex">\(n\)</span> 阶方阵，<span class="arithmatex">\(E\)</span> 是 <span class="arithmatex">\(n\)</span> 阶单位矩阵，<span class="arithmatex">\(\alpha_1 \in \mathbf{F}^n\)</span> 是 <span class="arithmatex">\(A\)</span> 的属于特征值 <span class="arithmatex">\(\lambda\)</span> 的一个特征向量，向量组 <span class="arithmatex">\(\alpha_1, \alpha_2, \ldots, \alpha_s\)</span> 按如下方式产生：  </p>
+<div class="arithmatex">\[(A - \lambda E) \alpha_{i+1} = \alpha_i, \quad i = 1, 2, \ldots, s-1.\]</div>
+<p>证明向量组 <span class="arithmatex">\(\{\alpha_1, \alpha_2, \ldots, \alpha_s\}\)</span> 线性无关。</p>
+<details class="proof">
+<summary>Proof</summary>
+<p>由于 <span class="arithmatex">\(\alpha_1\)</span> 是 <span class="arithmatex">\(A\)</span> 属于特征值 <span class="arithmatex">\(\lambda\)</span> 的特征向量，故有 <span class="arithmatex">\((A - \lambda E) \alpha_1 = 0\)</span>。</p>
+<p>设<br />
+$$ \sum_{i=1}^{s} k_i \alpha_i = 0, $$<br />
+两边同时左乘 <span class="arithmatex">\((A - \lambda E)\)</span> 可得<br />
+$$ (A - \lambda E) \sum_{i=1}^{s} k_i \alpha_i = \sum_{i=1}^{s} k_i (A - \lambda E) \alpha_i = k_1 (A - \lambda E) \alpha_1 + \sum_{i=1}^{s-1} k_{i+1} \alpha_i = \sum_{i=1}^{s-1} k_{i+1} \alpha_i = 0. $$</p>
+<p>以此类推，在等式两边不断左乘 <span class="arithmatex">\((A - \lambda E)\)</span> 可得：对于 <span class="arithmatex">\(\forall r \in \{1, \cdots, s-1\}\)</span> 都有<br />
+$$ \sum_{i=1}^{s-r} k_{i+r} \alpha_i = 0. $$</p>
+<p>令 <span class="arithmatex">\(r = s-1\)</span> 得到 <span class="arithmatex">\(k_s \alpha_1 = 0, \quad k_s = 0\)</span>。再依次代回不难得到 <span class="arithmatex">\(k_i = 0, \quad \forall i \in \{1, \cdots, s\}\)</span>，从而向量组 <span class="arithmatex">\(\alpha_1, \cdots, \alpha_s\)</span> 线性无关。</p>
+</details>
+</div>
+<h2 id="_8">可对角化的条件<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="admonition definition">
+<p class="admonition-title">可对角化</p>
+<p>设<span class="arithmatex">\(\sigma\in\mathcal{L}(V)\)</span>，如果存在<span class="arithmatex">\(V\)</span>的一组基使得<span class="arithmatex">\(\sigma\)</span>在这组基下的矩阵是对角矩阵，则称<span class="arithmatex">\(\sigma\)</span>可对角化.</p>
+</div>
+<p>设<span class="arithmatex">\(V\)</span>是数域<span class="arithmatex">\(\mathbf{F}\)</span>上的<span class="arithmatex">\(n\)</span>维线性空间，<span class="arithmatex">\(\sigma\)</span>是<span class="arithmatex">\(V\)</span>上的线性变换，<span class="arithmatex">\(\lambda_1,\lambda_2,\ldots,\lambda_s\in\mathbf{F}\)</span>是<span class="arithmatex">\(\sigma\)</span>的所有互异特征值，则以下条件等价：</p>
+<ol>
+<li><span class="arithmatex">\(\sigma\)</span> 可对角化；</li>
+<li><span class="arithmatex">\(\sigma\)</span> 有 <span class="arithmatex">\(n\)</span> 个线性无关的特征向量，它们构成 <span class="arithmatex">\(V\)</span> 的一组基；</li>
+<li><span class="arithmatex">\(V\)</span> 有在 <span class="arithmatex">\(\sigma\)</span> 下不变的一维子空间 <span class="arithmatex">\(U_1, \ldots, U_n\)</span>，使得 <span class="arithmatex">\(V = U_1 \oplus \cdots \oplus U_n\)</span>；</li>
+<li><span class="arithmatex">\(V = V_{\lambda_1} \oplus V_{\lambda_2} \oplus \cdots \oplus V_{\lambda_s}\)</span>；</li>
+<li><span class="arithmatex">\(n = \dim V_{\lambda_1} + \dim V_{\lambda_2} + \cdots + \dim V_{\lambda_s}\)</span>；</li>
+<li><span class="arithmatex">\(\sigma\)</span> 每个特征值的代数重数等于几何重数。</li>
+</ol>
+<p>有推论</p>
+<p>若 <span class="arithmatex">\(n\)</span> 阶矩阵 <span class="arithmatex">\(A\)</span> 有 <span class="arithmatex">\(n\)</span> 个不同的特征值，则 <span class="arithmatex">\(A\)</span> 可对角化. 反之，<span class="arithmatex">\(A\)</span> 可对角化不一定有 <span class="arithmatex">\(n\)</span> 个特征值.</p>
+<div class="admonition key-point">
+<p class="admonition-title">Key-point</p>
+<p>总结而言，只要特征子空间可以张成整个空间，那么这个线性变换就是可对角化的。</p>
+</div>
+<h3 id="_9">对角化的基本步骤<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li>先任意写出 <span class="arithmatex">\(\sigma\)</span> 在一组基 <span class="arithmatex">\(\mathbf{B}\)</span> 下的矩阵 <span class="arithmatex">\(A\)</span>，当然为了计算方便一般选取自然基；</li>
+<li>利用特征多项式 <span class="arithmatex">\(f(\lambda) = |\lambda E − A| = 0\)</span> 求出 <span class="arithmatex">\(A\)</span> 的所有不同特征值；</li>
+<li>解线性方程组 <span class="arithmatex">\(AX = \lambda X\)</span>（实际上就是方程组 <span class="arithmatex">\((\lambda E − A)X = 0\)</span>，其中 <span class="arithmatex">\(\lambda\)</span> 是上一步求
+出的特征值）求出 <span class="arithmatex">\(A\)</span> 在不同特征值下的线性无关特征向量；</li>
+<li>第三步中求得的所有向量就是 <span class="arithmatex">\(\lambda\)</span> 的特征向量在基 <span class="arithmatex">\(B\)</span> 下的坐标，根据前面的讨论，<span class="arithmatex">\(\sigma\)</span>
+的特征向量也就是使得 <span class="arithmatex">\(\sigma\)</span> 的矩阵表示为对角矩阵的那组基.</li>
+<li>当然，如果题目中直接给出求 <span class="arithmatex">\(P\)</span> 使得 <span class="arithmatex">\(P^{−1}AP\)</span> 为对角矩阵，那么我们只需进行 2、3
+两步，并将 3 中得到的向量按列排列成矩阵 P 即可
+6.如果要求<span class="arithmatex">\(P\)</span>是正交矩阵，那么3中求出来的所有向量需要在 <strong>各自的特征子空间中正交化</strong> 。</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>求矩阵</p>
+<div class="arithmatex">\[A=\begin{pmatrix}
+        0  &amp; -1 &amp; 1 \\
+        -1 &amp; 0  &amp; 1 \\
+        1  &amp; 1  &amp; 0
+    \end{pmatrix}
+\]</div>
+<p>的所有特征值，对应的特征子空间，以及与 <span class="arithmatex">\(A\)</span> 相似的一个对角矩阵.</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>对于求解矩阵的对角化问题，首先求出其特征多项式（具体步骤不展开，实际上就是三阶行列式的计算，可以使用按行（列）展开、公式法或者初等变换化为三角矩阵等方法）<span class="arithmatex">\(f(\lambda)=|\lambda E-A|=(\lambda-1)^2(\lambda+2)\)</span>，令<span class="arithmatex">\(f(\lambda)=0\)</span>，解得特征值为 <span class="arithmatex">\(\lambda_1=\lambda_2=1,\lambda_3=-2\)</span>.</p>
+<p>接下来求解特征向量和特征子空间，即求解<span class="arithmatex">\((E-A)x=0\)</span>和解<span class="arithmatex">\((-2E-A)x=0\)</span>，得到特征值1对应的特征子空间为<span class="arithmatex">\(\mathbf{spa}((-1,1,0)^{\mathrm{T}},(1,0,1)^{\mathrm{T}})\)</span>，特征值-2对应的特征子空间为<span class="arithmatex">\(\mathbf{spa}((-1,-1,1)^{\mathrm{T}})\)</span>.</p>
+<p>与<span class="arithmatex">\(A\)</span>相似的对角矩阵实际上就是特征值排列在对角线上的结果，即 <span class="arithmatex">\(\mathbf{diag}(1,1,-2)\)</span>.</p>
+</details>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>设 <span class="arithmatex">\(T\)</span> 是次数小于等于 2 的实多项式线性空间 <span class="arithmatex">\(V\)</span> 上的变换，对任意 <span class="arithmatex">\(f(x) \in V\)</span>，定义</p>
+<div class="arithmatex">\[T(f(x))=\frac{\mathrm{d}((x-2)f(x))}{\mathrm{d}x}\]</div>
+<p>证明 <span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(V\)</span> 上的线性变换，且<span class="arithmatex">\(T\)</span>可对角化.</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>首先证明这是线性变换. 首先验证线性性，对于任意<span class="arithmatex">\(f(x),g(x)\in V\)</span>，<span class="arithmatex">\(a,b\in\mathbf{R}\)</span>，我们有</p>
+<div class="arithmatex">\[\begin{align*}
+    T(af(x)+bg(x)) &amp; =\frac{\mathrm{d}((x-2)(af(x)+bg(x)))}{\mathrm{d}x}                                    \\
+                     &amp; =\frac{\mathrm{d}(axf(x)-2af(x)+bxg(x)-2bg(x))}{\mathrm{d}x}                           \\
+                     &amp; =a\frac{\mathrm{d}((x-2)f(x))}{\mathrm{d}x}+b\frac{\mathrm{d}((x-2)g(x))}{\mathrm{d}x} \\
+                     &amp; =aT(f(x))+bT(g(x)).
+\end{align*}\]</div>
+<p>然后说明这是<span class="arithmatex">\(V\)</span>上的线性变换，即该映射的到达空间是<span class="arithmatex">\(V\)</span>，即<span class="arithmatex">\(T(f(x))\in V\)</span>， 因为<span class="arithmatex">\(f(x)\)</span>是次数小于等于2的实多项式，设<span class="arithmatex">\(f(x)=ax^2+bx+c\)</span>，则</p>
+<div class="arithmatex">\[\begin{align*}
+      T(f(x)) &amp; =\frac{\mathrm{d}((x-2)(ax^2+bx+c))}{\mathrm{d}x}          \\
+              &amp; =\frac{\mathrm{d}(ax^3+(b-2a)x^2+(c-2b)x-2c)}{\mathrm{d}x} \\
+              &amp; =3ax^2+2(b-2a)x+(c-2b)\in V.
+\end{align*}\]</div>
+<p>因此<span class="arithmatex">\(T\)</span>是<span class="arithmatex">\(V\)</span>上的线性变换.</p>
+<p>下面我们来判断<span class="arithmatex">\(T\)</span>是否可对角化. 线性变换的可对角化问题第一步要转化为任意一组基下的矩阵，然后判断矩阵是否可对角化，因此我们先任意选取一组基，为方便我们选取自然基<span class="arithmatex">\(\{1,x,x^2\}\)</span>，然后求出<span class="arithmatex">\(T\)</span>在这组基下的矩阵<span class="arithmatex">\(A=\begin{pmatrix}
+       1 &amp; -2 &amp; 0 \\ 0 &amp; 2 &amp; -4 \\ 0 &amp; 0 &amp; 3
+\end{pmatrix}\)</span>，然后求出其特征多项式<span class="arithmatex">\(f(\lambda)=|\lambda E-A|=(\lambda-1)(\lambda-2)(\lambda-3)\)</span>，令<span class="arithmatex">\(f(\lambda)=0\)</span>，解得特征值为 <span class="arithmatex">\(\lambda_1=1,\lambda_2=2,\lambda_3=3\)</span>. 即该3阶矩阵有3个不同的特征值，因此可知<span class="arithmatex">\(A\)</span>可对角化，即<span class="arithmatex">\(T\)</span>可对角化.</p>
+</details>
+</div>
+<h3 id="_10">经典问题<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="admonition question">
+<p class="admonition-title">可对角化求矩阵幂</p>
+<p>已知<span class="arithmatex">\(A=\begin{pmatrix}
+        0 &amp; \dfrac{1}{2}  &amp; \dfrac{1}{2} \\[2ex]
+        1 &amp; -\dfrac{1}{2} &amp; \dfrac{1}{2} \\[2ex]
+        1 &amp; -\dfrac{1}{2} &amp; \dfrac{1}{2}
+    \end{pmatrix}\)</span>，求<span class="arithmatex">\(A^n\)</span>.</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>首先求出<span class="arithmatex">\(A\)</span>的特征多项式<span class="arithmatex">\(f(\lambda)=|\lambda E-A|=\lambda(\lambda-1)(\lambda+1)\)</span>，令<span class="arithmatex">\(f(\lambda)=0\)</span>，解得特征值为 <span class="arithmatex">\(\lambda_1=0,\lambda_2=1,\lambda_3=-1\)</span>.</p>
+<p>接下来求解特征向量和特征子空间，实际上就是求解<span class="arithmatex">\((0E-A)x=0,(-E-A)x=0,(E-A)x=0\)</span>，得到特征向量为</p>
+<div class="arithmatex">\[\eta_1=\begin{pmatrix}
+       1 \\ 1 \\ -1
+   \end{pmatrix},\enspace \eta_2=\begin{pmatrix}
+       1 \\ 1 \\ 1
+   \end{pmatrix},\enspace \eta_3=\begin{pmatrix}
+       1 \\ -1 \\ -1
+   \end{pmatrix}.\]</div>
+<p>所以记<span class="arithmatex">\(P=(\eta_1,\eta_2,\eta_3)\)</span>，则<span class="arithmatex">\(A=P\mathbf{diag}(0,1,-1)P^{-1}\)</span>，因此</p>
+<div class="arithmatex">\[
+    A^n=P\mathbf{diag}(0^n,1^n,(-1)^n)P^{-1}
+\]</div>
+<p>进一步计算得到</p>
+<div class="arithmatex">\[A^n=\frac{1}{2}\begin{pmatrix}
+       1+(-1)^n     &amp; (-1)^{n+1} &amp; 1 \\
+       1+(-1)^{n+1} &amp; (-1)^n     &amp; 1 \\
+       1+(-1)^{n+1} &amp; (-1)^n     &amp; 1
+   \end{pmatrix}.\]</div>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">秩1矩阵可对角化条件</p>
+<p>设<span class="arithmatex">\(\alpha\)</span>和<span class="arithmatex">\(\beta\)</span>是<span class="arithmatex">\(\mathbf{R}^n\enspace (n&gt;1)\)</span>中两个列向量，<span class="arithmatex">\(A=\alpha\beta^\mathrm{T}\neq O\)</span>.</p>
+<ul>
+<li>
+<p>求<span class="arithmatex">\(A\)</span>的特征值；</p>
+</li>
+<li>
+<p>证明：<span class="arithmatex">\(\alpha^\mathrm{T}\beta=0\iff A\)</span>不可对角化.</p>
+</li>
+</ul>
+<details class="answer">
+<summary>Answer</summary>
+<ul>
+<li>我们知道，<span class="arithmatex">\(r(A)\leqslant\min{\{r(\alpha),r(\beta)\}}=1\)</span>，并且<span class="arithmatex">\(A\neq O\)</span>因此<span class="arithmatex">\(r(A)&gt;0\)</span>，故<span class="arithmatex">\(A\)</span>的秩为1. 而<span class="arithmatex">\(n&gt;1\)</span>，因此<span class="arithmatex">\(A\)</span>一定不可逆，故0一定是<span class="arithmatex">\(A\)</span>的特征值，且对应的特征子空间维数为<span class="arithmatex">\(AX=0\)</span>的解空间维数，即为<span class="arithmatex">\(n-1\)</span>.</li>
+</ul>
+<p>由此我们知道<span class="arithmatex">\(A\)</span>最多有两个特征值，因为0的代数重数（即作为<span class="arithmatex">\(n\)</span>次特征多项式的零点次数）必然大于等于其几何重数<span class="arithmatex">\(n-1\)</span>，当期代数重数为<span class="arithmatex">\(n-1\)</span>时可能还有一个一重特征值. 我们利用特征值之和等于<span class="arithmatex">\(A\)</span>的迹来找出可能的第二个特征值. 我们设<span class="arithmatex">\(\alpha=(a_1,a_2,\ldots,a_n)^\mathrm{T},\beta=(b_1,b_2,\ldots,b_n)^\mathrm{T}\)</span>，则<span class="arithmatex">\(A=\alpha\beta^\mathrm{T}=\begin{pmatrix}
+        a_1b_1 &amp; a_1b_2 &amp; \cdots &amp; a_1b_n \\
+        a_2b_1 &amp; a_2b_2 &amp; \cdots &amp; a_2b_n \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        a_nb_1 &amp; a_nb_2 &amp; \cdots &amp; a_nb_n
+    \end{pmatrix}\)</span>，
+因此<span class="arithmatex">\(A\)</span>的迹为<span class="arithmatex">\(\sum\limits_{i=1}^na_ib_i=\alpha^\mathrm{T}\beta=\sum\limits_{i=1}^n\lambda_i\)</span>，其中<span class="arithmatex">\(\lambda_i\)</span>为<span class="arithmatex">\(A\)</span>的特征值. 若<span class="arithmatex">\(\alpha^\mathrm{T}\beta\neq 0\)</span>，则<span class="arithmatex">\(\lambda_i=0,\enspace i=1,\ldots,n-1\)</span>，<span class="arithmatex">\(\lambda_n=\alpha^\mathrm{T}\beta\)</span>. 若<span class="arithmatex">\(\alpha^\mathrm{T}\beta=0\)</span>，则<span class="arithmatex">\(A\)</span>的所有特征值均为0.</p>
+<ul>
+<li>由上一小问可知，若<span class="arithmatex">\(\alpha^\mathrm{T}\beta=0\)</span>即<span class="arithmatex">\(A\)</span>的全部特征值为0，因此只有一个<span class="arithmatex">\(n-1\)</span>维的特征子空间，故特征子空间直和不等于<span class="arithmatex">\(V\)</span>，故不可对角化.</li>
+</ul>
+<p>反之，若<span class="arithmatex">\(A\)</span>不可对角化，我们用反证法. 假设<span class="arithmatex">\(\alpha^\mathrm{T}\beta\neq 0\)</span>，则<span class="arithmatex">\(A\)</span>有两个特征值，一个为0，一个为<span class="arithmatex">\(\alpha^\mathrm{T}\beta\)</span>，因此<span class="arithmatex">\(A\)</span>有两个特征子空间，一个是0对应的<span class="arithmatex">\(n-1\)</span>维特征子空间，一个是<span class="arithmatex">\(\alpha^\mathrm{T}\beta\)</span>对应的一维特征子空间，因此<span class="arithmatex">\(V\)</span>可分解为两个特征子空间的直和，与<span class="arithmatex">\(A\)</span>不可对角化矛盾，因此<span class="arithmatex">\(\alpha^\mathrm{T}\beta=0\)</span>.</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">幂零矩阵不可对角化</p>
+<p>设<span class="arithmatex">\(A\)</span>为<span class="arithmatex">\(n\)</span>阶非零矩阵，且<span class="arithmatex">\(A^m=O\enspace(m\in\mathbf{N}_+,\enspace m&gt;1)\)</span>. 证明：<span class="arithmatex">\(A\)</span>不可对角化；</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>设<span class="arithmatex">\(\lambda\)</span>是<span class="arithmatex">\(A\)</span>的特征值，由题意<span class="arithmatex">\(\lambda^m=0\)</span>，即<span class="arithmatex">\(\lambda=0\)</span>，因此<span class="arithmatex">\(A\)</span>的所有特征值都为0. 但<span class="arithmatex">\(r(A)&gt;0\)</span>（因为<span class="arithmatex">\(A\)</span>不是零矩阵），因此0对应的特征子空间维数为<span class="arithmatex">\(n-r(A)&lt;n\)</span>，因此<span class="arithmatex">\(A\)</span>不可对角化.</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">给出矩阵方程问对角化</p>
+<ul>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为<span class="arithmatex">\(n\)</span>阶矩阵，且<span class="arithmatex">\(A^2=2A\)</span>. 证明：<span class="arithmatex">\(A\)</span>可对角化，并求出与之相似的对角矩阵（注：本题结论可推广到任意的<span class="arithmatex">\(A^2=kA\)</span>）；</p>
+</li>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为二阶矩阵，非零向量<span class="arithmatex">\(\alpha\)</span>不是<span class="arithmatex">\(A\)</span>的特征向量，且<span class="arithmatex">\(A^2\alpha-3A\alpha+2\alpha=0\)</span>. 证明：<span class="arithmatex">\(\alpha\)</span>和<span class="arithmatex">\(A\alpha\)</span>线性无关且<span class="arithmatex">\(A\)</span>可对角化并求与<span class="arithmatex">\(A\)</span>相似的对角矩阵.</p>
+</li>
+</ul>
+<details class="answer">
+<summary>Answer</summary>
+<p>1.
+由题意<span class="arithmatex">\(A^2-2A=O\)</span>，因此<span class="arithmatex">\(A\)</span>的特征值就是方程<span class="arithmatex">\(\lambda^2-2\lambda=0\)</span>的解，即<span class="arithmatex">\(\lambda_1=0,\lambda_2=2\)</span>.</p>
+<p>接下来我们需要说明0和2对应的特征子空间维数之和为<span class="arithmatex">\(n\)</span>，即<span class="arithmatex">\(\dim V_0+\dim V_2=n\)</span>，其中<span class="arithmatex">\(V_0\)</span>和<span class="arithmatex">\(V_2\)</span>分别为0和2对应的特征子空间. 事实上，由<span class="arithmatex">\(A^2=2A\)</span>可知<span class="arithmatex">\(A(A-2E)=O\)</span>，由知<span class="arithmatex">\(r(A)+r(A-2E)\leqslant n\)</span>，又根据秩不等式<span class="arithmatex">\(r(A)+r(B)\geqslant r(A+B)\)</span>，因此<span class="arithmatex">\(r(A)+r(A-2E)=r(A)+r(2E-A)\geqslant r(A+(2E-A))=r(2E)=n\)</span>. 综上可知，<span class="arithmatex">\(r(A)+r(A-2E)=n\)</span>.</p>
+<p>实际上，<span class="arithmatex">\(V_0\)</span>就是<span class="arithmatex">\(AX=0\)</span>的解空间，<span class="arithmatex">\(V_2\)</span>就是<span class="arithmatex">\((A-2E)X=0\)</span>的解空间，因此<span class="arithmatex">\(\dim V_0=n-r(A),\dim V_2=n-r(A-2E)\)</span>，因此由<span class="arithmatex">\(r(A)+r(A-2E)=n\)</span>可知<span class="arithmatex">\(\dim V_0+\dim V_2=2n-n=n\)</span>，即0和2对应的特征子空间维数之和为<span class="arithmatex">\(n\)</span>，因此<span class="arithmatex">\(A\)</span>可对角化.</p>
+<p>由于可对角化矩阵代数重数等于几何重数，因此特征值0对应的代数重数为<span class="arithmatex">\(n-r(A)\)</span>，特征值2对应的代数重数为<span class="arithmatex">\(r(A)\)</span>，因此我们可以得到与<span class="arithmatex">\(A\)</span>相似的对角矩阵为<span class="arithmatex">\(\mathbf{diag}(0,\ldots,0,2,\ldots,2)\)</span>，其中0的个数为<span class="arithmatex">\(n-r(A)\)</span>，2的个数为<span class="arithmatex">\(r(A)\)</span>.</p>
+<p>2.
+反证法，假设<span class="arithmatex">\(\alpha\)</span>和<span class="arithmatex">\(A\alpha\)</span>线性相关，则存在不全为零的常数<span class="arithmatex">\(k_1,k_2\)</span>使得<span class="arithmatex">\(k_1\alpha+k_2A\alpha=0\)</span>. 显然<span class="arithmatex">\(k_2\neq 0\)</span>，因为假设<span class="arithmatex">\(k_2=0\)</span>，则<span class="arithmatex">\(k_1\alpha=0\)</span>，由于<span class="arithmatex">\(\alpha\neq 0\)</span>，故<span class="arithmatex">\(k_1=0\)</span>，这与<span class="arithmatex">\(k_1,k_2\)</span>不全为0矛盾. 因此我们有<span class="arithmatex">\(A\alpha=-\dfrac{k_1}{k_2}\alpha\)</span>，即<span class="arithmatex">\(\alpha\)</span>是<span class="arithmatex">\(A\)</span>的特征向量，这与题设矛盾，因此<span class="arithmatex">\(\alpha\)</span>和<span class="arithmatex">\(A\alpha\)</span>线性无关.</p>
+<p>由题意，<span class="arithmatex">\(A^2\alpha-3A\alpha+2\alpha=0\)</span>，即<span class="arithmatex">\((A^2-3A+2E)\alpha=0\)</span>，又<span class="arithmatex">\(\alpha\neq 0\)</span>，因此<span class="arithmatex">\(A^2-3A+2E\)</span>不可逆，从而<span class="arithmatex">\(|A^2-3A+2E|=|E-A||2E-A|=0\)</span>，故<span class="arithmatex">\(|E-A|=0\)</span>或<span class="arithmatex">\(|2E-A|=0\)</span>.</p>
+<p>若<span class="arithmatex">\(|E-A|\neq 0\)</span>，则<span class="arithmatex">\(E-A\)</span>可逆，因此<span class="arithmatex">\((A^2-3A+2E)\alpha=(E-A)((2E-A)\alpha)=0\)</span>可知<span class="arithmatex">\((2E-A)\alpha=0\)</span>，即<span class="arithmatex">\(A\alpha=2\alpha\)</span>，故<span class="arithmatex">\(\alpha\)</span>为<span class="arithmatex">\(A\)</span>的特征向量，这与条件矛盾，因此<span class="arithmatex">\(|E-A|=0\)</span>. 同理，<span class="arithmatex">\(|2E-A|=0\)</span>，因此<span class="arithmatex">\(A\)</span>有两个特征值1和2，又<span class="arithmatex">\(A\)</span>是2阶矩阵，因此由\autoref{cor:可对角化必要条件} 可知<span class="arithmatex">\(A\)</span>一定可对角化，且对角矩阵为<span class="arithmatex">\(\begin{pmatrix}
+              1 &amp; 0 \\
+              0 &amp; 2
+          \end{pmatrix}\)</span>.</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">若当矩阵不可对角化</p>
+<p>证明<span class="arithmatex">\(r\)</span>阶上三角矩阵<span class="arithmatex">\((r&gt;1)\)</span></p>
+<div class="arithmatex">\[J_0=\begin{pmatrix}
+        \lambda_0 &amp; 1         &amp;        &amp;           \\
+                  &amp; \lambda_0 &amp; \ddots &amp;           \\
+                  &amp;           &amp; \ddots &amp; 1         \\
+                  &amp;           &amp;        &amp; \lambda_0
+    \end{pmatrix}\]</div>
+<p>不与对角阵相似.</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>首先求出特征多项式为<span class="arithmatex">\(f(\lambda)=|\lambda E-J_0|=(\lambda-\lambda_0)^r\)</span>，因此<span class="arithmatex">\(J_0\)</span>只有一个特征值<span class="arithmatex">\(\lambda_0\)</span>，且代数重数为<span class="arithmatex">\(r\)</span>.</p>
+<p>接下来求几何重数，即<span class="arithmatex">\(J_0X=\lambda_0X\)</span>的解空间维数，即<span class="arithmatex">\((\lambda_0 E-J_0)X=O\)</span>的解空间维数，事实上由于<span class="arithmatex">\(r(\lambda_0 E-J_0)=r-1\)</span>，因此解空间维数为<span class="arithmatex">\(r-(r-1)=1\)</span>，即几何重数为<span class="arithmatex">\(1&lt;r\)</span>，因此不可对角化</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">AB=BA</p>
+<p>设 <span class="arithmatex">\( A, B \in M_n(\mathbf{F}) \)</span>, <span class="arithmatex">\( AB = BA \)</span>, 证明：</p>
+<ol>
+<li>若 <span class="arithmatex">\( X \)</span> 是矩阵 <span class="arithmatex">\( A \)</span> 属于特征值 <span class="arithmatex">\( \lambda_0 \)</span> 的特征向量，则 <span class="arithmatex">\( BX \in V_{\lambda_0} \)</span>.</li>
+<li><span class="arithmatex">\( A \)</span> 和 <span class="arithmatex">\( B \)</span> 至少有一个共同的特征向量.</li>
+<li><span class="arithmatex">\( A \)</span> 有 <span class="arithmatex">\( n \)</span> 个不同的特征值则</li>
+<li><span class="arithmatex">\( AB = BA \)</span> 当且仅当 <span class="arithmatex">\( A \)</span> 的特征向量也是 <span class="arithmatex">\( B \)</span> 的特征向量.</li>
+<li>存在次数小于等于 <span class="arithmatex">\( n-1 \)</span> 的多项式 <span class="arithmatex">\( f(x) \)</span> 使得 <span class="arithmatex">\( B = f(A) \)</span>.</li>
+<li>若 <span class="arithmatex">\( A, B \)</span> 均可对角化，则对角化的过渡矩阵可以相同（同时对角化）.</li>
+<li><span class="arithmatex">\( A, B \)</span> 可以同时上三角化，即存在可逆矩阵 <span class="arithmatex">\( P \)</span> 使得 <span class="arithmatex">\( P^{-1}AP \)</span> 和 <span class="arithmatex">\( P^{-1}BP \)</span> 都是上三角矩阵.</li>
+</ol>
+<p>设 <span class="arithmatex">\( n \)</span> 阶方阵 <span class="arithmatex">\( A \)</span> 和 <span class="arithmatex">\( B \)</span> 都可对角化，并且它们有相同的特征子空间（但不一定有相同的特征值），证明 <span class="arithmatex">\( AB = BA \)</span>.</p>
+</div>
+<h2 id="_11">习题<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>设<span class="arithmatex">\(A\)</span>为n阶复方阵,<span class="arithmatex">\(P\)</span>为可逆矩阵。证明<span class="arithmatex">\(tr(A)=tr(P^{-1}AP)\)</span></p>
+</li>
+<li>
+<p>已知<span class="arithmatex">\(A\)</span>为3阶矩阵，特征值为1，2，3;求<span class="arithmatex">\(|A^2+4A+E|\)</span></p>
+</li>
+<li>
+<p>证明:若<span class="arithmatex">\(A^2-(\lambda_1+\lambda_2)A+\lambda_1 \lambda_2 E = O,\lambda_1 \neq \lambda_2\)</span>,则<span class="arithmatex">\(A\)</span>可对角化(Hint:矩阵方程可对角化条件),并判断以下说法说法哪一个正确</p>
+<ul>
+<li><span class="arithmatex">\(A\)</span>的特征值兼有一定兼有<span class="arithmatex">\(\lambda_1\)</span>和<span class="arithmatex">\(\lambda_2\)</span></li>
+<li><span class="arithmatex">\(A\)</span>可对角化，但其特征值不一定同时有<span class="arithmatex">\(\lambda_1\)</span>和<span class="arithmatex">\(\lambda_2\)</span>,可能为<span class="arithmatex">\(\lambda_1\)</span>和<span class="arithmatex">\(\lambda_1\)</span>,<span class="arithmatex">\(\lambda_2\)</span>和<span class="arithmatex">\(\lambda_2\)</span>,或者<span class="arithmatex">\(\lambda_1\)</span>和<span class="arithmatex">\(\lambda_2\)</span></li>
+</ul>
+</li>
+<li>
+<p>证明秩为1的向量可以写为<span class="arithmatex">\(\alpha^\mathrm{T}\beta\)</span>,(回忆相抵标准型~)</p>
+</li>
+<li>
+<p>设 <span class="arithmatex">\(\alpha\)</span> 为 <span class="arithmatex">\(n\)</span> 维实向量且 <span class="arithmatex">\(\alpha^\mathrm{T} \alpha =1\)</span>,求矩阵<span class="arithmatex">\(I-\alpha \alpha^\mathrm{T}\)</span>的特征值(Hint: 特征多项式展开)</p>
+</li>
+<li>
+<p><span class="arithmatex">\(A,B\)</span>都是<span class="arithmatex">\(n\)</span>阶矩阵，证明<span class="arithmatex">\(AB+B\)</span>与<span class="arithmatex">\(BA+B\)</span>有相同的特征值.(Hint:证明相似)</p>
+</li>
+<li>
+<p>判断并证明：<span class="arithmatex">\(n\)</span>阶方阵<span class="arithmatex">\(A\)</span>满足<span class="arithmatex">\(A^2-5A+5E_n=0\)</span>，则对于所有的有理数<span class="arithmatex">\(r\)</span>,有<span class="arithmatex">\(A+rE_n\)</span>可逆</p>
+</li>
+<li>
+<p>记 </p>
+</li>
+</ul>
+<div class="arithmatex">\[
+    X = \left\{ \begin{pmatrix} a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23} \\ a_{31} &amp; a_{32} &amp; a_{33} \end{pmatrix} \in M_{3 \times 3}(\mathbb{R}) \ \middle| \ \sum_{j=1}^{3} a_{1j} = \sum_{j=1}^{3} a_{2j} = \sum_{j=1}^{3} a_{3j} = \sum_{i=1}^{3} a_{ij} \right\}.
+\]</div>
+<p>证明：</p>
+<ol>
+<li><span class="arithmatex">\(X\)</span> 是 <span class="arithmatex">\(M_{3 \times 3}(\mathbb{R})\)</span> 的一个子空间，并求该子空间的维数；</li>
+<li>对任意可逆矩阵 <span class="arithmatex">\(A \in X\)</span>，<span class="arithmatex">\((1, 1, 1)^\mathrm{T}\)</span> 是 <span class="arithmatex">\(A\)</span> 和 <span class="arithmatex">\(A^{-1}\)</span> 的特征向量；</li>
+<li>对任意可逆矩阵 <span class="arithmatex">\(A \in X\)</span>，<span class="arithmatex">\(A^{-1} \in X\)</span>。</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../note/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 停更">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                停更
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../Probability/" class="md-footer__link md-footer__link--next" aria-label="下一页: 概率论(H)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                概率论(H)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
