@@ -252,7 +252,7 @@ R/M 字段既可以指定一个寄存器作为操作数，也可以结合 MOD �
 编码为 8B048BH
 
 - First byte (8BH):100010 11 → D = 1
-- Second byte (04H): 00 000 100 → Mod=00，没有disp，REG=000 代表EAX，R/M=010 scaled-index 寻址.
+- Second byte (04H): 00 000 100 → Mod=00，没有disp，REG=000 代表EAX，R/M=100 scaled-index 寻址.
 - Third byte (8BH): 10 001 011 → SS=10，表示4倍缩放,Index=001 代表ECX，Base=101 代表EBX
 
 #### 64 Bit Mode
