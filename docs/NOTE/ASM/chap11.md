@@ -1548,7 +1548,7 @@ OUT信号初始为高电平。当初始计数结束时，OUT会变为低电平�
 ### Generating a Waveform with the 8254
 
 <div align="center">
-    <img src="../img/chap11/8254_waveform.png" alt="8254_waveform" width="500">
+    <img src="../img/chap11/8254wave_form.png" alt="8254_waveform" width="500">
 </div>
 
 上图展示了一个8254计数器连接在80386SX的I/O端口0700H、0702H、0704H和0706H上，从而实现方波和连续脉冲的产生。这些地址通过一个可编程逻辑器件（PLD）解码，同时PLD还为8254产生写选通信号，该信号连接到低位数据总线。
@@ -2029,7 +2029,7 @@ SB = 1 时，会在 SOUT 上发送“中断”信号（break）。“中断”�
 
 
 <div align="center">
-    <img src="../img/chap11/uart_errors.png" alt="16550_uart_errors" width="500">
+    <img src="../img/chap11/uart_erros.png" alt="16550_uart_errors" width="500">
 </div>
 
 示例给出了一个检测DR位判断16550是否接收到数据的过程。  
