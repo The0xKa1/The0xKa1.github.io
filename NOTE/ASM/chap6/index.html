@@ -1,0 +1,5331 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/ASM/chap6/">
+      
+      
+        <link rel="prev" href="../chap5/">
+      
+      
+        <link rel="next" href="../chap9/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Chapter 6 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#program-control-instructions" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 6
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    汇编与接口
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_6" id="__nav_2_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    汇编与接口
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-jump-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Jump Group
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Jump Group">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JMP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#short-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Short Jump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#near-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near Jump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#far-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Far Jump
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jumps-with-register-operands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jumps with Register Operands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indirect-jumps-using-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indirect Jumps Using an Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-jumps-and-conditional-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional Jumps and Conditional Sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-conditional-set-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Conditional Set Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOOP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#controlling-the-flow-of-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CONTROLLING THE FLOW OF THE PROGRAM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CONTROLLING THE FLOW OF THE PROGRAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#while-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WHILE LOOPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeat-until-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REPEAT-UNTIL Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PROCEDURES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CALL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CALL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#near-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near Call
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#far-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Far Call
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer-control-between-privilege-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transfer Control Between Privilege Levels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intro-to-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INTRO TO INTERRUPTS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="INTRO TO INTERRUPTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interrupt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-of-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source of Interrupts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#masking-external-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masking External Interrupts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sources-of-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources of Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-and-imprecise-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise and Imprecise Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-types-of-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Types of Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt Vectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#double-fault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Double fault
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-among-simultaneous-exceptions-and-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority among Simultaneous Exceptions and Interrupts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-mode-interrupt-control-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Mode Interrupt control transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retiretd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RET/IRETD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt instructions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interrupt instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#int-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INT N
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#int-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INT 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDB 如何实现断点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#int3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么 INT3 应该是一字节
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#into" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INTO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#machine-control-and-cellaneous-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MACHINE CONTROL AND CELLANEOUS INSTRUCTIONS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MACHINE CONTROL AND CELLANEOUS INSTRUCTIONS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HLT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NOP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOCK Prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enter-and-leave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTER AND LEAVE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-jump-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Jump Group
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Jump Group">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JMP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#short-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Short Jump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#near-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near Jump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#far-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Far Jump
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jumps-with-register-operands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jumps with Register Operands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indirect-jumps-using-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indirect Jumps Using an Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-jumps-and-conditional-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional Jumps and Conditional Sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-conditional-set-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Conditional Set Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOOP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#controlling-the-flow-of-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CONTROLLING THE FLOW OF THE PROGRAM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CONTROLLING THE FLOW OF THE PROGRAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#while-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WHILE LOOPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeat-until-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REPEAT-UNTIL Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PROCEDURES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CALL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CALL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#near-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near Call
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#far-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Far Call
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer-control-between-privilege-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transfer Control Between Privilege Levels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intro-to-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INTRO TO INTERRUPTS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="INTRO TO INTERRUPTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interrupt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-of-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source of Interrupts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#masking-external-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masking External Interrupts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sources-of-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources of Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-and-imprecise-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise and Imprecise Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-types-of-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Types of Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt Vectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#double-fault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Double fault
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-among-simultaneous-exceptions-and-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority among Simultaneous Exceptions and Interrupts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-mode-interrupt-control-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Mode Interrupt control transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retiretd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RET/IRETD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt instructions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interrupt instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#int-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INT N
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#int-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INT 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GDB 如何实现断点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#int3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么 INT3 应该是一字节
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#into" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INTO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#machine-control-and-cellaneous-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MACHINE CONTROL AND CELLANEOUS INSTRUCTIONS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MACHINE CONTROL AND CELLANEOUS INSTRUCTIONS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HLT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NOP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOCK Prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enter-and-leave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTER AND LEAVE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../DB/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🎓 课程笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    汇编与接口
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="program-control-instructions">Program control Instructions<a class="headerlink" href="#program-control-instructions" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 11190 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 22 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 45 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 39 分钟</p>
+</div>
+<h2 id="the-jump-group">The Jump Group<a class="headerlink" href="#the-jump-group" title="Permanent link">&para;</a></h2>
+<p>允许程序员跳过程序部分，并通过无条件或有条件跳转指令，将下一条指令的执行转移到内存的任意位置。</p>
+<ul>
+<li>有条件跳转指令允许基于数值测试进行决策。<ul>
+<li>测试的结果存放在标志位中，条件跳转指令会对标志位进行检测。</li>
+</ul>
+</li>
+<li>LOOP 和条件LOOP也是跳转指令的一种形式。</li>
+</ul>
+<h3 id="jmp">JMP<a class="headerlink" href="#jmp" title="Permanent link">&para;</a></h3>
+<ul>
+<li>分三种类型：Short Jump、Near Jump和Far Jump。</li>
+<li>Short Jump是一条2字节指令，允许跳转(或分支)到距离跳转指令之后+127到-128字节的内存地址。</li>
+<li>Near Jump是一条3字节指令，允许在当前代码段内，距指令±32K字节范围内进行跳转或分支。</li>
+<li>Far Jump是一条5字节指令，允许跳转到实模式内存系统中的任意内存位置。</li>
+<li>Short Jump和Near Jump通常称为段内跳转(intrasegment jumps)。</li>
+<li>Far Jump称为段间跳转(intersegment jumps)。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/jmp.png" alt="JMP" width="500">
+</div>
+
+<h4 id="short-jump">Short Jump<a class="headerlink" href="#short-jump" title="Permanent link">&para;</a></h4>
+<ul>
+<li>格式：JMP SHORT <offset></li>
+<li>示例：JMP SHORT 100</li>
+</ul>
+<p>称为Relative Jump，是因为与相关软件一起，这类跳转可以被移动到当前代码段的任意位置而无需更改。</p>
+<ul>
+<li>跳转地址并不与操作码一起存储。</li>
+<li>在操作码后面跟随一个距离值（位移）。</li>
+<li>短跳转的位移以1字节有符号数表示，取值范围为+127到-128。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/short_jmp.png" alt="Short Jump" width="500">
+</div>
+
+<p>当微处理器执行短跳转时，位移值会被符号扩展并加到指令指针(IP/EIP)上，以生成当前代码段内的跳转地址。指令将跳转到这个新地址，执行程序中的下一条指令。</p>
+<ul>
+<li>当跳转指令引用一个地址时，通常使用标签来标识该地址。</li>
+<li>JMP NEXT 指令就是一个例子。<ul>
+<li>它跳转到标签 NEXT 处执行下一条指令</li>
+<li>在任何跳转指令中使用实际的十六进制地址是非常罕见的</li>
+</ul>
+</li>
+<li>标签 NEXT 后面必须跟一个冒号（NEXT:），才能让指令引用它<ul>
+<li>如果后面没有冒号，就无法跳转到该标签</li>
+</ul>
+</li>
+<li>只有当标签与跳转或调用指令一起使用时，才需要使用冒号。</li>
+</ul>
+<h4 id="near-jump">Near Jump<a class="headerlink" href="#near-jump" title="Permanent link">&para;</a></h4>
+<p>在实模式下，近跳转是一条3字节指令，操作码后跟一个有符号的16位位移量。</p>
+<ul>
+<li>近跳转将控制权传递给当前代码段内的一条指令，该指令位于近跳转指令的±32K字节范围内。</li>
+<li>80386 - Pentium 4 的位移量是32位，近跳转为5字节长。</li>
+<li>
+<p>在保护模式下，80386及更高版本的跳转距离为±2G。</p>
+</li>
+<li>
+<p>有符号位移量加到指令指针(IP)上以生成跳转地址。</p>
+<ul>
+<li>由于有符号位移量为±32K，近跳转可以跳转到当前实模式代码段内的任意内存位置。</li>
+</ul>
+</li>
+<li>80386及更高版本的保护模式代码段可达4G字节长。<ul>
+<li>32位位移量允许近跳转到±2G字节范围内的任意位置。</li>
+</ul>
+</li>
+</ul>
+<p>下图展示了实模式近跳转指令的操作方式。</p>
+<div align="center">
+    <img src="../img/chap6/near_jmp.png" alt="Near Jump" width="500">
+</div>
+
+<p>近跳转也是可重定位<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>的，因为它也是相对跳转。</p>
+<ul>
+<li>这一特性，加上可重定位的数据段，使Intel微处理器非常适合在通用计算机系统中使用。</li>
+<li>由于相对跳转和可重定位数据段的存在，软件可以被编写并加载到内存的任何位置，无需修改即可正常运行。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>以下示例展示了一个包含近跳转的程序。</p>
+<p><div align="center">
+    <img src="../img/chap6/near_jmp_exp.png" alt="Near Jump Example" width="500">
+</div></p>
+<ul>
+<li>第一条跳转指令（JMP NEXT）将控制权传递给代码段内偏移地址为0200H处的指令。</li>
+<li>注意该指令汇编后为 E9 0200 R。字母 R 表示0200H是一个可重定位的跳转地址。</li>
+<li>链接后，跳转指令显示为 E9 F6 01（01F6H是实际的位移量）。</li>
+</ul>
+</div>
+<h4 id="far-jump">Far Jump<a class="headerlink" href="#far-jump" title="Permanent link">&para;</a></h4>
+<p>远跳转通过获取一个新的段地址和偏移地址来完成跳转。</p>
+<ul>
+<li>在实模式下，它是一条5字节指令<ul>
+<li>第2和第3字节包含新的偏移地址</li>
+<li>第4和第5字节包含新的段地址</li>
+</ul>
+</li>
+<li>在保护模式下<ul>
+<li>段地址用于访问一个描述符，该描述符包含远跳转段的基地址</li>
+<li>偏移地址（16位或32位）包含新代码段内的偏移地址</li>
+</ul>
+</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/far_jmp.png" alt="Far Jump" width="500">
+</div>
+
+<p>实现远跳转有两种方式：</p>
+<ul>
+<li>使用 FAR PTR 指令，例如 <code>JMP FAR PTR START</code></li>
+<li>定义一个远标签，例如 <code>EXTRN START:FAR</code></li>
+</ul>
+<p>标签只有在当前代码段或过程的外部时才是远标签。外部标签出现在包含多个程序文件的程序中。</p>
+<p>定义一个可以从过程块外部访问的远标签有两种方式：
+- 使用 EXTRN 指令，例如 <code>EXTRN START:FAR</code>
+- 使用双冒号，例如 <code>START::</code></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>例如，当标签 UP 通过 <code>EXTRN UP:FAR</code> 指令定义为远标签时，<code>JMP UP</code> 指令就引用了一个远标签。</p>
+<p>当程序文件被链接在一起时，链接器会将 UP 标签的地址插入到 <code>JMP UP</code> 指令中。同样，链接器也会将段地址插入到 <code>JMP START</code> 指令中。</p>
+<p><div align="center">
+    <img src="../img/chap6/far_jmp_exp.png" alt="Far Jump Example" width="500">
+</div></p>
+</div>
+<h3 id="jumps-with-register-operands">Jumps with Register Operands<a class="headerlink" href="#jumps-with-register-operands" title="Permanent link">&para;</a></h3>
+<p>跳转指令也可以使用16位或32位寄存器作为操作数。</p>
+<ul>
+<li>这会自动设置为绝对间接跳转</li>
+<li>跳转地址存储在跳转指令指定的寄存器中</li>
+</ul>
+<p>与近跳转相关的位移量不同，寄存器内容会直接传送到指令指针中。</p>
+<p>绝对间接跳转不会对指令指针进行加法运算。</p>
+<p>例如，<code>JMP AX</code> 将AX寄存器的内容复制到IP中。</p>
+<ul>
+<li>这允许跳转到当前代码段内的任意位置</li>
+</ul>
+<p>在80386及更高版本中，<code>JMP EAX</code> 也可以跳转到当前代码段内的任意位置：</p>
+<ul>
+<li>在保护模式下，代码段可以长达4GB，因此需要32位偏移地址</li>
+</ul>
+<h3 id="indirect-jumps-using-an-index">Indirect Jumps Using an Index<a class="headerlink" href="#indirect-jumps-using-an-index" title="Permanent link">&para;</a></h3>
+<p>跳转指令也可以使用 <code>[ ]</code> 形式的寻址方式（例如 <code>JMP TABLE [SI]</code>）来直接访问跳转表。</p>
+<ul>
+<li>跳转表可以包含用于近间接跳转的偏移地址，或用于远间接跳转的段地址和偏移地址。<ul>
+<li>如果将寄存器跳转称为间接跳转，那么这种方式也被称为双重间接跳转</li>
+</ul>
+</li>
+<li>汇编器假定跳转为近跳转，除非使用 FAR PTR 指令指示这是一条远跳转指令。</li>
+</ul>
+<p>访问跳转表的机制与普通内存引用相同。</p>
+<ul>
+<li><code>JMP TABLE [SI]</code> 指令指向存储在数据段偏移位置（由 SI 寻址）的跳转地址</li>
+</ul>
+<p>寄存器跳转和间接索引跳转指令通常都寻址16位偏移量。</p>
+<ul>
+<li>这两种类型的跳转都是近跳转</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>如果使用 <code>JMP FAR PTR [SI]</code> 或 <code>JMP TABLE [SI]</code>，且 TABLE 数据使用 DD 指令定义：微处理器假定跳转表包含双字、32位地址（IP 和 CS）</p>
+<p>这里的意思是：</p>
+<ul>
+<li>当使用 <code>JMP FAR PTR [SI]</code> 时，明确指示这是一个远跳转</li>
+<li>当 TABLE 使用 <code>DD</code>（Define Double Word，定义双字）指令声明时，每个表项占用4个字节</li>
+<li>这4个字节包含完整的远地址：低2字节是偏移地址（存入IP），高2字节是段地址（存入CS）</li>
+<li>因此微处理器会从跳转表中读取32位数据，将其作为 段:偏移 格式的远跳转目标地址</li>
+</ul>
+</div>
+<h3 id="conditional-jumps-and-conditional-sets">Conditional Jumps and Conditional Sets<a class="headerlink" href="#conditional-jumps-and-conditional-sets" title="Permanent link">&para;</a></h3>
+<p>在 8086 – 80286 中，条件跳转指令始终是短跳转。</p>
+<ul>
+<li>范围限制在条件跳转指令之后的 +127 到 –128 字节之内</li>
+</ul>
+<p>在 80386 及更高版本中，条件跳转可以是短跳转或近跳转（±32K）。</p>
+<ul>
+<li>在 Pentium 4 的 64 位模式下，条件跳转的近跳转距离为 ±2G</li>
+<li>这允许条件跳转到当前代码段内的任意位置</li>
+</ul>
+<p>条件跳转指令测试标志位：</p>
+<ul>
+<li>符号位（S）、零标志位（Z）、进位标志位（C）</li>
+<li>奇偶标志位（P）、溢出标志位（O）</li>
+</ul>
+<p>如果测试条件为真，则跳转到标签处。</p>
+<p>如果为假，则执行程序的下一条顺序指令。</p>
+<blockquote>
+<p>例如，如果进位位被设置，JC 将会跳转。</p>
+</blockquote>
+<p>尽管有些指令会测试多个标志位,大多数条件跳转指令都很直接，因为它们通常只测试一个标志位。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>如何比较有符号值和无符号值？例如，当比较 -1（0xFF）和 1（0x01）时，-1 看起来更大。</p>
+<p>有符号比较和无符号比较是相同的。关键在于你如何解释标志位。</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">MOV</span><span class="w"> </span><span class="nb">EAX</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">       </span><span class="c1">; EAX = 0xFFFFFFFF (-1 的补码表示)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nf">CMP</span><span class="w"> </span><span class="nb">EAX</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w">        </span><span class="c1">; 计算 EAX - 1 = 0xFFFFFFFF - 1 = 0xFFFFFFFE</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">                  </span><span class="c1">; 结果标志位: Z=0 (结果非零), C=0 (无借位), S=1 (结果为负), O=0 (无溢出)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nf">JA</span><span class="w"> </span><span class="nv">LABEL</span><span class="w">          </span><span class="c1">; JA (Jump if Above) 用于无符号比较</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">                  </span><span class="c1">; 跳转条件: Z=0 且 C=0</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">                  </span><span class="c1">; 由于 C=0 且 Z=0，条件满足，会跳转到 LABEL</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">                  </span><span class="c1">; 这说明在无符号比较中，0xFFFFFFFF (4294967295) &gt; 1</span>
+</span></code></pre></div>
+<ul>
+<li>
+<p><strong>无符号比较 (JA/JB 等)</strong> ：使用进位标志 C 和零标志 Z</p>
+<ul>
+<li><code>JA</code> (Jump if Above)：当 C=0 且 Z=0 时跳转（无符号大于）</li>
+<li><code>JB</code> (Jump if Below)：当 C=1 时跳转（无符号小于）</li>
+</ul>
+</li>
+<li>
+<p><strong>有符号比较 (JG/JL 等)</strong>：使用符号标志 S、溢出标志 O 和零标志 Z</p>
+<ul>
+<li><code>JG</code> (Jump if Greater)：当 Z=0 且 S=O 时跳转（有符号大于）</li>
+<li><code>JL</code> (Jump if Less)：当 S≠O 时跳转（有符号小于）</li>
+</ul>
+</li>
+</ul>
+<p>在上例中，如果改用 <code>JG LABEL</code>（有符号比较）：</p>
+<ul>
+<li>跳转条件：Z=0 且 S=O</li>
+<li>实际情况：Z=0, S=1, O=0，由于 S≠O，不会跳转</li>
+</ul>
+</div>
+<p>由于编程中同时使用有符号数和无符号数，且这两种数的排列顺序不同，因此存在两套用于大小比较的条件跳转指令。</p>
+<p>下图展示了有符号和无符号 8 位数字的排列顺序。</p>
+<div align="center">
+    <img src="../img/chap6/nums.png" alt="Conditional Jumps" width="500">
+</div>
+
+<p>当比较无符号数时，使用 JA、JB、JAE、JBE、JE 和 JNE 指令。</p>
+<ul>
+<li>术语 "above"和 "below"指的是无符号数</li>
+</ul>
+<p>当比较有符号数时，使用 JG、JL、JGE、JLE、JE 和 JNE 指令。</p>
+<ul>
+<li>术语 "greater than"和 "less than"指的是有符号数</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/jcc.png" alt="Conditional Jumps" width="500">
+</div>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>所有指令都有替代形式，但许多在编程中并不常用，因为它们通常不适合被测试的条件。例如，<code>JA</code>（Jump if Above）可以用 <code>JNBE</code>（Jump if Not Below or Equal）替代，两者功能完全相同，只是助记符不同。</p>
+<p>除了 JCXZ（当 CX = 0 时跳转）和 JECXZ（当 ECX = 0 时跳转）之外，所有条件跳转指令都是通过测试标志位来工作的。</p>
+<p>JCXZ 不测试标志位，而是直接测试 CX 寄存器的内容，且不影响标志位；JECXZ 则测试 ECX 寄存器的内容。</p>
+<p>对于 JCXZ 指令：</p>
+<ul>
+<li>如果 CX = 0，则发生跳转</li>
+<li>如果 CX != 0，则不跳转</li>
+</ul>
+<p>对于 JECXZ 指令同理：如果 ECX = 0，则发生跳转；如果 ECX != 0，则不跳转。</p>
+<p><div align="center">
+    <img src="../img/chap6/jcxz.png" alt="JCXZ" width="500">
+</div></p>
+</div>
+<h3 id="the-conditional-set-instructions">The Conditional Set Instructions<a class="headerlink" href="#the-conditional-set-instructions" title="Permanent link">&para;</a></h3>
+<p>80386 至 Core2 处理器还包含条件设置指令。</p>
+<ul>
+<li>
+<p>条件设置字节指令（SETcc） 会检查 EFLAGS 寄存器中的状态标志位。</p>
+<ul>
+<li>如果标志位满足助记符（cc）指定的条件，则将指定的 8 位内存位置或寄存器设置为 1。</li>
+<li>如果标志位不满足指定条件，SETcc 会将该内存位置或寄存器清零为 0。</li>
+</ul>
+</li>
+<li>
+<p>例如，<code>SETC EAX</code>：</p>
+<ul>
+<li>如果进位标志被设置，EAX = 01H</li>
+<li>如果进位标志被清除，EAX = 00H</li>
+</ul>
+</li>
+<li>
+<p>EAX 的内容可以在程序的后续位置进行测试，以确定在执行 <code>SETC EAX</code> 指令时进位标志是否被清除。</p>
+</li>
+<li>
+<p>条件设置指令在需要在程序中较后位置测试某个条件时非常有用。</p>
+</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/setcc.png" alt="SETCC" width="500">
+</div>
+
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div align="center">
+    <img src="../img/chap6/setcc_exp.png" alt="SETCC Example" width="500">
+</div></p>
+</div>
+<h3 id="loop">LOOP<a class="headerlink" href="#loop" title="Permanent link">&para;</a></h3>
+<p>LOOP 指令使用 RCX/ECX/CX 作为计数器执行循环操作。</p>
+<ul>
+<li>
+<p>LOOP 指令等价于：</p>
+<ul>
+<li><code>SUB RCX/ECX/CX, 1</code></li>
+<li><code>JNZ label</code></li>
+</ul>
+</li>
+<li>
+<p>每次执行 LOOP 指令时，计数器会递减，然后检查是否为 0：</p>
+<ul>
+<li>如果 CX != 0，则执行近跳转到标签处</li>
+<li>如果 CX 变为 0，则执行下一条指令</li>
+</ul>
+</li>
+<li>
+<p>LOOP 指令不影响任何标志位。</p>
+</li>
+<li>
+<p>在 16 位指令模式下，LOOP 使用 CX；在 32 位模式下，LOOP 使用 ECX。</p>
+</li>
+<li>
+<p>在 64 位模式下，循环计数器位于 RCX 中，宽度为 64 位。</p>
+</li>
+<li>
+<p>所使用的计数寄存器大小（CX、ECX 或 RCX）取决于 LOOP 指令的地址大小属性。</p>
+</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/loop.png" alt="LOOP" width="500">
+</div>
+
+<blockquote>
+<p>BLOCK2 = BLOCK2 + BLOCK1</p>
+</blockquote>
+<h3 id="conditional-loops">Conditional Loops<a class="headerlink" href="#conditional-loops" title="Permanent link">&para;</a></h3>
+<p>LOOP 指令还有条件形式：LOOPE 和 LOOPNE</p>
+<p><strong>语法：</strong></p>
+<ul>
+<li><code>LOOPE destination</code></li>
+<li><code>LOOPNE destination</code></li>
+</ul>
+<p><strong>LOOPE（相等时循环）指令：</strong></p>
+<ul>
+<li>接受 ZF 标志作为在计数到达零之前终止循环的条件。</li>
+<li>当条件不相等或 CX 寄存器递减到 0 时退出循环。</li>
+</ul>
+<p><strong>LOOPNE（不相等时循环）指令：</strong></p>
+<ul>
+<li>当 CX != 0 且存在不相等条件时跳转。</li>
+<li>当条件相等或 CX 寄存器递减到 0 时退出循环。</li>
+</ul>
+<p><strong>用途：</strong></p>
+<ul>
+<li>LOOPE 在扫描数组以查找第一个与给定值不匹配的元素时很有用。</li>
+<li>LOOPNE 在扫描数组以查找第一个与给定值匹配的元素时很有用。</li>
+<li>LOOPE 和 LOOPNE 指令不影响任何标志位。</li>
+</ul>
+<p><strong>处理器差异：</strong></p>
+<ul>
+<li>在 80386 - Core2 处理器中，条件 LOOP 可以使用 CX 或 ECX 作为计数器。<ul>
+<li>如果需要，LOOPEW/LOOPED 或 LOOPNEW/LOOPNED 可以覆盖指令模式。</li>
+</ul>
+</li>
+<li>在 64 位操作下，循环计数器使用 RCX，宽度为 64 位。</li>
+</ul>
+<p><strong>替代形式：</strong></p>
+<ul>
+<li>LOOPE 与 LOOPZ 相同</li>
+<li>LOOPNE 与 LOOPNZ 相同</li>
+</ul>
+<p>在大多数程序中，只使用 LOOPE 和 LOOPNE。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div align="center">
+    <img src="../img/chap6/loopcc.png" alt="LOOPNE" width="500">
+</div></p>
+<p>TEST指令直接比较[ESI]处的符号位，如果是负数，符号位为1，test出来不为零，Z=0，继续LOOP，当遇到正数，符号位为0，test出来为零，Z=1，LOOPNZ退出循环。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">For &amp; Do-While &amp; While</p>
+<ul>
+<li>Do-While 循环：先执行循环体，再判断条件,直接使用jcc</li>
+</ul>
+<p><div align="center">
+    <img src="../img/chap6/do_while.png" alt="Do-While & jcc" width="500">
+</div></p>
+<ul>
+<li>While 循环：先判断条件，再执行循环体,使用 double jump来判断第一次循环，然后就变成do-while循环。</li>
+</ul>
+<p><div align="center">
+    <img src="../img/chap6/while.png" alt="While & double jump" width="500">
+</div></p>
+<ul>
+<li>For 循环：先判断条件，再执行循环体,循环体末尾改变计数器,使用 double jump，与while类似</li>
+</ul>
+<p><div align="center">
+    <img src="../img/chap6/for.png" alt="For & LOOPcc" width="500">
+</div></p>
+</div>
+<h2 id="controlling-the-flow-of-the-program">CONTROLLING THE FLOW OF THE PROGRAM<a class="headerlink" href="#controlling-the-flow-of-the-program" title="Permanent link">&para;</a></h2>
+<p>使用汇编语言伪指令 .IF、.ELSE、.ELSEIF 和 .ENDIF 来控制程序流程比使用正确的条件跳转语句要容易得多。</p>
+<ul>
+<li>这些语句始终表示 MASM 的特殊汇编语言命令</li>
+<li>以点开头的控制流汇编语言语句仅适用于 MASM 6.xx 及更高版本，不适用于早期版本</li>
+</ul>
+<p>其他开发的伪指令包括 .REPEAT–.UNTIL 和 .WHILE–.ENDW。</p>
+<p>这些点命令在 Visual C++ 内联汇编器中不起作用，在使用内联汇编器时，永远不要使用大写字母编写汇编语言命令。其中一些是 C++ 的保留字，会导致问题</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>伪指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>条件判断</td>
+<td>.IF, .ENDIF, .ELSE, .ELSEIF</td>
+</tr>
+<tr>
+<td>While 循环</td>
+<td>.WHILE, .ENDW</td>
+</tr>
+<tr>
+<td>Repeat 循环</td>
+<td>.REPEAT, .UNTIL, .UNTILCXZ</td>
+</tr>
+<tr>
+<td>循环控制</td>
+<td>.BREAK, .CONTINUE</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>逻辑非 (logical not)</td>
+<td>&lt;=</td>
+<td>小于等于 (less or equal)</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于 (not equal)</td>
+<td>==</td>
+<td>等于 (equal)</td>
+</tr>
+<tr>
+<td>||</td>
+<td>逻辑或 (logical or)</td>
+<td>&gt;</td>
+<td>大于 (greater than)</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑与 (logical and)</td>
+<td>&gt;=</td>
+<td>大于等于 (greater or equal)</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于 (less than)</td>
+<td>&amp;</td>
+<td>按位与 (bitwise and)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>标志位测试</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CARRY?</td>
+<td>进位测试 (carry test)</td>
+</tr>
+<tr>
+<td>PARITY?</td>
+<td>奇偶测试 (parity test)</td>
+</tr>
+<tr>
+<td>SIGN?</td>
+<td>符号测试 (sign test)</td>
+</tr>
+<tr>
+<td>ZERO?</td>
+<td>零测试 (zero test)</td>
+</tr>
+<tr>
+<td>OVERFLOW?</td>
+<td>溢出测试 (overflow test)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>该示例展示了如何使用 .IF 和 .ENDIF 语句通过测试 AL 中的 ASCII 字母 A 到 F 来控制程序流程。如果 AL 的内容是 A 到 F，则从 AL 中减去 7。</p>
+<p><div align="center">
+    <img src="../img/chap6/if.png" alt="IF" width="500">
+</div></p>
+<p>如果不使用directives</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">        </span><span class="nf">CMP</span><span class="w"> </span><span class="nb">AL</span><span class="p">,</span><span class="w"> </span><span class="mh">41H</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">        </span><span class="nf">JB</span><span class="w"> </span><span class="nv">LATER</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nf">CMP</span><span class="w"> </span><span class="nb">AL</span><span class="p">,</span><span class="w"> </span><span class="mh">46H</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="nf">JA</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="nf">SUB</span><span class="w"> </span><span class="nb">AL</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nl">LATER:</span><span class="w">  </span><span class="nf">SUB</span><span class="w"> </span><span class="nb">AL</span><span class="p">,</span><span class="w"> </span><span class="mh">20H</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="nf">RET</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nl">ERROR:</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nf">...</span>
+</span></code></pre></div>
+<p>使用directives</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nf">.IF</span><span class="w"> </span><span class="nb">AL</span><span class="w"> </span><span class="o">&gt;</span><span class="err">=</span><span class="w"> </span><span class="mh">41H</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">AL</span><span class="w"> </span><span class="o">&lt;</span><span class="err">=</span><span class="w"> </span><span class="mh">46H</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nf">SUB</span><span class="w"> </span><span class="nb">AL</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nf">.ENDIF</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nf">SUB</span><span class="w"> </span><span class="nb">AL</span><span class="p">,</span><span class="w"> </span><span class="mh">30H</span>
+</span></code></pre></div>
+</div>
+<h3 id="while-loops">WHILE LOOPS<a class="headerlink" href="#while-loops" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>.WHILE</code> 语句与条件一起使用来开始循环。<ul>
+<li><code>.ENDW</code> 语句结束循环</li>
+</ul>
+</li>
+<li><code>.BREAK</code> 和 <code>.CONTINUE</code> 语句可用于 while 循环。<ul>
+<li><code>.BREAK</code> 通常后跟 <code>.IF</code> 来选择中断条件，如 <code>.BREAK .IF AL == 0DH</code></li>
+<li><code>.CONTINUE</code> 可用于在满足特定条件时允许 <code>DO–.WHILE</code> 循环继续执行</li>
+</ul>
+</li>
+<li><code>.BREAK</code> 和 <code>.CONTINUE</code> 命令的功能与 C++ 中相同。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>以下示例展示了如何使用 <code>.WHILE</code> 语句从键盘读取数据并存储到数组 (BUF) 中，直到按下回车键 (0DH)。</p>
+<p><div align="center">
+    <img src="../img/chap6/while_loop.png" alt="WHILE LOOP" width="500">
+</div>
+这里带<code>*</code>号的行展示了<code>.REPEAT</code>和<code>.UNTIL</code>指令在汇编后的实际代码：</p>
+<ul>
+<li><code>STOSB</code>：将 AL 中的字符存储到 ES:DI 指向的位置，并自动递增 DI</li>
+<li><code>MOV BYTE PTR[DI-1], '$'</code>：用 <code>$</code> 替换回车符，因为 DOS 的 INT 21H 功能 9 需要以 <code>$</code> 作为字符串结束符</li>
+<li><code>MOV DX, OFFSET BUF</code>：将缓冲区地址加载到 DX</li>
+<li><code>MOV AH, 9</code> 和 <code>INT 21H</code>：调用 DOS 中断显示字符串</li>
+</ul>
+</div>
+<h3 id="repeat-until-loops">REPEAT-UNTIL Loops<a class="headerlink" href="#repeat-until-loops" title="Permanent link">&para;</a></h3>
+<ul>
+<li>一系列指令重复执行，直到某个条件发生。</li>
+<li><code>.REPEAT</code> 语句定义循环的开始。</li>
+<li>循环的结束由 <code>.UNTIL</code> 语句定义，该语句包含一个条件。</li>
+<li><code>.UNTILCXZ</code> 指令使用 LOOP 指令来检查 CX 以实现重复循环。<ul>
+<li><code>.UNTILCXZ</code> 使用 CX 寄存器作为计数器，以固定次数重复循环</li>
+</ul>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>以下示例展示了如何使用 REPEAT-UNTIL 从键盘读取数据并存储到数组 (BUF) 中，直到按下回车键 (0DH)</p>
+<p><div align="center">
+    <img src="../img/chap6/repeat_until.png" alt="REPEAT-UNTIL" width="500">
+</div>
+这里带<code>*</code>号的行展示了<code>.REPEAT</code>和<code>.UNTIL</code>指令在汇编后的实际代码：</p>
+<p>以下代码使用 <code>.UNTILCXZ</code> 将字节数组 ONE 的内容与字节数组 TWO 相加。求和结果存储在数组 THREE 中。</p>
+<p><div align="center">
+    <img src="../img/chap6/repeat_until_exp.png" alt="REPEAT-UNTIL Example" width="500">
+</div></p>
+</div>
+<h3 id="procedures">PROCEDURES<a class="headerlink" href="#procedures" title="Permanent link">&para;</a></h3>
+<ul>
+<li>过程（Procedure）是一组通常执行单一任务的指令。<ul>
+<li>子程序（subroutine）、方法（method）或函数（function）是任何系统架构的重要组成部分</li>
+</ul>
+</li>
+<li>过程是存储在内存中一次、可根据需要多次使用的可重用软件段。<ul>
+<li>节省内存空间，使软件开发更加容易</li>
+</ul>
+</li>
+<li>过程以 <code>PROC</code> 伪指令开始，以 <code>ENDP</code> 伪指令结束。<ul>
+<li>每个伪指令都与过程名称一起出现</li>
+</ul>
+</li>
+<li><code>PROC</code> 后跟过程的类型：<ul>
+<li><code>NEAR</code> 或 <code>FAR</code></li>
+</ul>
+</li>
+<li>在 MASM 6.x 版本中，<code>NEAR</code> 或 <code>FAR</code> 类型后可以跟 <code>USES</code> 语句。<ul>
+<li><code>USES</code> 允许在过程中自动将任意数量的寄存器压入堆栈，并在过程结束时从堆栈中弹出</li>
+</ul>
+</li>
+<li><code>RET</code> 用于完成或退出过程。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/proc.png" alt="PROCEDURE" width="500">
+</div>
+
+<ul>
+<li>需要被所有软件使用的过程（global）应该写成 FAR 过程。</li>
+<li>仅被特定任务使用的过程（local）通常定义为 NEAR 过程。</li>
+<li>大多数过程都是 NEAR 过程。</li>
+</ul>
+<h3 id="call">CALL<a class="headerlink" href="#call" title="Permanent link">&para;</a></h3>
+<p>将程序流程转移到过程中。</p>
+<ul>
+<li>CALL 指令与跳转指令不同，因为 CALL 会在堆栈上保存一个返回地址。</li>
+<li>
+<p>当 RET 指令执行时，返回地址将控制权返回给 CALL 之后的指令。</p>
+</li>
+<li>
+<p>有四种不同类型的调用：</p>
+<ul>
+<li><strong>Near Call（段内调用）</strong>：调用当前代码段内的过程。</li>
+<li><strong>Far Call（段间调用）</strong>：调用位于与当前代码段不同的段中的过程。</li>
+<li><strong>Inter-privilege-level Far Call</strong>：远调用到与当前执行程序不同特权级的段中的过程。</li>
+<li><strong>Task Switch</strong>：调用位于不同任务中的过程。</li>
+</ul>
+</li>
+<li>后两种调用类型只能在保护模式下执行。</li>
+</ul>
+<h4 id="near-call">Near Call<a class="headerlink" href="#near-call" title="Permanent link">&para;</a></h4>
+<p>执行近调用时：</p>
+<ul>
+<li>在执行 CALL 指令之前，将参数压入堆栈（由程序员或编译器完成）。</li>
+<li>将 EIP 寄存器的值压入堆栈（由 CALL 指令完成）。</li>
+<li>然后跳转到当前代码段中由目标操作数指定的地址。</li>
+<li>近调用不会改变 CS 寄存器的值。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/near_call.png" alt="NEAR CALL" width="500">
+</div>
+
+<p>目标操作数指定两种类型：</p>
+<ul>
+<li><strong>相对偏移量</strong>：相对于指令指针当前值的有符号位移，指向 CALL 指令后面的指令。</li>
+<li><strong>绝对偏移量</strong>：代码段中的绝对偏移量（从代码段基址开始的偏移量）。</li>
+</ul>
+<p>对于"near absolute indirect"调用，绝对偏移量通过寄存器或内存位置间接指定。例如：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nf">MOV</span><span class="w"> </span><span class="nb">AX</span><span class="p">,</span><span class="w"> </span><span class="mh">64h</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">CALL</span><span class="w"> </span><span class="nb">AX</span><span class="w"> </span><span class="c1">; jump to CS:64h</span>
+</span></code></pre></div>
+<p>对于"near relative direct"调用，它的长度为3字节：</p>
+<ul>
+<li>第一个字节包含操作码；</li>
+<li>第二和第三个字节包含位移量。</li>
+<li>它首先将下一条指令的偏移地址压入堆栈。下一条指令的偏移地址保存在指令指针（IP 或 EIP）中。</li>
+<li>然后它将第2和第3字节的位移量加到 IP 上，以将控制权转移到过程。</li>
+</ul>
+<p>为什么要将 IP 或 EIP 保存到堆栈上？</p>
+<ul>
+<li>指令指针始终指向程序中的下一条指令。</li>
+<li>对于 CALL 指令，IP/EIP 的内容被压入堆栈。</li>
+<li>当过程结束后，程序控制权返回到 CALL 之后的指令。</li>
+</ul>
+<p>下图显示了存储在堆栈上的返回地址（IP）以及对过程的调用。</p>
+<div align="center">
+    <img src="../img/chap6/near_call_exp.png" alt="NEAR CALL Example" width="500">
+</div>
+
+<h4 id="far-call">Far Call<a class="headerlink" href="#far-call" title="Permanent link">&para;</a></h4>
+<p>5字节指令包含一个操作码，后跟 IP 和 CS 寄存器的新值。</p>
+<ul>
+<li>第2和第3字节包含 IP 的新内容</li>
+<li>第4和第5字节包含 CS 的新内容</li>
+<li>Far CALL 在跳转到第2至第5字节指定的地址之前，将 IP 和 CS 的内容都压入堆栈。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/far_call.png" alt="FAR CALL" width="500">
+</div>
+
+<p>这使得远调用（Far CALL）可以调用位于内存任何位置的过程，并从该过程返回。</p>
+<ul>
+<li>在64位模式下，远调用可以跳转到任意内存位置，压入堆栈的信息是一个8字节的数值。<ul>
+<li>远返回指令从堆栈中检索8字节的返回地址，并将其放入 RIP 寄存器</li>
+</ul>
+</li>
+<li>下图展示了远调用如何调用一个远过程。<ul>
+<li>CS 和 IP 的内容被压入堆栈</li>
+</ul>
+</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/far_call_exp.png" alt="FAR CALL Example" width="500">
+</div>
+
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="far-call-call-with-register-operands" name="__tabbed_1" type="radio" /><input id="far-call-call-with-indirect-memory-addr" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="far-call-call-with-register-operands">Call with Register Operands</label><label for="far-call-call-with-indirect-memory-addr">Call with Indirect Memory Addr</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>此示例展示了如何使用 CALL 寄存器指令来调用一个过程，该过程位于当前代码段中偏移地址 DISP 处，用于显示 'OK'</p>
+<p><div align="center">
+    <img src="../img/chap6/call_reg.png" alt="CALL Register Operands" width="500">
+</div></p>
+</div>
+<div class="tabbed-block">
+<p>当程序中需要选择不同的子程序时，这种方式特别有用。</p>
+<ul>
+<li>本质上与使用查找表获取跳转地址的间接跳转相同。</li>
+<li>如果指令以 <code>CALL FAR PTR [4*EBX]</code> 或 <code>CALL TABLE [4*EBX]</code> 的形式出现，CALL 指令也可以引用远指针，前提是表中的数据被定义为双字（doubleword）。</li>
+</ul>
+<p><div align="center">
+    <img src="../img/chap6/call_mem.png" alt="CALL Memory Operands" width="500">
+</div></p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="ret">RET<a class="headerlink" href="#ret" title="Permanent link">&para;</a></h3>
+<p>从堆栈中移除一个16位数值（near return）并将其放入 IP 寄存器，或者移除一个32位数值（far return）并将其放入 IP 和 CS 寄存器。</p>
+<ul>
+<li>过程的 PROC 指令中包含近返回和远返回指令，自动选择正确的返回指令</li>
+</ul>
+<p>下图展示了在实模式下运行的 8086–Core2 处理器中，CALL 指令如何链接到一个过程，以及 RET 如何返回。</p>
+<div align="center">
+    <img src="../img/chap6/ret.png" alt="RET" width="500">
+</div>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>对于在保护模式下运行的 80386 至 Pentium 4 处理器，远返回（far return）会从堆栈中移除 6 个字节：</p>
+<ul>
+<li>前 4 个字节包含 EIP 的新值</li>
+<li>后 2 个字节包含 CS 的新值</li>
+</ul>
+<p>在 80386 及更高版本中，保护模式下的近返回（near return）会从堆栈中移除 4 个字节并将其放入 EIP。</p>
+</div>
+<p>另一种形式的返回指令（RET n）在从堆栈中移除返回地址后，会将一个数值加到堆栈指针（SP）的内容上。</p>
+<ul>
+<li>如果 RET 指令中包含一个立即数操作数，堆栈指针将按照所指示的字节数进行调整。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/ret_n.png" alt="RET n" width="500">
+</div>
+
+<p>通过使用 BP 寄存器在堆栈上对参数进行寻址，BP 寄存器用于访问堆栈段。该示例展示了这种类型的返回指令如何清除通过几次 push 操作放置在堆栈上的数据。RET 4 在从堆栈中移除返回地址后，会将 4 加到 SP 上。从而清理了栈上的BX和AX.</p>
+<div align="center">
+    <img src="../img/chap6/ret_n_exp.png" alt="RET n Example" width="500">
+</div>
+
+<h3 id="transfer-control-between-privilege-levels">Transfer Control Between Privilege Levels<a class="headerlink" href="#transfer-control-between-privilege-levels" title="Permanent link">&para;</a></h3>
+<p>分支指令也可以用于将控制权转移到运行在不同特权级别的其他代码。在这种情况下，处理器会自动检查源程序和目标程序的特权级别，以确保在执行控制转移操作之前该转移是被允许的。</p>
+<div align="center">
+    <img src="../img/chap6/privilege.png" alt="Transfer Control Between Privilege Levels" width="500">
+</div>
+
+<p>进行跨特权级别远调用的三种方式：</p>
+<ul>
+<li>定义一致性代码段（conforming code segments）以便在不同特权级别之间共享库（例如数学库）</li>
+<li>通过称为"门"（Gates）的特殊段描述符</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/gate.png" alt="Gate" width="500">
+</div>
+
+<details class="example">
+<summary>Example</summary>
+<p>假设 Ring 3 程序想调用一个内核函数：</p>
+<p><strong>用户态</strong>：执行 <code>CALL FAR 0x20:00000000</code>（0x20 是调用门的选择子）。</p>
+<p><strong>CPU 硬件动作</strong>：</p>
+<ol>
+<li>发现 0x20 对应的是一个调用门。</li>
+<li>检查：Ring 3 是否有权访问这个门？（是）</li>
+<li>检查：通过门是否能去往 Ring 0？（是）</li>
+<li>加载 Ring 0 栈：从 TSS 读取 SS0:ESP0。</li>
+<li>压栈保存：在 Ring 0 栈上压入旧的 SS、ESP、CS、EIP。</li>
+<li>复制参数：如果有参数，从用户栈搬运到内核栈。</li>
+<li>更新 CS:EIP：从门描述符加载目标代码段选择子和偏移量。</li>
+<li>特权级变更：CPL 变为 0。</li>
+</ol>
+<p><strong>内核态</strong>：执行服务程序。</p>
+<p><strong>返回</strong>：内核执行 <code>RET FAR</code>。</p>
+<ol>
+<li>CPU 检测到这是一个跨特权级的返回。</li>
+<li>弹出旧的 CS, EIP, SS, ESP。</li>
+<li>CPL 变回 3，切回用户栈，继续执行。</li>
+</ol>
+</details>
+<ul>
+<li>利用快速系统调用指令（SYSCALL/SYSRET 或 SYSENTER/SYSEXIT）从 Ring 3 访问 Ring 0</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/sys.png" alt="SYS" width="500">
+</div>
+
+<h2 id="intro-to-interrupts">INTRO TO INTERRUPTS<a class="headerlink" href="#intro-to-interrupts" title="Permanent link">&para;</a></h2>
+<p>中断和异常会强制将控制权从当前正在执行的程序转移到处理中断事件的系统软件服务例程。这些例程被称为异常处理程序和中断处理程序，或中断服务过程（ISP）。</p>
+<p>在向 ISP 进行控制转移的过程中，处理器会停止执行被中断的程序并保存其返回指针。处理异常或中断的系统软件服务例程负责保存被中断程序的状态。这使得处理器能够在系统处理完事件后重新启动被中断的程序。</p>
+<p>处理器使用分配给异常或中断的向量号（中断向量）来索引中断向量表（IVT）或中断描述符表（IDT）。IVT 和 IDT 提供了异常或中断处理程序的入口点：</p>
+<ul>
+<li>IVT 用于real mode</li>
+<li>IDT 用于protected mode and long mode</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><strong>中断（Interrupts）</strong>：</p>
+<ul>
+<li>是由外部硬件或软件生成的信号，用于向处理器或操作系统内核请求服务。</li>
+<li>不是 CPU 指令执行过程中错误或异常条件的结果（这是异常的典型特征）。</li>
+<li>是程序主动发出的请求以获取帮助。</li>
+<li>大多数中断是异步的（如硬件中断），但使用 INT n 指令的软件中断是同步的。</li>
+</ul>
+<p><strong>异常（Exceptions）</strong>：</p>
+<ul>
+<li>是在 CPU 执行指令过程中直接产生的事件，通常由错误或异常条件引起。</li>
+<li>代表了 CPU 自身识别出的、需要特殊处理的程序正常流程偏离。</li>
+<li>每个异常都有一个助记符，由井号（#）后跟两个字母以及可选的括号中的错误代码组成。例如，#GP(0) 表示错误代码为 0 的一般保护异常。</li>
+</ul>
+</div>
+<h3 id="interrupt">Interrupt<a class="headerlink" href="#interrupt" title="Permanent link">&para;</a></h3>
+<h4 id="source-of-interrupts">Source of Interrupts<a class="headerlink" href="#source-of-interrupts" title="Permanent link">&para;</a></h4>
+<p>中断主要来自两个来源：</p>
+<ul>
+<li><strong>外部（硬件生成的）中断</strong>：外部中断是一个异步事件，通常由 I/O 设备通过处理器上的引脚或通过本地 PIC（可编程中断控制器）触发。</li>
+<li><strong>软件生成的中断</strong>：软件中断是执行 <code>INT n</code> 指令的结果。例如，在 x86 系统上的 Linux 中使用 <code>INT 80h</code> 来调用系统调用并向操作系统请求服务。</li>
+</ul>
+<h4 id="masking-external-interrupts">Masking External Interrupts<a class="headerlink" href="#masking-external-interrupts" title="Permanent link">&para;</a></h4>
+<ul>
+<li>软件可以屏蔽某些异常和中断的发生。屏蔽可以延迟甚至阻止异常处理或中断处理机制的触发。</li>
+<li>外部中断分为可屏蔽和不可屏蔽两类：<ul>
+<li><strong>可屏蔽中断</strong>：只有当 <code>FLAGS.IF=1</code> 时，才会通过 INTR 引脚触发中断处理机制。否则，只要 <code>FLAGS.IF</code> 位被清零为 0，它们就会一直保持挂起状态。</li>
+<li><strong>不可屏蔽中断（NMI）</strong>：不受 <code>FLAGS.IF</code> 位值的影响。</li>
+</ul>
+</li>
+</ul>
+<h4 id="interrupt-control">Interrupt Control<a class="headerlink" href="#interrupt-control" title="Permanent link">&para;</a></h4>
+<ul>
+<li>有两条指令控制可屏蔽中断（连接到 CPU 的 INTR 引脚）。</li>
+<li><strong>设置中断标志指令（STI）</strong>：将 1 放入 I 标志位。<ul>
+<li>这会启用 INTR 引脚</li>
+</ul>
+</li>
+<li><strong>清除中断标志指令（CLI）</strong>：将 0 放入 I 标志位。<ul>
+<li>这会禁用 INTR 引脚</li>
+</ul>
+</li>
+<li>
+<p>STI 指令启用 INTR，CLI 指令禁用 INTR。</p>
+</li>
+<li>
+<p>在软件中断服务过程中，硬件中断通常作为最初的步骤之一被启用。</p>
+<ul>
+<li>这通过 STI 指令来完成</li>
+</ul>
+</li>
+<li>中断要尽早启用，因为个人计算机中几乎所有的 I/O 设备都是通过中断处理的。<ul>
+<li>如果中断被禁用太长时间，会导致严重的系统问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
+<h4 id="sources-of-exceptions">Sources of Exceptions<a class="headerlink" href="#sources-of-exceptions" title="Permanent link">&para;</a></h4>
+<p>异常主要来自三个一般来源：</p>
+<ul>
+<li>程序错误异常：当处理器在执行过程中检测到程序错误时，会生成异常，例如除法错误（#DE）异常。</li>
+<li>软件生成的异常：INTO、INT1、INT3 和 BOUND 指令允许在软件中生成异常。例如，INT3 会导致生成断点异常。</li>
+<li>机器检查异常：Pentium 处理器提供机器检查机制，用于检查内部芯片硬件和总线事务的操作。</li>
+</ul>
+<h4 id="precise-and-imprecise-exceptions">Precise and Imprecise Exceptions<a class="headerlink" href="#precise-and-imprecise-exceptions" title="Permanent link">&para;</a></h4>
+<ul>
+<li>精确异常在指令边界上报告。<ul>
+<li>有些在导致异常的指令之前的边界上报告，而有些在导致异常的指令之后的边界上报告。</li>
+<li>当事件处理程序返回到被中断的程序时，可以在被中断的指令边界处重新启动。</li>
+</ul>
+</li>
+<li>非精确异常不保证在可预测的指令边界上报告。<ul>
+<li>非精确事件可以被认为是异步的。</li>
+<li>被中断的程序不可重新启动。</li>
+</ul>
+</li>
+</ul>
+<h4 id="three-types-of-exceptions">Three Types of Exceptions<a class="headerlink" href="#three-types-of-exceptions" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Faults是在导致故障的指令之前的边界上报告的精确异常。<ul>
+<li>可以被纠正并重新启动，而不会丢失连续性。</li>
+<li>返回地址指向导致故障的指令。</li>
+</ul>
+</li>
+<li>Traps是在触发trap的指令之后的边界上报告的精确异常。<ul>
+<li>可以继续执行而不会丢失程序连续性。</li>
+<li>返回地址指向导致陷阱的指令之后的指令。</li>
+</ul>
+</li>
+<li>Aborts是非精确异常，不允许可靠地重新启动程序。</li>
+</ul>
+<h3 id="interrupt-vectors">Interrupt Vectors<a class="headerlink" href="#interrupt-vectors" title="Permanent link">&para;</a></h3>
+<ul>
+<li>特定的中断和异常源被分配一个固定的向量标识号（称为"interrupt vector"或简称"vector"）。</li>
+<li>interrupt vector被中断处理机制用来定位分配给异常或中断的服务程序。</li>
+<li>最多可以有 256 个唯一的中断向量。每个向量包含一个 ISP（中断服务程序）的地址。</li>
+<li>Intel 保留了前 32 个interrupt vector用于预定义的异常和中断条件。</li>
+<li>interrupt vector (32-255)可供用户使用。</li>
+<li><strong>在实模式下</strong>：<ul>
+<li>一个 4 字节的数值存储在内存的前 1024 字节中（00000H–003FFH）。</li>
+<li>由于共有 256 个interrupt vector，每个向量占 4 字节，所以总共需要 256 × 4 = 1024 字节。</li>
+<li>每个向量包含 IP 和 CS 的值，组成 ISP（中断服务程序）的地址。</li>
+<li>前 2 个字节包含 IP（偏移地址）；后 2 个字节包含 CS（段地址）。</li>
+<li>通过 CS:IP 组合可以得到 ISP 的 20 位物理地址。</li>
+</ul>
+</li>
+<li><strong>在保护模式下</strong>：向量表被中断描述符表（IDT）取代，IDT 使用 8 字节的描述符来描述每个中断。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/ivt1.png" alt="Interrupt Vectors" width="500">
+    <img src="../img/chap6/ivt2.png" alt="Interrupt Vectors Example" width="500">
+</div>
+
+<h3 id="double-fault">Double fault<a class="headerlink" href="#double-fault" title="Permanent link">&para;</a></h3>
+<ul>
+<li>当在处理先前（第一个）异常或中断处理程序期间发生第二个异常时，可能会发生双重故障异常。</li>
+<li>例如，当触发页面故障但中断描述符表（IDT）中没有注册页面故障处理程序时，就会发生双重故障。</li>
+<li>通常，第一个和第二个异常可以顺序处理，而不会导致双重故障异常。</li>
+<li>然而，在某些情况下，第一个异常会对处理器处理第二个异常的能力产生不利影响，此时处理器会发出双重故障异常信号。</li>
+<li>这些导致双重故障异常发生的异常被称为"贡献性异常"（contributory exceptions）。</li>
+</ul>
+<p>只有非常特定的异常组合会导致双重故障。这些组合包括：</p>
+<table>
+<thead>
+<tr>
+<th>First Interrupting Event</th>
+<th>Second Interrupting Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contributory Exceptions:</td>
+<td>Invalid-TSS Exception</td>
+</tr>
+<tr>
+<td>• Divide-by-Zero-Error Exception</td>
+<td>Segment-Not-Present Exception</td>
+</tr>
+<tr>
+<td>• Invalid-TSS Exception</td>
+<td>Stack Exception</td>
+</tr>
+<tr>
+<td>• Segment-Not-Present Exception</td>
+<td>General-Protection Exception</td>
+</tr>
+<tr>
+<td>• Stack Exception</td>
+<td></td>
+</tr>
+<tr>
+<td>• General-Protection Exception</td>
+<td></td>
+</tr>
+<tr>
+<td>Page Fault Exception</td>
+<td>Page Fault Exception</td>
+</tr>
+<tr>
+<td></td>
+<td>Invalid-TSS Exception</td>
+</tr>
+<tr>
+<td></td>
+<td>Segment-Not-Present Exception</td>
+</tr>
+<tr>
+<td></td>
+<td>Stack Exception</td>
+</tr>
+<tr>
+<td></td>
+<td>General-Protection Exception</td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<ul>
+<li>divide-by-zero fault -&gt; page fault: No double fault occurs</li>
+<li>
+<p>divide-by-zero fault -&gt; general-protection fault: A double fault occurs</p>
+</li>
+<li>
+<p>如果在尝试调用双重故障处理程序时发生另一个contributory exception或page fault exception，处理器将进入关机模式。</p>
+</li>
+<li>在 x86 架构上，triple fault是一种特殊的异常，当 CPU 尝试调用双重故障异常处理程序时发生异常。</li>
+<li>提供一个双重故障处理程序非常重要，因为如果双重故障未被处理，将发生致命的三重故障，进而导致 CPU 重置。</li>
+</ul>
+<h3 id="error-codes">Error Codes<a class="headerlink" href="#error-codes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>某些类型的异常会提供错误代码。错误代码报告有关错误的附加信息，例如 #PF（页面故障代码）。</li>
+<li>错误代码在控制转移到异常处理程序期间，由异常机制压入堆栈。</li>
+<li>Error code有两种格式：<ul>
+<li>selector format：用于报告错误的异常</li>
+<li>page-fault format：用于页面故障</li>
+</ul>
+</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/error_code.png" alt="Error Codes" width="500">
+</div>
+
+<h3 id="priority-among-simultaneous-exceptions-and-interrupts">Priority among Simultaneous Exceptions and Interrupts<a class="headerlink" href="#priority-among-simultaneous-exceptions-and-interrupts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>当同时发生多个中断时，处理器将控制权转移到最高优先级的中断处理程序。</li>
+<li>来自外部源的低优先级中断会被处理器挂起，并在高优先级中断处理完成后再进行处理。</li>
+<li>x86 架构定义了中断组之间的优先级，而组内的中断优先级则取决于具体实现。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/priority.png" alt="Priority among Simultaneous Exceptions and Interrupts" width="500">
+    <img src="../img/chap6/priority_exp.png" alt="Priority among Simultaneous Exceptions and Interrupts Example" width="500">
+</div>
+
+<h3 id="real-mode-interrupt-control-transfer">Real Mode Interrupt control transfer<a class="headerlink" href="#real-mode-interrupt-control-transfer" title="Permanent link">&para;</a></h3>
+<p>在实模式下，IDT 是一个由 4 字节条目组成的表，系统实现的 256 个可能的中断各对应一个条目。实模式下的 IDT 通常被称为中断向量表（IVT）。</p>
+<ul>
+<li>IVT 表条目包含一个远指针（CS:IP 对），指向异常或中断处理程序。IDT 的基地址存储在 IDTR 寄存器中，在处理器复位时会被加载为 00h。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/rivt.png" alt="Real Mode Interrupt control transfer Example" width="500">
+</div>
+
+<p>当实模式下发生异常或中断时，处理器执行以下操作：</p>
+<ul>
+<li>将 FLAGS 压入堆栈</li>
+<li>将 FLAGS.IF 清零</li>
+<li>将 CS 和 IP 压入堆栈</li>
+<li>将错误代码压入堆栈（如果适用）</li>
+<li>通过将中断向量乘以 4，在 IDT 中定位 ISP</li>
+<li>将控制权转移到 IDT 中 CS:IP 所引用的 ISP</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/stack_after_interrupt.png" alt="Stack After Interrupt in Real Mode" width="500">
+</div>
+
+<h3 id="retiretd">RET/IRETD<a class="headerlink" href="#retiretd" title="Permanent link">&para;</a></h3>
+<p>IRET 指令用于返回被中断的程序。当执行 IRET 时，处理器执行以下操作：</p>
+<ul>
+<li>从堆栈弹出保存的 CS:IP</li>
+<li>从堆栈弹出 FLAGS 值</li>
+<li>从保存的 CS:IP 位置开始执行</li>
+</ul>
+<p>IRET 指令等效于：</p>
+<ul>
+<li>FAR RET</li>
+<li>POPF</li>
+</ul>
+<p>如果在中断服务程序之前中断已启用，IRET 指令会自动重新启用中断，因为它会恢复标志寄存器。IRET 用于实模式，IRETD 用于保护模式。</p>
+<p>IRETD 指令等效于：</p>
+<ul>
+<li>FAR RET</li>
+<li>POPFD</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>POPF 和 POPFD 指令用于从堆栈弹出值并将其存储到 FLAGS/EFLAGS 寄存器中。</p>
+</div>
+<h3 id="interrupt-instructions">Interrupt instructions<a class="headerlink" href="#interrupt-instructions" title="Permanent link">&para;</a></h3>
+<p>有四种不同的中断指令可用：INT N、INT1、INT3 和 INTO</p>
+<p>在实模式下，每条指令从向量表中获取一个向量，然后调用存储在该向量所指向地址处的过程。</p>
+<p>在保护模式下，每条指令从中断描述符表中获取一个中断描述符。</p>
+<p>类似于远调用（far CALL）指令，因为它会将返回地址（IP/EIP 和 CS）压入堆栈。</p>
+<h4 id="int-n">INT N<a class="headerlink" href="#int-n" title="Permanent link">&para;</a></h4>
+<p>程序员可以使用 256 种不同的软件中断指令（INT N）。每条 INT 指令都有一个数值操作数，范围为 0 到 255（00H–FFH）</p>
+<p>在实模式下，中断向量的地址通过将中断类型号乘以 4 来确定。</p>
+<p>例如，INT 10H 指令调用存储在内存位置 40H（10H × 4）开始处的中断服务程序。</p>
+<p>例如，INT 100 使用中断向量 100，它出现在内存地址 190H–193H（64H × 4）处。</p>
+<p>在保护模式下，中断描述符通过将类型号乘以 8 来定位，因为每个描述符长度为 8 字节。</p>
+<p>每条 INT N 指令长度为 2 字节：</p>
+<ul>
+<li>第一个字节包含操作码</li>
+<li>第二个字节包含向量类型号</li>
+</ul>
+<p>当软件中断执行时，它会：</p>
+<ol>
+<li>将标志寄存器压入堆栈</li>
+<li>清除 IF 标志位</li>
+<li>将 CS 压入堆栈</li>
+<li>从中断向量获取 CS 的新值</li>
+<li>将 IP/EIP 压入堆栈</li>
+<li>从向量获取 IP/EIP 的新值</li>
+<li>跳转到 CS 和 IP/EIP 所指向的新位置</li>
+</ol>
+<p>INT N 的行为类似于远调用（far CALL）：</p>
+<ul>
+<li>不仅将 CS 和 IP 压入堆栈，还将标志寄存器压入堆栈</li>
+</ul>
+<p>INT N 指令等效于：</p>
+<ul>
+<li>PUSHF</li>
+<li>far CALL</li>
+</ul>
+<p>软件中断最常用于调用系统过程，因为不需要知道函数的地址。这些中断通常用于控制打印机、视频显示器和磁盘驱动器。</p>
+<p>INT N 替代了本来用于调用系统函数的远调用（far CALL）：</p>
+<ul>
+<li>INT N 指令长度为 2 字节，而远调用为 5 字节</li>
+</ul>
+<p>每次用 INT N 指令替代远调用时，可以节省 3 字节的内存。如果程序中频繁出现 INT N（如系统调用中），这可以节省相当可观的内存。</p>
+<div class="admonition info">
+<p class="admonition-title">INT N 与远调用的比较</p>
+<p>INT N 指令（包括 INTO、INT3 指令）的行为类似于使用 CALL 指令进行的远调用。</p>
+<p>主要区别如下：</p>
+<ul>
+<li>INT N 指令长度为 2 字节，而远调用为 5 字节</li>
+<li>使用 INT N 指令时，EFLAGS 寄存器在返回地址之前被压入堆栈</li>
+<li>从中断过程返回使用 IRET 指令处理，它会从堆栈弹出 EFLAGS 信息和返回地址</li>
+</ul>
+</div>
+<h4 id="int-3">INT 3<a class="headerlink" href="#int-3" title="Permanent link">&para;</a></h4>
+<p>INT3 是一种专门设计用于作为断点的特殊软件中断。</p>
+<ul>
+<li>它是一条 1 字节指令（0xCC），而其他中断指令为 2 字节</li>
+</ul>
+<p>通常在软件中插入 INT3 来中断或打断程序的执行流程：</p>
+<ul>
+<li>这种功能称为断点</li>
+<li>断点有助于调试有问题的软件</li>
+</ul>
+<p>任何软件中断都可以产生断点，但由于 INT3 只有 1 字节长，因此更容易用于此功能。</p>
+<h4 id="gdb">GDB 如何实现断点<a class="headerlink" href="#gdb" title="Permanent link">&para;</a></h4>
+<p>假设 OFFSET 处的原始指令是 0x8345fc01（ADD DWORD PTR [ebp-0x4],0x1）。</p>
+<p>当我们在 GDB 中输入 "break OFFSET" 时，它会记住这个字的第一个字节（0x83），并将该字更改为（0xcc45fc01）。</p>
+<table>
+<thead>
+<tr>
+<th>原始指令</th>
+<th></th>
+<th>插入断点后</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFFSET</td>
+<td>83</td>
+<td>OFFSET</td>
+<td>cc</td>
+</tr>
+<tr>
+<td>OFFSET+1</td>
+<td>45</td>
+<td>OFFSET+1</td>
+<td>45</td>
+</tr>
+<tr>
+<td>OFFSET+2</td>
+<td>fc</td>
+<td>OFFSET+2</td>
+<td>fc</td>
+</tr>
+<tr>
+<td>OFFSET+3</td>
+<td>01</td>
+<td>OFFSET+3</td>
+<td>01</td>
+</tr>
+</tbody>
+</table>
+<p>当程序执行到 GDB 刚插入的 INT3 指令时，被调试的程序会陷入内核，内核随后会向 GDB 发送信号。</p>
+<p>然后 GDB 会使用之前记住的原始值恢复 OFFSET 处的字节，并将指令指针 EIP 移回 OFFSET，以便重新执行 OFFSET 处的指令。</p>
+<table>
+<thead>
+<tr>
+<th>插入断点后</th>
+<th></th>
+<th>恢复后</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFFSET</td>
+<td>cc</td>
+<td>OFFSET</td>
+<td>83</td>
+</tr>
+<tr>
+<td>OFFSET+1</td>
+<td>45</td>
+<td>OFFSET+1</td>
+<td>45</td>
+</tr>
+<tr>
+<td>OFFSET+2</td>
+<td>fc</td>
+<td>OFFSET+2</td>
+<td>fc</td>
+</tr>
+<tr>
+<td>OFFSET+3</td>
+<td>01</td>
+<td>OFFSET+3</td>
+<td>01</td>
+</tr>
+</tbody>
+</table>
+<h4 id="int3">为什么 INT3 应该是一字节<a class="headerlink" href="#int3" title="Permanent link">&para;</a></h4>
+<p>假设 INT3 比某些 x86 指令长。当 GDB 插入断点时，它可能会覆盖多条指令，这会导致问题。</p>
+<p>考虑一个包含两条单字节指令的例子：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>原始指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFFSET</td>
+<td>指令1，1字节</td>
+</tr>
+<tr>
+<td>OFFSET+1</td>
+<td>指令2，1字节</td>
+</tr>
+</tbody>
+</table>
+<p>如果 INT3 是 2 字节，在 OFFSET 处设置断点后：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>断点后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFFSET</td>
+<td>INT3 第1字节</td>
+</tr>
+<tr>
+<td>OFFSET+1</td>
+<td>INT3 第2字节</td>
+</tr>
+</tbody>
+</table>
+<p>如果代码想要跳转到 "OFFSET+1"，它会跳转到 INT3 指令的中间，这可能产生无效操作码异常（#UD）。</p>
+<p>由于 INT3 是一字节，即所有 x86 指令的最小长度，我们就不会遇到这个问题。</p>
+<h3 id="into">INTO<a class="headerlink" href="#into" title="Permanent link">&para;</a></h3>
+<p>当对有符号操作数执行算术运算时（例如 ADD、SUB、IMUL、IDIV、CMP）
+可以通过 JO 指令直接测试 OF 标志，或者使用 INTO 指令来处理溢出条件</p>
+<p>溢出中断（INTO）指令检查 EFLAGS 寄存器中 OF 标志的状态</p>
+<ul>
+<li>如果 O = 1，则通过向量类型号 4 产生溢出trap</li>
+<li>如果 O = 0，INTO 不执行任何操作</li>
+</ul>
+<p>使用 INTO 指令的好处是，如果检测到溢出异常，可以自动调用异常处理程序来处理溢出条件。</p>
+<h2 id="machine-control-and-cellaneous-instructions">MACHINE CONTROL AND CELLANEOUS INSTRUCTIONS<a class="headerlink" href="#machine-control-and-cellaneous-instructions" title="Permanent link">&para;</a></h2>
+<p>这些指令提供对进位标志的控制、停止指令执行，以及执行其他各种功能。</p>
+<p>进位标志（C）在多字/双字加法和减法运算中传播进位或借位。</p>
+<p>它还可以指示汇编语言过程中的错误。</p>
+<p>以下指令控制进位标志的内容：</p>
+<ul>
+<li>STC（设置进位）</li>
+<li>CLC（清除进位）</li>
+<li>CMC（进位取反）</li>
+</ul>
+<h3 id="hlt">HLT<a class="headerlink" href="#hlt" title="Permanent link">&para;</a></h3>
+<p>HLT 停止指令执行并将处理器置于 HALT 状态。</p>
+<p>退出 HALT 状态的几种方式：</p>
+<ul>
+<li>使能的中断（NMI 和 SMI）</li>
+<li>调试异常</li>
+<li>硬件复位（BINIT#、INIT# 或 RESET# 信号）</li>
+</ul>
+<p>保存的指令指针（CS:EIP）指向 HLT 指令之后的下一条指令。</p>
+<h3 id="nop">NOP<a class="headerlink" href="#nop" title="Permanent link">&para;</a></h3>
+<p>在早期，软件开发工具尚未出现之前，NOP（不执行任何操作）常被用于在软件中填充空间，以便将来添加机器语言指令。</p>
+<p>当微处理器遇到 NOP 时，它会花费很短的时间来执行。</p>
+<p>多字节 NOP 指令可用作填充，将函数或循环对齐到 16 或 32 字节边界（例如，NOP EAX）。</p>
+<p>推荐的多字节 NOP 如下：</p>
+<div align="center">
+    <img src="../img/chap6/nop.png" alt="NOP" width="500">
+</div>
+
+<h3 id="lock-prefix">LOCK Prefix<a class="headerlink" href="#lock-prefix" title="Permanent link">&para;</a></h3>
+<p>Intel486 CPU 保证以下基本内存操作以原子方式处理：</p>
+<ul>
+<li>读取或写入一个字节</li>
+<li>读取或写入对齐在 16 位边界上的字</li>
+<li>读取或写入对齐在 32 位边界上的双字</li>
+</ul>
+<p>LOCK 前缀确保某些类型的内存读取-修改-写入操作以原子方式执行。</p>
+<p>读取-修改-写入操作是指读取、修改并将值写回同一内存位置的操作。</p>
+<p>要使读取-修改-写入操作成为原子操作，可以使用多种技术：</p>
+<ul>
+<li>原子指令（例如 CMPXCHG）</li>
+<li>LOCK 前缀</li>
+</ul>
+<p>LOCK 前缀旨在使处理器在多处理器系统中独占使用共享内存。</p>
+<p>LOCK 前缀只能与以下写入内存操作数的指令一起使用：</p>
+<ul>
+<li>ADC、ADD、AND、DEC、INC、NEG、NOT、OR、SBB、SUB、XOR</li>
+<li>CMPXCHG、CMPXCHG8B、CMPXCHG16B、XADD 和 XCHG</li>
+<li>BTC、BTR、BTS</li>
+</ul>
+<p>LOCK 前缀仅允许与某些修改内存的指令一起使用。</p>
+<p>在以下情况下会发生未定义操作码异常（#UD）：</p>
+<ul>
+<li>如果 LOCK 前缀与非算术或逻辑指令一起使用</li>
+<li>如果目标操作数不是内存操作数</li>
+<li>如果源操作数是内存操作数</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li><code>LOCK MOV [EAX], EBX</code> ; 发生 #UD</li>
+<li><code>LOCK ADD EAX, [EBX]</code> ; 发生 #UD</li>
+<li><code>LOCK ADD DWORD PTR [EAX], 1</code> ; 正确</li>
+</ul>
+<h3 id="bound">Bound<a class="headerlink" href="#bound" title="Permanent link">&para;</a></h3>
+<p>BOUND 指令用于判断第一个操作数（数组索引）是否在第二个操作数（边界操作数）指定的数组边界内，例如：BOUND REG, MEM</p>
+<ul>
+<li>边界操作数（MEM）是一个内存位置，包含两个字或双字。</li>
+<li>数组索引（REG）是一个 16 位或 32 位寄存器。</li>
+<li>如果索引（REG）不在边界（MEM）范围内，则会触发 BOUND 范围超出异常（#BR，向量类型号 5）。</li>
+<li>如果索引在边界范围内，则程序中的下一条指令继续执行。</li>
+</ul>
+<div align="center">
+    <img src="../img/chap6/bound.png" alt="BOUND" width="500">
+</div>
+
+<h3 id="enter-and-leave">ENTER AND LEAVE<a class="headerlink" href="#enter-and-leave" title="Permanent link">&para;</a></h3>
+<p>ENTER 和 LEAVE 指令用于为被调用的过程创建和释放栈帧。</p>
+<ul>
+<li>栈帧（也称为活动帧或活动记录）是一种支持过程执行的内存管理技术。</li>
+<li>栈帧帮助编程语言支持子程序的递归功能。</li>
+<li>栈帧包含局部变量和调用者传递的参数。</li>
+</ul>
+<p>栈帧由以下部分组成：</p>
+<ul>
+<li>参数</li>
+<li>返回地址</li>
+<li>前一个栈帧指针</li>
+<li>局部变量</li>
+<li>被调用过程（被调用者）修改的需要恢复的寄存器的保存副本</li>
+</ul>
+<p>栈帧仅在运行时过程中存在。当过程执行完成后，相关的栈帧将从栈中删除。</p>
+<p>栈帧还为被调用的过程提供访问嵌套栈帧中其他变量的访问点。</p>
+<p>EBP（基址指针）在函数调用期间管理栈帧方面起着关键作用：</p>
+<ul>
+<li>EBP 作为函数栈帧内的稳定参考点，用于访问局部变量和函数参数。EBP 的值在整个函数中保持不变，而 ESP（栈指针）可能会改变。</li>
+<li>设置栈帧后，函数参数通过 EBP 的正偏移量访问（例如，EBP + 8 用于第一个参数），而局部变量通过负偏移量访问（例如，EBP - 4）。这种一致的访问方式使编译器和调试更加简单。</li>
+<li>在函数开始时，调用约定通常通过将当前 EBP 压入栈来保存它，然后将 EBP 设置为 ESP。这建立了一个新的栈帧。在函数结束时，EBP 被恢复以释放栈帧并返回到调用者的帧。</li>
+<li>在递归调用或调试时，保存的 EBP 使函数能够跟踪和维护栈帧链，允许调用栈向上回溯到主函数。</li>
+</ul>
+<p>简而言之，EBP 提供了对函数栈帧的稳定性和便捷访问，便于参数和局部变量管理，并支持调试和递归。</p>
+<div align="center">
+    <img src="../img/chap6/ebp.png" alt="EBP" width="500">
+</div>
+
+<p>此时栈的内存布局（从高地址到低地址）如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">地址</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ebp + 8</code></td>
+<td style="text-align: left;"><strong>参数 x</strong></td>
+<td style="text-align: left;">(Caller 压入)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ebp + 4</code></td>
+<td style="text-align: left;"><strong>返回地址</strong></td>
+<td style="text-align: left;">(Call 指令压入)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ebp</code></td>
+<td style="text-align: left;"><strong>旧 EBP</strong></td>
+<td style="text-align: left;">(当前栈帧基址)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ebp - 4</code></td>
+<td style="text-align: left;"><strong>变量 a</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ebp - 8</code></td>
+<td style="text-align: left;"><strong>变量 b</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ebp - 12</code></td>
+<td style="text-align: left;"><strong>变量 c</strong></td>
+<td style="text-align: left;">(当前 ESP 指向这里)</td>
+</tr>
+</tbody>
+</table>
+<div align="center">
+    <img src="../img/chap6/ebp1.png" alt="Stack Layout" width="500">
+</div>
+
+<p>上面展示了两个函数的情况。</p>
+<p>ENTER 和 LEAVE 指令用于为被调用的过程创建和释放栈帧。</p>
+<ul>
+<li>语法：ENTER 栈空间大小, 嵌套层级<ul>
+<li>第一个操作数指定栈帧中动态存储区的大小。</li>
+<li>第二个操作数指定嵌套层级（0 到 31——该值会自动被屏蔽为 5 位）、</li>
+</ul>
+</li>
+</ul>
+<p>例如</p>
+<div align="center">
+    <img src="../img/chap6/enter_leave.png" alt="ENTER and LEAVE" width="500">
+</div>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>intel 设计 ENTER 指令是为了在硬件层面加速块结构语言（如 Pascal）中嵌套函数对外部变量的访问。它通过在栈上自动复制父级函数的栈帧指针（Display），试图让访问“爷爷变量”变得像访问本地变量一样快。</p>
+<p>但在现代计算机科学中，这个指令成为了“过度设计”的典型案例：硬件做了太复杂的事，却不如软件自己灵活处理来得高效。</p>
+</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>所谓"可重定位"（relocatable），是指程序代码可以被加载到内存的任意位置并正确执行，而无需修改跳转指令中的地址。这是因为相对跳转使用的是相对于当前指令位置的偏移量，而不是绝对地址，所以无论代码被放置在内存的哪个位置，跳转的相对距离始终保持不变。&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../chap5/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Chapter 5">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Chapter 5
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../chap9/" class="md-footer__link md-footer__link--next" aria-label="下一页: Chapter 9">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Chapter 9
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

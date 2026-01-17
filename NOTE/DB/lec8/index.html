@@ -1,0 +1,5623 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/DB/lec8/">
+      
+      
+        <link rel="prev" href="../lec7/">
+      
+      
+        <link rel="next" href="../indexing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>内存管理 - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#storage-and-file-structure" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              内存管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ER/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ER模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lec7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系数据库设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存管理
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内存管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-physical-storage-media" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview of Physical Storage Media
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of Physical Storage Media">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-level-of-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physical Level of Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-storage-media-cont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physical Storage Media (Cont.)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical Storage Media (Cont.)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flash Memory (快闪存储器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#magnetic-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnetic Disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optical-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optical Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tape-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tape Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetic-disks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnetic Disks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Magnetic Disks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disk-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-of-disk-block-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization of Disk-Block Access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization of Disk-Block Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-arm-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk-Arm-Scheduling Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonvolatile-write-buffers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非易失性写缓冲区 (Nonvolatile Write Buffers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        日志磁盘 (Log Disk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reliability-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability improvement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance improvement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID levels
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAID levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 6
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raid_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        软件RAID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件RAID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID 问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAID 问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        潜在故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据清理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        热插拔
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        备用磁盘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件RAID系统的可靠性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage Access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffer-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffer-replacement-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer-replacement Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-organization_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Organization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed-length-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed-length Records
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed-length Records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#free-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free Lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-length-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable-length Records
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable-length Records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slotted-page-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slotted Page Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Representation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        保留空间（Reserved Space）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指针（Pointers）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organization-of-records-in-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization of Records in Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Organization of Records in Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequential-file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential File Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multitable-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multitable Clustering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-dictionary-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data-Dictionary Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data-Dictionary Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relational-representation-of-system-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relational Representation of System Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-oriented-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column-Oriented Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Column-Oriented Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#representation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    查询处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    查询优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事务
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    并发控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    恢复
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ASM/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    汇编与接口
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CTF/CTF/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-physical-storage-media" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview of Physical Storage Media
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of Physical Storage Media">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-level-of-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physical Level of Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-storage-media-cont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physical Storage Media (Cont.)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical Storage Media (Cont.)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flash Memory (快闪存储器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#magnetic-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnetic Disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optical-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optical Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tape-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tape Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetic-disks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnetic Disks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Magnetic Disks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disk-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-of-disk-block-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization of Disk-Block Access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization of Disk-Block Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-arm-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk-Arm-Scheduling Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonvolatile-write-buffers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非易失性写缓冲区 (Nonvolatile Write Buffers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        日志磁盘 (Log Disk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reliability-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability improvement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance improvement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID levels
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAID levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid-level-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID Level 6
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raid_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        软件RAID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件RAID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAID 问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAID 问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        潜在故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据清理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        热插拔
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        备用磁盘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件RAID系统的可靠性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage Access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffer-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffer-replacement-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer-replacement Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-organization_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Organization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed-length-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed-length Records
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed-length Records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#free-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free Lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-length-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable-length Records
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable-length Records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slotted-page-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slotted Page Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Representation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        保留空间（Reserved Space）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        指针（Pointers）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organization-of-records-in-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization of Records in Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Organization of Records in Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequential-file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential File Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multitable-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multitable Clustering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-dictionary-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data-Dictionary Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data-Dictionary Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relational-representation-of-system-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relational Representation of System Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-oriented-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column-Oriented Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Column-Oriented Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#representation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🎓 课程笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    数据库系统
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="storage-and-file-structure">Storage and File Structure<a class="headerlink" href="#storage-and-file-structure" title="Permanent link">&para;</a></h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 8456 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 26 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 29 分钟</p>
+</div>
+<p>主要面临的问题有</p>
+<ul>
+<li><strong>Data Storage(数据存储)</strong> ：如何高效地存储和管理数据。</li>
+<li><strong>API 应用程序接口 (SQL)</strong> ：提供标准化的接口，支持查询、插入、删除和更新操作。</li>
+<li><strong>High Performance(高性能)</strong> ：通过索引、缓冲管理、查询处理和优化来提升数据库性能。</li>
+<li><strong>Concurrent Control(并发控制)</strong> ：确保多个用户同时访问数据库时的一致性和正确性。</li>
+<li><strong>Reliability(可靠性)</strong> ：在系统故障时，保证数据的完整性和可恢复性。</li>
+<li><strong>Security(安全性)</strong> ：通过授权和加密机制保护数据免受未授权访问。</li>
+</ul>
+<h2 id="overview-of-physical-storage-media">Overview of Physical Storage Media<a class="headerlink" href="#overview-of-physical-storage-media" title="Permanent link">&para;</a></h2>
+<h3 id="physical-level-of-databases">Physical Level of Databases<a class="headerlink" href="#physical-level-of-databases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Files and Storage</strong> : 数据库在物理层面上存储为文件，例如 <code>.mdf</code>, <code>.ldf</code>, <code>.ora</code>, <code>.dbf</code> 等。</p>
+</li>
+<li>
+<p><strong>Storage Media Classification</strong> :</p>
+<ul>
+<li><strong>Speed</strong>: 数据访问速度。</li>
+<li><strong>Cost</strong>: 每单位数据的存储成本。</li>
+<li><strong>Reliability</strong>:数据在断电或系统崩溃时可能丢失。存储设备的物理故障（如 RAID 提供的容错机制）。</li>
+</ul>
+</li>
+</ul>
+<p>Storages classified by reliability:</p>
+<ul>
+<li>Volatile storage: loses contents when power is switched off, e.g., DDR2, SDR. </li>
+<li>Non-volatile storage(非易失性存储器): contents persist even when power is switched off. Includes secondary and tertiary storage, as well as batter-backed up main-memory. </li>
+</ul>
+<p>Storages classified by speed: 
+- Cache 
+- Main-memory 
+- Flash memory
+- Magnetic-disk 
+- Optical storage 
+- Tape storage</p>
+<h3 id="hierarchy">Hierarchy<a class="headerlink" href="#hierarchy" title="Permanent link">&para;</a></h3>
+<figure>
+<img alt="" src="../img/lec8-1.png" width="400" />
+
+<figcaption>Storage Hierarchy</figcaption>
+</figure>
+<ul>
+<li>
+<p>Primary storage: Fastest media but volatile (cache, main memory). </p>
+</li>
+<li>
+<p>Secondary storage (辅助存储器，联机存储器): next level in hierarchy, non-volatile, moderately fast access time ;Also called on-line storage E.g., flash memory, magnetic disks </p>
+</li>
+<li>
+<p>Tertiary storage (三级存储器，脱机存储器): lowest level in hierarchy, non-volatile, slow access time ;also called off-line storage,E.g., magnetic tape, optical storage</p>
+</li>
+</ul>
+<h3 id="physical-storage-media-cont">Physical Storage Media (Cont.)<a class="headerlink" href="#physical-storage-media-cont" title="Permanent link">&para;</a></h3>
+<h4 id="cache">Cache<a class="headerlink" href="#cache" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Fastest and most costly form of storage</strong>, volatile, and managed by the computer system hardware.</li>
+<li><strong>Speed</strong>: ≤ 0.5 nanoseconds (ns, 1 ns = 10⁻⁹ seconds).</li>
+<li><strong>Size</strong>: ~ KB to ~ MB.</li>
+</ul>
+<h4 id="main-memory">Main Memory<a class="headerlink" href="#main-memory" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Fast access</strong> : 10 to 100 ns.</li>
+<li><strong>Capacity</strong> : Generally too small (or too expensive) to store the entire database.<ul>
+<li>Widely used capacities: up to a few Gigabytes (1 GB = <span class="arithmatex">\(10^9\)</span> B).</li>
+<li>Capacities have increased, and per-byte costs have decreased steadily (roughly a factor of 2 every 2–3 years).</li>
+</ul>
+</li>
+<li><strong>Volatile</strong> : Contents are lost during power failure or system crash.</li>
+</ul>
+<h4 id="flash-memory">Flash Memory (快闪存储器)<a class="headerlink" href="#flash-memory" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Also known as <strong>EEPROM</strong> (Electrically Erasable Programmable Read-Only Memory, 电可擦可编程只读存储器).</li>
+<li><strong>Non-volatile</strong> : Data survives power failures.</li>
+<li><strong>Write/Erase Limitations</strong> :<ul>
+<li>Data can be written at a location only once, but the location can be erased and rewritten.</li>
+<li>Supports a limited number of write/erase cycles (10K–1M).</li>
+<li>Erasing must be done to an entire bank of memory.</li>
+</ul>
+</li>
+<li><strong>Performance</strong> :<ul>
+<li>Reads: Roughly as fast as main memory (&lt; 100 ns).</li>
+<li>Writes: Slower (~10 μs), and erases are even slower.</li>
+</ul>
+</li>
+<li><strong>Cost</strong> : Similar to main memory.</li>
+<li><strong>Usage</strong> : Widely used in embedded devices such as digital cameras, phones, and USB keys.</li>
+</ul>
+<h4 id="magnetic-disk">Magnetic Disk<a class="headerlink" href="#magnetic-disk" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Storage</strong> : Data is stored on spinning disks and read/written magnetically.</li>
+<li><strong>Primary medium</strong> : Used for long-term storage, typically storing the entire database.</li>
+<li><strong>Access</strong> :<ul>
+<li>Data must be moved to main memory for access and written back for storage.</li>
+<li>Much slower access than main memory.</li>
+<li>Direct-access: Data can be read in any order (unlike magnetic tape).</li>
+</ul>
+</li>
+<li><strong>Capacity</strong> :<ul>
+<li>Ranges up to ~1.5 TB (as of 2009).</li>
+<li>Larger capacity and lower cost/byte than main memory or flash memory.</li>
+<li>Growing rapidly with technology improvements (factor of 2–3 every 2 years).</li>
+</ul>
+</li>
+<li><strong>Reliability</strong> :<ul>
+<li>Survives power failures and system crashes.</li>
+<li>Disk failure is rare but can destroy data.</li>
+</ul>
+</li>
+</ul>
+<h4 id="optical-storage">Optical Storage<a class="headerlink" href="#optical-storage" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Non-volatile</strong> : Data is read optically from a spinning disk using a laser.</li>
+<li><strong>Popular Forms</strong> :<ul>
+<li>CD-ROM (640 MB).</li>
+<li>DVD (4.7–17 GB).</li>
+</ul>
+</li>
+<li><strong>Write Types</strong> :<ul>
+<li>Write-once, read-many (WORM) disks (e.g., CD-R, DVD-R) for archival storage.</li>
+<li>Multiple-write versions available (e.g., CD-RW, DVD-RW, DVD-RAM).</li>
+</ul>
+</li>
+<li><strong>Performance</strong> :<ul>
+<li>Reads and writes are slower than magnetic disks.</li>
+</ul>
+</li>
+<li><strong>Juke-box Systems(自动光盘机)</strong> :<ul>
+<li>Large numbers of removable disks with a few drives.</li>
+<li>Mechanism for automatic loading/unloading of disks for storing large volumes of data.</li>
+</ul>
+</li>
+</ul>
+<h4 id="tape-storage">Tape Storage<a class="headerlink" href="#tape-storage" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>非易失性</strong> ：主要用于备份（从磁盘故障中恢复）和归档数据。</li>
+<li><strong>顺序访问</strong> ：访问速度远慢于磁盘。</li>
+<li><strong>容量</strong> ：容量非常高（40 到 300 GB 的磁带可用）。</li>
+<li><strong>可移除</strong> ：磁带可以从驱动器中移除，因此存储成本远低于磁盘，但驱动器价格昂贵。</li>
+<li><strong>磁带自动机 (Tape Jukebox)</strong> ：<ul>
+<li>可用于存储海量数据。</li>
+<li>容量范围从数百 TB（1 TB = <span class="arithmatex">\(10^{12}\)</span> 字节）到甚至 PB（1 PB = <span class="arithmatex">\(10^{15}\)</span> 字节）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="magnetic-disks">Magnetic Disks<a class="headerlink" href="#magnetic-disks" title="Permanent link">&para;</a></h2>
+<figure>
+<img alt="" src="../img/lec8-2.png" width="400" />
+
+<figcaption>
+Structure
+</figcaption>
+</figure>
+<h3 id="disk-structure">Disk Structure<a class="headerlink" href="#disk-structure" title="Permanent link">&para;</a></h3>
+<p>磁头 (Read-Write Head)</p>
+<ul>
+<li><strong>位置</strong>：磁头非常接近盘片表面（几乎接触）。</li>
+<li><strong>功能</strong>：用于读取或写入磁性编码的信息。</li>
+</ul>
+<p>盘片表面 (Surface of Platter)</p>
+<ul>
+<li>
+<p><strong>圆形磁道 (Tracks)</strong>：</p>
+<ul>
+<li>盘片表面被划分为多个圆形磁道。</li>
+<li>典型硬盘每个盘片上有超过 50K–100K 条磁道。</li>
+</ul>
+</li>
+<li>
+<p><strong>扇区 (Sectors)</strong>：</p>
+<ul>
+<li>每个磁道被划分为多个扇区。</li>
+<li>扇区是可以读取或写入的最小数据单位。</li>
+</ul>
+</li>
+<li>
+<p><strong>扇区大小</strong>：通常为 512 字节。</p>
+</li>
+<li>
+<p><strong>每磁道的扇区数</strong>：</p>
+<ul>
+<li>内圈磁道：500 到 1000 个扇区。</li>
+<li>外圈磁道：1000 到 2000 个扇区。</li>
+</ul>
+</li>
+</ul>
+<p>读/写扇区 (To Read/Write a Sector)</p>
+<ul>
+<li><strong>磁臂 (Disk Arm)</strong>：</li>
+<li>磁臂移动以将磁头定位到正确的磁道上。</li>
+<li><strong>盘片旋转 (Platter Spins)</strong>：</li>
+<li>盘片持续旋转，当扇区经过磁头下方时，数据被读取或写入。</li>
+</ul>
+<p>磁头-磁盘组件 (Head-Disk Assemblies)</p>
+<ul>
+<li><strong>多盘片 (Multiple Disk Platters)</strong>：</li>
+<li>单个主轴上通常有 4 到 16 个盘片。</li>
+<li><strong>磁头 (Heads)</strong>：</li>
+<li>每个盘片对应一个磁头，所有磁头安装在一个公共磁臂上。</li>
+<li><strong>柱面 (Cylinder)</strong>：</li>
+<li>第 i 个柱面由所有盘片的第 i 个磁道组成。</li>
+</ul>
+<p>磁盘控制器 (Disk Controller)</p>
+<ul>
+<li><strong>功能</strong>：<ul>
+<li>作为计算机系统与磁盘驱动硬件之间的接口。</li>
+<li>接收高层次的读/写扇区命令。</li>
+<li>执行动作，例如移动磁臂到正确的磁道并实际读取或写入数据。</li>
+</ul>
+</li>
+<li><strong>校验和 (Checksum)</strong>：<ul>
+<li>计算并附加校验和到每个扇区，以验证数据是否正确读取。</li>
+<li>如果数据损坏，存储的校验和与重新计算的校验和很可能不匹配。</li>
+</ul>
+</li>
+<li><strong>写入验证 (Write Verification)</strong>：<ul>
+<li>写入后通过读取扇区来确保写入成功。</li>
+</ul>
+</li>
+<li><strong>坏扇区重映射 (Bad Sector Remapping)</strong>：<ul>
+<li>将坏扇区从逻辑地址映射到预留的物理扇区。</li>
+<li>重映射信息记录在磁盘或其他非易失性存储器中。</li>
+</ul>
+</li>
+</ul>
+<p>磁盘的性能主要由以下几个方面决定：</p>
+<ul>
+<li>转速（RPM）：盘片的旋转速度，转速越高，数据访问速度越快。</li>
+<li>磁头寻道时间（Seek Time）：磁头移动到目标轨道所需的时间，寻道时间越短，数据访问速度越快。</li>
+<li>数据传输率（Data Transfer Rate）：硬盘与计算机之间的数据传输速度，传输率越高，数据访问速度越快。</li>
+<li>缓存（Cache）：硬盘内部的高速缓存，用于临时存储数据，提高数据传输效率。</li>
+</ul>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p><a href="../../CO/wk6/">计组关于磁盘性能的描述</a></p>
+</div>
+<h3 id="optimization-of-disk-block-access">Optimization of Disk-Block Access<a class="headerlink" href="#optimization-of-disk-block-access" title="Permanent link">&para;</a></h3>
+<h4 id="block">Block<a class="headerlink" href="#block" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>定义</strong>：来自单个磁道的连续扇区序列。</li>
+<li><strong>数据传输</strong>：数据在磁盘和主存之间以块为单位传输。</li>
+<li><strong>块大小</strong>：<ul>
+<li>范围从 512 字节到几千字节。</li>
+<li><strong>小块</strong>：需要更多的磁盘传输。</li>
+<li><strong>大块</strong>：可能浪费更多空间（由于部分填充的块）。</li>
+<li><strong>典型块大小</strong>：目前范围为 4 到 16 KB。</li>
+</ul>
+</li>
+</ul>
+<h4 id="disk-arm-scheduling-algorithms">Disk-Arm-Scheduling Algorithms<a class="headerlink" href="#disk-arm-scheduling-algorithms" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-3.png" width="400" />
+</figure>
+<ul>
+<li><strong>目标</strong>：对磁盘访问请求进行排序，以最小化磁盘臂的移动。</li>
+<li><strong>电梯算法 (Elevator Algorithm)</strong>：<ul>
+<li>磁盘臂向一个方向移动（从外圈到内圈或反之），处理该方向上的下一个请求。</li>
+<li>当该方向没有更多请求时，反转方向并重复。</li>
+</ul>
+</li>
+</ul>
+<h4 id="file-organization">File Organization<a class="headerlink" href="#file-organization" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>优化块访问时间</strong>：通过组织块的位置，使其与数据访问方式相对应。<ul>
+<li>例如，将相关信息存储在同一个柱面或附近的柱面上。</li>
+</ul>
+</li>
+<li><strong>文件碎片化</strong>：<ul>
+<li>随着文件中数据的插入或删除，文件可能会变得碎片化。</li>
+<li>如果磁盘上的空闲块分散，新创建的文件可能会被分散存储。</li>
+<li>对碎片化文件的顺序访问会导致磁盘臂移动增加。</li>
+</ul>
+</li>
+<li><strong>碎片整理工具</strong>：<ul>
+<li>一些系统提供碎片整理工具以加速文件访问。</li>
+<li>但在运行这些工具时，系统通常无法使用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="nonvolatile-write-buffers">非易失性写缓冲区 (Nonvolatile Write Buffers)<a class="headerlink" href="#nonvolatile-write-buffers" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>作用</strong>：通过将块立即写入非易失性 RAM 缓冲区来加速磁盘写入。</p>
+</li>
+<li>
+<p><strong>非易失性 RAM</strong>：</p>
+<ul>
+<li>由电池供电的 RAM 或闪存组成。</li>
+<li>即使断电，数据仍然安全，并将在电力恢复后写入磁盘。</li>
+</ul>
+</li>
+<li><strong>控制器行为</strong>：<ul>
+<li>当磁盘没有其他请求或请求等待了一段时间时，控制器将数据写入磁盘。</li>
+<li>数据库操作可以在数据写入磁盘之前继续运行。</li>
+<li>写入可以重新排序以最小化磁盘臂移动。</li>
+</ul>
+</li>
+</ul>
+<h4 id="log-disk">日志磁盘 (Log Disk)<a class="headerlink" href="#log-disk" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>定义</strong>：专门用于写入块更新日志的磁盘。</li>
+<li><strong>特点</strong>：<ul>
+<li>写入日志磁盘非常快，因为不需要寻道。</li>
+<li>不需要特殊硬件（如非易失性 RAM）。</li>
+</ul>
+</li>
+<li><strong>文件系统行为</strong>：<ul>
+<li>日志文件系统以安全顺序将数据写入非易失性 RAM 或日志磁盘。</li>
+<li>如果没有日志记录，重新排序写入可能会导致文件系统数据损坏。</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid">RAID<a class="headerlink" href="#raid" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Redundant Array of Inexpensive Disks
+RAID 最初是作为一种成本较低的替代方案，用于替代大型昂贵的磁盘。<br />
+RAID 中的 "I" 最初代表 "inexpensive"（廉价）。<br />
+如今，RAID 被视为 "independent"（独立的）。</p>
+</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Disk organization techniques that manage a large numbers of disks, providing a view of a single disk of </p>
+<p>•High capacity and high speed  by using multiple disks in parallel, and </p>
+<p>•High reliability by storing data redundantly, so that data can be recovered even if  a disk fails </p>
+</div>
+<p><strong>The chance that some disk out of a set of N disks will fail is much higher than the chance that a specific single disk will fail</strong></p>
+<div class="admonition eg">
+<p class="admonition-title">Eg</p>
+<p>a system with 100 disks, each with MTTF of 100,000 hours (approx.  11 years), will have a system MTTF of 1000 hours (approx. 41 days) </p>
+<p>Techniques for using redundancy to avoid data loss are critical with large numbers of disks </p>
+</div>
+<h3 id="reliability-improvement">Reliability improvement<a class="headerlink" href="#reliability-improvement" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>冗余原理</strong> ：存储额外的信息，用于在磁盘故障时重建丢失的数据</p>
+</li>
+<li>
+<p><strong>镜像(Mirroring)技术</strong> ：</p>
+<ul>
+<li>每个磁盘都有一个完整的副本</li>
+<li>一个逻辑磁盘实际由两个物理磁盘组成</li>
+<li>每次写操作都在两个磁盘上执行</li>
+<li>读操作可以从任一磁盘进行</li>
+</ul>
+</li>
+<li>
+<p><strong>故障恢复</strong> ：</p>
+<ul>
+<li>单个磁盘故障时，数据仍可从镜像磁盘获取</li>
+<li>只有当磁盘及其镜像磁盘在系统修复前都发生故障时才会丢失数据</li>
+<li>这种双重故障的概率非常小</li>
+<li>需注意依赖性故障模式(如火灾、建筑物倒塌或电涌)</li>
+</ul>
+</li>
+<li>
+<p><strong>平均数据丢失时间</strong> ：</p>
+<ul>
+<li>取决于平均故障时间(MTTF)和平均修复时间</li>
+<li>示例：</li>
+<li>MTTF = 100,000小时</li>
+<li>平均修复时间 = 10小时</li>
+<li>镜像磁盘对的平均数据丢失时间 = 500 <span class="arithmatex">\(\times\)</span> <span class="arithmatex">\(10^6\)</span>小时(约57,000年)</li>
+<li>(计算公式：<span class="arithmatex">\(100000^2\)</span>/(2 <span class="arithmatex">\(\times\)</span> 10))</li>
+</ul>
+</li>
+</ul>
+<h3 id="performance-improvement">Performance improvement<a class="headerlink" href="#performance-improvement" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>并行化的主要目标</strong> ：</li>
+<li>负载均衡：通过处理多个小访问提高吞吐量</li>
+<li>
+<p>并行化大型访问以减少响应时间</p>
+</li>
+<li>
+<p><strong>数据条带化(Striping)技术</strong> ：</p>
+</li>
+</ul>
+<p>1 <strong>比特级条带化</strong> ：</p>
+<ul>
+<li>将每个字节的位分散到多个磁盘</li>
+<li>示例：在8个磁盘阵列中，每个字节的第i位写入第i个磁盘</li>
+<li>可实现8倍于单磁盘的数据读取速率</li>
+<li>缺点：寻道/访问时间比单磁盘更差</li>
+<li>现在较少使用</li>
+</ul>
+<p>2 <strong>块级条带化</strong> ：</p>
+<ul>
+<li>在n个磁盘中，文件的第i个块存储在第((i mod n) + 1)个磁盘上</li>
+<li>不同块的请求可以在不同磁盘上并行运行</li>
+<li>长序列块的请求可以并行使用所有磁盘</li>
+</ul>
+<h3 id="raid-levels">RAID levels<a class="headerlink" href="#raid-levels" title="Permanent link">&para;</a></h3>
+<figure>
+<img alt="" src="../img/lec8-4.png" width="400" />
+
+<figcaption>
+RAID 0 and RAID 1
+</figcaption>
+</figure>
+<h4 id="raid-level-0">RAID Level 0<a class="headerlink" href="#raid-level-0" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>块级条带化</strong> ：不具备冗余性。</li>
+<li><strong>应用场景</strong> ：用于高性能应用，数据丢失不关键。</li>
+<li><strong>工作原理</strong> ：使用块级条带化，将数据分散到多个磁盘上。没有冗余，因此数据丢失风险较高。</li>
+<li><strong>优点</strong> ：提供高数据传输速率，适用于对性能要求高但数据安全性要求不高的应用。</li>
+</ul>
+<h4 id="raid-level-1">RAID Level 1<a class="headerlink" href="#raid-level-1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>镜像磁盘与块级条带化</strong> ：提供最佳性能。</li>
+<li><strong>应用场景</strong> ：常用于数据库系统中的日志文件存储。</li>
+<li><strong>工作原理</strong> ：使用镜像技术，每个磁盘都有一个完整的副本。所有写操作都在两个磁盘上执行，读操作可以从任一磁盘进行。</li>
+<li><strong>优点</strong> ：提供高数据安全性和读取性能，适用于需要高可靠性的数据存储。</li>
+</ul>
+<h4 id="raid-level-2">RAID Level 2<a class="headerlink" href="#raid-level-2" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-5.png" width="400" />
+
+<figcaption>
+RAID 2
+</figcaption>
+</figure>
+<ul>
+<li>
+<p><strong>Memory-Style Error-Correcting-Codes (ECC)与比特级条带化</strong> 。</p>
+</li>
+<li>
+<p><strong>工作原理</strong> ：使用内存风格的错误校正码(ECC)和比特级条带化。数据被分成位并分布在多个磁盘上，ECC用于错误检测和校正。</p>
+</li>
+<li><strong>优点</strong> ：提供错误校正能力，但实现复杂且成本较高。</li>
+</ul>
+<h4 id="raid-level-3">RAID Level 3<a class="headerlink" href="#raid-level-3" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-6.png" width="400" />
+
+<figcaption>
+RAID 3
+</figcaption>
+</figure>
+<ul>
+<li><strong>比特交错奇偶校验</strong> ：<ul>
+<li>单个奇偶位足以进行错误校正。</li>
+<li>写入数据时，需计算并写入相应的奇偶位。</li>
+<li>数据恢复通过计算其他磁盘（包括奇偶位磁盘）的位的异或。</li>
+<li>数据传输速度快于单个磁盘，但每个I/O需要所有磁盘参与。</li>
+</ul>
+</li>
+<li><strong>工作原理</strong> ：使用比特交错奇偶校验。一个奇偶位磁盘用于错误校正。写入数据时，需计算并写入相应的奇偶位。</li>
+<li><strong>优点</strong> ：提供快速的数据传输速率，适用于需要高吞吐量的应用。</li>
+</ul>
+<h4 id="raid-level-4">RAID Level 4<a class="headerlink" href="#raid-level-4" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-7.png" width="400" />
+
+<figcaption>
+RAID 4
+</figcaption>
+</figure>
+<ul>
+<li><strong>块交错奇偶校验</strong> ：<ul>
+<li>使用块级条带化，并在单独的磁盘上保存奇偶校验块。</li>
+<li>写入数据块时，需计算并写入相应的奇偶校验块。</li>
+<li>数据恢复通过计算其他磁盘（包括奇偶校验块）的块的异或。</li>
+</ul>
+</li>
+<li><strong>工作原理</strong>：使用块交错奇偶校验。数据块和奇偶校验块分布在不同的磁盘上。</li>
+<li><strong>优点</strong>：提供数据冗余和错误校正能力，但奇偶校验磁盘可能成为瓶颈。</li>
+</ul>
+<h4 id="raid-level-5">RAID Level 5<a class="headerlink" href="#raid-level-5" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-8.png" width="400" />
+
+<figcaption>
+RAID 5
+</figcaption>
+</figure>
+<ul>
+<li>
+<p><strong>块交错分布式奇偶校验</strong> ：</p>
+<ul>
+<li>数据和奇偶校验分布在所有N+1个磁盘上。</li>
+<li>提供比RAID 4更高的I/O速率。</li>
+<li>避免了奇偶校验磁盘的瓶颈。</li>
+</ul>
+</li>
+<li>
+<p><strong>工作原理</strong> ：使用块交错分布式奇偶校验。数据和奇偶校验分布在所有磁盘上，避免了单一奇偶校验磁盘的瓶颈。</p>
+</li>
+<li><strong>优点</strong> ：提供高I/O速率和数据冗余，适用于大多数应用。</li>
+</ul>
+<h4 id="raid-level-6">RAID Level 6<a class="headerlink" href="#raid-level-6" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-9.png" width="400" />
+
+<figcaption>
+RAID 6
+</figcaption>
+</figure>
+<ul>
+<li><strong>P+Q冗余方案</strong>：</li>
+<li>类似于RAID 5，但存储额外的冗余信息以防止多重磁盘故障。</li>
+<li>提供比RAID 5更好的可靠性，但成本更高。</li>
+<li><strong>工作原理</strong>：使用P+Q冗余方案，类似于RAID 5，但增加了额外的冗余信息以防止多重磁盘故障。</li>
+<li><strong>优点</strong>：提供更高的可靠性，适用于需要极高数据安全性的应用。</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Choosing RAID Levels</p>
+<p>选择RAID级别的因素</p>
+<ul>
+<li><strong>成本</strong> ：考虑经济成本。</li>
+<li><strong>性能</strong> ：每秒I/O操作次数和正常操作期间的带宽。</li>
+<li><strong>故障期间的性能</strong> ：在磁盘故障期间的性能表现。</li>
+<li><strong>故障磁盘重建期间的性能</strong> ：包括重建故障磁盘所需的时间。</li>
+</ul>
+<p>RAID级别的使用建议</p>
+<ul>
+<li><strong>RAID 0</strong> ：仅在数据安全性不重要时使用，例如数据可以从其他来源快速恢复。</li>
+<li><strong>RAID 1和5</strong> ：主要竞争者。</li>
+<li><strong>RAID 1</strong> ：提供更好的写入性能，适用于高更新率环境，如日志磁盘。</li>
+<li><strong>RAID 5</strong> ：适用于低更新率和大数据量的应用。</li>
+</ul>
+<p>不常用的RAID级别</p>
+<ul>
+<li><strong>RAID 2和4</strong> ：不再使用，因为被RAID 3和5取代。</li>
+<li><strong>RAID 3</strong> ：由于比特级条带化需要单块读取所有磁盘，浪费磁盘臂移动，已不再使用。</li>
+<li><strong>RAID 6</strong> ：由于RAID 1和5提供了足够的安全性，RAID 6使用较少。</li>
+</ul>
+<p>其他注意事项</p>
+<ul>
+<li><strong>RAID 1</strong> ：尽管存储成本较高，但随着磁盘容量的快速增长，成本影响减小。</li>
+<li><strong>RAID 5</strong> ：需要至少2次块读取和2次块写入来写入单个块，而RAID 1只需2次块写入。</li>
+</ul>
+</div>
+<h3 id="hardware">Hardware<a class="headerlink" href="#hardware" title="Permanent link">&para;</a></h3>
+<h4 id="raid_1">软件RAID<a class="headerlink" href="#raid_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>定义</strong> ：完全通过软件实现的RAID，不需要特殊的硬件支持。</li>
+</ul>
+<h4 id="raid_2">硬件RAID<a class="headerlink" href="#raid_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>定义</strong> ：使用特殊硬件实现的RAID。</li>
+<li>
+<p><strong>特点</strong> ：</p>
+</li>
+<li>
+<p>使用非易失性RAM记录正在执行的写操作。</p>
+</li>
+<li>注意：写入期间的电源故障可能导致磁盘损坏。</li>
+<li>例如，在写入一个块后但在镜像系统中写入第二个块之前发生故障。</li>
+<li>这种损坏的数据必须在恢复电源时检测到。</li>
+<li>从损坏中恢复类似于从故障磁盘中恢复。</li>
+<li>NV-RAM有助于有效检测潜在的损坏块。</li>
+<li>否则，必须读取磁盘的所有块并与镜像/奇偶校验块进行比较。</li>
+</ul>
+<h3 id="raid_3">RAID 问题<a class="headerlink" href="#raid_3" title="Permanent link">&para;</a></h3>
+<h4 id="_1">潜在故障<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Latent failure</p>
+</blockquote>
+<ul>
+<li><strong>定义</strong> ：先前成功写入的数据被损坏。</li>
+<li><strong>影响</strong> ：即使只有一个磁盘故障，也可能导致数据丢失。</li>
+</ul>
+<h4 id="_2">数据清理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Data scrubbing</p>
+</blockquote>
+<ul>
+<li><strong>定义</strong> ：持续扫描潜在故障，并从副本/奇偶校验中恢复。</li>
+</ul>
+<h4 id="_3">热插拔<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Hot swap</p>
+</blockquote>
+<ul>
+<li><strong>定义</strong> ：在系统运行时更换磁盘，无需断电。</li>
+<li><strong>支持</strong> ：由某些硬件RAID系统支持。</li>
+<li><strong>优点</strong> ：减少恢复时间，大大提高可用性。</li>
+</ul>
+<h4 id="_4">备用磁盘<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Spare disk</p>
+</blockquote>
+<ul>
+<li><strong>定义</strong> ：许多系统维护备用磁盘，在线保持，并在检测到故障时立即用作故障磁盘的替代品。</li>
+<li><strong>优点</strong> ：大大减少恢复时间。</li>
+</ul>
+<h4 id="raid_4">硬件RAID系统的可靠性<a class="headerlink" href="#raid_4" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Reliability of hardware RAID systems</p>
+</blockquote>
+<ul>
+<li><strong>特点</strong> ：确保单点故障不会停止系统功能。</li>
+<li><strong>方法</strong> ：<ul>
+<li>使用带电池备份的冗余电源。</li>
+<li>使用多个控制器和多重互连以防止控制器/互连故障。</li>
+</ul>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Optical Disk</p>
+<ul>
+<li>只读光盘 (CD-ROM，Compact Disc Read Only Memory)<ul>
+<li>特点：<ul>
+<li>可移动光盘，每张容量640 MB。</li>
+<li>寻道时间约为100毫秒（光学读头较重且较慢）。</li>
+<li>较高的延迟（3000 RPM）和较低的数据传输速率（3-6 MB/s），相比磁盘。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数字视频光盘 (DVD，Digital Versatile Disc)<ul>
+<li>DVD-5：容量4.7 GB，DVD-9：容量8.5 GB。</li>
+<li>DVD-10和DVD-18：双面格式，容量分别为9.4 GB和17 GB。</li>
+<li>蓝光DVD：27 GB（双面光盘为54 GB）。</li>
+<li>寻道时间较慢，原因与CD-ROM相同。</li>
+<li>一次写入版本 (CD-R和DVD-R)<ul>
+<li>特点：<ul>
+<li>数据只能写入一次，不能擦除。</li>
+<li>高容量和长寿命；用于档案存储。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多次写入版本（CD-RW、DVD-RW、DVD+RW和DVD-RAM）也可用。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Magnetic Tape</p>
+<ul>
+<li>
+<p><strong>大容量和高传输速率</strong>：</p>
+</li>
+<li>
+<p>DAT（数字音频磁带）格式容量为几GB，DLT（数字线性磁带）格式容量为10-40 GB，Ultrium格式容量超过100 GB，Ampex格式容量为330 GB。</p>
+</li>
+<li>
+<p>传输速率从几MB/s到几十MB/s。</p>
+</li>
+<li>
+<p><strong>磁带便宜，但驱动器成本很高</strong>。</p>
+</li>
+<li>
+<p><strong>访问时间非常慢</strong>，与磁盘和光盘相比：</p>
+</li>
+<li>
+<p>仅限于顺序访问。</p>
+</li>
+<li>
+<p>一些格式（如Accelis）提供更快的寻道（几十秒），但容量较低。</p>
+</li>
+<li>
+<p><strong>主要用于备份</strong>，存储不常用的信息，以及作为离线介质在系统之间传输信息。</p>
+</li>
+<li>
+<p><strong>磁带自动机用于超大容量存储</strong>：</p>
+</li>
+<li>
+<p>多个PB（<span class="arithmatex">\(10^{15}\)</span>字节）。</p>
+</li>
+</ul>
+</div>
+<h2 id="storage-access">Storage Access<a class="headerlink" href="#storage-access" title="Permanent link">&para;</a></h2>
+<figure>
+<img alt="" src="../img/lec8-10.png" width="400" />
+
+<figcaption>
+Storage Access
+</figcaption>
+</figure>
+<p>数据库文件被逻辑上划分为固定长度的存储单元，称为块（blocks）;块是数据库系统中存储分配和数据传输的单位。</p>
+<p>缓冲区（Buffer）</p>
+<ul>
+<li>定义：主存中可用来存储磁盘块副本的部分。</li>
+<li>目标：数据库系统旨在最小化磁盘和内存之间的块传输次数。</li>
+<li>减少磁盘访问次数：通过在主存中保留尽可能多的块来实现——即缓冲区。</li>
+<li>限制：缓冲区的大小是有限的。</li>
+</ul>
+<p>缓冲区管理器（Buffer Manager）</p>
+<ul>
+<li>职责：负责在主存中分配缓冲区空间的子系统。</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec8-11.png" width="400" />
+</figure>
+<p>缓冲池（Buffer Pool）：</p>
+<ul>
+<li>位于主存中，用于存储磁盘页的副本。</li>
+<li>黑色方块表示已占用的磁盘页，白色方块表示空闲帧。</li>
+</ul>
+<p>页面请求：</p>
+<ul>
+<li>来自更高层次的请求需要访问数据。</li>
+<li>数据必须在RAM中才能被DBMS操作。</li>
+</ul>
+<p>磁盘（Disk）和数据库（DB）：</p>
+<ul>
+<li>数据库文件存储在磁盘上。</li>
+<li>数据从磁盘加载到缓冲池中。</li>
+</ul>
+<p>帧选择：</p>
+<ul>
+<li>由替换策略决定哪个帧用于存储新加载的页面。</li>
+</ul>
+<p>帧和页的关系：</p>
+<ul>
+<li>页（Page）：数据的单位。</li>
+<li>块（Block）：磁盘空间的单位。</li>
+<li>帧（Frame）：缓冲池的单位。</li>
+<li>实际上，块和页不完全相同。</li>
+</ul>
+<p>维护表：</p>
+<ul>
+<li>维护一个<code>&lt;frame#, pageid&gt;</code>对的表，用于跟踪缓冲池中的数据。</li>
+</ul>
+<h3 id="buffer-management">Buffer Management<a class="headerlink" href="#buffer-management" title="Permanent link">&para;</a></h3>
+<p>请求块：</p>
+<ul>
+<li>应用程序需要从磁盘获取块时，会调用缓冲管理器。</li>
+</ul>
+<p>检查缓冲区：</p>
+<ul>
+<li>如果块已在缓冲区中：<ul>
+<li>请求程序获得块在主存中的地址。</li>
+</ul>
+</li>
+<li>如果块不在缓冲区中：<ul>
+<li>缓冲管理器在缓冲区中为块分配空间。</li>
+</ul>
+</li>
+<li>如果没有空闲空间，则替换（丢弃）一些旧页。</li>
+</ul>
+<p>写回磁盘：</p>
+<ul>
+<li>被丢弃的块如果被修改过，则写回磁盘。</li>
+</ul>
+<p>读取新块：</p>
+<ul>
+<li>一旦在缓冲区中分配了空间，缓冲管理器从磁盘读取块到缓冲区，并将块在主存中的地址传递给请求者。</li>
+</ul>
+<p>替换策略：</p>
+<ul>
+<li>使用LRU（最近最少使用）或MRU（最近最多使用）策略。</li>
+</ul>
+<p>固定块(Pinned Block)：</p>
+<ul>
+<li>被固定的块不允许写回磁盘，直到使用结束。</li>
+</ul>
+<p>立即丢弃策略：</p>
+<ul>
+<li>块的最后一个元组处理完后，立即释放空间。</li>
+</ul>
+<p>强制输出：
+    - 请求者必须解锁块，并指示页面是否被修改。
+    - 使用“脏位”标识修改。</p>
+<p>页面请求：</p>
+<ul>
+<li>缓冲池中的页面可能被多次请求。</li>
+<li>使用固定计数(Pin Count)，只有当固定计数为0时，页面才是替换的候选。</li>
+</ul>
+<h3 id="buffer-replacement-policies">Buffer-replacement Policies<a class="headerlink" href="#buffer-replacement-policies" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>LRU策略（最近最少使用策略）</strong> ：<ul>
+<li><strong>原理</strong> ：替换最近最少使用的块。</li>
+<li><strong>思路</strong> ：使用过去的块引用模式作为未来引用的预测。</li>
+<li><strong>优点</strong> ：适用于有明确访问模式的查询。</li>
+<li><strong>缺点</strong> ：对于涉及重复扫描数据的查询，LRU可能表现不佳。</li>
+</ul>
+</li>
+</ol>
+<figure>
+<img alt="" src="../img/lec8-12.png" width="400" />
+</figure>
+<p>设 M = 5 (buffer has 5 blocks), 1 for borrower, 3 for customer, 1 for out 对customer, LRU的块可能是下面快要用的块(循环)，而最近刚用过的块则暂时不用，当空间不够时倒是可以将其覆盖的, 故LRU策略不佳。</p>
+<ol>
+<li>
+<p><strong>MRU策略（最近最常用策略）</strong> ：</p>
+<ul>
+<li><strong>原理</strong> ：系统固定当前正在处理的块。</li>
+<li><strong>过程</strong> ：块的最后一个元组处理完后，块被解锁，成为最常用的块。</li>
+<li><strong>优点</strong> ：适用于某些特定的访问模式。</li>
+</ul>
+</li>
+<li>
+<p><strong>统计信息</strong> ：</p>
+<ul>
+<li>缓冲管理器可以维护统计信息，以提高请求引用特定关系的概率。</li>
+<li>例如，数据字典通常被频繁访问。</li>
+</ul>
+</li>
+<li>
+<p><strong>强制输出</strong> ：</p>
+<ul>
+<li>缓冲管理器支持块的强制输出，以便进行恢复。</li>
+</ul>
+</li>
+<li>
+<p><strong>混合策略</strong> ：</p>
+<ul>
+<li>与查询优化器提供的替换策略结合使用。</li>
+</ul>
+</li>
+</ol>
+<h2 id="file-organization_1">File Organization<a class="headerlink" href="#file-organization_1" title="Permanent link">&para;</a></h2>
+<p>The database is stored as a collection of files. </p>
+<ul>
+<li>Each file is a sequence of records. </li>
+<li>A record is a sequence of fields. </li>
+<li>Two kinds of record: <ul>
+<li>Fixed-length records.</li>
+<li>Variable-length records. </li>
+</ul>
+</li>
+</ul>
+<h3 id="fixed-length-records">Fixed-length Records<a class="headerlink" href="#fixed-length-records" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>优势：方法简单</strong>：</li>
+<li>记录 <span class="arithmatex">\(i\)</span> 从字节 <span class="arithmatex">\(n \times (i - 1)\)</span> 开始存储，其中 <span class="arithmatex">\(n\)</span> 是每个记录的大小。</li>
+<li>记录访问简单，但记录可能会跨越块。</li>
+</ul>
+<p>修改:</p>
+<ul>
+<li>不允许记录跨越块边界。</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec8-13.png" width="400" />
+
+<figcaption>
+Fixed-length Records
+</figcaption>
+</figure>
+<p>删除记录 <span class="arithmatex">\(i\)</span> 的方法:</p>
+<ol>
+<li><strong>方法1</strong> ：将记录 <span class="arithmatex">\(i+1\)</span> 到 <span class="arithmatex">\(n\)</span> 向前移动。</li>
+<li><strong>方法2</strong> ：将记录 <span class="arithmatex">\(n\)</span> 移动到位置 <span class="arithmatex">\(i\)</span>。</li>
+<li><strong>方法3</strong> ：不移动记录，而是将所有空闲记录链接到一个空闲列表（free list）中。</li>
+</ol>
+<h4 id="free-lists">Free Lists<a class="headerlink" href="#free-lists" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-14.png" width="400" />
+
+<figcaption>
+Free Lists
+</figcaption>
+</figure>
+<p>空闲列表（Free List）</p>
+<ul>
+<li>存储地址：在文件头中存储第一个被删除记录的地址。</li>
+<li>链接记录：使用第一个被删除的记录来存储第二个被删除记录的地址，依此类推。</li>
+<li>指针概念：这些存储的地址可以视为指针，因为它们“指向”记录的位置。</li>
+<li>优势<ul>
+<li>空间效率：更高效的空间表示。</li>
+<li>重新利用空闲记录的正常属性空间来存储指针。</li>
+<li>使用中的记录中不存储指针。</li>
+<li>空闲列表通过链接被删除的记录，优化了存储空间的使用和管理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="variable-length-records">Variable-length Records<a class="headerlink" href="#variable-length-records" title="Permanent link">&para;</a></h3>
+<p>出现方式：</p>
+<ul>
+<li>文件中存储多种记录类型。</li>
+<li>允许一个或多个字段具有可变长度的记录类型（如字符串）。</li>
+<li>允许重复字段的记录类型（用于一些旧的数据模型）。</li>
+</ul>
+<p>属性存储：</p>
+<ul>
+<li>按顺序存储。</li>
+<li>可变长度属性用固定大小（偏移量、长度）表示，实际数据存储在所有定长属性之后。</li>
+<li>空值用空值位图表示。</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec8-15.png" width="400" />
+
+<figcaption>
+Variable-length Records
+</figcaption>
+</figure>
+<h4 id="slotted-page-structure">Slotted Page Structure<a class="headerlink" href="#slotted-page-structure" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-16.png" width="400" />
+
+<figcaption>
+Slotted Page Structure
+</figcaption>
+</figure>
+<p>结构组成</p>
+<ul>
+<li>
+<p>块头（Block Header）：</p>
+<ul>
+<li>包含有关页面的元数据</li>
+<li>存储记录条目数量</li>
+<li>标记空闲空间的结束位置</li>
+<li>包含每条记录的位置和大小信息</li>
+</ul>
+</li>
+<li>
+<p>槽（Slot）：</p>
+<ul>
+<li>页头中的一个条目</li>
+<li>包含两个关键信息：<ul>
+<li>记录长度（记录大小）</li>
+<li>记录指针（指向实际记录的位置）</li>
+</ul>
+</li>
+<li>槽的标识形式为：rid = <code>&lt;slot# pid&gt;</code>（记录ID由槽号和页ID组成）</li>
+</ul>
+</li>
+<li>
+<p>记录区域：</p>
+<ul>
+<li>实际存储数据记录的区域</li>
+<li>记录从页面尾部开始向前存储（<code>#1, #2, #3, #4</code>）</li>
+<li>中间可能有空闲空间</li>
+</ul>
+</li>
+</ul>
+<p>工作原理</p>
+<ul>
+<li>当需要访问记录时，系统首先查找页头中的相应槽</li>
+<li>通过槽中的指针找到实际记录位置</li>
+<li>记录可以在页面内移动，以保持数据连续性（没有空隙）</li>
+<li>移动记录后，只需更新页头中的槽信息，而不需要更新外部指针</li>
+<li>指针不应直接指向记录，而应指向头中的记录条目（间接指针）。</li>
+</ul>
+<h3 id="representation">Representation<a class="headerlink" href="#representation" title="Permanent link">&para;</a></h3>
+<h4 id="reserved-space">保留空间（Reserved Space）<a class="headerlink" href="#reserved-space" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-17.png" width="400" />
+
+<figcaption>
+Reserved Space
+</figcaption>
+</figure>
+<p>原理</p>
+<ul>
+<li>使用已知最大长度的定长记录</li>
+<li>为每条记录分配固定大小的空间</li>
+<li>较短记录中的未使用空间用空值或记录结束符填充</li>
+</ul>
+<p>特点</p>
+<ul>
+<li><strong>简单性</strong>：实现和管理简单直接</li>
+<li><strong>预测性</strong>：记录位置可以通过简单公式计算</li>
+<li><strong>存取效率</strong>：随机访问速度快，无需额外索引</li>
+<li><strong>空间浪费</strong>：短记录会造成空间浪费</li>
+<li><strong>限制性</strong>：对超过预定最大长度的记录无法处理</li>
+</ul>
+<p>应用场景</p>
+<ul>
+<li>记录长度变化不大的数据</li>
+<li>对随机访问性能要求高的应用</li>
+<li>简单数据结构的存储</li>
+</ul>
+<h4 id="pointers">指针（Pointers）<a class="headerlink" href="#pointers" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-18.png" width="400" />
+
+<figcaption>
+Pointers
+</figcaption>
+</figure>
+<p>原理</p>
+<ul>
+<li>使用指针指向实际数据的位置</li>
+<li>可以是直接指针（指向实际数据）或间接指针（指向中间结构）</li>
+</ul>
+<p>特点</p>
+<ul>
+<li><strong>灵活性</strong>：支持任意长度的记录</li>
+<li><strong>空间效率</strong>：可以减少空间浪费</li>
+<li><strong>复杂性</strong>：实现和管理相对复杂</li>
+<li><strong>性能开销</strong>：访问数据需要额外的指针解析步骤</li>
+</ul>
+<p>应用场景</p>
+<ul>
+<li>记录长度差异大的数据</li>
+<li>存储大型对象或文档</li>
+<li>需要灵活空间管理的应用</li>
+</ul>
+<p><strong>空间浪费</strong>：除了链中的第一条记录外，所有记录中都有浪费的空间（用于分支名称），这意味着在溢出链中的记录结构可能包含未使用的字段，造成存储效率降低</p>
+<p>解决方案：</p>
+<figure>
+<img alt="" src="../img/lec8-19.png" width="400" />
+
+<figcaption>
+Pointer Structure
+</figcaption>
+</figure>
+<p>通过在文件中使用两种不同类型的块：</p>
+<ol>
+<li>
+<p><strong>锚块（Anchor Block，锚块）</strong>：</p>
+<ul>
+<li>包含链中的第一条记录</li>
+<li>这些记录需要存储完整信息，包括分支名称等所有字段</li>
+<li>通常是哈希表的主要存储区域</li>
+</ul>
+</li>
+<li>
+<p><strong>溢出块（Overflow Block，溢出块）</strong>：</p>
+<ul>
+<li>包含除链中第一条记录以外的其他记录</li>
+<li>这些记录可以使用更紧凑的结构，省略不必要的字段</li>
+<li>专门设计用于存储冲突记录</li>
+</ul>
+</li>
+</ol>
+<p>溢出记录不再需要存储冗余信息，结构优化：可以为不同用途的记录设计专门的结构，性能提升：更紧凑的记录意味着每个块可以存储更多记录，减少I/O操作</p>
+<div class="admonition summary">
+<p class="admonition-title">两种方法的比较</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>保留空间</th>
+<th>指针</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实现复杂度</td>
+<td>低</td>
+<td>中到高</td>
+</tr>
+<tr>
+<td>空间利用率</td>
+<td>低到中</td>
+<td>中到高</td>
+</tr>
+<tr>
+<td>访问速度</td>
+<td>快</td>
+<td>较慢（需解析指针）</td>
+</tr>
+<tr>
+<td>记录长度灵活性</td>
+<td>有限</td>
+<td>高</td>
+</tr>
+<tr>
+<td>更新操作效率</td>
+<td>高（原地更新）</td>
+<td>可能需要重定位</td>
+</tr>
+</tbody>
+</table>
+<p>保留空间方法更适合记录长度相对固定且对访问速度要求高的场景，而指针方法则更适合处理变长记录和需要高空间利用率的情况。</p>
+</div>
+<h2 id="organization-of-records-in-files">Organization of Records in Files<a class="headerlink" href="#organization-of-records-in-files" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Heap file (堆文件, 流水文件):a record can be placed anywhere in the file where there is space,有空间就可以放</p>
+</li>
+<li>
+<p>Sequential file (顺序文件):store records in sequential order, based on the value of a search key of each record ，根据搜索键的值存储记录</p>
+</li>
+<li>
+<p>Hashing file (散列文件):a hash function computed on some attribute of each record; the result specifies in which block of the file the record should be placed ，根据每个记录的某个属性计算散列值，结果指定记录应该存储在文件的哪个块中</p>
+</li>
+<li>
+<p>Clustering file organization (聚集文件组织):records of several different relations can be stored in the same file ，几个不同的关系的记录可以存储在同一个文件中</p>
+<blockquote>
+<p>Motivation: store related records in different relations on the same block to minimize I/O ，在同一个块中存储相关记录以最小化I/O操作</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="sequential-file-organization">Sequential File Organization<a class="headerlink" href="#sequential-file-organization" title="Permanent link">&para;</a></h3>
+<figure>
+<img alt="" src="../img/lec8-20.png" width="400" />
+
+<figcaption>
+Sequential File Organization
+</figcaption>
+</figure>
+<ul>
+<li>适用于：需要对整个文件进行顺序处理的应用</li>
+<li>数据排序：文件中的记录按搜索键排序（如图中按账号-分支名排序）</li>
+<li>唯一性：一个顺序文件只有一个搜索键</li>
+<li>操作机制</li>
+<li>删除操作
+    使用指针链（pointer chains）处理删除
+    被删除的记录位置可通过指针链接起来形成空闲列表</li>
+<li>插入操作</li>
+</ul>
+<p>需要找到记录应该插入的正确位置（保持排序顺序）</p>
+<figure>
+<img alt="" src="../img/lec8-21.png" width="400" />
+
+<figcaption>
+Insertion in Sequential File
+</figcaption>
+</figure>
+<p>插入策略：</p>
+<ul>
+<li>如果插入位置有空闲空间，直接插入</li>
+<li>如果没有空闲空间，将记录插入溢出块</li>
+<li>
+<p>在任何情况下，都需要更新指针链</p>
+</li>
+<li>
+<p>文件重组:随着插入和删除操作的频繁进行，文件的顺序性会下降;需要定期重新组织文件以恢复顺序
+重组过程消耗资源，但能提高后续访问效率</p>
+</li>
+</ul>
+<h3 id="multitable-clustering">Multitable Clustering<a class="headerlink" href="#multitable-clustering" title="Permanent link">&para;</a></h3>
+<figure>
+<img alt="" src="../img/lec8-22.png" width="400" />
+
+<figcaption>
+Multitable Clustering
+</figcaption>
+</figure>
+<p>多关系存储：</p>
+<ul>
+<li>在一个文件中存储多个关系表（如图中的department和instructor表）</li>
+<li>数据按照关系间的连接属性进行排序和组织</li>
+</ul>
+<p>物理布局：</p>
+<ul>
+<li>首先是逻辑表视图：department表和instructor表分别展示</li>
+<li>然后是物理存储视图：department和instructor记录交错存储，按关系聚类</li>
+</ul>
+<p>聚类方式：</p>
+<ul>
+<li>相关记录物理上相邻（如Comp.Sci.部门记录后紧跟该部门的所有教师记录）</li>
+<li>每个部门的记录块后面是属于该部门的所有教师记录</li>
+</ul>
+<p>优缺点：</p>
+<ul>
+<li>
+<p>优点</p>
+<ul>
+<li>适合联合查询：<ul>
+<li>对涉及department和instructor的连接查询效率高</li>
+<li>对查询单个部门及其所有教师的操作性能好</li>
+<li>减少磁盘I/O，因为相关数据物理上相近</li>
+</ul>
+</li>
+<li>可扩展性：<ul>
+<li>支持可变大小的记录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>单表查询劣势：<ul>
+<li>对仅涉及department表的查询效率低，可以添加指针链来链接特定关系的记录</li>
+<li>必须扫描整个文件来定位所有部门记录</li>
+</ul>
+</li>
+<li>复杂度：<ul>
+<li>插入和删除操作复杂</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure>
+<img alt="" src="../img/lec8-23.png" width="400" />
+
+<figcaption>
+Pointer Relation
+</figcaption>
+</figure>
+<blockquote>
+<p>添加指针连接department关系，这样可优化对于department表的查询</p>
+</blockquote>
+<p>维护聚类结构需要额外开销</p>
+<h2 id="data-dictionary-storage">Data-Dictionary Storage<a class="headerlink" href="#data-dictionary-storage" title="Permanent link">&para;</a></h2>
+<p>Data dictionary (also called system catalog) stores metadata:  that is, data about data, such as:</p>
+<ul>
+<li>
+<p>Information about relations</p>
+<ul>
+<li>Names of relations</li>
+<li>Names and types of attributes of each relation</li>
+<li>Names and definitions of views</li>
+<li>Integrity constraints</li>
+</ul>
+</li>
+<li>
+<p>User and accounting information, including passwords</p>
+</li>
+<li>
+<p>Statistical and descriptive data</p>
+<ul>
+<li>Number of tuples in each relation</li>
+</ul>
+</li>
+<li>
+<p>Physical file organization information</p>
+<ul>
+<li>How relation is stored (sequential/hash/...)</li>
+<li>Physical location of relation</li>
+<li>Operating system file name or</li>
+<li>Disk addresses of blocks containing records of the relation</li>
+</ul>
+</li>
+<li>Information about indices </li>
+</ul>
+<h3 id="relational-representation-of-system-metadata">Relational Representation of System Metadata<a class="headerlink" href="#relational-representation-of-system-metadata" title="Permanent link">&para;</a></h3>
+<figure>
+<img alt="" src="../img/lec8-24.png" width="400" />
+
+<figcaption>
+Relational Representation of System Metadata
+</figcaption>
+</figure>
+<ul>
+<li>关系表示法：<ul>
+<li>关系表示法是一种用于存储和管理元数据的结构化方式</li>
+<li>关系表示法将元数据存储在关系数据库中，每个关系表示一个元数据实体</li>
+<li>关系表示法可以方便地进行查询和更新</li>
+</ul>
+</li>
+</ul>
+<h3 id="column-oriented-storage">Column-Oriented Storage<a class="headerlink" href="#column-oriented-storage" title="Permanent link">&para;</a></h3>
+<figure>
+<img alt="" src="../img/lec8-25.png" width="400" />
+
+<figcaption>
+Column-Oriented Storage
+</figcaption>
+</figure>
+<p>列式存储，也称为列式表示（columnar representation），是一种数据库表的物理存储方法，与传统的行式存储截然不同。</p>
+<p>基本概念</p>
+<ul>
+<li>核心思想：分别存储关系表的每个属性（列）</li>
+<li>存储方式：相同列的数据被连续存储在一起，而不是将一行数据存储在一起</li>
+</ul>
+<p>图中示例展示了一个表格，分为四列（可能是员工ID、姓名、部门和薪资）：</p>
+<ul>
+<li>每一列单独存储（如ID列：10101, 12121, 15151...）</li>
+<li>姓名列单独存储（Srinivasan, Wu, Mozart...）</li>
+<li>部门列单独存储（Comp. Sci., Finance, Music...）</li>
+<li>薪资列单独存储（65000, 90000, 40000...）</li>
+</ul>
+<p>列式存储的优势</p>
+<ul>
+<li>减少I/O量：<ul>
+<li>当查询只需访问少量列时，可以只读取需要的列</li>
+<li>避免读取不需要的数据，显著减少I/O操作</li>
+</ul>
+</li>
+<li>改善CPU缓存性能：<ul>
+<li>同质数据连续存储增强数据局部性</li>
+<li>更好地利用CPU缓存，减少缓存未命中</li>
+</ul>
+</li>
+<li>更好的压缩效率：<ul>
+<li>同一列的数据通常具有相似性，压缩效率更高</li>
+<li>可以应用专门针对列数据特性的压缩算法</li>
+</ul>
+</li>
+<li>支持向量处理：<ul>
+<li>适合现代CPU架构的SIMD（单指令多数据）操作</li>
+<li>能同时对多个数据元素进行相同操作</li>
+</ul>
+</li>
+</ul>
+<p>列式存储的缺点</p>
+<ul>
+<li>元组重构成本：<ul>
+<li>需要从多个列中重新组合数据以重建完整行</li>
+<li>增加查询处理复杂性</li>
+</ul>
+</li>
+<li>更新和删除操作成本：<ul>
+<li>修改一行数据需要修改多个不同的存储位置</li>
+<li>使更新操作更加复杂</li>
+</ul>
+</li>
+<li>解压缩成本：<ul>
+<li>访问压缩数据需要额外的解压缩步骤</li>
+</ul>
+</li>
+</ul>
+<p>应用场景</p>
+<ul>
+<li>决策支持系统：列式存储被证明比行式存储更高效</li>
+<li>事务处理：传统行式存储更适合</li>
+<li>混合系统：一些数据库支持混合行列存储，称为混合行/列存储</li>
+<li>列式存储特别适合分析型工作负载（OLAP），如数据仓库和商业智能应用，这些应用通常只需访问少量列但需要处理大量行数据。</li>
+</ul>
+<h4 id="representation_1">Representation<a class="headerlink" href="#representation_1" title="Permanent link">&para;</a></h4>
+<figure>
+<img alt="" src="../img/lec8-26.png" width="400" />
+
+<figcaption>
+ORC
+</figcaption>
+</figure>
+<p>ORC和Parquet：两种流行的列式存储文件格式,这些格式在文件内部采用列式存储方式</p>
+<p>图中展示了ORC文件格式的结构</p>
+<p>应用场景：</p>
+<ul>
+<li>非常适合大数据应用</li>
+<li>被广泛应用于数据仓库和分析系统</li>
+</ul>
+<p>ORC文件结构：</p>
+<ul>
+<li>文件分条带(Stripe)：整个文件被分为多个条带（Stripe 1, Stripe 2, ..., Stripe n）</li>
+<li>每个条带包含：<ul>
+<li>索引数据(Index Data)：存储每列的统计信息和位置信息</li>
+<li>行数据(Row Data)：按列组织的实际数据</li>
+<li>条带页脚(Stripe Footer)：包含条带的元数据</li>
+</ul>
+</li>
+</ul>
+<p>内部组织：</p>
+<ul>
+<li>每列数据单独存储（Col1, Col2, Col3等）</li>
+<li>数据分为索引部分（Col1 Index, Col2 Index等）和数据部分（Col1 Data, Col2 Data等）</li>
+<li>最下方有文件页脚(File Footer)，包含整个文件的元数据</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../lec7/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 关系数据库设计">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                关系数据库设计
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../indexing/" class="md-footer__link md-footer__link--next" aria-label="下一页: 索引">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                索引
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

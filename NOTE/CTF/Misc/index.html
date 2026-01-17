@@ -1,0 +1,4686 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="人生苦短，纵情燃烧">
+      
+      
+        <meta name="author" content="The0xKa1">
+      
+      
+        <link rel="canonical" href="https://note.the0xka1.cc/NOTE/CTF/Misc/">
+      
+      
+        <link rel="prev" href="../web/">
+      
+      
+        <link rel="next" href="../Crypto/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../static/images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Misc - ka1的笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M128%20320H24.5c-24.9%200-40.2-27.1-27.4-48.5L50%20183.3c8.7-14.5%2024.3-23.3%2041.2-23.3h95C262.3%2031.1%20375.8%2024.6%20451.7%2035.7c12.8%201.9%2022.8%2011.9%2024.6%2024.6%2011.1%2075.9%204.6%20189.4-124.3%20265.5v95c0%2016.9-8.8%2032.5-23.3%2041.2l-88.2%2052.9c-21.3%2012.8-48.5-2.6-48.5-27.4V384c0-35.3-28.7-64-64-64h-.1zm272-160a48%2048%200%201%200-96%200%2048%2048%200%201%200%2096%200%22/%3E%3C/svg%3E');--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M373.5%2027.1C388.5%209.9%20410.2%200%20433.1%200c43.6%200%2079%2035.4%2079%2079%200%2022.8-9.9%2044.6-27.1%2059.6L283.7%20313.8%20273%20303l-64-64-10.8-10.7zM161.1%20259c.9%201%2026.9%2027%2077.9%2078l13.9%2013.9-17.1%2074.2c-3.9%2017.1-16.9%2030.7-33.8%2035.4L32.2%20508l92.3-92.3c1.2.1%202.3.2%203.5.2%2017.7%200%2032-14.3%2032-32s-14.3-32-32-32-32%2014.3-32%2032c0%201.2.1%202.4.2%203.5L3.9%20479.8%2051.5%20310c4.7-16.9%2018.3-29.9%2035.4-33.8z%22/%3E%3C/svg%3E');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M40%2048c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24V72c0-13.3-10.7-24-24-24zm152%2016c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zm0%20160c-17.7%200-32%2014.3-32%2032s14.3%2032%2032%2032h288c17.7%200%2032-14.3%2032-32s-14.3-32-32-32zM16%20232v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24H40c-13.3%200-24%2010.7-24%2024m24%20136c-13.3%200-24%2010.7-24%2024v48c0%2013.3%2010.7%2024%2024%2024h48c13.3%200%2024-10.7%2024-24v-48c0-13.3-10.7-24-24-24z%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M292.9%20384c7.3-22.3%2021.9-42.5%2038.4-59.9C364%20289.7%20384%20243.2%20384%20192%20384%2086%20298%200%20192%200S0%2086%200%20192c0%2051.2%2020%2097.7%2052.7%20132.1%2016.5%2017.4%2031.2%2037.6%2038.4%2059.9h201.7zm-4.9%2048H96v16c0%2044.2%2035.8%2080%2080%2080h32c44.2%200%2080-35.8%2080-80zM184%20112c-39.8%200-72%2032.2-72%2072%200%2013.3-10.7%2024-24%2024s-24-10.7-24-24c0-66.3%2053.7-120%20120-120%2013.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024%22/%3E%3C/svg%3E');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M434.8%2070.1c14.3%2010.4%2017.5%2030.4%207.1%2044.7l-256%20352c-5.5%207.6-14%2012.3-23.4%2013.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8%200-45.3s32.8-12.5%2045.3%200l101.5%20101.5%20234-321.7c10.4-14.3%2030.4-17.5%2044.7-7.1z%22/%3E%3C/svg%3E');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M288%2032c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v208c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v272c0%201.5%200%203.1.1%204.6L67.6%20283c-16-15.2-41.3-14.6-56.6%201.4s-14.6%2041.3%201.4%2056.6l112.4%20107c43.1%2041.1%20100.4%2064%20160%2064H304c97.2%200%20176-78.8%20176-176V128c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v112c0%208.8-7.2%2016-16%2016s-16-7.2-16-16V64c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v176c0%208.8-7.2%2016-16%2016s-16-7.2-16-16z%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%200c14.7%200%2028.2%208.1%2035.2%2021l216%20400c6.7%2012.4%206.4%2027.4-.8%2039.5S486.1%20480%20472%20480H40c-14.1%200-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9%2020.5-21%2035.2-21m0%20352a32%2032%200%201%200%200%2064%2032%2032%200%201%200%200-64m0-192c-18.2%200-32.7%2015.5-31.4%2033.7l7.4%20104c.9%2012.5%2011.4%2022.3%2023.9%2022.3%2012.6%200%2023-9.7%2023.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z%22/%3E%3C/svg%3E');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203c4.97%200%209%203.58%209%208s-6%2010-9%2010-9-5.58-9-10%204.03-8%209-8m-1.69%207.93C9.29%209.29%207.47%208.58%206.25%209.34s-1.38%202.71-.36%204.35c1.03%201.64%202.85%202.35%204.07%201.59%201.22-.78%201.37-2.71.35-4.35m3.38%200c-1.02%201.64-.87%203.57.35%204.35%201.22.76%203.04.05%204.07-1.59%201.02-1.64.86-3.59-.36-4.35s-3.04-.05-4.06%201.59M12%2017.75c-2%200-2.5-.75-2.5-.75%200%20.03.5%202%202.5%202s2.5-2%202.5-2-.5.75-2.5.75%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M296%2040c0-22.1-17.9-40-40-40s-40%2017.9-40%2040c0%2044.1-53.3%2066.1-84.5%2035-15.6-15.6-40.9-15.6-56.6%200s-15.6%2040.9%200%2056.6c31.2%2031.2%209.1%2084.5-35%2084.5-22.1%200-40%2017.9-40%2040s17.9%2040%2040%2040c44.1%200%2066.1%2053.3%2035%2084.5-15.6%2015.6-15.6%2040.9%200%2056.6s40.9%2015.6%2056.6%200c31.2-31.2%2084.5-9.1%2084.5%2035%200%2022.1%2017.9%2040%2040%2040s40-17.9%2040-40c0-44.1%2053.3-66.1%2084.5-35%2015.6%2015.6%2040.9%2015.6%2056.6%200s15.6-40.9%200-56.6c-31.2-31.2-9.1-84.5%2035-84.5%2022.1%200%2040-17.9%2040-40s-17.9-40-40-40c-44.1%200-66.1-53.3-35-84.5%2015.6-15.6%2015.6-40.9%200-56.6s-40.9-15.6-56.6%200c-31.2%2031.1-84.5%209.1-84.5-35M160%20224a32%2032%200%201%201%2064%200%2032%2032%200%201%201-64%200m160%2032a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M352%200c0-17.7-14.3-32-32-32s-32%2014.3-32%2032v64h-96c-53%200-96%2043-96%2096v224c0%2053%2043%2096%2096%2096h256c53%200%2096-43%2096-96V160c0-53-43-96-96-96h-96zM160%20368c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24m120%200c0-13.3%2010.7-24%2024-24h32c13.3%200%2024%2010.7%2024%2024s-10.7%2024-24%2024h-32c-13.3%200-24-10.7-24-24M224%20176a48%2048%200%201%201%200%2096%2048%2048%200%201%201%200-96m144%2048a48%2048%200%201%201%2096%200%2048%2048%200%201%201-96%200m-304%200c0-17.7-14.3-32-32-32S0%20206.3%200%20224v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32zm544-32c-17.7%200-32%2014.3-32%2032v96c0%2017.7%2014.3%2032%2032%2032s32-14.3%2032-32v-96c0-17.7-14.3-32-32-32%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M272%200c-26.5%200-48%2021.5-48%2048v16h-16c-44.2%200-80%2035.8-80%2080v108.8l-21.6%208.6c-14.8%205.9-22.5%2022.4-17.4%2037.5%2010.4%2031.3%2026.8%2059.3%2047.7%2083.1%2020.1-9.2%2041.7-13.9%2063.3-14%2033.1-.2%2066.3%2010.2%2094.4%2031.4l1.6%201.2v-215l-104%2041.6V144c0-8.8%207.2-16%2016-16h224c8.8%200%2016%207.2%2016%2016v83.2l-104-41.6v215l1.6-1.2c27.5-20.7%2059.9-31.2%2092.4-31.4%2022.3-.1%2044.6%204.5%2065.3%2014%2020.9-23.7%2037.3-51.8%2047.7-83.1%205-15.2-2.6-31.6-17.4-37.5l-21.6-8.6V144c0-44.2-35.8-80-80-80h-16V48c0-26.5-21.5-48-48-48zm131.4%20476.1c21.3-16.1%2049.9-16.1%2071.2%200%2019%2014.4%2041.9%2028.2%2067.2%2033.3%2026.5%205.4%2054.3.8%2080.7-19.1%2010.6-8%2012.7-23%204.7-33.6s-23-12.7-33.6-4.7c-14.9%2011.2-28.6%2013.1-42.3%2010.3-14.9-3-30.9-11.9-47.8-24.6-38.4-29-90.5-29-129%200-24%2018.1-40.7%2026.3-54.5%2026.3s-30.5-8.2-54.5-26.3c-38.4-29-90.5-29-129%200-21.6%2016.3-41.3%2025.8-58.9%2025.7-9.6-.1-19.9-3-31.2-11.5-10.6-8-25.6-5.9-33.6%204.7s-5.8%2025.7%204.8%2033.7c19.1%2014.4%2039.4%2021%2059.8%2021.1%2033.9.2%2064.3-17.4%2088.1-35.3%2021.3-16.1%2049.9-16.1%2071.2%200%2024.2%2018.3%2052.3%2035.9%2083.4%2035.9s59.1-17.7%2083.4-35.9z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M419.5%2096c-16.6%200-32.7%204.5-46.8%2012.7-15.8-16-34.2-29.4-54.5-39.5%2028.2-24%2064.1-37.2%20101.3-37.2C505.9%2032%20576%20102%20576%20188.5c0%2041.5-16.5%2081.3-45.8%20110.6l-71.1%2071.1C429.8%20399.5%20390%20416%20348.5%20416%20262.1%20416%20192%20346%20192%20259.5c0-1.5%200-3%20.1-4.5.5-17.7%2015.2-31.6%2032.9-31.1s31.6%2015.2%2031.1%2032.9v2.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2024.5%200%2048-9.7%2065.4-27.1l71.1-71.1c17.3-17.3%2027.1-40.9%2027.1-65.4%200-51.1-41.4-92.5-92.5-92.5zm-144.3%2077.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5%200-48%209.7-65.4%2027.1l-71.1%2071.1C73.8%20275.5%2064%20299.1%2064%20323.6c0%2051.1%2041.4%2092.5%2092.5%2092.5%2016.5%200%2032.6-4.4%2046.7-12.6%2015.8%2016%2034.2%2029.4%2054.6%2039.5-28.2%2023.9-64%2037.2-101.3%2037.2C70.1%20480.2%200%20410.2%200%20323.7c0-41.5%2016.5-81.3%2045.8-110.6l71.1-71.1c29.3-29.3%2069.1-45.8%20110.6-45.8%2086.6%200%20156.5%2070.6%20156.5%20156.9v3.9c-.4%2017.7-15.1%2031.6-32.8%2031.2s-31.6-15.1-31.2-32.8v-2.3c0-33.7-18-63.3-44.8-79.6z%22/%3E%3C/svg%3E');}</style>
+
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--default-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M32.5%2096v149.5c0%2017%206.7%2033.3%2018.7%2045.3l192%20192c25%2025%2065.5%2025%2090.5%200l149.5-149.5c25-25%2025-65.5%200-90.5l-192-192C279.2%2038.7%20263%2032%20246%2032H96.5c-35.3%200-64%2028.7-64%2064m112%2016a32%2032%200%201%201%200%2064%2032%2032%200%201%201%200-64%22/%3E%3C/svg%3E');}.md-tag.md-tag--hardware-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M176%2024c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40c-35.3%200-64%2028.7-64%2064H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40v56H24c-13.3%200-24%2010.7-24%2024s10.7%2024%2024%2024h40c0%2035.3%2028.7%2064%2064%2064v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40h56v40c0%2013.3%2010.7%2024%2024%2024s24-10.7%2024-24v-40c35.3%200%2064-28.7%2064-64h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40v-56h40c13.3%200%2024-10.7%2024-24s-10.7-24-24-24h-40c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56V24c0-13.3-10.7-24-24-24s-24%2010.7-24%2024v40h-56zm-16%20104h192c17.7%200%2032%2014.3%2032%2032v192c0%2017.7-14.3%2032-32%2032H160c-17.7%200-32-14.3-32-32V160c0-17.7%2014.3-32%2032-32m16%2048v160h160V176z%22/%3E%3C/svg%3E');}.md-tag.md-tag--software-tag{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.1.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M64%2096c0-35.3%2028.7-64%2064-64h384c35.3%200%2064%2028.7%2064%2064v240h-64V96H128v240H64zM0%20403.2C0%20392.6%208.6%20384%2019.2%20384h601.6c10.6%200%2019.2%208.6%2019.2%2019.2%200%2042.4-34.4%2076.8-76.8%2076.8H76.8C34.4%20480%200%20445.6%200%20403.2M281%20209l-31%2031%2031%2031c9.4%209.4%209.4%2024.6%200%2033.9s-24.6%209.4-33.9%200l-48-48c-9.4-9.4-9.4-24.6%200-33.9l48-48c9.4-9.4%2024.6-9.4%2033.9%200s9.4%2024.6%200%2033.9zm112-34%2048%2048c9.4%209.4%209.4%2024.6%200%2033.9l-48%2048c-9.4%209.4-24.6%209.4-33.9%200s-9.4-24.6%200-33.9l31-31-31-31c-9.4-9.4-9.4-24.6%200-33.9s24.6-9.4%2033.9%200z%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/timeline.css">
+    
+      <link rel="stylesheet" href="../../../css/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../css/cards.css">
+    
+      <link rel="stylesheet" href="../../../css/card.css">
+    
+      <link rel="stylesheet" href="../../../css/newfonts.css">
+    
+      <link rel="stylesheet" href="../../../css/newadmonitions.css">
+    
+      <link rel="stylesheet" href="../../../css/newcolor.css">
+    
+      <link rel="stylesheet" href="../../../css/changelogs.css">
+    
+      <link rel="stylesheet" href="../../../css/tableandsize.css">
+    
+      <link rel="stylesheet" href="../../../css/flink.css">
+    
+      <link rel="stylesheet" href="../../../css/float_card.css">
+    
+      <link rel="stylesheet" href="../../../css/fdtoc.css">
+    
+      <link rel="stylesheet" href="../../../css/tocindex.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-4-lec3-misc" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ka1的笔记本" class="md-header__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ka1的笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Misc
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="theme" data-md-color-primary="custom" data-md-color-accent="pink"  aria-label="万籁俱寂"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="万籁俱寂" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="custom"  aria-label="萧瑟凌晨"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="萧瑟凌晨" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: no-preference)" data-md-color-scheme="simple" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="烈日灼心"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="烈日灼心" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  📚 学习笔记
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../friends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 友情链接
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ka1的笔记本" class="md-nav__button md-logo" aria-label="ka1的笔记本" data-md-component="logo">
+      
+  <img src="../../../static/images/logo.png" alt="logo">
+
+    </a>
+    ka1的笔记本
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/The0xKa1/The0xKa1.github.io.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    𝕿𝖍𝖊𝟎𝖝𝕶𝖆𝟏
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 学习笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 学习笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎓 课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🎓 课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DB/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CO/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机组成与设计
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ADS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级数据结构与算法分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Arch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../DataMarket/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据要素市场
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../ASM/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    汇编与接口
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔬 数学与物理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🔬 数学与物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../LA/linear-algebra/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数 (LINEAR-ALGEBRA)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../MA/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学分析
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Physics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学二
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CS/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    💻 自学笔记
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    💻 自学笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/TMS/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Semester (TMS)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/GIT/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/Verilog/verilog/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../CS/CV/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉 (Computer Vision)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Language/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学习
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🛡️ 安全与竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🛡️ 安全与竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF 竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CTF 竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    浙江大学AAA短学期课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misc
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#7-4-lec3-misc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7-4 lec3-Misc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7-4 lec3-Misc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是Misc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编码基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编码基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么会乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        摩斯电码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BASE编码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#osint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSINT 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OSINT 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信息搜集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件信息泄露
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        照片信息分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-9-misc1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7-9 Misc专题1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7-9 Misc专题1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part1:文件系统基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part1:文件系统基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件如何存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何判断文件类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二进制查看文件与分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件类型检测与元信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件附加内容的识别与分离
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part2: 图像隐写基础技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part2: 图像隐写基础技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件内容基本隐写
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        色彩空间、色彩模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lsb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LSB 隐写
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PIL 图像处理基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part3:图像格式介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part3:图像格式介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JPEG 文件格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG文件格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG压缩原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part4:隐写进阶技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part4:隐写进阶技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像大小修改
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        需要原图的图像隐写
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        音频文件格式简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他Misc题目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="其他Misc题目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ZIP伪加密
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ppc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        沙箱逃逸和 PPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-9-misc2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7-9 Misc专题2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7-9 Misc专题2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part1:流量取证
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part1:流量取证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流量取证基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流量取证常用工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part2:以太坊区块链基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part2:以太坊区块链基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        以太坊模型全览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        账户与交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        智能合约安全基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能合约安全基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见漏洞
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTF 比赛中的私链题目交互
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%93%E8%AF%BE%E5%BF%83%E5%BE%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心得
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 友情链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#7-4-lec3-misc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7-4 lec3-Misc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7-4 lec3-Misc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是Misc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编码基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编码基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么会乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        摩斯电码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BASE编码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#osint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSINT 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OSINT 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信息搜集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件信息泄露
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        照片信息分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-9-misc1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7-9 Misc专题1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7-9 Misc专题1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part1:文件系统基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part1:文件系统基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件如何存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何判断文件类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二进制查看文件与分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件类型检测与元信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件附加内容的识别与分离
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part2: 图像隐写基础技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part2: 图像隐写基础技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件内容基本隐写
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        色彩空间、色彩模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lsb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LSB 隐写
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PIL 图像处理基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part3:图像格式介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part3:图像格式介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JPEG 文件格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG文件格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG压缩原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part4:隐写进阶技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part4:隐写进阶技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像大小修改
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        需要原图的图像隐写
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        音频文件格式简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他Misc题目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="其他Misc题目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ZIP伪加密
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ppc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        沙箱逃逸和 PPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-9-misc2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7-9 Misc专题2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7-9 Misc专题2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part1:流量取证
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part1:流量取证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流量取证基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        流量取证常用工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part2:以太坊区块链基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part2:以太坊区块链基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        以太坊模型全览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        账户与交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        智能合约安全基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能合约安全基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见漏洞
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTF 比赛中的私链题目交互
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    📚 学习笔记
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../CTF/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    🛡️ 安全与竞赛
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../CTF/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    CTF 竞赛
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Misc</h1>
+
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm6.78 1a.7.7 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38z"/></svg></span> 约 6316 个字 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></span> 9 行代码 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 17H7V3h14m0-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2M3 5H1v16a2 2 0 0 0 2 2h16v-2H3m12.96-10.71-2.75 3.54-1.96-2.36L8.5 15h11z"/></svg></span> 11 张图片 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3z"/></svg></span> 预计阅读时间 22 分钟</p>
+</div>
+<h2 id="7-4-lec3-misc">7-4 lec3-Misc<a class="headerlink" href="#7-4-lec3-misc" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>授课：goduck </p>
+</blockquote>
+<h3 id="misc">什么是Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>杂项 ALL-PWN-WEB-CRYPTO - REVERSE</li>
+<li>隐写、取证、OSINT（信息搜集）、PPC（编程类） ——传统 misc 题</li>
+<li>游戏类题目（大概也算 PPC）、工具运用类题目</li>
+<li>编解码、古典密码 ——不那么 crypto 的 crypto</li>
+<li>网络解谜、网站代码审计 ——不那么 web 的 web</li>
+<li>代码审计、沙箱逃逸 ——不那么 binary 的 binary</li>
+<li>Blockchain、IoT、AI ——新兴类别题目</li>
+</ul>
+<h3 id="_1">编码基础<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>一切信息在计算机看来都是 0 和 1<ul>
+<li>编解码 / 加解密 / 哈希都是在 01 串之间进行的变换</li>
+</ul>
+</li>
+<li>为什么你看见的输入输出是字符？<ul>
+<li>计算机通过字符编码规则将 01 串转换为了可见字符</li>
+</ul>
+</li>
+<li>三种常见的01串转换方式
+    <img alt="" src="../img/01trans.png" />  <ul>
+<li>常用的解码工具<a href="https://lab.tonycrane.cc/CyberChef/"> <strong>CyperChef</strong> </a></li>
+</ul>
+</li>
+</ul>
+<h4 id="_2">为什么会乱码<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>字符编码：人类理解的字符 &gt; 计算机理解的 01 串 之间的映射</p>
+</li>
+<li>
+<p>为什么会出现乱码：用一种字符编码规则解读另一种字符编码的 01 串
+；A0-FF：可见字符</p>
+<ul>
+<li>特点：任何字节流都可以用其解码</li>
+</ul>
+</li>
+<li>利用 Unicode 字符集的</li>
+<li>常见的字符编码：</li>
+<li>ASCII：一共 128 个项，即每个字符可以用一个 7 位的 01 串表示（或一字节）<ul>
+<li>00-1F：控制字符；20-7E：可见字符；7F：控制字符（DEL）</li>
+</ul>
+</li>
+<li>Latin-1（ISO-8859-1）：扩展了 ASCII，一共 256 个项<ul>
+<li>80-9F：控制字符一系列编码</li>
+<li>UTF-8 / UTF-16 / UTF-32 / UCS</li>
+</ul>
+</li>
+<li>中国国标字符集系列编码<ul>
+<li>GB 2312 / GBK / GB 18030-2022</li>
+</ul>
+</li>
+</ul>
+<h5 id="_3">怎么就乱码了<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
+<p>几个字符集不兼容的部分互相编解码，常见的：</p>
+<ul>
+<li>用 GBK 解码 UTF-8 编码的文本</li>
+<li>用 UTF-8 解码 GBK 编码的文本</li>
+<li>用 latin-1 解码 UTF-8 编码的文本</li>
+<li>用 latin-1 解码 GBK 编码的文本</li>
+<li>先用 GBK 解码 UTF-8 编码的文本，再用 UTF-8 解码前面的结果</li>
+<li>先用 UTF-8 解码 GBK 编码的文本，再用 GBK 解码前面的结果</li>
+<li>这里我们请同学们自行研究，lab 中会用到（后续详细发布），几种推荐的方式：</li>
+<li>CyberChef，通过 Input 和 Output 窗口的字符集设置</li>
+<li>需要注意，CyberChef 的 UTF-8 不会将错误解码替换为 �（非预期）</li>
+<li>vscode 右下角的编码方案（重新打开 / 用编码保存）</li>
+<li>必要的时候可以使用 python 来进行编解码 / 进制转换等</li>
+</ul>
+<h4 id="_4">摩斯电码<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>前面说到的字符编码：01 串 &gt; 字符；接下来看另一种：字符 &gt; 字符</p>
+<ul>
+<li>摩尔斯电码（Morse Code）：利用点划（“滴”的时间长短）来表示字符<ul>
+<li>点 ·：1 单位；划 -：3 单位</li>
+<li>点划之间间隔：1 单位；字符之间间隔：3 单位；单词之间间隔：7 单位</li>
+</ul>
+</li>
+<li>字符集：A-Z、0-9、标点符号（.:,; ='/!-_"()$&amp;@+）、一些电码专用表示</li>
+<li>表示中文：电码表（一个汉字对应四个数字），数字使用短码发送
+    <img alt="" src="../img/morse.png" /></li>
+</ul>
+<h4 id="base">BASE编码<a class="headerlink" href="#base" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Base16：即 16 进制表示字节流，长度翻倍</li>
+<li>Base32：按照 5 bit 一组（每个 0-31），按照字符表（A-Z2-7）映射<ul>
+<li>结果长度必须是 5 的倍数，不足的用 = 不齐（明显特征）</li>
+</ul>
+</li>
+<li>Base64：按照 6 bit 一组，按照字符表映射（最常用）<ul>
+<li>标准字符表：A-Za-z0-9+/</li>
+<li>另有多种常用字符表，如 URL 安全字符表：A-Za-z0-9-_</li>
+<li>结果长度必须是 4 的倍数，不足的用 = 不齐（1~2 个，明显特征）  </li>
+</ul>
+</li>
+</ul>
+<h5 id="base-n">Base-n 系列的本质：<a class="headerlink" href="#base-n" title="Permanent link">&para;</a></h5>
+<ul>
+<li>字节流 &gt; 整数 &gt; n 进制 &gt; 系数查表
+  所以除去前面规则的 16/32/64 进制，还有一些其他的 Base 编码：</li>
+<li>分组：<ul>
+<li>Base85：4 字节整数 &gt; 85 进制 &gt; 5 个系数</li>
+<li>常用字符表：0-9A-Za-z!#$%&amp;()*+-; &gt;?@^_`{ }~</li>
+<li>标准字符表：!-u（ASCII 编码中 0x21-0x75）</li>
+<li>作为大整数转换进制：</li>
+<li>Base62：0-9A-Za-z（比 Base64 少了 +/）</li>
+<li>Base58：0-9A-Za-z 去除 0OIl</li>
+<li>Base56：比 Base58 少了 1 和 o</li>
+<li>Base36：0-9A-Z（比 Base62 少了 a-z）</li>
+</ul>
+</li>
+</ul>
+<h3 id="osint">OSINT 基础<a class="headerlink" href="#osint" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>我要成为开盒糕手！</p>
+</blockquote>
+<ul>
+<li>Open Source INTelligence：开源网络情报</li>
+</ul>
+<p>通过完全公开的信息进行合理的推理，获取情报
+一般在 misc 题目中出现即泛指信息搜集，有几种情况：
+- 构造了一个全新的虚拟身份，搜集得到出题人准备好的信息
+- 根据图片、文档等附件泄漏的信息进行推理（主要）
+- 包括根据图片内容推理找到拍摄位置、当时环境等信息</p>
+<h4 id="_5">信息搜集<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https:/github.com/ffffffff0x/Digital-Privacy">数字信息搜集工具</a></li>
+<li>用户名批量查询</li>
+<li><a href="https:/github.com/sherlock-project/sherlock">sherlock</a> </li>
+<li><a href="https:/namechk.com/">namechk</a></li>
+</ul>
+<h4 id="_6">文件信息泄露<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>各种文档的元信息（metadata）可能包括作者、修改时间等信息<ul>
+<li>图片的 EXIF 信息，可通过 exiftool 查看一般以 xml 形式存储，可以直接通过二进制抹除，或者通过操作系统</li>
+</ul>
+</li>
+<li>工程文件夹泄漏信息<ul>
+<li>Visual Studio 的各种配置文件，.vs 文件夹中信息</li>
+<li>.vscode 文件夹中的配置文件</li>
+<li>.git 文件夹，泄漏全部修改历史、提交信息、提交者等
+文件夹路径信息泄漏</li>
+<li>.DS_Store 文件，macOS 下的文件夹布局信息</li>
+</ul>
+</li>
+</ul>
+<p>前面各种工程配置文件等也会泄漏（比如 vs 的 pdb 调试信息）
+markdown 文件图片路径（本地路径 / 图床用户 / 自建图床网站）   </p>
+<h4 id="_7">照片信息分析<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<ul>
+<li>识图</li>
+<li>属性</li>
+<li>地标</li>
+<li>天气信息，云层信息，估计方向，位置，时间等</li>
+<li>风景信息，Yandex搜索</li>
+</ul>
+<h2 id="7-9-misc1">7-9 Misc专题1<a class="headerlink" href="#7-9-misc1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>授课: 45gfg9 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="m369.4 128-34.3-48H113l-34.3 48zM0 148.5c0-13.3 4.2-26.3 11.9-37.2l49-68.5C72.9 26 92.3 16 112.9 16H335c20.7 0 40.1 10 52.1 26.8l48.9 68.5c7.8 10.9 11.9 23.9 11.9 37.2L448 416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64z"/></svg></span></p>
+<p>长沙，好玩；上课，不好玩</p>
+</blockquote>
+<h3 id="part1">Part1:文件系统基础<a class="headerlink" href="#part1" title="Permanent link">&para;</a></h3>
+<h4 id="_8">文件如何存储<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<ul>
+<li>不同的文件系统，不同的组织方式<ul>
+<li>MS 派：FAT、NTFS、exFAT、ReFS</li>
+<li>Apple 派：HFS、APFS</li>
+<li>Linux 派：ext[234]、XFS、Btrfs、ZFS...</li>
+</ul>
+</li>
+<li>文件是一串二进制数据<ul>
+<li>在 HDD 上是微小磁极的磁化方向</li>
+<li>在 SSD 上是电荷的存储状态</li>
+</ul>
+</li>
+<li>“文件名”是由文件系统管理的，不是文件本身数据的一部分<ul>
+<li>文件系统会记录文件名、文件大小、创建时间、修改时间等信息</li>
+<li>文件内容才是真正的数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="_9">如何判断文件类型<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>扩展名<ul>
+<li>.jpg  , .webp,.txt,.docx</li>
+<li>是文件名的一部分，可以随意修改</li>
+<li>决定了打开文件的默认程序</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>通过文件内容来识别文件类型</li>
+<li><code>file</code> 命令</li>
+<li>不同文件类型有不同的magic number</li>
+</ul>
+</li>
+</ul>
+<h4 id="_10">二进制查看文件与分析<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<ul>
+<li>010 Editor<ul>
+<li>全平台最常用的二进制编辑器，付费软件（但容易破解）</li>
+<li>有丰富的 binary templates，支持解析多种文件格式</li>
+</ul>
+</li>
+<li>wader/fg<ul>
+<li>Go 编写的开源二进制文件查看工具</li>
+<li>支持类似 jq 语法的查询</li>
+</ul>
+</li>
+<li>Hex Fiend<ul>
+<li>macOS 上免费开源高效的二进制编辑器</li>
+<li>也有多种二进制格式的解析模板，但显示没有 010 丰富</li>
+</ul>
+</li>
+<li>ImHex<ul>
+<li>全平台开源二进制编辑器</li>
+<li>类似 010 Editor，但使用麻烦一些</li>
+<li>可以编写自定义解析模板</li>
+</ul>
+</li>
+</ul>
+<h4 id="_11">文件类型检测与元信息<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../img/magic_num.png" /></p>
+<h4 id="_12">文件附加内容的识别与分离<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<ul>
+<li>大部分文件类型都有一个标记文件内容结束的标志</li>
+<li>
+<p>比如 PNG 的 IEND 块、JPEG 的 EOI 标志（FF D9）</p>
+</li>
+<li>
+<p>所以一般在文件末尾添加其他字节时，不会影响原文件本身的用途</p>
+</li>
+<li>因此有些隐写是将数据隐藏在文件末尾达到的</li>
+<li>或者在文件后叠加另一份文件</li>
+<li>cat cover.jpg secret.zip &gt; cover_stego.jpg</li>
+<li>附加内容的识别</li>
+<li>exiftool 一般可以识别图像文件后的附加数据</li>
+<li>binwalk 可以检测叠加的文件</li>
+<li>附加文件的分离</li>
+<li>binwalk 或 foremost 识别并分离</li>
+<li>dd if=<src> of=<dst> bs=1 skip=<offset> 手动分离</li>
+</ul>
+<h3 id="part2">Part2: 图像隐写基础技术<a class="headerlink" href="#part2" title="Permanent link">&para;</a></h3>
+<h4 id="_13">文件内容基本隐写<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<ul>
+<li>文件末尾添加数据<ul>
+<li>exiftool 识别短数据，或者十六进制编辑器直接观察</li>
+<li>binwalk 识别叠加文件，foremost 提取</li>
+<li>图像末尾叠加一个压缩包，就是所谓的“图种”<ul>
+<li>修改后缀名可能可以解压（部分解压软件会忽略前面的图像）</li>
+<li>其实不如直接分离</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>直接利用元信息<ul>
+<li>exiftool 即可读取</li>
+</ul>
+</li>
+</ul>
+<h4 id="_14">色彩空间、色彩模式<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p>色彩空间（sRGB、Adobe RGB、Display P3 等）是一个相对非常复杂的概念，而且是针对显示的，我们不详细介绍</p>
+<p>我们注重于表示颜色的数据上，一般称为色彩模式（color mode）：</p>
+<ul>
+<li>二值图像（bitonal）：每个像素只有两种颜色，如黑白</li>
+<li>灰度图像（grayscale）：每个像素有多种灰度，如 256 级灰度</li>
+<li>RGB(A)：3(+1) 通道，表示 RGB 三种颜色，A 表示透明度通道(印刷常用)</li>
+<li>CMYK：青 cyan、品红 magenta、黄 yellow、黑 black 四种颜色混合</li>
+<li>HSV：色调 hue、饱和度 saturation、明度 value</li>
+<li>HSL：色调 hue、饱和度 saturation、亮度 lightness</li>
+<li>YCbCr：亮度 luminance、蓝色色度 blue chroma、红色色度 red chroma</li>
+<li>LAB：亮度 lightness、绿红色度 A、蓝黄色度 B</li>
+<li>...</li>
+</ul>
+<h4 id="lsb">LSB 隐写<a class="headerlink" href="#lsb" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../img/LSB.png" /></p>
+<ul>
+<li>人眼对于微小的颜色变化不敏感</li>
+<li>对于 8 bit 的颜色值，最低位的变化不会被察觉</li>
+<li>可以随意修改最低位，而不影响图像的显示效果</li>
+<li>LSB 隐写将颜色通道的最低位用来编码信息</li>
+<li>图像：stegsolve / CyberChef View Bit Plane</li>
+<li>数据：stegsolve / CyberChef Extract LSB / zsteg / PIL</li>
+</ul>
+<h4 id="pil">PIL 图像处理基础<a class="headerlink" href="#pil" title="Permanent link">&para;</a></h4>
+<p>PIL（Python Imaging Library）是 Python 中非常常用的图像处理库</p>
+<ul>
+<li>安装：pip3 install pillow 或 apt install python3-pil</li>
+<li>
+<p>官方文档 / 教程：<a href="https://pillow.readthedocs.io/en/stable/">https://pillow.readthedocs.io/en/stable/</a></p>
+</li>
+<li>
+<p>基本用法</p>
+<ul>
+<li>from PIL import Image 导入和图像读写处理有关的 Image 类</li>
+<li>img = Image.open(file_name) 打开图像</li>
+<li>img.show() 显示图像；img.save(file_name) 保存图像</li>
+<li>img.size 图像大小，img.mode 图像模式</li>
+<li>img.convert(mode) 转换图像模式</li>
+<li>img.getpixel((x, y)) 获取像素点颜色</li>
+<li>img.putpixel((x, y), color) 设置像素点颜色</li>
+<li>np.array(img) 将图像转换为 numpy 数组</li>
+</ul>
+</li>
+<li>
+<p>具体图像模式以及转换</p>
+</li>
+<li>'1'：黑白二值（0/255）；'L'：灰度（8 bit），'l'：32 bit 灰度<ul>
+<li>L = 0.299 R + 0.587 G + 0.114 B</li>
+</ul>
+</li>
+<li>'P'：8bit 调色盘，获取的像素值是调色盘索引</li>
+<li>'RGB'、'RGBA'</li>
+<li>'CMYK'：转换时有色差，CMY = 255 - RGB，K = 0</li>
+<li>'YCbCr'、'LAB'、'HSV' 等，转换时有复杂公式（可能出现新的隐写）</li>
+<li>PIL 其他模块用途<ul>
+<li>ImageDraw 用于绘制图像、绘制图形</li>
+<li>ImageChops 用于图像通道的逻辑运算</li>
+<li>ImageOps 用于图像整体的运算一类</li>
+<li>ImageFilter 用于图像的滤波处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="part3">Part3:图像格式介绍<a class="headerlink" href="#part3" title="Permanent link">&para;</a></h3>
+<h4 id="_15">图像存储<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<ul>
+<li>图像信息：宽高、色彩模式、色彩空间等</li>
+<li>EXIF 信息：拍摄设备、拍摄时间、GPS 信息等</li>
+<li>像素数据：每个像素的颜色信息；二值、灰度、RGB、CMYK、调色盘等<ul>
+<li>对于标准 RGB 图像，每个像素需要 24 bits(RGB三个字节，可能有A)</li>
+<li>对于一张 1080p 图像，需要 6.22 MB(RGB)，4K 则需要 24.88 MB(RGBA)</li>
+<li>BMP 格式</li>
+</ul>
+</li>
+<li>压力给到了图像格式的压缩算法<ul>
+<li>PNG 无损，JPEG 有损</li>
+<li>GIF 有损且只支持 256 色</li>
+<li>新兴格式如 HEIF、WebP、AVIF 等</li>
+</ul>
+</li>
+</ul>
+<h4 id="jpeg">JPEG 文件格式<a class="headerlink" href="#jpeg" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../img/JPEG.png" /></p>
+<p>JPEG 使用分段的结构来进行存储，各段以 0xFF 开头，后接一个字节表示类型：</p>
+<ul>
+<li>FFD8（SOI）：文件开始</li>
+<li>FFE0（APP0）：应用程序数据段，包含文件格式信息（上图没有）</li>
+<li>FFE1（APP1）：应用程序数据段，包含 EXIF 信息（上图没有）</li>
+<li>FFDB（DQT）：量化表数据</li>
+<li>FFC0（SOF）：帧数据，包含图像宽高、色彩模式等信息</li>
+<li>FFC4（DHT）：huffman 表数据</li>
+<li>FFDA（SOS）：扫描数据，包含数据的扫描方式，huffman 表的使用方式等</li>
+<li>FFD9（EOI）：文件结束</li>
+</ul>
+<p>#### JPEG压缩原理
+- JPEG 的压缩原理是 DCT（离散余弦变换）+ Huffman 编码
+    + 由 RGB 转换到 YCbCr，然后减少 Cb、Cr 的采样率
+    + 将图像分块，每个块 8x8，进行 DCT 变换
+       - 将图像转换为频域，便于压缩高频部分
+- 量化，将 DCT 变换后的系数除以量化表中的系数
+    + 再次减少高频部分的数据
+    + 根据不同的量化表，可以调整压缩质量
+- 通过游程编码和 huffman 编码进行压缩</p>
+<h4 id="png">PNG文件格式<a class="headerlink" href="#png" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../img/PNG.png" /></p>
+<ul>
+<li>文件头 89 50 4E 47 0D 0A 1A 0A | .PNG....</li>
+<li>采用分块的方式存储数据<ul>
+<li>每块的结构都是 4 字节长度 + 4 字节类型 + 数据 + 4 字节 CRC 校验</li>
+<li>四个标准数据块：IHDR、PLTE、IDAT、IEND</li>
+<li>其他辅助数据块：eXIf、tEXt、zTXt、tIME、gAMA……<ul>
+<li>eXIf 元信息，tIME 修改时间，tEXt 文本，zTXt 压缩文本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>四种标准数据块：</p>
+<ul>
+<li>IHDR：包含图像基本信息，必须位于开头<ul>
+<li>4 字节宽度 + 4 字节高度</li>
+<li>1 字节位深度：1、2、4、8、16</li>
+<li>1 字节颜色类型：0 灰度，2 RGB，3 索引，4 灰度透明，6 RGB 透明</li>
+<li>1 字节压缩方式，1 字节滤波方式，均固定为 0</li>
+<li>1 字节扫描方式：0 非隔行扫描，1 Adam7 隔行扫描</li>
+</ul>
+</li>
+<li>PLTE：调色板，只对索引颜色类型有用</li>
+<li>IDAT：图像数据，可以有多个，每个数据块最大 2 31 -1 字节</li>
+<li>IEND：文件结束标志，必须位于最后，内容固定<ul>
+<li>PNG 标准不允许 IEND 之后有数据块</li>
+</ul>
+</li>
+</ul>
+<h4 id="png_1">PNG压缩原理<a class="headerlink" href="#png_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>PNG 使用 Deflate 压缩算法<ul>
+<li>是 LZ77 结合 huffman 编码的一种压缩算法</li>
+<li>LZ77：利用滑动窗口，找到最长的重复字符串，用指针和长度表示
+ <img alt="" src="../img/LZ77.png" /></li>
+</ul>
+</li>
+<li>会进行滤波，减少数据的冗余性，提高压缩率<ul>
+<li>五种滤波器：None、Sub、Up、Average、Paeth</li>
+</ul>
+</li>
+</ul>
+<h3 id="part4">Part4:隐写进阶技术<a class="headerlink" href="#part4" title="Permanent link">&para;</a></h3>
+<h4 id="_16">图像大小修改<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<ul>
+<li>PNG 图像按行进行像素数据的压缩，以及存储 / 读取</li>
+<li>当解码时已经达到了 IHDR 中规定的大小就会结束</li>
+<li>因此题目可能会故意修改 IHDR 中的高度数据，使之显示不全</li>
+<li>恢复的话更改高度即可，同时注意 crc 校验码，否则可能报错<ul>
+<li>binascii.crc32(data)，data 为从 IHDR 开始的数据</li>
+</ul>
+</li>
+<li><img alt="" src="../img/demo.png" />   </li>
+</ul>
+<h4 id="_17">需要原图的图像隐写<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>有些情况下的图像隐写需要原图才能解密，这时第一步一般是 OSINT 搜索原图</p>
+<ul>
+<li>使用识图工具进行搜索</li>
+<li>一般需要搜原图的题题目描述会带有来源暗示之类的</li>
+<li>
+<p>多注意搜到的图像大小、质量，确保是真正的原图
+接下来利用原图和隐写图像的差异进行分析</p>
+</li>
+<li>
+<p>图像像素异或观察差异</p>
+<ul>
+<li>PIL 手动处理 / ImageChops.difference</li>
+<li>stegsolve image combiner
+盲水印系列</li>
+</ul>
+</li>
+<li>给了打水印的代码的话直接尝试根据代码逆推即可</li>
+<li>没有给代码的可能就是常见的现有盲水印工具</li>
+<li>
+<p><a href="https://github.com/guofei9987/blind_watermark">guofei9987/blind_watermark</a></p>
+</li>
+<li>
+<p>工具steghide、stegoveritas、SilentEye</p>
+</li>
+</ul>
+<h4 id="_18">音频文件格式简介<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<p>音频类题目其实并不常出：</p>
+<ul>
+<li>mp3：有损压缩</li>
+<li>具体格式不多介绍，遇到了基本上也就是声音本身的隐写</li>
+<li>wav：无损无压缩（waveform）<ul>
+<li>直接存储的是音频的波形数据，可操作性更高</li>
+<li>文件结构也是分 chunk 的，有 RIFF、fmt、data 等</li>
+<li>编码音频数据的 sample 也可以进行 LSB 隐写</li>
+</ul>
+</li>
+<li>flac：无损压缩，如果出现可能考虑转换为 wav</li>
+<li>使用 Python 的 soundfile / librosa 库进行音频处理</li>
+<li>频谱隐写</li>
+<li>音频叠加</li>
+<li>如果可以找到原音频，或提供了原音频，可以进行比较</li>
+<li>方法是在 Audition 中创建多轨会话<ul>
+<li>将两个音频拖入两个轨道</li>
+<li>效果 &gt; 匹配响度，将两条音轨的响度匹配</li>
+<li>点进其中一条音轨，效果 &gt; 反相，将波形上下颠倒</li>
+<li>两条音轨匹配上波形之后播放 / 混音，就能听到差异了</li>
+</ul>
+</li>
+</ul>
+<h3 id="misc_1">其他Misc题目<a class="headerlink" href="#misc_1" title="Permanent link">&para;</a></h3>
+<h4 id="zip">ZIP伪加密<a class="headerlink" href="#zip" title="Permanent link">&para;</a></h4>
+<ul>
+<li>ZIP 也使用分段的方式存储数据<ul>
+<li>本地文件记录 50 4B 03 04，可以有多个</li>
+<li>中央目录记录 50 4B 01 02，可以有多个</li>
+<li>中央目录结束 50 4B 05 06</li>
+</ul>
+</li>
+<li>在中央目录记录中有一个字段记录加密方式<ul>
+<li>如果不为 0 表示有加密</li>
+</ul>
+</li>
+<li>其他字段，如最小版本<ul>
+<li>可能修改为一个不合法的值，无法用解压软件解压</li>
+</ul>
+</li>
+</ul>
+<h4 id="ppc">沙箱逃逸和 PPC<a class="headerlink" href="#ppc" title="Permanent link">&para;</a></h4>
+<ul>
+<li>沙箱：做了某些限制的隔离环境<ul>
+<li>例如 Docker，或一个沙箱程序，如 rbash</li>
+</ul>
+</li>
+<li>Python 解释器也可以作为一个沙箱<ul>
+<li>通过限制模块、限制函数、代码审计等方式</li>
+</ul>
+</li>
+<li>
+<p>沙箱逃逸就是在沙箱中执行代码，获取到沙箱外的权限</p>
+<ul>
+<li>Python 的 os 及 importlib 模块是常见的逃逸点</li>
+</ul>
+</li>
+<li>
+<p>PPC 题较为不常见</p>
+</li>
+<li>一般是限制代码长度 / 汇编指令，要求实现某个功能</li>
+</ul>
+<h2 id="7-9-misc2">7-9 Misc专题2<a class="headerlink" href="#7-9-misc2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>授课：TonyCrane</p>
+</blockquote>
+<h3 id="part1_1">Part1:流量取证<a class="headerlink" href="#part1_1" title="Permanent link">&para;</a></h3>
+<h4 id="_19">流量取证基础<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<ul>
+<li>网络流量（ &gt; 回顾 web 基础）<ul>
+<li>应用层（HTTP/FTP/ .） &gt; 表示层 &gt; 会话层（SSL/TLS/ .）</li>
+<li>
+<blockquote>
+<p>传输层（TCP/UDP） &gt; 网络层（IP/ICMP/ .）</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>数据链路层 &gt; 物理层</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>最终传输的仍然是二进制数据<ul>
+<li>捕获这些数据，就可以分析得到正在进行的通信内容</li>
+</ul>
+</li>
+<li>流量取证一般就是拿到这些数据包（cap、pcap、pcapng 格式）进行分析<ul>
+<li>如有损坏的话修复数据包（少见，pcapfix 可以修复）</li>
+<li>分析、提取得到正在通信的内容（可能包含有效信息）</li>
+<li>分析一些特定的、不太常见的协议（比如一些自定义协议）</li>
+<li>分析、解密一些加密的协议（比如 VMess 等）</li>
+</ul>
+</li>
+</ul>
+<h4 id="_20">流量取证常用工具<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<ul>
+<li>tcpdump 抓 TCP 包（Linux 命令行）</li>
+<li>Wireshark：直接抓包，得到物理层的全部数据并解析（开源）</li>
+<li>自带命令行工具 tshark</li>
+<li>termshark：类似 Wireshark 的开源命令行工具</li>
+<li>pyshark：tshark 的 Python 封装，可以用 Python 脚本分析</li>
+<li>scapy：Python 库，也可以用来分析流量包</li>
+</ul>
+<p><strong>Wireshark 基本用法</strong></p>
+<ul>
+<li>浏览主界面的所有数据包，大致了解都由什么协议组成</li>
+<li>追踪流（追踪 TCP 流 / 追踪 HTTP 流）</li>
+<li>得到某次通信的全部数据包，并进行解析</li>
+<li>另存为，保存流数据</li>
+<li>可以转换不同的显示形式（ASCII、HEX、Raw）</li>
+<li>文件 &gt; 导出，提取某些数据包的流内容</li>
+<li>统计部分<ul>
+<li>协议层次：统计各层协议的数据包数量</li>
+<li>流量图：统计各个端口的流量，可视化显示</li>
+<li>HTTP：分组计数、请求统计</li>
+</ul>
+</li>
+</ul>
+<p><strong>Wireshark 过滤器</strong></p>
+<ul>
+<li>过滤协议：直接输入 tcp/udp/http 等</li>
+<li>过滤 ip：ip.addr = xx.xx.xx.xx 或 ip.src ip.dst</li>
+<li>过滤端口：tcp.port = 80 或 tcp.srcport tcp.dstport</li>
+<li>包长度过滤：frame.len ip.len tcp.len ……</li>
+<li>http 过滤<ul>
+<li>http.request.method = GET</li>
+<li>http.request.uri = "/index.php"</li>
+<li>http contains "flag"（相当于搜索功能）</li>
+</ul>
+</li>
+</ul>
+<p><strong>HTTP协议流量分析</strong></p>
+<ul>
+<li>分析统计信息<ul>
+<li>查看所有的 HTTP 请求 URI</li>
+<li>分析 HTTP 往返的情况，流量整体信息</li>
+</ul>
+</li>
+<li>具体分析某些请求：利用过滤器</li>
+<li>分析某一数据包具体内容<ul>
+<li>跟踪流，跟踪 TCP 解析 TCP，跟踪 HTTP 可以自动解压 gzip 等</li>
+<li>分析请求头、响应头、请求体、响应体等</li>
+</ul>
+</li>
+</ul>
+<p><strong>UDP 协议</strong></p>
+<ul>
+<li>
+<p>UDP 协议是无连接的，不需要像 TCP 一样三次握手</p>
+</li>
+<li>
+<p>和 TCP/HTTP 一样直接追踪分析就可以</p>
+</li>
+<li>常见的基于 UDP 的协议：DNS</li>
+<li>
+<p>具体题目示例</p>
+<ul>
+<li>
+<p>本次 lab 中的题目：dnscap</p>
+</li>
+<li>
+<p>MRCTF 2022：Bleach!</p>
+</li>
+<li>基于 UDP 的 RTP 协议，需要手动选择进行解析</li>
+<li>RTP 是一种音视频传输协议，可以得到音频流</li>
+<li>wav 音频流中 LSB 包含隐写图片</li>
+</ul>
+</li>
+</ul>
+<p><strong>其他协议</strong></p>
+<ul>
+<li>ICMP 协议：ping<ul>
+<li>某时也会带有一些信息，可以进行进一步分析</li>
+</ul>
+</li>
+<li>
+<p>OICQ 协议：QQ 使用，是加密的，但是可以看到双方 QQ 号等</p>
+</li>
+<li>
+<p>WIFI 协议（IEEE 802.11）</p>
+<ul>
+<li>可以使用 Linux aircrack 套件爆破密码      </li>
+<li>有了密码后可以在 Wireshark 中设置并解密流量</li>
+</ul>
+</li>
+<li>USB 协议<ul>
+<li>安装了 USBcap 之后可以在 Wireshark 中捕获 USB 流量</li>
+<li>有工具可以解析流量，绘制鼠标轨迹，得到按键信息等</li>
+</ul>
+</li>
+<li>其他加密协议<ul>
+<li>VMess，需要读文档 / 源码，实现解密</li>
+</ul>
+</li>
+</ul>
+<h3 id="part2_1">Part2:以太坊区块链基础<a class="headerlink" href="#part2_1" title="Permanent link">&para;</a></h3>
+<h4 id="_21">以太坊模型全览<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
+<p><strong>区块与世界状态</strong></p>
+<p><img alt="alt text" src="../image.png" />
+- 每个区块包含三颗 Merkle 树根节点
+   - stateRoot 即世界状态树根节点，状态是一组用户状态的组合
+- 区块由“矿工”或“验证者”将交易打包形成，后广播到网络中
+   - 每条交易会引发世界状态的转变，消耗一定 gas</p>
+<p><strong>交易与世界状态转变</strong></p>
+<p><img alt="alt text" src="../image-1.png" />
+- 每一条交易都会引起状态的改变
+- 多个交易打包到一起，最终状态就是新区块存储的状态
+- 交易信息中包含 hash/v/r/s 为交易签名，用于验证交易的合法性
+- 合约在 EVM 上执行，执行过程中也有各种漏洞</p>
+<h4 id="_22">账户与交易<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
+<p><strong>账户</strong></p>
+<ul>
+<li>外部账户（Externally Owned Account）</li>
+<li>有一对公私钥，用于签署交易<ul>
+<li>私钥是随机生成的 256 位数（32 字节）</li>
+<li>公钥由私钥经过 ECDSA 算法计算而来，是一个 64 字节的数</li>
+<li>地址由公钥经过 Keccak-256 哈希后取前 20 字节得到</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../image-2.png" /></p>
+<ul>
+<li>合约账户（Contract Account）</li>
+<li>由 EOA 通过交易创建的账户，其中包含合约代码</li>
+<li>合约可以存储、拥有以太币</li>
+<li>向合约账户发送交易 &gt; 调用合约中的函数</li>
+<li>合约本身不能主动发起交易，但可以在被调用时向外发送交易  </li>
+</ul>
+<p><strong>交易</strong></p>
+<ul>
+<li>一条交易包含以下内容：    <ul>
+<li>from：交易发送者地址 </li>
+<li>to：交易接收者地址，如果为空则表示是在创建智能合约</li>
+<li>value：交易金额，即发送方要给接收方转移的以太币数量（wei 为单位）</li>
+<li>data：交易数据，如果是创建智能合约则是智能合约代码，如果是调用智能
+合约则是调用的函数名和参数</li>
+<li>gasPrice：交易的 gas 价格，即每单位 gas 的价格（wei 为单位）</li>
+<li>gasLimit：交易的 gas 上限，即交易允许执行的最大 gas 数量</li>
+<li>nonce：交易的序号，即发送者已经发送的交易数量</li>
+</ul>
+</li>
+<li>
+<p>除此之外发送的交易数据包还需要包含：</p>
+<ul>
+<li>
+<p>hash：交易的哈希值，由前面的内容和 chainId 计算得到</p>
+</li>
+<li>
+<p>v、r、s：交易签名的三个部分，由发送者私钥对交易哈希值进行签名得到
+<a href="https:/converter.murkin.me/">以太币单位</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>关于链与 faucet</strong></p>
+<ul>
+<li>
+<p>公开链：真实的交易</p>
+<ul>
+<li>
+<p>通过 https: /etherscan.io/ 查看</p>
+</li>
+<li>
+<p>主网（mainnet）：真正的金钱交易，很少使用</p>
+</li>
+<li>
+<p>测试链：Sepolia / Holesky 链，可以通过 faucet 获取免费代币</p>
+<ul>
+<li>
+<p>https: /sepolia-faucet.pk910.de/</p>
+</li>
+<li>
+<p>Ethernaut 等大型公开合约 CTF 平台会使用</p>
+</li>
+<li>私链：自己搭建的链，模拟真实的链<ul>
+<li>一般 CTF 题目都使用私链部署</li>
+<li>可以通过 geth 等工具部署私链</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_23">智能合约安全基础<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<p><strong>关于合约</strong></p>
+<ul>
+<li>
+<p>合约的创建和调用都通过交易来进行</p>
+</li>
+<li>
+<p>合约调用：</p>
+<ul>
+<li>
+<p>data 字段为编码后的函数名（selector）和参数，称为 calldata</p>
+</li>
+<li>
+<p>selector 是函数签名 keccak256 的前四个字节</p>
+</li>
+<li>
+<p>不存在对应 selector 则会调用 fallback 函数，还不存在则 revert</p>
+</li>
+<li>合约存储：全公开存储，都在链上，可以 getStorageAt 查看</li>
+</ul>
+</li>
+<li>
+<p>revert：回滚，所有当前调用中的状态改变全都复原</p>
+</li>
+<li>
+<p>合约编译后得到字节码在 EVM 上运行：</p>
+<ul>
+<li>https:/ethervm.io/</li>
+</ul>
+</li>
+</ul>
+<p><strong>Solidity 语言</strong></p>
+<p><a href="https://note.tonycrane.cc/ctf/blockchain/eth/solidity/">https://note.tonycrane.cc/ctf/blockchain/eth/solidity/</a>
+ 官方文档：<a href="https://docs.soliditylang.org/en/latest/index.html">https://docs.soliditylang.org/en/latest/index.html</a></p>
+<ul>
+<li>以太坊官方的编写智能合约的语言<ul>
+<li>IDE：https: /remix.ethereum.org/</li>
+<li>通过 contract 关键字声明一个合约</li>
+<li>通过 function 定义一个可以调用的函数</li>
+<li>public、internal、external、private</li>
+<li>属性（状态）会自动创建 getter 函数</li>
+<li>通过 view、pure 关键字定义一个不改变状态的函数</li>
+<li>通过 payable 关键字定义一个可以接收以太币的函数</li>
+<li>特殊函数：constructor、fallback、receive</li>
+</ul>
+</li>
+</ul>
+<h4 id="_24">常见漏洞<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
+<ul>
+<li>重入攻击</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">contract</span> <span class="n">Bank</span> <span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">mapping</span><span class="p">(</span><span class="n">address</span> <span class="o">&gt;</span> <span class="n">uint256</span><span class="p">)</span> <span class="n">balances</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> <span class="o">.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="n">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="n">public</span> <span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">amount</span><span class="p">);</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a> <span class="n">msg</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">call</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">amount</span><span class="p">)(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a> <span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a> <span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>withdraw</code> 时先转钱再更新 balances,转钱的时候会进入到目标合约的 <code>fallback</code> 函数，可以再次调用 <code>withdraw</code>,再次调用时<code>require</code>检查的仍然是老的 <code>balances</code>,这样可以把钱取空</p>
+<ul>
+<li>伪随机数</li>
+<li>区块链需要所有以太坊节点验证交易计算出相同结果达成共识</li>
+<li>无法实现真随机数</li>
+<li>伪随机可以破解：<ul>
+<li>利用区块变量作为随机数：可以获取</li>
+<li>利用 blockhash 作为随机数：只保留最近 256 个区块</li>
+<li>回滚攻击：不断 revert 来猜随机数
+<a href="https: /note.tonycrane.cc/ctf/blockchain/eth/vuln/">其他常见漏洞</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="ctf">CTF 比赛中的私链题目交互<a class="headerlink" href="#ctf" title="Permanent link">&para;</a></h3>
+<p>一般会过滤掉大部分 geth rpc 接口,防止其他队伍扒链蹭车 / 重放</p>
+<ul>
+<li>白名单示例可见 <a href="https://github.com/chainflag/solidctf/blob/main/fogeth/proxy/eth-jsonrpc-access.js">chainflag</a>/<a href="https://github.com/chainflag/solidctf/blob/main/fogeth/proxy/eth-jsonrpc-access.js">solidctf</a>中的白名单，一般就是这些</li>
+<li>
+<p>geth 手动操作很复杂（只能发 raw），remix/metamask 可能会无法连接</p>
+<ul>
+<li>
+<p>可以 / 推荐通过 web3.py 进行交互</p>
+</li>
+<li>
+<p>通过 eth.contract 和 abi 与 addr/bytecode 创建合约对象</p>
+</li>
+<li>
+<p>通过 contract.functions.f().build_transaction() 构建交易</p>
+</li>
+<li>
+<p>通过 eth.account.sign_transaction(txn, privateKey) 签名</p>
+</li>
+<li>
+<p>得到 rawTransaction 后 eth.send_raw_transaction(raw) 发送</p>
+</li>
+<li>
+<p>通过 eth.wait_for_transaction_receipt(hash) 等待交易完成</p>
+</li>
+<li>
+<p>无需交易的 view 函数可以直接 contract.functions.f().call()</p>
+</li>
+<li>
+<p>https:/note.tonycrane.cc/ctf/blockchain/eth/basic/ _15</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>more</strong></p>
+<p>Read more: note.tonycrane.cc/ctf/blockchain/eth
+- 以太坊基础知识：账户、交易、合约、区块等，及其原理</p>
+<ul>
+<li>
+<p>Solidity 语言：最常用的智能合约语言，以太坊官方语言</p>
+</li>
+<li>
+<p>了解其语法、类型，以及合约运行的整体逻辑</p>
+</li>
+<li>
+<p>了解一些 ERC 标准（目的是看懂题目的合约）</p>
+</li>
+<li>
+<p>以太坊虚拟机（EVM）：执行合约字节码的栈结构虚拟机</p>
+</li>
+<li>
+<p>了解其运行原理，与账户、合约、交易的关系，反汇编、反编译的方法</p>
+</li>
+<li>
+<p>交互、测试环境：geth、Remix、MetaMask、web3.js、web3.py 等</p>
+</li>
+<li>常见合约漏洞：整型溢出、重入、伪随机、薅羊毛、非预期的远程调用……</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="对您有帮助的话，给我一个star吧！" data-md-value="5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M309.5-18.9c-4.1-8-12.4-13.1-21.4-13.1s-17.3 5.1-21.4 13.1l-73.6 144.2-159.9 25.4c-8.9 1.4-16.3 7.7-19.1 16.3s-.5 18 5.8 24.4l114.4 114.5-25.2 159.9c-1.4 8.9 2.3 17.9 9.6 23.2s16.9 6.1 25 2l144.4-73.4L432.4 491c8 4.1 17.7 3.3 25-2s11-14.2 9.6-23.2l-25.3-159.9 114.4-114.5c6.4-6.4 8.6-15.8 5.8-24.4s-10.1-14.9-19.1-16.3L383 125.3z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="你想请我喝杯咖啡吗？" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="5" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <a href="https://github.com/The0xKa1/The0xKa1.github.io.git">
+  <div class="button"  target="_blank">Give me a star⭐</div>
+</a>
+            </div>
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              <div align="center"> <img src="/static/images/pay.png" width="200" height="200" /> </div>
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<!-- Insert Giscus generated snippet here -->
+<!-- 插入 Giscus 生成的代码块 -->
+<script src="https://giscus.app/client.js"
+data-repo="kailqq/kailqq.github.io"
+data-repo-id="R_kgDOMPtz7Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOMPtz7c4Cge_P"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
+async>
+</script>
+
+<!-- 下面保持不动即可 -->
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+                /* Instruct Giscus to change theme */
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../web/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Web">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Web
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Crypto/" class="md-footer__link md-footer__link--next" aria-label="下一页: Crypto">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Crypto
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 ~ now |  The0xKa1
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/The0xKa1" target="_blank" rel="noopener" title="My GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tencent://message/?uin=2725913404&Site=The0xKa1&Menu=yes" target="_blank" rel="noopener" title="QQ" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M434.1 420.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.1 72.2-51 101.8 16.8 5.2 54.8 19.2 45.8 34.4-7.3 12.3-125.5 7.9-159.6 4-34.1 3.8-152.3 8.3-159.6-4-9-15.2 28.9-29.2 45.8-34.4-34.9-29.5-51.1-70.4-51.1-101.8 0 0-33.3 54.1-44.9 52.7-5.4-.6-12.4-29.6 9.3-99.7 10.3-33 22-60.5 40.1-105.8C60.9 98 109.2-.1 224.3-.1 338-.1 387.5 96 384.6 214.9c18.1 45.2 29.9 72.9 40.1 105.8 21.8 70.1 14.7 99.1 9.3 99.7z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://steamcommunity.com/profiles/76561199513750344" target="_blank" rel="noopener" title="Steam" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M504 256c0 137-111.2 248-248.4 248-113.8 0-209.6-76.3-239-180.4l95.2 39.3c6.4 32.1 34.9 56.4 68.9 56.4 39.2 0 71.9-32.4 70.2-73.5l84.5-60.2c52.1 1.3 95.8-40.9 95.8-93.5 0-51.6-42-93.5-93.7-93.5s-93.7 42-93.7 93.5v1.2L184.6 279c-15.5-.9-30.7 3.4-43.5 12.1L8 236.1C18.2 108.4 125.1 8 255.6 8 392.8 8 504 119 504 256M163.7 384.3l-30.5-12.6c5.6 11.6 15.3 20.8 27.2 25.8 26.9 11.2 57.8-1.6 69-28.4 5.4-13 5.5-27.3.1-40.3S214 305.6 201 300.2c-12.9-5.4-26.7-5.2-38.9-.6l31.5 13c19.8 8.2 29.2 30.9 20.9 50.7-8.3 19.9-31 29.2-50.8 21m173.8-254.5a62.3 62.3 0 1 1 0 124.6 62.3 62.3 0 1 1 0-124.6m.1 109a46.8 46.8 0 1 0 0-93.6 46.8 46.8 0 1 0 0 93.6"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/katex.min.js"></script>
+      
+        <script src="../../../javascripts/auto-render.min.js"></script>
+      
+        <script src="../../../javascripts/card.js"></script>
+      
+        <script src="../../../javascripts/toc.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

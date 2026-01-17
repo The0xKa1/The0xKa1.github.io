@@ -1,0 +1,54 @@
+- "2024":
+  - "2024.09.22":
+    - newpage: 
+       text: 风格修改，笔记大更新
+       href: /changelog
+  - "2024.08.15":
+    - newpage: 
+       text: 更新了一点点RUST笔记
+       href: /NOTE/CS/RUST/RUST
+  - "2024.08.13":
+    - newpage: 
+       text: 更新了一点点RUST笔记
+       href: /NOTE/CS/RUST/RUST
+  - "2024.08.13":
+    - newpage: 
+       text: 更新了一点点Verilog笔记
+       href: /NOTE/CS/Verilog/verilog
+  - "2024.08.01":
+    - newpage: 
+       text: 开始更新线性代数！
+       href: /NOTE/LA/linear-algebra 
+  - "2024.07.30":
+    - newpage: 
+       text: 补充了Crypto笔记
+       href: /NOTE/CTF/Crypto
+  - "2024.07.24":
+    - newpage: 
+       text: 新增结课感想
+       href: /NOTE/CTF/结课心得
+  - "2024.07.11":
+    - pageupdate: 
+       text: 更新了Misc专题2
+       href: /NOTE/CTF/Misc
+  - "2024.07.09":
+    - pageupdate: 
+       text: 更新了Misc专题1
+       href: /NOTE/CTF/Misc
+  - "2024.07.04":
+    - newpage:
+        text: 更新Misc基础
+        href: /NOTE/CTF/Misc
+  - "2024.07.03":
+    - newpage:
+        text: 更新Web基础
+        href: /NOTE/CTF/Web
+  - "2024.07.02":
+    - newpage:
+        text: CTF短学期导论
+        href: /NOTE/CTF/CTF
+
+- "2025":
+  - "2025.01.12":
+    - pageupdate:  更新了好看的配色，修改了域名
+    
