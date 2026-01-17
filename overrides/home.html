@@ -1,29 +1,227 @@
-{#-
-    This file was automatically generated - do not edit
-  -#}
-  {% extends "main.html" %}
-  {% block tabs %}
-    {{ super() }}
-    <style>.md-header{position:initial}.md-main__inner{margin:0}.md-content{display:none}@media screen and (min-width:60em){.md-sidebar--secondary{display:none}}@media screen and (min-width:76.25em){.md-sidebar--primary{display:none}}</style>
-    <section class="mdx-container">
-      <div class="md-grid md-typeset">
-        <div class="mdx-hero">
-          <div class="mdx-hero__image">
-            <img src="assets/images/illustration.png" alt="" width="1659" height="1200" draggable="false">
-          </div>
-          <div class="mdx-hero__content">
-            <h1>Technical documentation that just works</h1>
-            <p>{{ config.site_description }}. Set up in 5 minutes.</p>
-            <a href="{{ page.next_page.url | url }}" title="{{ page.next_page.title | e }}" class="md-button md-button--primary">
-              Quick start
-            </a>
-            <a href="{{ 'insiders/' | url }}" title="Material for MkDocs Insiders" class="md-button">
-              Get Insiders
-            </a>
-          </div>
+{% extends "main.html" %}
+
+{% block tabs %}
+  {{ super() }}
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-hover: rgba(255, 255, 255, 0.25);
+      --accent-light: #f78fb3;
+    }
+
+    .md-header { position: initial; }
+    .md-main__inner { margin: 0; }
+    .md-content { padding-top: 0; padding-bottom: 0; }
+    
+    @media screen and (min-width: 60em) { .md-sidebar--secondary { display: none; } }
+    @media screen and (min-width: 76.25em) { .md-sidebar--primary { display: none; } }
+
+    /* Hero 容器与动态光晕 */
+    .mdx-container {
+      background: linear-gradient(135deg, var(--md-primary-fg-color), #6c5ce7);
+      position: relative;
+      overflow: hidden;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    /* 背景动态色块 */
+    .mdx-container::before, .mdx-container::after {
+      content: "";
+      position: absolute;
+      width: 45vmax;
+      height: 45vmax;
+      border-radius: 50%;
+      background: var(--accent-light);
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.35;
+      animation: move 20s infinite alternate;
+    }
+    .mdx-container::after {
+      background: #a29bfe;
+      right: -5%;
+      bottom: -5%;
+      animation-duration: 15s;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes move {
+      from { transform: translate(-10%, -10%) rotate(0deg); }
+      to { transform: translate(10%, 10%) rotate(40deg); }
+    }
+
+    .mdx-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5rem 1rem;
+      color: white;
+      text-align: center;
+      z-index: 2;
+    }
+
+    /* Logo 变形动画 */
+    .mdx-hero__image {
+      width: 130px;
+      height: 130px;
+      margin-bottom: 2rem;
+      background: var(--glass-bg);
+      padding: 12px;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      animation: morph 8s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+      0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+      100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    }
+
+    .mdx-hero h1 {
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 850;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+    }
+
+    /* 状态栏 */
+    .mdx-hero__stats {
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 20px;
+      border-radius: 30px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #55efc4;
+      border-radius: 50%;
+      position: relative;
+    }
+    .status-dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      border-radius: 50%;
+      animation: pulse 2.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(3.5); opacity: 0; }
+    }
+
+    .mdx-hero__typing { 
+      margin-bottom: 4rem;
+      opacity: 0.95;
+      }
+
+    .mdx-hero__divider {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      z-index: 1;
+      bottom: -2px; /* 增加偏移量确保压住边缘 */
+    }
+
+    .mdx-hero__divider svg { 
+      height: 95px; /* 略微增加高度 */
+      width: 100%;
+      /* 增加缩放以防止旋转和位移时漏边 */
+      transform: scale(1.1); 
+    }
+    .mdx-hero__divider .shape-fill { fill: var(--md-default-bg-color); }
+
+    .mdx-hero__divider path {
+      transform-origin: center bottom;
+      animation: wave-liquid 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+
+    @keyframes wave-liquid {
+      0% { transform: scale(1, 1) rotate(0deg) translateX(0px); }
+      33% { transform: scale(1.08, 1.1) rotate(1deg) translateX(-10px) translateY(2px); } /* 减小向上位移，增加向下偏移 */
+      66% { transform: scale(0.95, 0.9) rotate(-1deg) translateX(10px) translateY(5px); }
+      100% { transform: scale(1, 1) rotate(0deg) translateX(0px); }
+    }
+    .mdx-hero__footer {
+      display: flex;
+      gap: 30px;
+      font-size: 0.9rem;
+    }
+    .mdx-hero__footer a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(5px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .mdx-hero__footer a:hover {
+      background: rgba(255,255,255,0.25);
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-color: rgba(255,255,255,0.3);
+    }
+  </style>
+
+  <section class="mdx-container">
+    <div class="md-grid md-typeset">
+      <div class="mdx-hero">
+        <div class="mdx-hero__image">
+          <img src="{{ config.theme.logo | url }}" alt="logo" style="width:100%; height:100%; border-radius:inherit; object-fit:cover;">
+        </div>
+        
+        <h2>{{ config.site_description }}</h2>
+        
+        <div class="mdx-hero__stats">
+          <div class="status-dot"></div>
+          <span><i class="fontawesome-solid-file-lines" style="margin-right:6px"></i> {{ nav.pages | length }} Notes</span>
+          <span>|</span>
+          <span><i class="fontawesome-solid-clock" style="margin-right:6px"></i> 2026 Updated</span>
+        </div>
+
+        <div class="mdx-hero__footer">
+          <a href="https://the0xka1.cc"><i class="fontawesome-solid-house" style="margin-right:8px"></i> Home</a>
+          <a href="NOTE/"><i class="fontawesome-solid-book-open" style="margin-right:8px"></i> Notes</a>
+          <a href="{{ config.repo_url }}"><i class="fontawesome-brands-github" style="margin-right:8px"></i> Github</a>
         </div>
       </div>
-    </section>
-  {% endblock %}
-  {% block content %}{% endblock %}
-  {% block footer %}{% endblock %}
+    </div>
+    
+    <div class="mdx-hero__divider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,20 C150,80 300,0 450,40 C600,80 750,0 900,40 C1050,80 1200,20 1200,20 V150 H0 Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <div class="md-grid md-typeset" style="margin-top: 3rem; text-align: center;">
+    <div style="opacity: 0.4; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;">
+      {{ page.content }}
+    </div>
+  </div>
+{% endblock %}
