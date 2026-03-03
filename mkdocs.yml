@@ -252,6 +252,10 @@ nav:
       
       # 课程笔记 
       - 🎓 课程笔记:
+          - 编译原理:
+              - NOTE/CompilerPrinciple/index.md
+              - Lexical Analysis: NOTE/CompilerPrinciple/chap2.md
+              
           - 数据库系统:
               - NOTE/DB/index.md
               - 介绍: NOTE/DB/lec1.md
