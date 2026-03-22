@@ -12,13 +12,5 @@ The Missing Semester 是一门由 MIT 开设的课程，旨在填补计算机科
 
 > 本次学习跳过了 Git 和 Vim 部分，因为本人目前更加倾向于使用 VSCode，Vim 只了解了基本操作已经足够. Git 笔记见 [Git](../GIT/index.md)。
 
-## 目录
 
-- [x] [概览与shell](./overview-and-shell.md)
-- [x] [shell工具与脚本](./shell-tools-and-scripts.md)
-- [x] [数据整理](./data-wrangling.md)
-- [x] [命令行环境](./command-line-environment.md)
-- [ ] [调试与性能分析](./debugging-and-profiling.md)
-- [ ] [元编程](./metaprogramming.md)
-- [ ] [安全和密码学](./security-and-cryptography.md)
-- [ ] [大杂烩](./miscellaneous.md)
+{{TableOfContents}}

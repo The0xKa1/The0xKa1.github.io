@@ -9,4 +9,5 @@ comments: true
 - 实验 : 30%
 - 期末考试 : 50%
 
-- [] [Lexical Analysis](./chap2.md)
+
+{{TableOfContents}}

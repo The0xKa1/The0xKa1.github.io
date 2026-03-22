@@ -83,6 +83,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const tocHeader = document.querySelector('.toc-header');
     const toc = document.querySelector('.toc');
+    if (!tocHeader || !toc) {
+        return;
+    }
 
     tocHeader.addEventListener('click', function() {
         if (toc.classList.contains('expanded')) {

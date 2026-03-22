@@ -101,7 +101,7 @@ comments: true
 
 
 ???Note "ADS_card 说明"
-    目录卡片使用了自定义样式，源码在[`docs/css/card.css/ADS_card`](https://github.com/kailqq/kailqq.github.io)中，使用时需要引入该样式文件。
+    目录卡片使用了自定义样式，源码在仓库中，使用时需要引入该样式文件。
 
     使用示例
     ```html
@@ -111,6 +111,5 @@ comments: true
 
     <div class="ADS_card" style="--initial-text:'这是初始文字';--hover-text:'这是悬停文字，大小为0.7em';--hover-font-size:0.7em;">
     </div>
-
 
 

@@ -16,11 +16,25 @@
 ---
 
 
+
+<div align="center">
+
+```mermaid
+flowchart TD
+    A["Description of lexical tokens<br/>(in natural language or in mind)"] -->|Manually| B["Regular Expression"]
+    B -->|Thompson's Construction| C["Non-Deterministic Finite Automata"]
+    C -->|Subset Construction, DFA Minimization| D["Deterministic Finite Automata"]
+    D -->|"e.g., Table-Driven Implementation"| E["Lexer"]
+```
+
+</div>
+
+
 ## Lexical Analyzer
 
 ### 任务
 
-词法分析器的输入是一串字符流，其主要任务是将其转化为词法标记（Token）流，例如变量名、关键字和标点符号等。在这个过程中，分析器会自动**丢弃空白字符（White space）和注释（Comments）**。词法分析的接口通常被设计成一个类似 `getToken` 的函数，每次被调用时返回下一个 Token。
+词法分析器的输入是一串字符流，其主要任务是将其转化为词法标记（Token）流，例如变量名、关键字和标点符号等。在这个过程中，分析器会自动丢弃空白字符（White space）和注释（Comments）。词法分析的接口通常被设计成一个类似 `getToken` 的函数，每次被调用时返回下一个 Token。
 
 ### Lexical Tokens
 
@@ -158,16 +172,147 @@
     从正则表达式直接构建 DFA 比较复杂且不直观。而从正则表达式构建 NFA（如使用 Thompson 构造法）非常简单且机械化。NFA 充当了从“人类易读的规则（Regex）”到“机器高效执行的模型（DFA）”之间的中间表示。
     NFA 可以使用 $\epsilon$ 边和多条同标号边，这使得它在表示某些模式时比 DFA 更加紧凑，状态数量通常更少。
 
----
+## From Regex to NFA (Thompson's Construction)
 
 <div align="center">
-
-```mermaid
-flowchart TD
-    A["Description of lexical tokens<br/>(in natural language or in mind)"] -->|Manually| B["Regular Expression"]
-    B -->|Thompson's Construction| C["Non-Deterministic Finite Automata"]
-    C -->|Subset Construction, DFA Minimization| D["Deterministic Finite Automata"]
-    D -->|"e.g., Table-Driven Implementation"| E["Lexer"]
-```
-
+    <img src="../img/chap2/thompson.png" alt="Thompson" width="500">
 </div>
+
+Thompson 构造法是一种将正则表达式转化为 NFA 的标准算法。它的特点是基于正则表达式的归纳定义，通过组合小的 NFA 片段来构建大的 NFA。
+
+1. 符号 (Symbol) `a`:
+    构造一个简单的 NFA，从起始状态通过标有 `a` 的边到达接受状态。
+    <div align="center">
+    ```mermaid
+    graph LR
+    S((Start)) -->|a| E(((End)))
+    ```
+    </div>
+
+- 连接 (Concatenation) `AB`:
+    将 NFA A 的接受状态与 NFA B 的起始状态通过 $\epsilon$ 边连接（或者直接合并）。
+    <div align="center">
+    ```mermaid
+    graph LR
+    S1((Start A)) -.-> E1(((End A)))
+    E1 -->|ε| S2((Start B))
+    S2 -.-> E2(((End B)))
+    ```
+    </div>
+
+- 选择 (Union) `A|B`:
+    创建一个新的起始状态，通过 $\epsilon$ 边分别连接到 A 和 B 的起始状态；创建一个新的接受状态，A 和 B 的接受状态通过 $\epsilon$ 边连接到它。
+    <div align="center">
+    ```mermaid
+    graph LR
+    S((Start)) -->|ε| S1((Start A))
+    S((Start)) -->|ε| S2((Start B))
+    S1 -.-> E1(((End A)))
+    S2 -.-> E2(((End B)))
+    E1 -->|ε| E(((End)))
+    E2 -->|ε| E(((End)))
+    ```
+    </div>
+
+- 闭包 (Closure) `A*`:
+    创建一个新的起始状态和接受状态。
+    - 新起始状态 $\to$ A 的起始状态 ($\epsilon$)
+    - A 的接受状态 $\to$ 新接受状态 ($\epsilon$)
+    - A 的接受状态 $\to$ A 的起始状态 ($\epsilon$) (允许重复)
+    - 新起始状态 $\to$ 新接受状态 ($\epsilon$) (允许零次)
+    <div align="center">
+    ```mermaid
+    graph LR
+    S((Start)) -->|ε| S1((Start A))
+    S1 -.-> E1(((End A)))
+    E1 -->|ε| E(((End)))
+    E1 -->|ε| S1
+    S -->|ε| E
+    ```
+    </div>
+
+---
+
+## 从NFA到DFA 
+
+NFA 的问题在于执行时需要“猜测”和“回溯”，这在实际词法分析中开销极大。因此需要通过子集构造法将 NFA 转换为等价的 DFA，其核心思想是“同时模拟所有可能的分支”以避免猜测。
+
+### 概念
+
+<div align=center>
+    <img src="../img/chap2/algo.png" alt="algo1" width="500">
+</div>
+
+1. $\epsilon$-closure (Epsilon 闭包): 给定 NFA 的一个状态集合 $S$，$closure(S)$ 指的是从 $S$ 中的状态出发，仅通过 $\epsilon$ 边（不消耗输入字符）就能到达的所有状态的集合。
+2. DFAedge(d, c): 假设 $d$ 是一个 NFA 状态的集合。从集合 $d$ 出发，消耗一个输入字符 $c$ 后到达的新 NFA 状态集合，可以通过公式 $closure(\bigcup_{s \in d} edge(s, c))$ 计算得出。
+
+### 算法
+* DFA 的每一个状态本质上是 NFA 状态的集合 (subset)。
+* 算法从计算起始状态的 $\epsilon$-closure 开始，将其作为 DFA 的起始状态。
+* 对于当前得到的每一个 DFA 状态，测试所有的输入字符 $c$，计算 `DFAedge` 产生的新状态集。如果这个新状态集之前没出现过，就把它作为一个新的 DFA 状态加入。
+* 重复此过程直至无法找到新的 DFA 状态为止。包含 NFA 终止状态的集合即为 DFA 的终止状态。
+
+
+!!!Note "注意事项"
+    - 该算法不会遍历 DFA 中不可达的状态。
+
+        - 实际上，仅有约 n 个可达状态（远小于 $2^n$ 个状态）。
+
+        - 这一策略至关重要，可以避免 DFA 解释器的状态跳转表呈指数级膨胀。
+
+    - 对于 DFA 的某个状态 $d$，只要 $states[d]$ 中包含了 NFA 的接受状态，该 DFA 状态也应被标记为终态（final）。
+
+    - 但仅仅标注为终态还不够：
+
+        - 我们必须明确指出当前识别的是哪一种 Token。
+
+        - 一个 DFA 状态 $d$ 可能代表多个 NFA 状态，而这些 NFA 状态中往往有多个是终态（代表不同的 Token 类型）。
+
+        - 此时，需要应用正则规则的优先级（通常按规则在源文件的先后顺序决定，先出现者优先）。
+
+    - DFA 构造结束后：
+
+        - 用于描述状态集的 "states" 数组就可以被丢弃。
+
+        - 之后用于词法分析的核心对象就是 DFA 的状态转移表 "trans" 矩阵。
+---
+
+## DFA Minimization
+
+子集构造法生成的 DFA 虽然可以确定性执行，但往往不是最优的，可能会包含大量冗余状态（产生比实际需要更多的状态）。为了减少状态转移表的体积，我们需要进行 DFA 最小化。
+
+### 等价状态与可区分状态
+
+* 等价状态: 如果机器从状态 $s_1$ 出发能接受某个字符串 $\sigma$，当且仅当从状态 $s_2$ 出发也能接受同一字符串 $\sigma$，那么 $s_1$ 和 $s_2$ 是等价的。等价状态可以被合并。
+* 可区分状态 (Distinguishable): 如果存在某个字符串 $x$，使得从 $s$ 和 $t$ 出发后，有且仅有一个到达终止状态，那么 $s$ 和 $t$ 就是可区分的。
+
+
+### 最小化算法 (Dragon Book)
+
+<div align="center">
+    <img src="../img/chap2/algo2.png" alt="DFA" width="500">
+</div>
+
+1. **初始划分:** 将 DFA 的所有状态初始划分为两个集合：非终止状态集合 $S-F$ 和 终止状态集合 $F$（空串 $\epsilon$ 天然区分它们）。
+- **迭代分裂:** 对于当前划分中的每一个群组 $G$，检查其中的状态 $s$ 和 $t$。如果对于任何输入符号 $a$，$s$ 和 $t$ 会转移到不同群组中的状态，说明它们可区分，需要将该群组进一步分裂。
+- **完成合并:** 重复上述过程直到没有群组可以继续分裂。最后在每个群组中选出一个“代表”状态，使用这些代表状态重构的即为最小化 DFA。
+
+**D' 的起始状态**为包含原始 DFA 起始状态的群组的“代表”。**D' 的终态**为包含原 DFA 终止状态的各个群组的代表（这些群组只包含终止状态）。
+
+> 💡 **小结**：每个等价类只需保留一个代表状态，最小化后的 DFA 的状态跳转全由代表状态之间的转移构成。这保证了新 DFA 的状态个数最少，但语言识别能力等价于原 DFA。
+
+---
+
+**注意：** 在词法分析器中，因为不同的终止状态代表了不同的 Token 类型，它们彼此之间是不等价的。因此，初始划分不应该是简单的 $\{S-F, F\}$，而应该是 $\{S-F, F_1, F_2, ..., F_k\}$（其中 $F_i$ 表示识别特定 Token 的终止状态集合）。
+
+---
+
+## 词法分析器生成工具 (Lex)
+
+手工将正则表达式转为 NFA、再转 DFA 并最小化，不仅繁琐且容易出错。Lex（及其常用开源版本 flex）就是一种用于自动完成这一完整流程的词法分析器生成工具。
+
+* 工作机制: Lex 接收一个包含正则表达式规范的输入文件，并自动生成对应的 C 语言源代码文件，该代码中包含一个基于表驱动 DFA 算法的函数 `yylex()`（等同于前文提到的 `getToken`）。
+* Lex 文件的基本结构: Lex 的配置文件以 `%%` 作为分隔符，分为三个主要部分：
+  1. **定义部分 (Definitions):** 包含被 `%{ ... %}` 包围的 C 语言包含语句（如 `#include`）、全局变量声明；以及为正则表达式定义的宏简写（如 `digit`）。
+  - **规则部分 (Rules):** 是 Lex 文件的核心。每一行包含一个正则表达式和当匹配到该模式时需执行的 **C 代码动作 (Action)**。在执行时，可以访问内置变量，如 `yytext` (匹配到的字符串) 和 `yyleng` (字符串长度)。
+  - **辅助函数部分 (Auxiliary routines):** 可以在这里编写供规则部分调用的自定义 C 语言函数，例如 `main()` 函数的定义等。
