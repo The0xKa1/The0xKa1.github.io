@@ -41,9 +41,10 @@ comment: true
 ### Derivations
 
 推导是根据文法生成字符串的过程：
+
 1. 从仅包含起始符号 $S$ 的字符串开始。
-2. 找到字符串中的任意一个非终结符 $X$，用它的某个产生式的右半部分（$Y_1 \dots Y_k$）进行替换。
-3. 重复替换步骤，直到字符串中只剩下终结符为止。
+- 找到字符串中的任意一个非终结符 $X$，用它的某个产生式的右半部分（$Y_1 \dots Y_k$）进行替换。
+- 重复替换步骤，直到字符串中只剩下终结符为止。
 
 <div align="center">
     <img src="../img/chap3/img3.png" alt="Derivations" width="500">
@@ -68,6 +69,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 ## Parse Tree
 
 推导的过程可以用树状结构来直观展示，即语法分析树：
+
 * 根节点: 起始符号 $S$。
 * 内部节点: 非终结符。
 * 叶子节点: 终结符。对叶子节点进行中序遍历（In-order traversal），就能得到原始的输入字符串。
@@ -134,6 +136,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 ## EOF Marker
 
 在语法分析的最后，我们需要确保整个文件被完整解析，而不是只解析了开头的一部分。
+
 * 为此，我们引入一个特殊的文件结束标记 `$` (EOF)。
 * 并在文法中添加一个新的起始符号（如 $S'$）和一条新的产生式：`S' -> S$`。
 * 这表明在完成一个完整的 $S$ 结构解析之后，必须紧接着到达文件末尾。
@@ -165,6 +168,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 * 维护一个全局标记（如 `tok`），并通过诸如 `eat(token)` 的辅助函数来消耗匹配成功的终结符并获取下一个标记。
 
 ### Backtracking
+
 如果面对某个输入标记（如 `num`）时有多个产生式可以选择，简单的递归下降可能需要“猜测”并尝试。如果猜错，就会面临回溯。回溯的代价极高，会导致尝试的路径呈指数级爆炸。
 
 !!!example
@@ -188,9 +192,11 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 为了解决回溯带来的性能问题，引入了预测分析。它是递归下降分析的特例，不需要回溯。
 
 ### LL(k) Parsing
+
 预测分析通过向前查看（Lookahead）固定数量的符号（通常是 $k=1$ 个）来精准决定应该使用哪条产生式。这种分析方法可以解析 LL(k) 文法（从左到右解析，最左推导）。
 
 ### Predictive Analysis Core Conditions
+
 要在 $k=1$ 的情况下精准选择产生式，我们必须提前知道每条产生式推导后可能出现的首个终结符。这就引入了构建预测分析表所需的三大核心概念：Nullable、First 集合和 Follow 集合。
 
 ---
@@ -240,9 +246,13 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
             - 对于任意 $\alpha, \beta$，若 $Y \rightarrow \alpha X \beta$，则 $FOLLOW(X) = FOLLOW(X) \cup FIRST(\beta)$
             - 若 $Y \rightarrow \alpha X \beta$ 且 $\beta \Rightarrow^* \epsilon$，则 $FOLLOW(X) = FOLLOW(X) \cup FOLLOW(Y)$
 
+<div align="center">
+    <img src="../img/chap3/img9.png" alt="FOLLOW Collection" width="500">
+</div>
+
 ## Predictive Parsing Tables
 
-利用上述三个集合，我们可以构建一个二维的预测分析表 $M$。表的**行代表非终结符 $X$**，**列代表前瞻终结符 $t$**，单元格内的内容表示遇到 $t$ 时应选择的产生式。
+利用上述三个集合，我们可以构建一个二维的预测分析表 $M$。表的行代表非终结符 $X$，列代表前瞻终结符 $t$，单元格内的内容表示遇到 $t$ 时应选择的产生式。
 
 ### Filling the Table
 
@@ -250,6 +260,17 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 1. 如果终结符 $t \in FIRST(\gamma)$，则在表格的 $[X, t]$ 处填入 $X \rightarrow \gamma$。
 - 如果 $\gamma$ 是 Nullable（即能推导出空串），并且 $t \in FOLLOW(X)$，同样在表格的 $[X, t]$ 处填入 $X \rightarrow \gamma$。
+
+<div align="center">
+    <img src="../img/chap3/img10.png" alt="Predictive Parsing Table" width="500"> 
+</div>
+
+
+!!!Summary
+    对于$FIRST$和$FOLLOW$集合:
+
+    - $FIRST(X)$ 包含了所有可能作为 $X$ 推导出的字符串的第一个符号的终结符,是X内部的概念。
+    - $FOLLOW(X)$ 包含了所有可能紧跟在 $X$ 后面出现的终结符,是X外部的概念。
 
 ### Syntax Errors and LL(1) Definition
 
@@ -268,6 +289,8 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
     * 如果栈顶是终结符且与输入匹配，则执行 Match（消耗输入符号并弹出栈顶）。
     * 如果栈顶是非终结符，则查阅预测分析表，找到对应的产生式（如 $S \rightarrow (S)S$），将栈顶非终结符弹出，并将其产生式的右侧逆序压入栈中。
     * 如果栈为空（只剩下 `$ `），则接受解析 (Accept)。
+
+> 这就类似于PDA和CFG的互推
 
 ---
 
