@@ -313,9 +313,480 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
+## Bottom-Up Parsing
+
+前面的 LL / 预测分析属于自顶向下分析；而 LR 属于自底向上分析 (Bottom-Up Parsing)。
+
+自底向上的核心思想是：
+
+* 从输入串的叶子节点开始，逐步向上规约，直到规约为开始符号。
+* 它本质上是在反向执行最右推导 (Right-most derivation in reverse)。
+* 最常见的实现方式是Shift-Reduce Parsing。
+
+### Shift-Reduce Parsing
+
+在移进-规约分析中，分析器维护一个栈和一个输入缓冲区，并不断执行以下动作：
+
+* **Shift:** 将下一个输入符号移进栈中。
+* **Reduce:** 当栈顶符号串匹配某个产生式右部时，用其左部非终结符替换。
+* **Accept:** 成功规约到增广文法的开始符号，并读到 EOF。
+* **Error:** 当前状态下既不能移进也不能规约。
+
+!!!info
+    Bottom-Up Parsing 的难点不在于“如何规约”，而在于什么时候规约。  
+    如果规约得太早，就可能破坏后续更大的结构；如果规约得太晚，则会错过正确句柄。
+
+---
+
+## LR Parsing
+
+### What Does LR Mean?
+
+LR(k)中的含义：
+
+* L: 从左到右扫描输入 (Left-to-right scan)。
+* R: 构造最右推导的逆过程 (Rightmost derivation in reverse)。
+* k: 使用 k 个向前看符号 (Lookahead)。
+
+与 LL 分析相比，LR 分析的优势在于：
+
+* 它不需要在刚看到产生式右部开头时就做决定。
+* 它可以把决策推迟到“看到了足够多的右部内容”之后。
+* 因此 LR 文法类通常比 LL 文法类更强。
+
+### Parser Configuration
+
+一个 LR 分析器通常需要跟踪：
+
+* 当前读到哪个输入位置。
+* 一个表示“已经识别出的前缀”的栈。
+* 栈顶对应的状态 (State)，也就是“当前处于哪种可行前缀识别环境”。
+
+### Augmented Grammar
+
+和 LL 一样，LR 分析通常先把原文法增广为：
+
+\[
+S' \rightarrow S\$
+\]
+
+这样 Accept 的条件就变成：已经识别出完整的 S且下一个输入符号是 `$`。
+
+---
+
+## LR(0) Parsing
+
+`LR(0)` 是最简单的 LR 分析。它在做 shift / reduce 决策时完全不看向前看符号，只依赖当前状态。
+
+### LR(0) Item
+
+LR(0) 的核心抽象是 **item（项目）**：
+
+\[
+A \rightarrow \alpha \cdot \beta
+\]
+
+其中圆点 `.` 表示当前分析进度：
+
+* $\alpha$ 表示已经识别出来的部分。
+* $\beta$ 表示接下来还希望看到的部分。
+
+例如：
+
+* $E \rightarrow T \cdot + E$ 表示已经识别出 `T`，接下来期待 `+ E`。
+* $T \rightarrow x \cdot$ 表示产生式右部已经全部识别完，可以考虑规约。
+
+### Closure and Goto
+
+LR(0) 自动机中的每个状态都是一个 item 集合。构造状态图时最重要的两个操作是 `Closure` 和 `Goto`。
+
+#### Closure
+
+如果某个 item 中圆点前面已经走到一个非终结符 `X` 前，即：
+
+\[
+A \rightarrow \alpha \cdot X \beta
+\]
+
+那么说明接下来有可能展开 `X`，因此需要把所有形如 $X \rightarrow \gamma$ 的项目
+
+\[
+X \rightarrow \cdot \gamma
+\]
+
+都加入当前状态，并持续迭代直到不再新增项目。
+
+```text
+Closure(I):
+  repeat
+    for each item A -> α . X β in I
+      for each production X -> γ
+        add X -> . γ to I
+  until I no longer changes
+```
+
+#### Goto
+
+如果状态 `I` 中包含项目
+
+\[
+A \rightarrow \alpha \cdot X \beta
+\]
+
+那么在识别到符号 `X` 之后，就进入一个新状态，其中对应项目变为：
+
+\[
+A \rightarrow \alpha X \cdot \beta
+\]
+
+然后再对这些新项目做一次 `Closure`。
+
+```text
+Goto(I, X):
+  J = {}
+  for each item A -> α . X β in I
+    add A -> α X . β to J
+  return Closure(J)
+```
+
+### Building the LR(0) DFA
+
+LR(0) 自动机的构造过程可以概括为：
+
+1. 从开始状态 $Closure({S' -> . S $})$ 出发。
+2. 对每个状态中的每个可前移符号 X 计算 $Goto(I, X)$。
+3. 将得到的新项目集合作为新状态加入。
+4. 直到状态和边都不再增长。
+
+这些状态描述的其实是所有可能的可行前缀 (Viable Prefix)。
+
+
+
+### LR(0) Parse Table
+
+得到 DFA 后，就可以进行算法以及填写 LR(0) 分析表。
+
+### LR(0) Parsing Algorithm
+
+<div align="center">
+    <img src="../img/chap3/img11.png" alt="LR(0) Parsing Algorithm" width="500">
+</div>
+
+算法流程非常统一，后续 SLR / LR(1) 也沿用这套框架：
+
+1. 查看栈顶状态和当前输入符号。
+2. 根据分析表执行动作：
+   * `shift n`: 读入一个输入符号，并压入状态 `n`。这里其实是两步，因为要先读入符号再根据状态转移到新状态。
+   * `reduce k`: 按第 `k` 条产生式规约；弹出右部长度对应的状态数；再根据新栈顶和左部非终结符查询 `goto`。
+   * `accept`: 分析成功。
+   * `error`: 报告语法错误。
+
+> 关键在于状态栈和符号栈需要一一对应，每次 shift 都要把新状态压入栈顶，每次 reduce 都要弹出对应数量的状态,然后根据栈顶剩余状态和reduce的表达式左侧非终结符进行一次goto
+
+#### Action / Goto 表项规则
+
+<div align="center">
+    <img src="../img/chap3/img12.png" alt="Action / Goto 表项规则" width="500">
+</div>
+
+* 若状态 $i$ 在终结符 $t$ 上有一条边到状态 $j$，则 $ACTION[i, t] = shift j$(sj)。
+* 若状态 $i$ 在非终结符 $X$ 上有一条边到状态 $j$，则 $GOTO[i, X] = j$(gj)。
+* 若状态 $i$ 中存在完成项目 $A \rightarrow \alpha \cdot$，则对**所有终结符**填入 $reduce A \rightarrow \alpha$(rk)。
+* 若状态 $i$ 中存在 $S' \rightarrow S \cdot $，则 $ACTION[i, \$] = accept$。
+
+!!!warning
+    LR(0) 的“完成项目对所有终结符都填 reduce”非常激进，这也是 LR(0) 容易产生冲突的根本原因。
+
+
+
+### Why LR(0) Is Too Weak
+
+LR(0) 的限制很明显：
+
+* 它只根据状态做决定。
+* 一旦状态中出现完成项目，就倾向于“无条件规约”。
+* 因此很容易遇到冲突：
+    * **Shift-Reduce Conflict:** 既可以移进，也可以规约。
+    * **Reduce-Reduce Conflict:** 同一位置可以按两个不同产生式规约。
+
+如果某个文法构造出的 LR(0) 表没有冲突，那么它才是 **LR(0) grammar**。
+
+---
+
+## SLR Parsing
+
+`SLR` 是 **Simple LR Parsing**。它的目标是：在保留 LR(0) 状态机构造方式的同时，用更精细的规则放置 reduce 动作。
+
+### Motivation
+
+考虑文法：
+
+```text
+0. S' -> E $
+1. E  -> T + E
+2. E  -> T
+3. T  -> x
+```
+
+在某些 LR(0) 状态中会出现完成项目 `E -> T .`，按 LR(0) 规则这意味着对所有终结符都要填 `reduce 2`。  
+但这显然不合理，因为 `E -> T` 只有在某些后继符号出现时才真的应该规约。
+
+### Core Idea
+
+SLR 的修正是：
+
+* 若状态中有完成项目 `A \rightarrow \alpha \cdot`，
+* 不再对所有终结符填写 reduce，
+* 而是**只对 `FOLLOW(A)` 中的符号**填写 reduce。
+
+也就是：
+
+\[
+ACTION[i, a] = reduce(A \rightarrow \alpha), \quad a \in FOLLOW(A)
+\]
+
+### Reduce Rule in SLR
+
+```text
+for each state I in T
+  for each completed item A -> α . in I
+    for each token a in FOLLOW(A)
+      ACTION[I, a] = reduce A -> α
+```
+
+### Why SLR Works Better Than LR(0)
+
+`FOLLOW(A)` 提供了一种“全局语法上下文”：
+
+* 它告诉我们：当一个 `A` 已经被识别出来时，后面合法地可能跟着哪些终结符。
+* 因此 SLR 能避免一些“明明当前 lookahead 不可能出现，却仍然规约”的错误动作。
+
+换句话说：
+
+* `LR(0)`：完成项目一出现，就想规约。
+* `SLR`：完成项目出现后，先检查当前 lookahead 是否属于 `FOLLOW(A)`，只有合法时才规约。
+
+### Limitation of SLR
+
+SLR 虽然比 LR(0) 更强，但它仍然不够精细，因为：
+
+* `FOLLOW(A)` 是针对整个文法中非终结符 `A` 的**全局集合**。
+* 它没有区分 “`A` 出现在不同语境里时，后面真正可能出现的符号”。
+
+因此某些文法不是 SLR 文法，但仍然可以被更强的 LR(1) 处理。
+
+---
+
+## LR(1) Parsing
+
+`LR(1)` 在 LR 状态中显式加入了 1 个向前看符号 (Lookahead)，因此比 SLR 更精确。
+
+### LR(1) Item
+
+LR(1) 项写作：
+
+\[
+(A \rightarrow \alpha \cdot \beta,\ a)
+\]
+
+其中：
+
+* $A \rightarrow \alpha \cdot \beta$ 是 LR(0) 核心项目。
+* $a$ 是 lookahead，表示当右部完整识别结束后，后面允许出现的终结符。
+
+这个 item 的直观含义是：
+
+* 栈顶已经对应于 $\alpha$；
+* 当前输入应该能够推出 $\beta a$ 开头的串。
+
+因此对于项目 $(A \rightarrow \alpha \cdot \beta, a)$，下一个可能输入应属于：
+
+\[
+FIRST(\beta a)
+\]
+
+### LR(1) Closure
+
+与 LR(0) 相比，LR(1) 的 `Closure` 只在一个地方不同：  
+当圆点前面遇到非终结符 `X` 时，不只是把 `X -> . γ` 加入状态，还要把 lookahead 传递进去。
+
+若有项目：
+
+\[
+(A \rightarrow \alpha \cdot X \beta,\ z)
+\]
+
+对每个产生式 $X \rightarrow \gamma$，以及每个
+
+\[
+w \in FIRST(\beta z)
+\]
+
+都加入：
+
+\[
+(X \rightarrow \cdot \gamma,\ w)
+\]
+
+```text
+Closure(I):
+  repeat
+    for each item (A -> α . X β, z) in I
+      for each production X -> γ
+        for each w in FIRST(βz)
+          add (X -> . γ, w) to I
+  until I no longer changes
+```
+
+### LR(1) Goto
+
+`Goto` 的结构和 LR(0) 相同，只不过要保留 lookahead：
+
+```text
+Goto(I, X):
+  J = {}
+  for each item (A -> α . X β, z) in I
+    add (A -> α X . β, z) to J
+  return Closure(J)
+```
+
+### LR(1) Reduce Rule
+
+当状态中存在完成项目
+
+\[
+(A \rightarrow \alpha \cdot,\ z)
+\]
+
+时，规约动作只放在那一个 lookahead `z` 对应的列里：
+
+\[
+ACTION[i, z] = reduce(A \rightarrow \alpha)
+\]
+
+* `FOLLOW(A)` 是全局的；
+* `z` 是“当前这个具体语境下”的合法后继符号。
+
+### Why LR(1) Solves More Conflicts
+
+<div align="center">
+    <img src="../img/chap3/img13.png" alt="LR(1) Reduce Rule" width="500">
+</div>
+
+在这个文法中：
+
+* `SLR` 会因为 `FOLLOW(E)` 过于粗糙而产生冲突。
+* `LR(1)` 会把不同语境拆成不同 item，例如某些 `E -> V .` 只在 lookahead 为 `$` 时规约，而另一些语境下可能应当继续移进 `=`。
+
+所以：
+
+* $t \in FOLLOW(E)$ 对 SLR 来说是必要条件，
+* 但对某些文法来说并不是充分条件。
+
+
+
+## LALR(1) Parsing
+
+为了在能力和表规模之间折中，工程上常使用 **LALR(1)**。
+
+### Core Idea
+
+LALR(1) 从 LR(1) 出发：
+
+* 如果两个 LR(1) 状态的 LR(0) core 完全相同，
+* 只是 lookahead 集合不同，
+* 就把它们合并。
+
+这会带来两个结果：
+
+* 分析表比 LR(1) 小得多。
+* 能力通常接近 LR(1)，因此非常实用。
+
+### Practical Note
+
+* 许多传统 parser generator（如 `Yacc`）使用的就是 LALR 思想。
+* 个别文法在 LR(1) 中无冲突，但合并成 LALR(1) 后可能出现新的 reduce-reduce 冲突。
+
+---
+
+## Hierarchy of Grammar Classes
+
+在 LR 家族内部，表达能力大致满足：
+
+\[
+LR(0) \subset SLR \subseteq LALR(1) \subseteq LR(1)
+\]
+
+
+* LL 文法更适合手写递归下降分析器。
+* LR 文法表达能力更强，更适合自动生成的 shift-reduce parser。
+* 现代编译器工具链里，LALR(1) 和 LR(1) 都非常重要。
+
+!!!summary
+    可以把三者的差别概括为：
+
+    * `LR(0)`: 只看当前状态，不看 lookahead。
+    * `SLR`: 仍使用 LR(0) 状态，但 reduce 时参考 `FOLLOW`。
+    * `LR(1)`: 状态本身就携带 lookahead，按具体语境决定 reduce。
+
+---
+
+## LR Parsing of Ambiguous Grammars
+
+LR 分析器也会遇到二义性文法，最经典的例子就是 **dangling else**：
+
+```text
+S -> if E then S else S
+S -> if E then S
+S -> other
+```
+
+对输入：
+
+```text
+if a then if b then s1 else s2
+```
+
+存在两种解释：
+
+1. `else` 和最近的 `then` 匹配。
+2. `else` 和更外层的 `then` 匹配。
+
+大多数编程语言都选择第 1 种，因此 LR 表中这里通常会体现为一个 **shift-reduce conflict**，并采用 **prefer shift** 的策略，让 `else` 尽量归属于最近的 `then`。
+
+### Two Common Solutions
+
+#### Rewrite the Grammar
+
+通过引入 `Matched` / `Unmatched` 风格的辅助非终结符消除二义性：
+
+```text
+S -> M | U
+M -> if E then M else M | other
+U -> if E then S | if E then M else U
+```
+
+其中：
+
+* `M` 表示所有 `then` 都已经匹配。
+* `U` 表示还存在未匹配的 `then`。一旦这个 `if` 写了 `else`，那么 `then` 里不允许再出现还没配上 `else` 的内层 `if`
+
+#### Keep the Grammar but Resolve the Conflict by Policy
+
+在某些 parser generator 中，可以保持原文法不变，再通过冲突处理策略指定：
+
+* 遇到这里的 shift-reduce conflict 时，优先选择 `shift`。
+
+但要注意：
+
+* 大部分 shift-reduce conflict 都意味着文法规格还不够清晰。
+* reduce-reduce conflict 通常更危险，往往应该优先回到文法层面修正。
+
+---
+
 ## Error Recovery
 
-当预测分析器查表遇到**空白条目**时，即发现了语法错误。常见的处理方式：
+当预测分析器查表遇到空白条目时，即发现了语法错误。常见的处理方式：
 
 * **抛出异常并退出:** 直接停止解析（不推荐，对用户不友好）。
 * **打印错误并尝试恢复:**
