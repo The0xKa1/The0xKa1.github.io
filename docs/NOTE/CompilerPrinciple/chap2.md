@@ -1,3 +1,6 @@
+---
+comments: true
+---
 # LEXICAL ANALYSIS
 
 !!!info "编译器概述"

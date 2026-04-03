@@ -1,5 +1,5 @@
 ---
-comment: true
+comments: true
 ---
 
 # Chapter 3: Syntax Analysis
@@ -66,7 +66,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 
 
-## Parse Tree
+### Parse Tree
 
 推导的过程可以用树状结构来直观展示，即语法分析树：
 
@@ -79,7 +79,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 </div>
 
 
-### Left-most Derivation and Right-most Derivation
+#### Left-most Derivation and Right-most Derivation
 
 * 最左推导 (Left-most derivation): 每一步推导总是选择替换最左边的非终结符。
 * 最右推导 (Right-most derivation): 每一步推导总是选择替换最右边的非终结符。
@@ -88,9 +88,9 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## Ambiguous Grammars
+### Ambiguous Grammars
 
-### What is Ambiguity?
+#### What is Ambiguity?
 
 如果一个文法可以为同一个字符串生成两棵或多棵不同的语法分析树（或者说，同一个字符串存在多个不同的最左/最右推导），那么这个文法就是二义性文法。
 
@@ -104,7 +104,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## Handling Ambiguity
+#### Handling Ambiguity
 
 <div align="center">
     <img src="../img/chap3/img6.png" alt="Handling Ambiguity" width="500">
@@ -113,7 +113,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 处理二义性最直接的方法是将二义性文法转化为无二义性文法。我们可以通过引入新的非终结符来强制规定操作符的优先级和结合性。
 
-### Precedence
+##### Precedence
 
 * 核心思想: 优先级越高的操作符，在语法推导过程中应该被越晚推导出来（在语法树中更靠近叶子节点）。
 * 实现方式: 引入类似表达式 (Expression, $E$)、项 (Term, $T$) 和因子 (Factor, $F$) 的层次结构。
@@ -125,7 +125,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
   ```
   这样定义后，加法操作会在更高的树层级被处理，从而保证了乘法先结合。
 
-### Left-Association
+##### Left-Association
 * 核心思想: 同级操作符（如连减 `1 - 2 - 3`）应该被解析为 `(1 - 2) - 3` 而不是 `1 - (2 - 3)`。
 * 实现方式: 使用左递归 (Left recursion)。即产生式右侧的第一个符号与左侧的符号相同。例如使用 `X -> X op Y` 而不是 `X -> Y op X`。在上面的例子中，`E -> E + T` 就是典型的左递归，它保证了加法是左结合的。因为这样生成的树就是左边高度比右边高.
 
@@ -159,7 +159,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## Recursive-Descent Parsing
+### Recursive-Descent Parsing
 
 递归下降分析是自顶向下分析的一种通用形式，它的特点是简单且可以手工编写。
 
@@ -167,7 +167,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 * 文法产生式的右侧转化为函数体内部的具体逻辑（例如使用 `switch` 语句）。
 * 维护一个全局标记（如 `tok`），并通过诸如 `eat(token)` 的辅助函数来消耗匹配成功的终结符并获取下一个标记。
 
-### Backtracking
+#### Backtracking
 
 如果面对某个输入标记（如 `num`）时有多个产生式可以选择，简单的递归下降可能需要“猜测”并尝试。如果猜错，就会面临回溯。回溯的代价极高，会导致尝试的路径呈指数级爆炸。
 
@@ -187,21 +187,21 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## Predictive Parsing
+### Predictive Parsing
 
 为了解决回溯带来的性能问题，引入了预测分析。它是递归下降分析的特例，不需要回溯。
 
-### LL(k) Parsing
+#### LL(k) Parsing
 
 预测分析通过向前查看（Lookahead）固定数量的符号（通常是 $k=1$ 个）来精准决定应该使用哪条产生式。这种分析方法可以解析 LL(k) 文法（从左到右解析，最左推导）。
 
-### Predictive Analysis Core Conditions
+#### Predictive Analysis Core Conditions
 
 要在 $k=1$ 的情况下精准选择产生式，我们必须提前知道每条产生式推导后可能出现的首个终结符。这就引入了构建预测分析表所需的三大核心概念：Nullable、First 集合和 Follow 集合。
 
 ---
 
-## Core Collections: Nullable, FIRST and FOLLOW
+#### Core Collections: Nullable, FIRST and FOLLOW
 
 在计算这些集合时，为了保证算法的高效性，通常按照以下顺序进行迭代计算：先计算 Nullable，再计算 FIRST，最后计算 FOLLOW。
 
@@ -250,11 +250,11 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
     <img src="../img/chap3/img9.png" alt="FOLLOW Collection" width="500">
 </div>
 
-## Predictive Parsing Tables
+#### Predictive Parsing Tables
 
 利用上述三个集合，我们可以构建一个二维的预测分析表 $M$。表的行代表非终结符 $X$，列代表前瞻终结符 $t$，单元格内的内容表示遇到 $t$ 时应选择的产生式。
 
-### Filling the Table
+##### Filling the Table
 
 对于文法中的每条产生式 $X \rightarrow \gamma$：
 
@@ -272,14 +272,14 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
     - $FIRST(X)$ 包含了所有可能作为 $X$ 推导出的字符串的第一个符号的终结符,是X内部的概念。
     - $FOLLOW(X)$ 包含了所有可能紧跟在 $X$ 后面出现的终结符,是X外部的概念。
 
-### Syntax Errors and LL(1) Definition
+##### Syntax Errors and LL(1) Definition
 
 * 空白单元格: 如果表格中的某个单元格为空，说明在当前非终结符下遇到该输入属于语法错误 (Syntax errors)。
 * LL(1) 文法: 如果按照上述规则构建的预测分析表没有任何包含重复产生式的单元格（即没有冲突），那么该文法就被称为 LL(1) 文法。任何二义性文法都不可能是 LL(k) 文法。
 
 ---
 
-## Non-Recursive Predictive Parser
+#### Non-Recursive Predictive Parser
 
 除了编写递归函数外，还可以通过显式地维护一个栈 (Stack) 来实现非递归的预测分析器。
 
@@ -294,18 +294,18 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## Grammar Transformations
+#### Grammar Transformations
 
 当一个文法无法生成无冲突的 LL(1) 分析表时，我们需要对其进行改写。
 
-### Eliminate Left-Recursion
+##### Eliminate Left-Recursion
 
 * 问题: 左递归产生式（例如 $E \rightarrow E + T$）会导致 $FIRST(E+T) \subseteq FIRST(E)$ 且 $FIRST(E) \subseteq FIRST(E+T)$，从而使得 $FIRST(E) = FIRST(E+T)$。这会在 LL(1) 解析表中产生多重条目冲突，导致自顶向下分析器无法处理。
 * 解决方案: 将左递归转换为右递归 (Right recursion)。
     * 原始: $A \rightarrow A\alpha \mid \beta$
     * 转换后: $A \rightarrow \beta A'$ 且 $A' \rightarrow \alpha A' \mid \epsilon$。
 
-### Left Factoring
+##### Left Factoring
 
 * 问题: 如果同一个非终结符的两个产生式以相同的符号串开头（例如 $S \rightarrow \text{if } E \text{ then } S \text{ else } S$ 和 $S \rightarrow \text{if } E \text{ then } S$），它们将在 LL(1) 分析表中的同一单元格产生冲突。
 * 解决方案: 提取公共前缀，延迟决策 (Delay the decision)。引入一个新的非终结符来处理剩余的部分。
@@ -313,7 +313,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## Bottom-Up Parsing
+### Bottom-Up Parsing
 
 前面的 LL / 预测分析属于自顶向下分析；而 LR 属于自底向上分析 (Bottom-Up Parsing)。
 
@@ -323,7 +323,7 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 * 它本质上是在反向执行最右推导 (Right-most derivation in reverse)。
 * 最常见的实现方式是Shift-Reduce Parsing。
 
-### Shift-Reduce Parsing
+#### Shift-Reduce Parsing
 
 在移进-规约分析中，分析器维护一个栈和一个输入缓冲区，并不断执行以下动作：
 
@@ -338,9 +338,9 @@ L(G) = \{ w \in T^* \mid S \rightarrow^* w \}
 
 ---
 
-## LR Parsing
+#### LR Parsing
 
-### What Does LR Mean?
+##### What Does LR Mean?
 
 LR(k)中的含义：
 
@@ -354,7 +354,7 @@ LR(k)中的含义：
 * 它可以把决策推迟到“看到了足够多的右部内容”之后。
 * 因此 LR 文法类通常比 LL 文法类更强。
 
-### Parser Configuration
+##### Parser Configuration
 
 一个 LR 分析器通常需要跟踪：
 
@@ -362,7 +362,7 @@ LR(k)中的含义：
 * 一个表示“已经识别出的前缀”的栈。
 * 栈顶对应的状态 (State)，也就是“当前处于哪种可行前缀识别环境”。
 
-### Augmented Grammar
+##### Augmented Grammar
 
 和 LL 一样，LR 分析通常先把原文法增广为：
 
@@ -374,11 +374,11 @@ S' \rightarrow S\$
 
 ---
 
-## LR(0) Parsing
+#### LR(0) Parsing
 
 `LR(0)` 是最简单的 LR 分析。它在做 shift / reduce 决策时完全不看向前看符号，只依赖当前状态。
 
-### LR(0) Item
+##### LR(0) Item
 
 LR(0) 的核心抽象是 **item（项目）**：
 
@@ -396,11 +396,11 @@ A \rightarrow \alpha \cdot \beta
 * $E \rightarrow T \cdot + E$ 表示已经识别出 `T`，接下来期待 `+ E`。
 * $T \rightarrow x \cdot$ 表示产生式右部已经全部识别完，可以考虑规约。
 
-### Closure and Goto
+##### Closure and Goto
 
 LR(0) 自动机中的每个状态都是一个 item 集合。构造状态图时最重要的两个操作是 `Closure` 和 `Goto`。
 
-#### Closure
+###### Closure
 
 如果某个 item 中圆点前面已经走到一个非终结符 `X` 前，即：
 
@@ -425,7 +425,7 @@ Closure(I):
   until I no longer changes
 ```
 
-#### Goto
+###### Goto
 
 如果状态 `I` 中包含项目
 
@@ -449,11 +449,11 @@ Goto(I, X):
   return Closure(J)
 ```
 
-### Building the LR(0) DFA
+##### Building the LR(0) DFA
 
 LR(0) 自动机的构造过程可以概括为：
 
-1. 从开始状态 $Closure({S' -> . S $})$ 出发。
+1. 从开始状态 $Closure({S' -> . S \$ })$ 出发。
 2. 对每个状态中的每个可前移符号 X 计算 $Goto(I, X)$。
 3. 将得到的新项目集合作为新状态加入。
 4. 直到状态和边都不再增长。
@@ -462,11 +462,11 @@ LR(0) 自动机的构造过程可以概括为：
 
 
 
-### LR(0) Parse Table
+##### LR(0) Parse Table
 
 得到 DFA 后，就可以进行算法以及填写 LR(0) 分析表。
 
-### LR(0) Parsing Algorithm
+##### LR(0) Parsing Algorithm
 
 <div align="center">
     <img src="../img/chap3/img11.png" alt="LR(0) Parsing Algorithm" width="500">
@@ -483,7 +483,7 @@ LR(0) 自动机的构造过程可以概括为：
 
 > 关键在于状态栈和符号栈需要一一对应，每次 shift 都要把新状态压入栈顶，每次 reduce 都要弹出对应数量的状态,然后根据栈顶剩余状态和reduce的表达式左侧非终结符进行一次goto
 
-#### Action / Goto 表项规则
+###### Action / Goto 表项规则
 
 <div align="center">
     <img src="../img/chap3/img12.png" alt="Action / Goto 表项规则" width="500">
@@ -499,7 +499,7 @@ LR(0) 自动机的构造过程可以概括为：
 
 
 
-### Why LR(0) Is Too Weak
+##### Why LR(0) Is Too Weak
 
 LR(0) 的限制很明显：
 
@@ -513,11 +513,11 @@ LR(0) 的限制很明显：
 
 ---
 
-## SLR Parsing
+#### SLR Parsing
 
 `SLR` 是 **Simple LR Parsing**。它的目标是：在保留 LR(0) 状态机构造方式的同时，用更精细的规则放置 reduce 动作。
 
-### Motivation
+##### Motivation
 
 考虑文法：
 
@@ -531,13 +531,13 @@ LR(0) 的限制很明显：
 在某些 LR(0) 状态中会出现完成项目 `E -> T .`，按 LR(0) 规则这意味着对所有终结符都要填 `reduce 2`。  
 但这显然不合理，因为 `E -> T` 只有在某些后继符号出现时才真的应该规约。
 
-### Core Idea
+##### Core Idea
 
 SLR 的修正是：
 
-* 若状态中有完成项目 `A \rightarrow \alpha \cdot`，
+* 若状态中有完成项目 $A \rightarrow \alpha \cdot$，
 * 不再对所有终结符填写 reduce，
-* 而是**只对 `FOLLOW(A)` 中的符号**填写 reduce。
+* 而是只对 `FOLLOW(A)` 中的符号填写 reduce。
 
 也就是：
 
@@ -545,7 +545,7 @@ SLR 的修正是：
 ACTION[i, a] = reduce(A \rightarrow \alpha), \quad a \in FOLLOW(A)
 \]
 
-### Reduce Rule in SLR
+##### Reduce Rule in SLR
 
 ```text
 for each state I in T
@@ -554,7 +554,7 @@ for each state I in T
       ACTION[I, a] = reduce A -> α
 ```
 
-### Why SLR Works Better Than LR(0)
+##### Why SLR Works Better Than LR(0)
 
 `FOLLOW(A)` 提供了一种“全局语法上下文”：
 
@@ -566,7 +566,7 @@ for each state I in T
 * `LR(0)`：完成项目一出现，就想规约。
 * `SLR`：完成项目出现后，先检查当前 lookahead 是否属于 `FOLLOW(A)`，只有合法时才规约。
 
-### Limitation of SLR
+##### Limitation of SLR
 
 SLR 虽然比 LR(0) 更强，但它仍然不够精细，因为：
 
@@ -577,11 +577,11 @@ SLR 虽然比 LR(0) 更强，但它仍然不够精细，因为：
 
 ---
 
-## LR(1) Parsing
+#### LR(1) Parsing
 
 `LR(1)` 在 LR 状态中显式加入了 1 个向前看符号 (Lookahead)，因此比 SLR 更精确。
 
-### LR(1) Item
+##### LR(1) Item
 
 LR(1) 项写作：
 
@@ -597,7 +597,7 @@ LR(1) 项写作：
 这个 item 的直观含义是：
 
 * 栈顶已经对应于 $\alpha$；
-* 当前输入应该能够推出 $\beta a$ 开头的串。
+* 当前输入应该能够由 $\beta a$ 推出。
 
 因此对于项目 $(A \rightarrow \alpha \cdot \beta, a)$，下一个可能输入应属于：
 
@@ -605,7 +605,7 @@ LR(1) 项写作：
 FIRST(\beta a)
 \]
 
-### LR(1) Closure
+##### LR(1) Closure
 
 与 LR(0) 相比，LR(1) 的 `Closure` 只在一个地方不同：  
 当圆点前面遇到非终结符 `X` 时，不只是把 `X -> . γ` 加入状态，还要把 lookahead 传递进去。
@@ -638,7 +638,7 @@ Closure(I):
   until I no longer changes
 ```
 
-### LR(1) Goto
+##### LR(1) Goto
 
 `Goto` 的结构和 LR(0) 相同，只不过要保留 lookahead：
 
@@ -650,7 +650,15 @@ Goto(I, X):
   return Closure(J)
 ```
 
-### LR(1) Reduce Rule
+
+<div align="center">
+    <img src="../img/chap3/img14.png" alt="LR(1) Goto" width="500">
+</div>
+<div align="center">
+    <img src="../img/chap3/img15.png" alt="LR(1) Closure" width="500">
+</div>
+
+##### LR(1) Reduce Rule
 
 当状态中存在完成项目
 
@@ -667,7 +675,7 @@ ACTION[i, z] = reduce(A \rightarrow \alpha)
 * `FOLLOW(A)` 是全局的；
 * `z` 是“当前这个具体语境下”的合法后继符号。
 
-### Why LR(1) Solves More Conflicts
+##### Why LR(1) Solves More Conflicts
 
 <div align="center">
     <img src="../img/chap3/img13.png" alt="LR(1) Reduce Rule" width="500">
@@ -685,11 +693,15 @@ ACTION[i, z] = reduce(A \rightarrow \alpha)
 
 
 
-## LALR(1) Parsing
+#### LALR(1) Parsing
 
 为了在能力和表规模之间折中，工程上常使用 **LALR(1)**。
 
-### Core Idea
+
+<div align="center">
+    <img src="../img/chap3/img16.png" alt="LALR(1) Parsing" width="500">
+</div>
+##### Core Idea
 
 LALR(1) 从 LR(1) 出发：
 
@@ -702,14 +714,14 @@ LALR(1) 从 LR(1) 出发：
 * 分析表比 LR(1) 小得多。
 * 能力通常接近 LR(1)，因此非常实用。
 
-### Practical Note
+##### Practical Note
 
 * 许多传统 parser generator（如 `Yacc`）使用的就是 LALR 思想。
 * 个别文法在 LR(1) 中无冲突，但合并成 LALR(1) 后可能出现新的 reduce-reduce 冲突。
 
 ---
 
-## Hierarchy of Grammar Classes
+#### Hierarchy of Grammar Classes
 
 在 LR 家族内部，表达能力大致满足：
 
@@ -729,9 +741,13 @@ LR(0) \subset SLR \subseteq LALR(1) \subseteq LR(1)
     * `SLR`: 仍使用 LR(0) 状态，但 reduce 时参考 `FOLLOW`。
     * `LR(1)`: 状态本身就携带 lookahead，按具体语境决定 reduce。
 
+
+<div align="center">
+    <img src="../img/chap3/img17.png" alt="Hierarchy of Grammar Classes" width="500">
+</div>
 ---
 
-## LR Parsing of Ambiguous Grammars
+#### LR Parsing of Ambiguous Grammars
 
 LR 分析器也会遇到二义性文法，最经典的例子就是 **dangling else**：
 
@@ -754,9 +770,9 @@ if a then if b then s1 else s2
 
 大多数编程语言都选择第 1 种，因此 LR 表中这里通常会体现为一个 **shift-reduce conflict**，并采用 **prefer shift** 的策略，让 `else` 尽量归属于最近的 `then`。
 
-### Two Common Solutions
+##### Two Common Solutions
 
-#### Rewrite the Grammar
+###### Rewrite the Grammar
 
 通过引入 `Matched` / `Unmatched` 风格的辅助非终结符消除二义性：
 
@@ -771,7 +787,7 @@ U -> if E then S | if E then M else U
 * `M` 表示所有 `then` 都已经匹配。
 * `U` 表示还存在未匹配的 `then`。一旦这个 `if` 写了 `else`，那么 `then` 里不允许再出现还没配上 `else` 的内层 `if`
 
-#### Keep the Grammar but Resolve the Conflict by Policy
+###### Keep the Grammar but Resolve the Conflict by Policy
 
 在某些 parser generator 中，可以保持原文法不变，再通过冲突处理策略指定：
 
@@ -784,7 +800,7 @@ U -> if E then S | if E then M else U
 
 ---
 
-## Error Recovery
+#### Error Recovery
 
 当预测分析器查表遇到空白条目时，即发现了语法错误。常见的处理方式：
 
@@ -792,3 +808,192 @@ U -> if E then S | if E then M else U
 * **打印错误并尝试恢复:**
     * 可以通过插入、删除或替换 Token 来恢复。
     * **通过删除恢复 (Deletion):** 这是更安全的做法。跳过当前的输入 Token，直到遇到属于当前非终结符 **FOLLOW 集合** 中的 Token 为止（例如使用 `skipto(Tprime_follow)` 函数）。这保证了循环最终会在遇到 EOF 时终止，避免死循环。
+
+
+### Parser Implementation & Yacc
+
+在了解了自底向上的 LR 分析理论后，我们可以使用工具来自动生成语法分析器。Yacc (Yet another compiler-compiler) 是一种广泛使用的 LALR(1) 语法分析器生成工具。
+
+*   输入与输出：Yacc 接受一个规范文件（通常后缀为 `.y`），并输出包含语法分析器 C 源代码的文件（通常后缀为 `tab.c`）。
+*   基本结构：Yacc 文件的结构与 Lex 类似，分为三个部分：
+
+```yacc
+{definitions (定义部分)}
+%%
+{rules (规则部分)}
+%%
+{auxiliary routines (辅助例程)}
+```
+<div align="center">
+    <img src="../img/chap3/img18.png" alt="Yacc Core Auxiliary Routines" width="500">
+</div>
+
+
+!!!Note
+    === "DEFINITIONS":
+        两种识别 Token 的方式：
+
+        - 在语法规则中，单引号括起来的字符会被识别为其本身。例如：`'+'`
+        - 可以通过 YACC 的 `%token` 声明定义符号化的 Token。
+            - 例如：`%token NUMBER`
+        - 使用 `%start` 指令可以定义文法的起始符号。
+
+    === "RULES":
+        -  规则格式：Rule {Action Code}
+        - 语法与 lex 类似
+        - 当分析器用该规则进行规约（reduce）时，动作代码会被执行
+        - 动作代码通常写在每个产生式分支的末尾，也可以在产生式内部嵌入动作代码（embedded actions）
+
+#### Core Auxiliary Routines
+
+在 Yacc 中，有几个关键的内置函数和交互机制：
+
+*   `yyparse()`：语法分析的主函数。如果解析成功则返回 0，失败则返回 1。
+*   `yylex()`：由 `yyparse()` 调用的词法分析器函数。它返回一个 Token 类型，并将该 Token 的语义值存储在全局变量 `yylval` 中。当遇到输入结束时，`yylex` 会返回 0。
+*   `yyerror(char *s)`：当解析过程中遇到语法错误时，用于打印错误信息的函数。
+
+`yyparse()` 的核心控制流程可以抽象成：
+
+```mermaid
+flowchart TD
+    A[读取当前栈顶状态 state] --> B[查看当前输入符号 lookahead]
+    B --> C[查询 ACTION[state, lookahead]]
+    C --> D{表项类型}
+    D -->|shift s| E[移进当前 token\n压入新状态 s]
+    D -->|reduce A -> beta| F[按 beta 长度弹栈\n执行规约动作]
+    D -->|accept| G[分析成功结束]
+    D -->|error| H[报告语法错误]
+    E --> A
+    F --> I[查询 GOTO[top, A]\n压入规约后的新状态]
+    I --> A
+```
+
+也就是说，Yacc 并不是“看到某条产生式右部完整了就立刻规约”，而是始终由当前状态和当前 lookahead 共同决定下一步动作。
+
+
+
+#### Semantic Values & Pseudovariables
+
+在解析规则时，可以通过动作代码 (Action Code) 来处理语义值。Yacc 维护了一个语义值栈 (Value Stack)，与状态栈平行。
+
+*   伪变量 (Pseudovariables)：
+    *   `$$`：代表当前规则左部 (LHS) 非终结符的语义值。
+    *   `$i`：代表当前规则右部 (RHS) 第 $i$ 个符号的语义值。
+*   `YYSTYPE` 与 `%union`：
+    *   默认情况下，`yylval` 和所有语义值的类型 `YYSTYPE` 都是 `int`。
+    *   不同的文法符号可能需要不同类型的语义值（例如浮点数、AST 节点、字符串）。为了支持多态，可以通过 `%union` 声明一个联合体。
+    *   使用 `%type <variant>` 可以为特定的非终结符指定语义值类型，对于 Token，则在定义时指定如 `%token <variant> NUMBER`。
+
+<div align="center">
+    <img src="../img/chap3/img19.png" alt="Yacc Semantic Values" width="500">
+</div>
+
+
+#### Embedded Actions
+
+有时需要在某个产生式还未完全规约时就执行特定的代码。例如，考虑如下文法：
+
+```text
+decl     → type var-list
+type     → int | float
+var-list → var-list , id | id
+```
+如何记录每个 `id` 的类型？
+
+在 Yacc 中，可以通过在产生式右部插入嵌入动作来实现。例如：
+
+```yacc
+decl: type { current_type = $1; } var_list
+    ;
+
+type: INT   { $$ = INT_TYPE; }
+    | FLOAT { $$ = FLOAT_TYPE; }
+    ;
+
+var_list: var_list ',' ID { setType(tokenString, current_type); }
+        | ID              { setType(tokenString, current_type); }
+        ;
+```
+
+这里，`{ current_type = $1; }` 是一个嵌入动作，在 `type` 识别完成后、`var_list` 识别前执行。这样可以确保在处理 `var_list` 时，`current_type` 已经被正确设置，从而为每个 `id` 赋予正确的类型。
+
+
+有时需要在产生式的不同位置执行动作，可以通过引入辅助规则实现：
+
+```yacc
+list: item1 { do_item1($1); } item2 { do_item2($3); } item3
+```
+
+等价于：
+
+```yacc
+list: item1 _rule01 item2 _rule02 item3
+_rule01: { do_item1($0); }
+_rule02: { do_item2($0); }
+```
+
+这种方式可以在产生式的任意位置插入动作代码，便于实现更灵活的语义处理。
+
+#### Handling Conflicts & Precedence
+
+Yacc 能够报告由于二义性导致的 Shift/Reduce 和 Reduce/Reduce  冲突。
+
+!!! warning "Yacc 默认的冲突解决策略"
+    *   Shift/Reduce 冲突：Yacc 默认选择移进 (Shift)。
+    *   Reduce/Reduce 冲突：Yacc 默认选择在文法中先出现的规则。
+    *   （注：大多数 S/R 冲突和所有 R/R 冲突都属于严重问题，应通过重写文法消除。）
+
+为了在保持自然语法的同时解决表达式中的优先级和结合性二义性，Yacc 提供了优先级指令 (Precedence Directives)：
+*   `%left`：左结合（倾向于 Reduce）。
+*   `%right`：右结合（倾向于 Shift）。
+*   `%nonassoc`：无结合性（产生错误动作）。
+这些指令赋予了操作符特定的优先级，优先级越往后声明越高。Yacc 比较当前输入 Token 的优先级与当前规则的优先级（由 RHS 最后一个 Token 决定，或通过 `%prec` 强制指定），优先执行高优先级的动作。
+
+对于“什么时候该执行规约”这个问题，可以把 Yacc 的判断近似理解成下面这张图：
+
+```mermaid
+flowchart TD
+    A[当前状态中出现完成项目\n如 A -> alpha .] --> B[查看当前 lookahead]
+    B --> C{ACTION[state, lookahead]}
+    C -->|reduce A -> alpha| D[执行规约]
+    C -->|shift| E[暂不规约\n继续移进]
+    C -->|conflict| F[按优先级/结合性或默认策略处理]
+    C -->|error| G[报告语法错误]
+```
+
+因此，规约发生的必要条件通常有两个：
+
+*   当前状态已经表明“某个产生式右部识别完成”。
+*   当前 lookahead 所在的表项确实填写的是 `reduce`，而不是 `shift`、`accept` 或 `error`。
+
+例如
+
+```yacc
+%nonassoc EQ NEQ
+%left PLUS MINUS
+%left TIMES DIV
+```
+
+在这里 `TIMES` 和 `DIV` 的优先级高于 `PLUS` 和 `MINUS`，而 `EQ` 和 `NEQ` 的优先级最低。这样就能正确解析诸如 `a + b * c == d` 这样的表达式。
+
+#### Advanced Error Recovery
+在实际的编译器实现中，我们希望编译器能报告程序中的所有错误，而不仅仅是第一个，这就需要更高级的错误恢复技术。
+
+##### Local Error Recovery 
+
+局部错误恢复的核心思想是：在检测到错误的位置调整分析栈和输入流，以便能够继续解析。Yacc 提供了一种基于特殊终端符号 `error` 的局部恢复机制。
+
+*   机制解析：在语法规则中，可以将 `error` 作为一种占位符。当 LR 分析器进入错误状态时，它会执行以下动作：
+    -  如果当前状态无法对 `error` 执行移进操作，则不断弹出栈顶元素，直到遇到包含 `error` 移进动作的状态。
+    -  移进 (Shift) `error` 符号。
+    -  不断丢弃输入符号，直到找到一个可以合法执行非错误动作的 Lookahead Token（这类词法标记被称为“同步标记 synchronizing tokens”）。
+    -  恢复正常的语法分析。
+*   潜在风险：弹出状态可能导致某些语义动作出现问题，特别是当语义动作包含不可逆的副作用（如修改全局作用域变量）时。
+
+##### Global Error Repair 
+局部恢复容易在错误发生点附近造成信息丢失。Burke-Fisher 错误修复是一种全局技术，它寻找最小的插入、删除和替换集合，使源代码变成语法正确的字符串，即使根本原因不在分析器报告错误的地方。
+*   实现原理：
+    *   分析器同时维护两个栈：当前栈 (Current Stack) 和 旧栈 (Old Stack)。
+    *   保留一个固定长度为 $K$ 的 Token 队列（缓冲队列）。
+    *   当发生语法错误时，Burke-Fisher 会尝试在队列中的任意位置进行单字符插入、删除或替换操作，然后尝试从旧栈重新开始解析。
+    *   评判标准：如果某次修复能让分析器在当前位置之后成功解析最远的距离（例如向后解析 3 到 4 个 Token），就认为这是一次成功的修复。
