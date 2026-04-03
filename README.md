@@ -58,8 +58,7 @@ Markdown 是一种轻量级标记语言，易于学习和使用，适合用于�
 
 你可以通过以下方式与我联系：
 
-- 邮箱：kailqq0851@gmail.com
-
+- 邮箱：zhangjinkai.me@outlook.com
 
 #### 其它
 
