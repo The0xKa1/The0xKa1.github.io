@@ -1,5 +1,10 @@
 {% extends "main.html" %}
 
+{% block extrahead %}
+  {{ super() }}
+  <meta name="msvalidate.01" content="E3D4975511E2569AD8A2D179D5BAFD5D">
+{% endblock %}
+
 {% block tabs %}
   {{ super() }}
   <style>
@@ -91,6 +96,7 @@
       margin-bottom: 1rem;
       letter-spacing: -0.03em;
       background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
@@ -220,49 +226,4 @@
 {% endblock %}
 
 {% block content %}
-  <style>
-    .home-shell {
-      position: relative;
-      padding: 0 0 4rem;
-    }
-
-    .home-shell::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 24rem;
-      background:
-        radial-gradient(circle at left top, rgba(247, 143, 179, 0.14), transparent 40%),
-        radial-gradient(circle at right 18%, rgba(162, 155, 254, 0.18), transparent 36%);
-      pointer-events: none;
-    }
-
-    .home-shell__grid {
-      position: relative;
-      z-index: 1;
-      margin-top: 2rem;
-    }
-
-    .home-shell__content {
-      max-width: 88rem;
-      margin: 0 auto;
-    }
-
-    .home-shell__content blockquote {
-      margin: 0 0 1.5rem;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
-      padding: 1rem 1.2rem;
-    }
-  </style>
-
-  <section class="home-shell">
-    <div class="md-grid home-shell__grid">
-      <div class="home-shell__content md-typeset">
-        {{ page.content }}
-      </div>
-    </div>
-  </section>
 {% endblock %}
