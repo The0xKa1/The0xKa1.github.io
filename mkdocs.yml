@@ -262,6 +262,7 @@ nav:
               - Lexical Analysis: NOTE/CompilerPrinciple/chap2.md
               - Syntax Analysis: NOTE/CompilerPrinciple/chap3.md
               - Abstract Syntax: NOTE/CompilerPrinciple/chap4.md
+              - Semantic Analysis: NOTE/CompilerPrinciple/chap5.md
           - 数据库系统:
               - NOTE/DB/index.md
               - 介绍: NOTE/DB/lec1.md
