@@ -1,0 +1,103 @@
+  .md-typeset h1, .md-typeset h2 {
+    font-weight: 600;
+  }
+  
+  .md-typeset h3 {
+    font-weight: 500;
+  }
+  
+  .md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
+    letter-spacing: 0;
+  }
+  
+  .md-typeset {
+    font-size: .7rem;
+  }
+  
+  .md-typeset h3 {
+    font-weight: 600;
+  }
+  
+  .md-typeset code:not(pre code) {
+    font-size: inherit;
+  }
+  
+  [data-md-color-scheme="slate"] .md-typeset .md-content__button {
+    color: #555555;
+  }
+  
+  .md-copyright {
+    font-size: .55rem;
+  }
+  
+  .katex {
+    -webkit-text-stroke-width: 0.3px;
+  }
+  
+  .reference ol {
+    counter-reset: li;
+  }
+  .reference li {
+    padding-left: 0.7em;
+    counter-increment: li;
+    word-break: break-all;
+  }
+  .reference li::marker {
+    content: "[" counter(li) "]";
+    font-size: 0.8em;
+  }
+  
+  .riscv-table, .fl-table {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+    /* border-collapse: collapse; */
+  }
+  .riscv-table-node {
+    text-align: center;
+    padding: 0.2em;
+    border: 0.04rem solid var(--md-default-fg-color);
+  }
+  .riscv-table-node-little, .fl-table-node {
+    text-align: center;
+    padding: 0.1em;
+    border: 0.04rem solid var(--md-default-fg-color);
+  }
+  .riscv-table-numnode {
+    font-size: .4rem;
+  }
+  .riscv-table-undernode {
+    font-size: .6rem;
+    text-align: center;
+  }
+  .riscv-table-numnodel {
+    font-size: .4rem;
+    text-align: left;
+  }
+  .riscv-table-numnoder {
+    font-size: .4rem;
+    text-align: right;
+  }
+  @media (max-width: 700px) {
+    .riscv-table-node, .riscv-table-node-little, .fl-table-node {
+      font-size: .6rem;
+    }
+  }
+  @media (max-width: 610px) {
+    .riscv-table-node, .riscv-table-node-little, .fl-table-node {
+      font-size: .5rem;
+    }
+  }
+  @media (max-width: 602px) {
+    .riscv-table-node, .riscv-table-node-little {
+      overflow-x: scroll;
+      word-wrap: normal;
+    }
+    .riscv-table-numnoder {
+      font-size: 0px;
+    }
+    .riscv-table-numnodel {
+      word-wrap: normal;
+    }
+  }
+  

@@ -1,0 +1,30 @@
+.changelog-type-pageupdate {
+    background-color: #0dddecb0;
+}
+
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #acc2ef;
+  --md-card-color: #374357;
+  --md-default-bg-color: #0F1C2E;
+  --md-accent-fg-color: #FFFFFF;
+  --md-sidebar-color: #acc2ef;
+}
+
+  [data-md-color-scheme="theme"] {
+    --md-primary-fg-color: #dd6236;
+    --md-primary-bg-color: #ffffff;
+    --md-card-color: #ffd299;
+    --md-default-bg-color: #F7eedd;
+    --md-admonition-bg-color:           #F7eedd;
+    --md-sidebar-color: #dd6236;
+  }
+
+  [data-md-color-scheme="simple"] {
+    --md-primary-fg-color:#52616B;
+    --md-default-bg-color:#F0F5F9;
+    --md-card-color:#C9D6DF;
+    --md-admonition-bg-color:#F0F5F9;
+    --md-sidebar-color: #52616B;
+    --md-accent-fg-color: #00ADB5;
+  }

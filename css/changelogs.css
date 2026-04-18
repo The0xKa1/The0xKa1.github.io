@@ -1,0 +1,6 @@
+.changelog-type-pageupdate {
+    background-color: #dde8e8b0;
+}
+.changelog-type-newart::before {
+    content: "页面更新";
+}

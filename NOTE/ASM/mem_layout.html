@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Memory Layout</title>
+<style>
+    :root {
+        --bg-color: #f0f2f5;
+        --card-bg: #ffffff;
+        --header-bg: #2c3e50;
+        --accent-db: #3498db;  /* 蓝色 DB */
+        --accent-dw: #27ae60;  /* 绿色 DW */
+        --text-main: #2c3e50;
+        --text-sub: #7f8c8d;
+        --code-font: 'JetBrains Mono', 'Consolas', monospace;
+        --tooltip-bg: rgba(0, 0, 0, 0.85);
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        background-color: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        padding: 40px;
+        min-height: 100vh;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        position: relative; /* 为 tooltip 定位 */
+    }
+
+    .memory-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        overflow: hidden;
+        border: 1px solid #e1e8ed;
+    }
+
+    .card-header {
+        background: var(--header-bg);
+        color: white;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-header h3 { margin: 0; letter-spacing: 1px; }
+
+    .legend { font-size: 0.85rem; display: flex; gap: 15px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    
+    th {
+        background: #ecf0f1;
+        color: var(--text-sub);
+        text-align: left;
+        padding: 15px 25px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    td {
+        padding: 12px 25px;
+        border-bottom: 1px solid #eee;
+        color: var(--text-main);
+        transition: background 0.2s;
+        cursor: help; /* 鼠标变成问号 */
+    }
+
+    /* 悬停交互样式 */
+    tr.data-row:hover td {
+        background-color: #fff9c4; /* 浅黄色高亮 */
+    }
+
+    .col-offset { font-family: var(--code-font); color: var(--text-sub); }
+    .col-hex { font-family: var(--code-font); font-weight: bold; font-size: 1.1rem; }
+    
+    .badge {
+        padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-right: 8px;
+        font-family: var(--code-font);
+    }
+    .badge-db { background: rgba(52, 152, 219, 0.1); color: var(--accent-db); border: 1px solid rgba(52, 152, 219, 0.3); }
+    .badge-dw { background: rgba(39, 174, 96, 0.1); color: var(--accent-dw); border: 1px solid rgba(39, 174, 96, 0.3); }
+
+    .ascii { color: #e67e22; font-family: var(--code-font); margin-left: 8px; font-weight: bold; }
+
+    /* Tooltip 样式 */
+    #tooltip {
+        position: fixed;
+        display: none;
+        background: var(--tooltip-bg);
+        color: #fff;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        max-width: 300px;
+        z-index: 1000;
+        pointer-events: none; /* 让鼠标事件穿透 tooltip，防止闪烁 */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    #tooltip strong { color: #f1c40f; display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase;}
+
+    /* 辅助线 */
+    .group-divider td { border-top: 2px solid #dfe6e9; }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div id="tooltip"></div>
+
+    <div class="memory-card" style="margin-bottom: 25px;">
+        <div class="card-header" style="padding: 15px 30px; background: #34495e;">
+            <h3 style="font-size: 1rem;">SOURCE CODE</h3>
+        </div>
+        <div style="padding: 20px; background: #fff;">
+            <pre style="margin: 0; font-family: var(--code-font); font-size: 0.95rem; line-height: 1.6; color: #2c3e50;">
+<span style="color: #e67e22; font-weight: bold;">.data</span>
+<span style="color: #3498db; font-weight: bold;">DB</span> 33H, 34H, 0AH, 06H
+<span style="color: #27ae60; font-weight: bold;">DW</span> 1B7CH, 674CH, 07H, '12', '1'</pre>
+        </div>
+    </div>
+
+    <div class="memory-card">
+        <div class="card-header">
+            <h3>MEMORY INSPECTOR</h3>
+            <div class="legend">
+                <span><span class="dot" style="background:var(--accent-db)"></span>Byte (DB)</span>
+                <span><span class="dot" style="background:var(--accent-dw)"></span>Word (DW)</span>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Offset</th>
+                    <th>Value</th>
+                    <th>Source & Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="data-row" data-title="直接存入" data-reason="DB (Define Byte) 是最基础的存储。数据 33H 直接写入当前地址，不需要考虑字节序。">
+                    <td class="col-offset">+00</td>
+                    <td class="col-hex" style="color:var(--accent-db)">33</td>
+                    <td><span class="badge badge-db">DB</span> 33H</td>
+                </tr>
+                <tr class="data-row" data-title="ASCII 字符" data-reason="34H直接存放。">
+                    <td class="col-offset">+01</td>
+                    <td class="col-hex" style="color:var(--accent-db)">34</td>
+                    <td><span class="badge badge-db">DB</span> 34H </td>
+                </tr>
+                <tr class="data-row" data-title="换行符" data-reason="0AH 直接存放。">
+                    <td class="col-offset">+02</td>
+                    <td class="col-hex" style="color:var(--accent-db)">0A</td>
+                    <td><span class="badge badge-db">DB</span> 0AH </td>
+                </tr>
+                <tr class="data-row" data-title="直接存入" data-reason="06H 直接存入。DB 数组在内存中是连续紧密排列的。">
+                    <td class="col-offset">+03</td>
+                    <td class="col-hex" style="color:var(--accent-db)">06</td>
+                    <td><span class="badge badge-db">DB</span> 06H</td>
+                </tr>
+
+                <tr class="data-row group-divider" data-title="小端序 (Little Endian)" data-reason="DW 定义字(2字节)。x86 架构遵循小端序：低位字节 (7C) 必须存放在低地址 (+04)。">
+                    <td class="col-offset">+04</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">7C</td>
+                    <td><span class="badge badge-dw">DW</span> 1B7CH (低位)</td>
+                </tr>
+                <tr class="data-row" data-title="小端序 (Little Endian)" data-reason="这是 1B7CH 的高位字节 (1B)。根据小端序，高位字节存放在高地址 (+05)。">
+                    <td class="col-offset">+05</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">1B</td>
+                    <td><span class="badge badge-dw">DW</span> (1B7CH) (高位)</td>
+                </tr>
+
+                <tr class="data-row group-divider" data-title="小端序 (Little Endian)" data-reason="同上，数值 674CH。低位 4C 先存入低地址。">
+                    <td class="col-offset">+06</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">4C</td>
+                    <td><span class="badge badge-dw">DW</span> 674CH (低位)</td>
+                </tr>
+                <tr class="data-row" data-title="小端序 (Little Endian)" data-reason="数值 674CH 的高位 67 存入高地址。">
+                    <td class="col-offset">+07</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">67</td>
+                    <td><span class="badge badge-dw">DW</span> (674CH) (高位)</td>
+                </tr>
+
+                <tr class="data-row group-divider" data-title="高位补零" data-reason="源代码是 DW 07H。虽然 07 只有1字节，但 DW 强制分配2字节。低位是 07。">
+                    <td class="col-offset">+08</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">07</td>
+                    <td><span class="badge badge-dw">DW</span> 07H (低位)</td>
+                </tr>
+                <tr class="data-row" data-title="高位补零" data-reason="为了凑齐一个 Word (2字节)，高位自动补 00。">
+                    <td class="col-offset">+09</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">00</td>
+                    <td><span class="badge badge-dw">DW</span> (0007H) (高位)</td>
+                </tr>
+
+                <tr class="data-row group-divider" data-title="字符串序列 (FIFO)" data-reason="注意！这是字符串 '12'。字符串按书写顺序存储（先到先存）。字符 '1' (31H) 先出现，所以存在低地址。">
+                    <td class="col-offset">+10</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">31</td>
+                    <td><span class="badge badge-dw">STR</span> '12' <span class="ascii">'1'</span></td>
+                </tr>
+                <tr class="data-row" data-title="字符串序列 (FIFO)" data-reason="字符 '2' (32H) 后出现，存在高地址。这与数值的小端序规则不同，字符串是'所见即所得'。">
+                    <td class="col-offset">+11</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">32</td>
+                    <td><span class="badge badge-dw">STR</span> ('12') <span class="ascii">'2'</span></td>
+                </tr>
+
+                <tr class="data-row group-divider" data-title="字符转数值" data-reason="DW '1'">
+                    <td class="col-offset">+12</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">31</td>
+                    <td><span class="badge badge-dw">MIX</span> '1' <span class="ascii">'1'</span></td>
+                </tr>
+                <tr class="data-row" data-title="高位补零" data-reason="因为使用的是 DW (2字节)，而字符 '1' 只有1字节，所以高位自动补 00 填充。">
+                    <td class="col-offset">+13</td>
+                    <td class="col-hex" style="color:var(--accent-dw)">00</td>
+                    <td><span class="badge badge-dw">MIX</span> ('1')</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const tooltip = document.getElementById('tooltip');
+    const rows = document.querySelectorAll('.data-row');
+
+    rows.forEach(row => {
+        row.addEventListener('mousemove', (e) => {
+            const title = row.getAttribute('data-title');
+            const reason = row.getAttribute('data-reason');
+            
+            tooltip.innerHTML = `<strong>${title}</strong>${reason}`;
+            tooltip.style.display = 'block';
+            
+            tooltip.style.left = (e.clientX + 15) + 'px';
+            tooltip.style.top = (e.clientY + 15) + 'px';
+        });
+
+        row.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+    });
+</script>
+
+</body>
+</html>
