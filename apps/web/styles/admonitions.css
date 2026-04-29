@@ -1,0 +1,143 @@
+.admonition {
+  margin: 1.5rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.admonition__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.admonition--collapsible > .admonition__header {
+  cursor: pointer;
+  list-style: none;
+}
+
+.admonition--collapsible > .admonition__header::-webkit-details-marker {
+  display: none;
+}
+
+.admonition__content {
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.admonition__content > *:first-child {
+  margin-top: 0;
+}
+
+.admonition__content > *:last-child {
+  margin-bottom: 0;
+}
+
+.admonition--definition {
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+}
+.admonition--definition .admonition__header {
+  color: #22c55e;
+}
+
+.admonition--proof {
+  border-color: #a78bfa;
+  background: rgba(167, 139, 250, 0.08);
+}
+.admonition--proof .admonition__header {
+  color: #8b5cf6;
+}
+
+.admonition--property {
+  border-color: #60a5fa;
+  background: rgba(96, 165, 250, 0.08);
+}
+.admonition--property .admonition__header {
+  color: #3b82f6;
+}
+
+.admonition--note,
+.admonition--abstract,
+.admonition--info,
+.admonition--section {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+}
+.admonition--note .admonition__header,
+.admonition--abstract .admonition__header,
+.admonition--info .admonition__header,
+.admonition--section .admonition__header {
+  color: #0ea5e9;
+}
+
+.admonition--warning,
+.admonition--question,
+.admonition--key-point {
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+}
+.admonition--warning .admonition__header,
+.admonition--question .admonition__header,
+.admonition--key-point .admonition__header {
+  color: #f59e0b;
+}
+
+.admonition--danger,
+.admonition--failure,
+.admonition--bug,
+.admonition--not-advice {
+  border-color: #f87171;
+  background: rgba(248, 113, 113, 0.08);
+}
+.admonition--danger .admonition__header,
+.admonition--failure .admonition__header,
+.admonition--bug .admonition__header,
+.admonition--not-advice .admonition__header {
+  color: #ef4444;
+}
+
+.admonition--tip,
+.admonition--success,
+.admonition--advice {
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.08);
+}
+.admonition--tip .admonition__header,
+.admonition--success .admonition__header,
+.admonition--advice .admonition__header {
+  color: #10b981;
+}
+
+.admonition--example,
+.admonition--eg,
+.admonition--quote,
+.admonition--summary {
+  border-color: #818cf8;
+  background: rgba(129, 140, 248, 0.08);
+}
+.admonition--example .admonition__header,
+.admonition--eg .admonition__header,
+.admonition--quote .admonition__header,
+.admonition--summary .admonition__header {
+  color: #6366f1;
+}
+
+.admonition--idea {
+  border-color: #fb923c;
+  background: rgba(251, 146, 60, 0.08);
+}
+.admonition--idea .admonition__header {
+  color: #f97316;
+}
+
+.admonition--answer {
+  border-color: #2dd4bf;
+  background: rgba(45, 212, 191, 0.08);
+}
+.admonition--answer .admonition__header {
+  color: #14b8a6;
+}

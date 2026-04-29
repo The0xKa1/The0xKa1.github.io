@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ka1notes-db
+    environment:
+      POSTGRES_USER: ka1
+      POSTGRES_PASSWORD: ka1notes
+      POSTGRES_DB: ka1notes
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
