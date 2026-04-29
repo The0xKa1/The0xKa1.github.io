@@ -6,7 +6,6 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "故事、科幻和一些更适合慢慢阅读的长文。",
 };
 
 interface PostTag {
@@ -302,7 +301,6 @@ export default async function BlogPage() {
               </p>
               <h2 className="mt-2 text-2xl font-bold text-[var(--text)]">更多文章</h2>
             </div>
-            <p className="text-sm text-[var(--muted)]">不是碎片流，是适合一次读完的长文。</p>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
