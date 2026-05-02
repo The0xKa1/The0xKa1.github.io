@@ -2,3 +2,7 @@ site/
 token
 .omx/
 tmp/
+.agents/
+.claude/
+.playwright-mcp/
+skills-lock.json
