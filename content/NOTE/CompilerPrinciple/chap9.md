@@ -4,8 +4,6 @@ comments: true
 
 # Chapter 9: Instruction Selection
 
-## 我们在哪
-
 chap7 把 AST 翻译成了 IR 树，chap8 做了一系列 canonicalization 和重排：
 
 ```mermaid
@@ -22,7 +20,6 @@ Instruction Selection 的任务是把 IR 树翻译成**伪汇编代码**（abstr
 
 ---
 
-## 为什么需要指令选择
 
 IR 树的每个节点只表达一个原始操作（fetch、store、add、CJUMP 等），但真实机器的一条指令往往可以同时完成多个操作。例如 `LOAD r1 <- M[r2 + c]` 同时做了地址计算（加法）和内存读取。
 
@@ -262,18 +259,42 @@ LOAD r1 <- M[r1 + 2]
 ### 复杂度
 
 设：
-- `T`：不同 tile 的总数
-- `K`：平均每个 tile 的非叶子节点数
-- `K'`：匹配一个节点最多需要检查的树节点数（≈ 最大 tile 大小）
-- `T'`：平均每个树节点能匹配的 pattern 数
 - `N`：IR 树的节点数
+- `K`：平均每个 tile 覆盖的非叶节点数
+- `K'`：在某个子树根节点处，为了判断有哪些 tile 能匹配，最多需要检查的节点数
+- `T'`：平均每个树节点能匹配上的 tile 数量
 
-| 算法 | 时间复杂度 | 说明 |
-|---|---|---|
-| Maximal Munch | `O((K' + T') · N / K)` | 只需在 N/K 个节点上做匹配 |
-| Dynamic Programming | `O((K' + T') · N)` | 每个节点都要匹配，且需要两遍遍历（cost + emission）|
+#### Maximal Munch：`O((K' + T') · N / K)`
 
-对于典型 RISC（`T ≈ 50, K ≈ 2, K' ≈ 4, T' ≈ 5`），两者都是**线性时间**。实际测量表明，指令选择比编译器的其他阶段（甚至词法分析）都快得多。
+Maximal Munch 是**贪心、自顶向下**的：每次选一个 tile 覆盖当前节点后，跳到该 tile 的 leaves 继续递归。
+
+它不是每个 IR 节点都做匹配，而是**每选中一个 tile，平均覆盖 K 个非叶节点**。整棵树有 $N$ 个节点，大约只需要选 $\frac{N}{K}$ 个 tile。
+
+对于每一个被选中的位置，需要做两件事：
+
+1. **检查哪些 tile 能匹配**：在当前子树根节点，最多要看 $K'$ 个节点才能判断匹配 → 成本 $\approx K'$
+2. **从匹配的 tile 里选一个最大的**：平均有 $T'$ 个 tile 能匹配，需要比较这些候选 → 成本 $\approx T'$
+
+因此每次匹配的成本约为 $K' + T'$，总共执行 $\frac{N}{K}$ 次：
+
+$$
+\text{Maximal Munch} \propto (K' + T') \cdot \frac{N}{K}
+$$
+
+#### Dynamic Programming：`O((K' + T') · N)`
+
+DP 是**自底向上**的：对 IR 树中的**每一个节点**，都计算"以这个节点为根的子树，最优 tile 选择是什么"。
+
+整棵树有 $N$ 个节点，因此要做 $N$ 次匹配。对于每个节点，同样需要：
+
+1. **检查 tile 是否匹配**：最多检查 $K'$ 个节点 → 成本 $\approx K'$
+2. **处理匹配上的候选 tile**：平均有 $T'$ 个匹配 tile，需要计算代价并选最小者 → 成本 $\approx T'$
+
+每个节点成本 $K' + T'$，共 $N$ 个节点：
+
+$$
+\text{Dynamic Programming} \propto (K' + T') \cdot N
+$$
 
 ---
 
