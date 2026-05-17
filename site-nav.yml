@@ -16,6 +16,7 @@ nav:
               - Activated Record: NOTE/CompilerPrinciple/chap6.md
               - Intermediate Code Generation: NOTE/CompilerPrinciple/chap7.md
               - Basic Blocks and Traces: NOTE/CompilerPrinciple/chap8.md
+              - Instruction Selection: NOTE/CompilerPrinciple/chap9.md
           - 数据库系统:
               - NOTE/DB/index.md
               - 介绍: NOTE/DB/lec1.md
