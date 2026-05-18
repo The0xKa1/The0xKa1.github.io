@@ -118,12 +118,6 @@ Jouette 的 LOAD/STORE/ADDI 都可以通过把常数设成 0 来退化成单节�
 <img src="../img/chap9/maximal-munch-aix.png" width=450>
 </div>
 
-从根节点 `MOVE` 出发：
-1. 最大匹配是 `STORE`（3 节点）或 `MOVEM`（3 节点），两者一样大；假设选了 `STORE`；
-2. 对 `STORE` 的两个 leaf 递归：
-   - 左 leaf（地址子树）：最大匹配是 `LOAD`（3 节点：MEM(+(FP, CONST a))）；
-   - 右 leaf（值子树）：最大匹配是 `LOAD`（3 节点：MEM(+(FP, CONST x))）；
-3. `LOAD` 的地址子树继续展开……
 
 ### 实现：munchStm / munchExp
 
