@@ -1,0 +1,44 @@
+[
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap11/allocation-pipeline.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap11/allocation-pipeline.png",
+    "checkpointId": "17849edc2cd242fa92",
+    "url": "https://excalidraw.com/#json=bsDYdAkaWqG585ZnPaCKQ,f678S78WkEwUqitEclnDig"
+  },
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap11/interference-graph-11-1.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap11/interference-graph-11-1.png",
+    "checkpointId": "85847222bb21459ba9",
+    "url": "https://excalidraw.com/#json=owiqKoAao6fzN9l2ztfE5,h07o-yl4TlXuiNcsAxABeA"
+  },
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap11/coalescing-move.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap11/coalescing-move.png",
+    "checkpointId": "7a0c86d435dc451585",
+    "url": "https://excalidraw.com/#json=xEY_EFNQG80RsNLzwXY5v,TeyO0gzQFBKyyaRXUwkosg"
+  },
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap11/coalescing-workflow.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap11/coalescing-workflow.png",
+    "checkpointId": "a9b1311c5b7e4933b1",
+    "url": "https://excalidraw.com/#json=zcEI_C4PU8KtuRwf18F13,NfdATUVXo3CFIp291GdAdQ"
+  },
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap11/tiger-regalloc-pipeline.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap11/tiger-regalloc-pipeline.png",
+    "checkpointId": "4057b10bab564fd7b8",
+    "url": "https://excalidraw.com/#json=m0IP8jQYWz9Um7gJa1mRq,qm68nlhYfxBs8rveCtBAag"
+  },
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap13/storage-organization.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap13/storage-organization.png",
+    "checkpointId": "5299cc0fd7824840be",
+    "url": "https://excalidraw.com/#json=JEGdRcPaH9SH_Jp84UG5J,PxFVQ3P1C_4i9r24qTViLw"
+  },
+  {
+    "source": "content/NOTE/CompilerPrinciple/img/chap13/copying-collection.excalidraw",
+    "png": "content/NOTE/CompilerPrinciple/img/chap13/copying-collection.png",
+    "checkpointId": "d2e6a157b9cc40f58c",
+    "url": "https://excalidraw.com/#json=zkIkWKVvdLYJ8D9H6pmgL,J_jZDLnlPIrW8MkWDFRORg"
+  }
+]
