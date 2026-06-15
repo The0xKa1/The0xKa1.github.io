@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="680" viewBox="0 0 1100 680" role="img" aria-labelledby="title desc">
+  <title id="title">Hash descriptor field lookup</title>
+  <desc id="desc">Object c points to a class descriptor. hash(x) indexes Ktab for collision checking and Ftab for the field offset. The offset is then used to load the field value from the object.</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#dc2626"/>
+    </marker>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .label { font: 700 21px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .body { font: 500 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #374151; }
+      .step { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .arrowText { font: 700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #374151; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .box { stroke-width: 2.5; rx: 16; }
+      .slot { stroke-width: 2.5; rx: 12; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="680" fill="#ffffff"/>
+  <text x="550" y="48" text-anchor="middle" class="title">Hash Descriptor Field Lookup</text>
+  <text x="550" y="78" text-anchor="middle" class="body">Use hash(x) to find the key, check collision, then fetch the field offset.</text>
+
+  <rect x="60" y="122" width="240" height="350" class="box" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="180" y="158" text-anchor="middle" class="label">Object c</text>
+  <rect x="95" y="188" width="170" height="60" class="slot" fill="#bfdbfe" stroke="#2563eb"/>
+  <text x="180" y="224" text-anchor="middle" class="body">slot 0: descriptor d</text>
+  <rect x="95" y="338" width="170" height="60" class="slot" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="180" y="374" text-anchor="middle" class="body">slot k: value of x</text>
+
+  <ellipse cx="430" cy="300" rx="78" ry="52" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="430" y="292" text-anchor="middle" class="label">hash(x)</text>
+  <text x="430" y="322" text-anchor="middle" class="body">= h</text>
+
+  <rect x="590" y="116" width="440" height="462" class="box" fill="#ecfeff" stroke="#0891b2"/>
+  <text x="810" y="152" text-anchor="middle" class="label">Class descriptor d</text>
+
+  <rect x="628" y="194" width="150" height="232" class="box" fill="#fef3c7" stroke="#d97706"/>
+  <text x="703" y="226" text-anchor="middle" class="label">Ktab</text>
+  <text x="703" y="252" text-anchor="middle" class="body">key table</text>
+  <rect x="641" y="294" width="124" height="78" class="slot" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="703" y="323" text-anchor="middle" class="step">Ktab[h]</text>
+  <text x="703" y="353" text-anchor="middle" class="body">ptr(x)</text>
+
+  <rect x="842" y="194" width="150" height="232" class="box" fill="#ffedd5" stroke="#d97706"/>
+  <text x="917" y="226" text-anchor="middle" class="label">Ftab</text>
+  <text x="917" y="252" text-anchor="middle" class="body">offset table</text>
+  <rect x="855" y="334" width="124" height="78" class="slot" fill="#ede9fe" stroke="#7c3aed"/>
+  <text x="917" y="363" text-anchor="middle" class="step">Ftab[h]</text>
+  <text x="917" y="393" text-anchor="middle" class="body">offset k</text>
+
+  <rect x="624" y="466" width="158" height="82" class="slot" fill="#fef3c7" stroke="#d97706"/>
+  <text x="703" y="497" text-anchor="middle" class="step">Check key</text>
+  <text x="703" y="529" text-anchor="middle" class="body">f == ptr(x)</text>
+
+  <rect x="850" y="466" width="150" height="82" class="slot" fill="#fee2e2" stroke="#dc2626"/>
+  <text x="925" y="497" text-anchor="middle" class="step">Collision</text>
+  <text x="925" y="529" text-anchor="middle" class="body">probe next</text>
+
+  <path d="M265 218 H590" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text x="414" y="202" text-anchor="middle" class="arrowText">1. load descriptor</text>
+
+  <path d="M508 300 H641" fill="none" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow-purple)"/>
+  <text x="570" y="282" text-anchor="middle" class="arrowText">2</text>
+
+  <path d="M508 374 H855" fill="none" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow-purple)"/>
+  <text x="570" y="356" text-anchor="middle" class="arrowText">4</text>
+
+  <path d="M703 372 V466" fill="none" stroke="#16a34a" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="724" y="425" text-anchor="start" class="arrowText">3</text>
+
+  <path d="M782 507 H850" fill="none" stroke="#dc2626" stroke-width="3" marker-end="url(#arrow-red)"/>
+  <text x="816" y="489" text-anchor="middle" class="arrowText">no</text>
+
+  <path d="M917 412 V438 H1010 V598 H180 V398" fill="none" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow-purple)"/>
+  <text x="610" y="622" text-anchor="middle" class="arrowText">5. use k to load MEM(c + k)</text>
+
+  <rect x="80" y="540" width="430" height="78" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="102" y="572" class="body">Compiled constant: h = hash(x)</text>
+  <text x="102" y="602" class="body">Runtime checks key pointer, then reads offset k.</text>
+</svg>

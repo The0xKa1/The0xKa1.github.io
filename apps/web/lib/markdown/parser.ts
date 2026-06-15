@@ -43,6 +43,10 @@ const HIGHLIGHT_SUBSET = [
   "armasm",
 ];
 
+const HIGHLIGHT_ALIASES = {
+  java: ["tiger", "object-tiger"],
+};
+
 export function createProcessor(options: ParseOptions) {
   return unified()
     .use(remarkParse)
@@ -63,7 +67,7 @@ export function createProcessor(options: ParseOptions) {
     })
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeKatex)
-    .use(rehypeHighlight, { detect: true, subset: HIGHLIGHT_SUBSET })
+    .use(rehypeHighlight, { detect: true, subset: HIGHLIGHT_SUBSET, aliases: HIGHLIGHT_ALIASES })
     .use(rehypeSlug)
     .use(rehypeStringify, { allowDangerousHtml: true });
 }
@@ -81,6 +85,6 @@ export function createAdmonitionProcessor() {
     .use(remarkMath)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeKatex)
-    .use(rehypeHighlight, { detect: true, subset: HIGHLIGHT_SUBSET })
+    .use(rehypeHighlight, { detect: true, subset: HIGHLIGHT_SUBSET, aliases: HIGHLIGHT_ALIASES })
     .use(rehypeStringify, { allowDangerousHtml: true });
 }

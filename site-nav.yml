@@ -20,6 +20,8 @@ nav:
               - Liveness Analysis: NOTE/CompilerPrinciple/chap10.md
               - Register Allocation: NOTE/CompilerPrinciple/chap11.md
               - Garbage Collection: NOTE/CompilerPrinciple/chap13.md
+              - Object-Oriented Languages: NOTE/CompilerPrinciple/chap14.md
+              - Loop Optimization: NOTE/CompilerPrinciple/chap18.md
           - 数据库系统:
               - NOTE/DB/index.md
               - 介绍: NOTE/DB/lec1.md
