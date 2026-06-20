@@ -36,6 +36,16 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
 
   const tree = useMemo(() => buildTree(headings), [headings]);
+  const headingToH2Id = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const section of tree) {
+      map.set(section.id, section.id);
+      for (const child of section.children) {
+        map.set(child.id, section.id);
+      }
+    }
+    return map;
+  }, [tree]);
 
   // Default-expand the first section so the TOC isn't empty on load
   const [expandedH2s, setExpandedH2s] = useState<Set<string>>(() => {
@@ -54,7 +64,16 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
         if (visible.length > 0) {
-          setActiveId(visible[0].target.id);
+          const nextActiveId = visible[0].target.id;
+          setActiveId(nextActiveId);
+
+          const activeH2Id = headingToH2Id.get(nextActiveId);
+          if (activeH2Id) {
+            setExpandedH2s((prev) => {
+              if (prev.size === 1 && prev.has(activeH2Id)) return prev;
+              return new Set([activeH2Id]);
+            });
+          }
         }
       },
       { rootMargin: "-80px 0px -70% 0px", threshold: 0 }
@@ -66,29 +85,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     }
 
     return () => observer.disconnect();
-  }, [headings]);
-
-  // Auto-expand the active section and collapse others
-  useEffect(() => {
-    if (!activeId || tree.length === 0) return;
-
-    // Find which h2 section the activeId belongs to
-    let activeH2Id: string | null = null;
-    for (const section of tree) {
-      if (section.id === activeId) {
-        activeH2Id = section.id;
-        break;
-      }
-      if (section.children.some((c) => c.id === activeId)) {
-        activeH2Id = section.id;
-        break;
-      }
-    }
-
-    if (activeH2Id) {
-      setExpandedH2s(new Set([activeH2Id]));
-    }
-  }, [activeId, tree]);
+  }, [headings, headingToH2Id]);
 
   const handleClick = (id: string) => {
     const el = document.getElementById(id);
@@ -153,32 +150,34 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
               {/* H3+ children with fade transition */}
               <div
-                className="overflow-hidden transition-all duration-500 ease-in-out"
+                className="grid transition-[grid-template-rows,opacity] duration-500 ease-in-out"
                 style={{
-                  maxHeight: isExpanded ? "600px" : "0px",
+                  gridTemplateRows: isExpanded ? "1fr" : "0fr",
                   opacity: isExpanded ? 1 : 0,
                 }}
               >
-                <div className="mt-1 space-y-1 border-l border-[var(--border)] ml-[5px] pl-3">
-                  {section.children.map((child) => {
-                    const isActive = activeId === child.id;
-                    const indent = (child.level - 3) * 12;
+                <div className="min-h-0 overflow-hidden">
+                  <div className="mt-1 space-y-1 border-l border-[var(--border)] ml-[5px] pl-3">
+                    {section.children.map((child) => {
+                      const isActive = activeId === child.id;
+                      const indent = (child.level - 3) * 12;
 
-                    return (
-                      <div
-                        key={child.id}
-                        className={`flex items-center py-0.5 pr-2 rounded-md cursor-pointer transition-colors text-sm ${
-                          isActive
-                            ? "text-[var(--primary)] font-medium"
-                            : "text-[var(--muted)] hover:text-[var(--text)]"
-                        }`}
-                        style={{ paddingLeft: `${indent}px` }}
-                        onClick={() => handleClick(child.id)}
-                      >
-                        <span className="truncate">{child.text}</span>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div
+                          key={child.id}
+                          className={`flex items-center py-0.5 pr-2 rounded-md cursor-pointer transition-colors text-sm ${
+                            isActive
+                              ? "text-[var(--primary)] font-medium"
+                              : "text-[var(--muted)] hover:text-[var(--text)]"
+                          }`}
+                          style={{ paddingLeft: `${indent}px` }}
+                          onClick={() => handleClick(child.id)}
+                        >
+                          <span className="truncate">{child.text}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
