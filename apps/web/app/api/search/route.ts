@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
 import { pages, searchIndex } from "@/lib/db/schema";
-import { searchContent } from "@/lib/search/engine";
-import { formatSearchPath } from "@/lib/search/utils";
+import { findBestSearchBlock, searchContent } from "@/lib/search/engine";
+import { indexRenderedHtml } from "@/lib/search/index-html";
+import { formatSearchHref, formatSearchPath, summarizeSearchText } from "@/lib/search/utils";
 import { sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -29,6 +30,7 @@ export async function GET(request: Request) {
         title: pages.title,
         pageType: pages.pageType,
         snippet: searchIndex.content,
+        htmlContent: pages.htmlContent,
       })
       .from(searchIndex)
       .innerJoin(pages, sql`${searchIndex.pageId} = ${pages.id}`)
@@ -38,13 +40,21 @@ export async function GET(request: Request) {
       .limit(20);
 
     return NextResponse.json(
-      results.map((result) => ({
+      await Promise.all(results.map(async (result) => {
+        const indexedHtml = await indexRenderedHtml(result.htmlContent ?? "", result.slug);
+        const matchedBlock = findBestSearchBlock(indexedHtml.blocks, q);
+        const displayPath = formatSearchPath(result.slug);
+        return {
         slug: result.slug,
         title: result.title,
         pageType: result.pageType,
-        displayPath: formatSearchPath(result.slug),
-        matchedHeading: null,
-        snippet: result.snippet?.slice(0, 180) ?? "",
+        displayPath,
+        href: formatSearchHref(result.slug, matchedBlock?.anchorId, q),
+        matchedHeading: matchedBlock?.heading ?? null,
+        snippet: matchedBlock
+          ? summarizeSearchText(matchedBlock.text)
+          : result.snippet?.slice(0, 180) ?? "",
+        };
       }))
     );
   } catch {

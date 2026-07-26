@@ -4,7 +4,12 @@ import { pages, navigation } from "@/lib/db/schema";
 import { eq, and, ne, asc } from "drizzle-orm";
 import { MarkdownRenderer } from "@/components/content/MarkdownRenderer";
 import { GiscusComments } from "@/components/content/GiscusComments";
+import { ChapterNavigation } from "@/components/content/ChapterNavigation";
 import { TableOfContents, type TocHeading } from "@/components/layout/TableOfContents";
+import {
+  getAdjacentNavigationItems,
+  type AdjacentNavigationItems,
+} from "@/lib/content/navigation";
 import type { Metadata } from "next";
 
 interface NavTreeNode {
@@ -180,6 +185,7 @@ async function generateAutoToc(slug: string): Promise<string> {
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ highlight?: string | string[] }>;
 }
 
 function normalizeHeadingIds(html: string): string {
@@ -246,9 +252,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ContentPage({ params }: PageProps) {
-  const { slug } = await params;
+export default async function ContentPage({ params, searchParams }: PageProps) {
+  const [{ slug }, query] = await Promise.all([params, searchParams]);
   const slugStr = slug.join("/");
+  const searchHighlight = Array.isArray(query.highlight)
+    ? query.highlight[0]
+    : query.highlight;
 
   let page: typeof pages.$inferSelect | null = null;
 
@@ -306,6 +315,13 @@ export default async function ContentPage({ params }: PageProps) {
     }
   }
 
+  let adjacentPages: AdjacentNavigationItems = { previous: null, next: null };
+  try {
+    adjacentPages = await getAdjacentNavigationItems(resolvedSlug);
+  } catch {
+    // Navigation is optional; content should remain readable if it is unavailable.
+  }
+
   return (
     <div className="w-full flex justify-center gap-8">
       <div className="flex-1 min-w-0 max-w-4xl">
@@ -318,7 +334,9 @@ export default async function ContentPage({ params }: PageProps) {
           </div>
         )}
 
-        <MarkdownRenderer html={renderedHtml} />
+        <MarkdownRenderer html={renderedHtml} highlight={searchHighlight?.slice(0, 120)} />
+
+        <ChapterNavigation items={adjacentPages} />
 
         {page.commentsEnabled && (
           <div className="mt-12 pt-8 border-t border-[var(--border)]">

@@ -4,15 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Search, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-interface SearchResult {
-  slug: string;
-  title: string;
-  pageType: string;
-  displayPath: string;
-  matchedHeading: string | null;
-  snippet: string;
-}
+import type { SearchResult } from "@/lib/search/types";
 
 function getBadgeLabel(pageType: string) {
   if (pageType === "blog") return "博客";
@@ -84,7 +76,7 @@ export function SearchDialog() {
 
   function openResult(result: SearchResult) {
     closeDialog();
-    router.push(result.displayPath);
+    router.push(result.href);
   }
 
   useEffect(() => {
@@ -221,7 +213,7 @@ export function SearchDialog() {
           {results.map((result, index) => (
             <Link
               key={result.slug}
-              href={result.displayPath}
+              href={result.href}
               onClick={(e) => {
                 e.preventDefault();
                 openResult(result);

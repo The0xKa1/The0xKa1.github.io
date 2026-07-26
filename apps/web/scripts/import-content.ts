@@ -27,7 +27,8 @@ import {
 import { createProcessor, createAdmonitionProcessor } from "../lib/markdown/parser";
 import { parseNavConfig, NavNode, extractTitle } from "../lib/content/nav-parser";
 import { buildSearchDocument } from "../lib/search/build";
-import type { SearchDocument } from "../lib/search/types";
+import { indexRenderedHtml } from "../lib/search/index-html";
+import type { SearchBlock, SearchDocument } from "../lib/search/types";
 import type { AdmonitionData } from "../lib/markdown/preprocess";
 
 const ROOT = resolve(__dirname, "../../..");
@@ -40,6 +41,7 @@ interface PageRecord {
   title: string;
   content: string;
   htmlContent: string;
+  searchBlocks: SearchBlock[];
   pageType: string;
   commentsEnabled: boolean;
   statisticsEnabled: boolean;
@@ -119,6 +121,8 @@ async function processMarkdownFile(
 
   htmlContent = await renderAdmonitions(htmlContent, admonitions, renderContext);
   htmlContent = await renderTabGroups(htmlContent, tabGroups, renderContext);
+  const indexedHtml = await indexRenderedHtml(htmlContent, slug);
+  htmlContent = indexedHtml.html;
 
   const wordCount = countWords(rawContent);
   const readingTime = Math.ceil(wordCount / 290);
@@ -158,6 +162,7 @@ async function processMarkdownFile(
     title,
     content: rawContent,
     htmlContent,
+    searchBlocks: indexedHtml.blocks,
     pageType,
     commentsEnabled,
     statisticsEnabled,
@@ -224,14 +229,6 @@ async function renderAdmonitions(
   }
 
   return output;
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 }
 
 async function renderTabGroups(

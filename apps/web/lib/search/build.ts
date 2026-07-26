@@ -1,4 +1,4 @@
-import type { SearchDocument } from "./types";
+import type { SearchBlock, SearchDocument } from "./types";
 import {
   collapseWhitespace,
   extractSearchHeadings,
@@ -12,6 +12,7 @@ interface SearchSource {
   pageType: string;
   content: string;
   htmlContent: string;
+  searchBlocks: SearchBlock[];
   excerpt?: string | null;
 }
 
@@ -24,6 +25,7 @@ export function buildSearchDocument(page: SearchSource): SearchDocument {
     title: collapseWhitespace(page.title),
     pageType: page.pageType,
     headings: extractSearchHeadings(page.content),
+    blocks: page.searchBlocks,
     content: plainText,
     summary: summarizeSearchText(summarySource),
   };
