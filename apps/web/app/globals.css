@@ -136,6 +136,42 @@ body {
   color: var(--text);
 }
 
+.prose :is(h2, h3, h4, h5, h6, p, li, pre, tr)[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+.prose :is(h2, h3, h4, h5, h6, p, li, pre, tr)[id]:target {
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  box-shadow: inset 3px 0 0 color-mix(in srgb, var(--primary) 65%, transparent);
+  animation: search-target-reveal 1.8s ease-out;
+}
+
+.prose mark[data-search-highlight] {
+  border-radius: 0.22em;
+  padding: 0.06em 0.18em;
+  color: inherit;
+  background: color-mix(in srgb, var(--primary) 28%, var(--bg));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 16%, transparent);
+  animation: search-keyword-reveal 1.2s ease-out;
+}
+
+@keyframes search-target-reveal {
+  from {
+    background: color-mix(in srgb, var(--primary) 18%, transparent);
+  }
+  to {
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+}
+
+@keyframes search-keyword-reveal {
+  from {
+    background: color-mix(in srgb, var(--primary) 48%, var(--bg));
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--primary) 24%, transparent);
+  }
+}
+
 .prose p {
   margin-top: 1rem;
   margin-bottom: 1rem;

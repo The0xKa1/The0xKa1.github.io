@@ -1,12 +1,18 @@
 import { readFile, stat } from "fs/promises";
 import { join } from "path";
-import type { SearchDocument, SearchResult } from "./types";
+import type { SearchBlock, SearchDocument, SearchResult } from "./types";
 import {
   collapseWhitespace,
+  formatSearchHref,
   formatSearchPath,
   normalizeSearchText,
   tokenizeSearchQuery,
 } from "./utils";
+
+interface PreparedSearchBlock extends SearchBlock {
+  normalizedText: string;
+  normalizedHeading: string;
+}
 
 interface PreparedSearchDocument extends SearchDocument {
   normalizedSlug: string;
@@ -14,6 +20,7 @@ interface PreparedSearchDocument extends SearchDocument {
   normalizedHeadings: string;
   normalizedHeadingsList: string[];
   normalizedContent: string;
+  normalizedBlocks: PreparedSearchBlock[];
 }
 
 const SEARCH_INDEX_PATH = join(process.cwd(), "public", "search-index.json");
@@ -26,13 +33,20 @@ let cachedIndex:
   | null = null;
 
 function prepareDocument(doc: SearchDocument): PreparedSearchDocument {
+  const blocks = Array.isArray(doc.blocks) ? doc.blocks : [];
   return {
     ...doc,
+    blocks,
     normalizedSlug: normalizeSearchText(doc.slug),
     normalizedTitle: normalizeSearchText(doc.title),
     normalizedHeadings: normalizeSearchText(doc.headings.join(" ")),
     normalizedHeadingsList: doc.headings.map((heading) => normalizeSearchText(heading)),
     normalizedContent: normalizeSearchText(doc.content),
+    normalizedBlocks: blocks.map((block) => ({
+      ...block,
+      normalizedText: normalizeSearchText(block.text),
+      normalizedHeading: normalizeSearchText(block.heading ?? ""),
+    })),
   };
 }
 
@@ -90,6 +104,61 @@ function findMatchedHeading(
   }
 
   return null;
+}
+
+function findBestPreparedSearchBlock(
+  blocks: PreparedSearchBlock[],
+  normalizedQuery: string,
+  terms: string[]
+): PreparedSearchBlock | null {
+  let best: { block: PreparedSearchBlock; score: number; index: number } | null = null;
+
+  for (let index = 0; index < blocks.length; index++) {
+    const block = blocks[index];
+    let score = 0;
+    let matchedTerms = 0;
+
+    if (block.normalizedText === normalizedQuery) {
+      score += block.kind === "heading" ? 240 : 180;
+    } else if (block.normalizedText.includes(normalizedQuery)) {
+      score += block.kind === "heading" ? 170 : 120;
+    }
+
+    if (block.normalizedHeading.includes(normalizedQuery)) {
+      score += 36;
+    }
+
+    for (const term of terms) {
+      if (block.normalizedText.includes(term)) {
+        matchedTerms += 1;
+        score += block.kind === "heading" ? 34 : 24;
+      }
+    }
+
+    if (score === 0 || matchedTerms === 0) continue;
+
+    const coverage = matchedTerms / terms.length;
+    score += coverage * 70;
+    if (matchedTerms === terms.length && terms.length > 1) score += 36;
+
+    if (!best || score > best.score || (score === best.score && index < best.index)) {
+      best = { block, score, index };
+    }
+  }
+
+  return best?.block ?? null;
+}
+
+export function findBestSearchBlock(blocks: SearchBlock[], query: string): SearchBlock | null {
+  const { normalized, terms } = tokenizeSearchQuery(query);
+  if (!normalized || terms.length === 0) return null;
+
+  const prepared = blocks.map((block) => ({
+    ...block,
+    normalizedText: normalizeSearchText(block.text),
+    normalizedHeading: normalizeSearchText(block.heading ?? ""),
+  }));
+  return findBestPreparedSearchBlock(prepared, normalized, terms);
 }
 
 function buildSnippet(doc: SearchDocument, rawQuery: string, terms: string[]): string {
@@ -205,10 +274,18 @@ export async function searchContent(
         score += Math.max(0, 18 - earliestMatch / 35);
       }
 
-      const matchedHeading = findMatchedHeading(doc, normalized, terms);
+      const matchedBlock = findBestPreparedSearchBlock(doc.normalizedBlocks, normalized, terms);
+      const matchedHeading =
+        matchedBlock?.heading ?? findMatchedHeading(doc, normalized, terms);
       if (matchedHeading) {
         score += 16;
       }
+
+      if (matchedBlock) {
+        score += 24;
+      }
+
+      const displayPath = formatSearchPath(doc.slug);
 
       return {
         score,
@@ -216,9 +293,14 @@ export async function searchContent(
           slug: doc.slug,
           title: doc.title,
           pageType: doc.pageType,
-          displayPath: formatSearchPath(doc.slug),
+          displayPath,
+          href: formatSearchHref(doc.slug, matchedBlock?.anchorId, query),
           matchedHeading,
-          snippet: buildSnippet(doc, query, terms),
+          snippet: buildSnippet(
+            matchedBlock ? { ...doc, content: matchedBlock.text } : doc,
+            query,
+            terms
+          ),
         } satisfies SearchResult,
       };
     })

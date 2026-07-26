@@ -73,3 +73,17 @@ export function formatSearchPath(slug: string): string {
   const cleanSlug = slug.endsWith("/index") ? slug.slice(0, -6) : slug;
   return `/${cleanSlug}`;
 }
+
+export function formatSearchHref(
+  slug: string,
+  anchorId?: string | null,
+  highlight?: string | null
+): string {
+  const path = formatSearchPath(slug);
+  if (!anchorId) return path;
+
+  const query = highlight?.trim()
+    ? `?highlight=${encodeURIComponent(highlight.trim())}`
+    : "";
+  return `${path}${query}#${encodeURIComponent(anchorId)}`;
+}

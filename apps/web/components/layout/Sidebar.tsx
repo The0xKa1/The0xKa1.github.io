@@ -1,47 +1,104 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef, type RefObject } from "react";
 import Link from "next/link";
 import { ChevronRight, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { normalizeContentHref } from "@/lib/routing";
+import {
+  getActiveNavigationPathIds,
+  type NavigationTreeNode,
+} from "@/lib/navigation-tree";
 
-interface NavNode {
-  id: number;
-  label: string;
-  slug: string | null;
-  children?: NavNode[];
+interface NavItemProps {
+  item: NavigationTreeNode;
+  activePathIds: Set<number>;
+  currentId: number | null;
+  activeItemRef: RefObject<HTMLAnchorElement | null>;
+  onNavigate: () => void;
+  depth?: number;
 }
 
-function NavItem({ item, depth = 0 }: { item: NavNode; depth?: number }) {
-  const [open, setOpen] = useState(depth < 1);
-  const hasChildren = item.children && item.children.length > 0;
+function NavItem({
+  item,
+  activePathIds,
+  currentId,
+  activeItemRef,
+  onNavigate,
+  depth = 0,
+}: NavItemProps) {
+  const isOnActivePath = activePathIds.has(item.id);
+  const isCurrent = currentId === item.id;
+  const [open, setOpen] = useState(depth < 1 || isOnActivePath);
+  const expanded = open;
+  const hasChildren = Boolean(item.children?.length);
   const href = normalizeContentHref(item.slug);
+
+  const labelClassName = `flex-1 truncate text-left text-sm transition-colors ${
+    isCurrent
+      ? "font-semibold text-[var(--primary)]"
+      : isOnActivePath
+        ? "font-medium text-[var(--text)]"
+        : "text-[var(--muted)] hover:text-[var(--primary)]"
+  }`;
 
   return (
     <div className="select-none">
       <div
-        className="flex items-center gap-1 py-1 px-2 rounded-md hover:bg-[var(--card)]/20 transition-colors cursor-pointer"
+        className={`flex items-center gap-1 rounded-md px-2 py-1 transition-colors ${
+          isCurrent
+            ? "bg-[var(--primary)]/10"
+            : "hover:bg-[var(--card)]/20"
+        }`}
         style={{ paddingLeft: `${depth * 12 + 8}px` }}
-        onClick={() => hasChildren && setOpen(!open)}
       >
-        {hasChildren && (
-          <ChevronRight
-            className={`w-3.5 h-3.5 text-[var(--muted)] transition-transform ${open ? "rotate-90" : ""}`}
-          />
+        {hasChildren ? (
+          <button
+            type="button"
+            aria-label={`${expanded ? "收起" : "展开"}${item.label}`}
+            aria-expanded={expanded}
+            onClick={() => setOpen((value) => !value)}
+            className="grid h-5 w-5 shrink-0 place-items-center rounded text-[var(--muted)] transition-colors hover:text-[var(--primary)]"
+          >
+            <ChevronRight
+              className={`h-3.5 w-3.5 transition-transform ${expanded ? "rotate-90" : ""}`}
+            />
+          </button>
+        ) : (
+          <span className="w-5 shrink-0" aria-hidden="true" />
         )}
-        {!hasChildren && <span className="w-3.5" />}
         {item.slug ? (
-          <Link href={href} className="flex-1 text-sm truncate text-[var(--text)] hover:text-[var(--primary)]">
+          <Link
+            ref={isCurrent ? activeItemRef : undefined}
+            href={href}
+            aria-current={isCurrent ? "page" : undefined}
+            onClick={onNavigate}
+            className={labelClassName}
+          >
             {item.label}
           </Link>
         ) : (
-          <span className="flex-1 text-sm truncate text-[var(--muted)]">{item.label}</span>
+          <button
+            type="button"
+            onClick={() => hasChildren && setOpen((value) => !value)}
+            className={labelClassName}
+          >
+            {item.label}
+          </button>
         )}
       </div>
-      {hasChildren && open && (
+      {hasChildren && expanded && (
         <div>
-          {item.children!.map((child) => (
-            <NavItem key={child.id} item={child} depth={depth + 1} />
+          {item.children?.map((child) => (
+            <NavItem
+              key={child.id}
+              item={child}
+              activePathIds={activePathIds}
+              currentId={currentId}
+              activeItemRef={activeItemRef}
+              onNavigate={onNavigate}
+              depth={depth + 1}
+            />
           ))}
         </div>
       )}
@@ -81,10 +138,17 @@ export function Sidebar() {
     setHoverTriggerActive(false);
   }, []);
 
+  const closeMobileNavigation = useCallback(() => {
+    setMobileOpen(false);
+  }, []);
+
   return (
     <>
       {/* Mobile toggle */}
       <button
+        type="button"
+        aria-label={mobileOpen ? "关闭导航栏" : "打开导航栏"}
+        aria-expanded={mobileOpen}
         className="lg:hidden fixed bottom-6 right-6 z-50 p-3 rounded-full bg-[var(--primary)] text-white shadow-lg"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
@@ -128,7 +192,10 @@ export function Sidebar() {
           <p className="text-xs font-semibold text-[var(--muted)] uppercase tracking-wider mb-3 px-2">
             导航
           </p>
-          <SidebarNav />
+          <SidebarNav
+            visible={mobileOpen || desktopOpen}
+            onNavigate={closeMobileNavigation}
+          />
         </div>
       </aside>
 
@@ -148,19 +215,46 @@ export function Sidebar() {
   );
 }
 
-function SidebarNav() {
-  const [items, setItems] = useState<NavNode[]>([]);
+function SidebarNav({ visible, onNavigate }: { visible: boolean; onNavigate: () => void }) {
+  const pathname = usePathname();
+  const [items, setItems] = useState<NavigationTreeNode[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const activeItemRef = useRef<HTMLAnchorElement | null>(null);
+
+  const activePath = useMemo(
+    () => getActiveNavigationPathIds(items, pathname),
+    [items, pathname]
+  );
+  const activePathIds = useMemo(() => new Set(activePath), [activePath]);
+  const currentId = activePath.at(-1) ?? null;
 
   useEffect(() => {
-    fetch("/api/nav")
-      .then((r) => r.json())
+    const controller = new AbortController();
+    fetch("/api/nav", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Navigation request failed");
+        return response.json() as Promise<NavigationTreeNode[]>;
+      })
       .then((data) => {
         setItems(data);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((requestError) => {
+        if (requestError instanceof DOMException && requestError.name === "AbortError") return;
+        setError(true);
+        setLoading(false);
+      });
+    return () => controller.abort();
   }, []);
+
+  useEffect(() => {
+    if (!visible || !activeItemRef.current) return;
+    const frame = window.requestAnimationFrame(() => {
+      activeItemRef.current?.scrollIntoView({ block: "center" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [visible, currentId]);
 
   if (loading) {
     return (
@@ -172,10 +266,21 @@ function SidebarNav() {
     );
   }
 
+  if (error) {
+    return <p className="px-2 py-3 text-sm text-[var(--muted)]">导航暂时不可用</p>;
+  }
+
   return (
     <div className="space-y-0.5">
       {items.map((item) => (
-        <NavItem key={item.id} item={item} />
+        <NavItem
+          key={`${item.id}-${pathname}`}
+          item={item}
+          activePathIds={activePathIds}
+          currentId={currentId}
+          activeItemRef={activeItemRef}
+          onNavigate={onNavigate}
+        />
       ))}
     </div>
   );

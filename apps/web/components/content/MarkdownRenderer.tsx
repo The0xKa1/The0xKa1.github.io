@@ -1,16 +1,100 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface MarkdownRendererProps {
   html: string;
+  highlight?: string;
 }
 
-export function MarkdownRenderer({ html }: MarkdownRendererProps) {
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function clearSearchHighlights(root: HTMLElement) {
+  root.querySelectorAll<HTMLElement>("mark[data-search-highlight]").forEach((mark) => {
+    mark.replaceWith(document.createTextNode(mark.textContent ?? ""));
+  });
+  root.normalize();
+}
+
+function highlightSearchText(target: HTMLElement, query: string) {
+  const phrase = query.trim();
+  if (!phrase) return;
+
+  const terms = Array.from(new Set([phrase, ...phrase.split(/\s+/)]))
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
+  const pattern = new RegExp(terms.map(escapeRegExp).join("|"), "giu");
+  const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent || !node.textContent?.trim()) return NodeFilter.FILTER_REJECT;
+      if (parent.closest("script, style, mark[data-search-highlight]")) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+  const textNodes: Text[] = [];
+
+  while (walker.nextNode()) {
+    textNodes.push(walker.currentNode as Text);
+  }
+
+  textNodes.forEach((textNode) => {
+    const text = textNode.textContent ?? "";
+    pattern.lastIndex = 0;
+    if (!pattern.test(text)) return;
+
+    pattern.lastIndex = 0;
+    const fragment = document.createDocumentFragment();
+    let cursor = 0;
+
+    for (const match of text.matchAll(pattern)) {
+      const index = match.index ?? 0;
+      if (index > cursor) fragment.append(text.slice(cursor, index));
+
+      const mark = document.createElement("mark");
+      mark.setAttribute("data-search-highlight", "true");
+      mark.textContent = match[0];
+      fragment.append(mark);
+      cursor = index + match[0].length;
+    }
+
+    if (cursor < text.length) fragment.append(text.slice(cursor));
+    textNode.replaceWith(fragment);
+  });
+}
+
+export function MarkdownRenderer({ html, highlight }: MarkdownRendererProps) {
+  const articleRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const article = articleRef.current;
     let cancelled = false;
+    let scrollFrame: number | null = null;
+
+    const getHashTarget = () => {
+      if (!window.location.hash) return;
+      let id = window.location.hash.slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // Keep the raw hash if it is not valid percent-encoded text.
+      }
+      return document.getElementById(id);
+    };
+
+    const revealSearchTarget = () => {
+      const target = getHashTarget();
+      if (!target) return;
+      if (article) clearSearchHighlights(article);
+      if (highlight) highlightSearchText(target, highlight);
+      target.scrollIntoView({ block: "start" });
+    };
 
     const applyImageAlignment = (img: HTMLImageElement) => {
       const align = img.getAttribute("data-align");
@@ -104,15 +188,22 @@ export function MarkdownRenderer({ html }: MarkdownRendererProps) {
       }
     }
 
-    void renderMermaid();
+    void renderMermaid().finally(() => {
+      if (!cancelled) {
+        scrollFrame = window.requestAnimationFrame(revealSearchTarget);
+      }
+    });
 
     return () => {
       cancelled = true;
+      if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
+      if (article) clearSearchHighlights(article);
     };
-  }, [html]);
+  }, [html, highlight]);
 
   return (
     <article
+      ref={articleRef}
       className="prose prose-lg max-w-none"
       style={{
         color: "var(--text)",
