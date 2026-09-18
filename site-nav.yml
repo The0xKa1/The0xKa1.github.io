@@ -1,6 +1,5 @@
 nav: 
   - 首页: index.md
-  - 📝 Blog: blog/index.md
   
   - 📚 学习笔记:
       - NOTE/index.md
