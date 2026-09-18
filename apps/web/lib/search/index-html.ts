@@ -5,6 +5,7 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import type { SearchBlock } from "./types";
 import { collapseWhitespace } from "./utils";
+import { rehypeContentLinks } from "../markdown/plugins/rehype-content-links";
 
 const HEADING_TAGS = new Set(["h2", "h3", "h4", "h5", "h6"]);
 const CONTENT_TAGS = new Set(["p", "li", "pre", "tr"]);
@@ -51,6 +52,8 @@ export interface IndexedHtml {
 export async function indexRenderedHtml(html: string, slug: string): Promise<IndexedHtml> {
   const processor = unified()
     .use(rehypeParse, { fragment: true })
+    // Resolve links after raw HTML, admonitions and tabs have all been rendered.
+    .use(rehypeContentLinks, { slug })
     .use(function rehypeSearchAnchors() {
       return (tree: Root, file: { data: Record<string, unknown> }) => {
         const blocks: SearchBlock[] = [];

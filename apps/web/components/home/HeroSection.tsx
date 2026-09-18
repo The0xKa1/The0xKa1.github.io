@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Pen, House } from "lucide-react";
+import { BookOpen, House } from "lucide-react";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -96,7 +96,6 @@ export function HeroSection() {
         <div className="flex flex-wrap justify-center gap-4">
           <HeroLink href="https://the0xka1.cc" icon={<House className="w-4 h-4" />} label="Home" />
           <HeroLink href="/NOTE/" icon={<BookOpen className="w-4 h-4" />} label="Notes" />
-          <HeroLink href="/blog/" icon={<Pen className="w-4 h-4" />} label="Blog" />
           <HeroLink href="https://github.com/The0xKa1" icon={<GithubIcon className="w-4 h-4" />} label="Github" />
         </div>
       </div>
