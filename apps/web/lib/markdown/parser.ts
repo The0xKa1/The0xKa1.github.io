@@ -14,6 +14,7 @@ import { remarkAutoToc } from "./plugins/remark-auto-toc";
 import { remarkMermaid } from "./plugins/remark-mermaid";
 import { remarkImagePaths } from "./plugins/remark-image-paths";
 import { remarkEmoji } from "./plugins/remark-emoji";
+import { remarkHeadingIds } from "./plugins/remark-heading-ids";
 
 export interface ParseOptions {
   slug: string;
@@ -54,6 +55,7 @@ export function createProcessor(options: ParseOptions) {
     .use(remarkGfm)
     .use(remarkEmoji)
     .use(remarkMath)
+    .use(remarkHeadingIds)
     .use(remarkAdmonitions)
     .use(remarkCards)
     .use(remarkMermaid)
@@ -83,6 +85,7 @@ export function createAdmonitionProcessor() {
     .use(remarkGfm)
     .use(remarkEmoji)
     .use(remarkMath)
+    .use(remarkHeadingIds)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeKatex)
     .use(rehypeHighlight, { detect: true, subset: HIGHLIGHT_SUBSET, aliases: HIGHLIGHT_ALIASES })
