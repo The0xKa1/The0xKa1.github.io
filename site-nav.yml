@@ -136,11 +136,15 @@ nav:
               - 实验与模型选择: courses/machine-learning/experiments.md
               - 项目实践:
                   - courses/machine-learning/projects/index.md
-                  - 实验时间统计: courses/machine-learning/projects/learning-log.md
+                  - 图像处理工作台: courses/machine-learning/projects/learning-log.md
+                  - 分类边界擂台: courses/machine-learning/projects/classification-arena.md
                   - 葡萄酒分类: courses/machine-learning/projects/iris.md
                   - 酒精含量预测: courses/machine-learning/projects/diabetes.md
                   - 聚类与二维投影: courses/machine-learning/projects/clustering.md
+                  - 图片颜色压缩: courses/machine-learning/projects/color-compression.md
                   - 数字识别: courses/machine-learning/projects/digits.md
+                  - 零食推荐器: courses/machine-learning/projects/recommender.md
+                  - 异常批次侦探: courses/machine-learning/projects/anomaly.md
                   - 格子世界: courses/machine-learning/projects/gridworld.md
           
           - Git 版本控制:

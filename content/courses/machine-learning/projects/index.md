@@ -4,35 +4,140 @@ comments: false
 statistics: false
 ---
 
-# 项目实践
+# 坤坤的食品实验室
 
-| 项目 | 内容 | 所需知识 |
+从给果盘照片降噪，到用八种颜色重建图片，再让机器人穿过自己画的地图。十个实验共用一个本地网页，每个实验都可以先看效果，再补全 Python 函数。
+
+[下载完整项目包 ml-lab.zip](/downloads/ml-guide/ml-lab.zip)
+
+## 选择你的第一项实验
+
+| 顺序 | 实验 | 这次能看到什么 |
 | --- | --- | --- |
-| [实验时间统计](./learning-log.md) | 读取逗号分隔值（Comma-Separated Values，CSV）文件、按任务和日期汇总、绘图 | [Python](../python-data.md#python)、[数据表](../python-data.md#dataframes)、[绘图](../python-data.md#plots) |
-| [葡萄酒分类](./iris.md) | 训练分类器，比较基线与分类结果 | [特征与标签](../basics.md#features-labels)、[数据划分](../basics.md#split)、[逻辑回归](../linear-models.md#logistic)、[评价指标](../evaluation.md#metrics) |
-| [酒精含量预测](./diabetes.md) | 岭回归、交叉验证、残差分析 | [回归](../linear-models.md#linear-regression)、[正则化](../evaluation.md#overfitting)、[交叉验证](../evaluation.md#validation)、[数据泄漏](../evaluation.md#leakage) |
-| [聚类与二维投影](./clustering.md) | 按相似性分组并投影到二维 | [聚类](../unsupervised.md#kmeans)、[主成分分析](../unsupervised.md#pca) |
-| [数字识别](./digits.md) | 三种框架的网络训练 | [前馈网络](../neural-networks.md#neurons)、[反向传播](../neural-networks.md#backprop)、[框架接口](../experiments.md#frameworks) |
-| [格子世界](./gridworld.md) | 动作价值学习与探索 | [马尔可夫决策过程](../reinforcement-learning.md#mdp)、[动作价值](../reinforcement-learning.md#q-learning-sarsa) |
+| 01 | [图像处理工作台](./learning-log.md) | 亮度、噪声、滤波与边缘的变化 |
+| 02 | [分类边界擂台](./classification-arena.md) | 三种模型分界线，清楚看见直线的局限 |
+| 03 | [葡萄酒分类](./iris.md) | 真实成分数据上的错分与概率 |
+| 04 | [酒精含量预测](./diabetes.md) | 预测偏高还是偏低，正则化改变了什么 |
+| 05 | [聚类与降维](./clustering.md) | 中心如何移动，点如何重新归组 |
+| 06 | [图片颜色压缩](./color-compression.md) | 2、8、32 种颜色重建同一张图 |
+| 07 | [数字识别](./digits.md) | 训练曲线、错题墙、噪声扰动 |
+| 08 | [零食推荐器](./recommender.md) | 口味滑块改变推荐名单，查看匹配原因 |
+| 09 | [异常批次侦探](./anomaly.md) | 调阈值后，误报与漏报怎样变化 |
+| 10 | [格子导航](./gridworld.md) | 点击格子画地图，播放小车送样路线 |
 
-## 运行环境 {#setup}
+建议从图像处理与分类边界开始，再做聚类和图片压缩；后面的实验按兴趣选择。葡萄酒分类保留真实数据练习；分类边界擂台先用合成数据把模型差异放大，便于理解。
 
-Python 3.10 或更新版本，普通中央处理器（Central Processing Unit，CPU）即可。在项目文件夹创建虚拟环境：
+## 运行环境：第一次使用也能跟上 {#setup}
 
-```bash
-python -m venv .venv
+
+你需要一台 Windows、macOS 或 Linux 电脑，以及可联网的安装过程。实验安装完成后在本机运行，浏览器只是显示界面；不需要网站账号，也不需要显卡。
+
+## 先认识四个词
+
+- **文件夹**：用来放文件。解压后应得到 `ml-lab` 文件夹，里面能看到 `app.py`、`requirements.txt`、`projects`。
+- **路径**：一个文件或文件夹的地址，例如 `C:\Users\你的用户名\Downloads\ml-lab`。路径含空格时，要用英文双引号包住。
+- **终端**：输入命令的窗口。键盘输入一行，按 **Enter / 回车**执行，等提示符再次出现才输入下一行。这里的“终端”不是 Python 里出现 `>>>` 的窗口。
+- **当前文件夹**：终端现在所在的位置。`cd` 是“进入文件夹”；`..` 表示上一层。后面的命令必须在含有 `app.py` 的文件夹里执行。
+
+复制代码框里的命令即可，不要复制代码框上面的标题。虚拟环境 `.venv` 用来把这个实验需要的依赖放在一起，避免混入其他 Python 项目。
+
+## Windows 10 / 11
+
+1. 到 [Python 官方下载页](https://www.python.org/downloads/) 安装 **Python 3.11 或 3.12**。安装器中勾选 **Add python.exe to PATH**，然后安装。安装后重新打开命令窗口。
+2. 在资源管理器中找到下载的 ZIP，右键 → **全部解压缩**。不要直接在 ZIP 预览窗口里运行。
+3. 打开解压后的 `ml-lab` 文件夹，确认看得到 `app.py`。按 **Alt + D** 选中文件夹地址栏，输入 `cmd`，按 **Enter**。会打开黑色命令提示符窗口，且已经位于这个文件夹。
+4. 逐行运行下面的命令。若安装时询问访问网络，允许 Python 下载依赖。
+
+```bat
+py -3.12 --version
+py -3.12 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Windows 激活命令为 `.venv\Scripts\activate`，macOS、Linux 为 `source .venv/bin/activate`。系统使用 `python3` 命令时，将上述命令中的 `python` 替换为 `python3`。
+如果安装的是 3.11，把前两行中的 `-3.12` 改成 `-3.11`。如果提示找不到 `py`，关闭窗口重新打开；仍无效则重新运行 Python 安装器，检查 PATH 和 Python Launcher。这里直接调用虚拟环境里的 Python，无需激活脚本，也无需更改 PowerShell 执行策略。
 
-安装依赖：
+## macOS
 
-```bash
-python -m pip install "numpy>=1.24,<3" "pandas>=2,<3" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+1. 从 [Python 官方下载页](https://www.python.org/downloads/) 安装 **Python 3.11 或 3.12** 的 macOS 安装包。双击 ZIP 解压。
+2. 按 **Command + 空格** 打开 Spotlight，输入“终端”或 `Terminal`，按 **回车**。
+3. 在终端输入 `cd `（注意后面有一个空格），先不要按回车。将 Finder 中解压后的 `ml-lab` **文件夹**拖到终端窗口里，路径会自动填入，再按回车。
+4. 输入 `ls`，应能看到 `app.py`。然后逐行运行：
+
+```sh
+python3.12 --version
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m streamlit run app.py
 ```
 
-也可以下载 [requirements.txt](/downloads/ml-guide/requirements.txt)，运行 `python -m pip install -r requirements.txt`。
+如果安装的是 3.11，把前两行的 `python3.12` 改成 `python3.11`。不要用系统自带的旧 Python 代替。如果下载依赖出现证书错误，打开“应用程序”中的 `Python 3.12`（或 3.11）文件夹，双击 `Install Certificates.command` 后重试安装依赖。
 
-!!! quote "参考资料"
+## Linux（以 Ubuntu 24.04 / Debian 系为例）
 
-    [Python：虚拟环境与包](https://docs.python.org/zh-cn/3/tutorial/venv.html)
+1. 在文件管理器中解压 ZIP。按 **Ctrl + Alt + T** 打开终端；如果快捷键无效，在应用菜单搜索“终端”。
+2. 输入 `cd `，将 `ml-lab` 文件夹拖入窗口后回车。也可以在文件管理器地址栏复制路径，再输入 `cd "你复制的完整路径"`。输入 `ls`，确认有 `app.py`。
+3. Ubuntu 24.04 可以使用下面的命令。`sudo` 会询问你的电脑登录密码；输入时不显示字符，正常输入后回车即可。
+
+```sh
+sudo apt update
+sudo apt install python3 python3-venv python3-pip
+python3 --version
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m streamlit run app.py
+```
+
+建议版本为 3.11 / 3.12。其他发行版的软件包命令不同：Fedora 使用 `dnf`，Arch 使用 `pacman`；请安装对应发行版的 Python 和 venv 支持，再从创建 `.venv` 这一步继续。没有管理员权限时，联系电脑管理员安装 Python，不要把 `sudo` 加到后面的 pip 命令上。
+
+## 启动后应该看到什么
+
+终端显示类似 `Local URL: http://localhost:8501`，浏览器通常会自动打开食品实验室。如果没有自动打开，把终端给出的 **Local URL** 复制到浏览器地址栏。`localhost` 表示你自己的电脑。
+
+终端暂时不出现新的提示符，说明网页服务正在运行。**让这个窗口保持打开**。停止时回到终端按 **Ctrl + C**（macOS 也是 Control + C，而不是 Command + C）。之后网页断开连接是正常现象。
+
+下次使用不需要重新安装：重新进入 `ml-lab` 文件夹，仅执行最后一条启动命令。若端口被占用，在启动命令末尾追加 `--server.port 8502`，再打开终端显示的新地址。
+
+## 第一道练习怎么写
+
+1. 在网页左侧选一个实验，保持“演示”，点“运行实验”先观察效果。
+2. 用 VS Code 等代码编辑器打开整个 `ml-lab` 文件夹。选择实验说明中标出的 `projects/实验名/exercises.py`。
+3. 每个函数写清了输入、输出。替换函数中的 `raise NotImplementedError(...)`，保留函数名、参数名和缩进；不要把答案写进 `page.py`。
+4. 按 **Ctrl + S** 保存（macOS：**Command + S**）。回到网页切换到“练习”，点“检查练习”，再点“运行实验”。
+5. 修改代码、参数或数据后，旧结果会标记为待更新。重新点击运行按钮，才会执行你的新实现。完整参考实现位于 `solutions` 文件夹。
+
+## 常见提示怎么处理
+
+| 提示 | 含义与处理 |
+|---|---|
+| 找不到 `app.py` 或 `requirements.txt` | 当前文件夹不对。Windows 输入 `dir`，macOS/Linux 输入 `ls`，确认列出了这两个文件。不要进入里面第二层 `projects`。 |
+| `>>>` | 打开了 Python 交互窗口。输入 `exit()` 回车退出，再输入安装命令。 |
+| `No module named streamlit` | 依赖没有装进当前 Python。使用上面 `.venv` 开头的完整命令重新安装和启动。 |
+| 下载超时 | 检查网络，重新运行安装依赖那一行。已装好的包通常不必重新下载。 |
+| `NotImplementedError` / 待完成 | 练习函数还没有写完。先切回演示看效果，再逐题填写。 |
+| `SyntaxError` / `IndentationError` | 查看报错对应文件和行号，检查冒号、括号以及同一层代码的缩进。 |
+| PyTorch / TensorFlow 未安装 | 其他实验仍可使用；数字识别先选 scikit-learn，想做深度学习再安装下方可选依赖。 |
+
+## 可选：数字识别的深度学习框架
+
+先按上述步骤装好基础环境。停止网页后，在同一文件夹运行你想使用的框架安装命令，不需要同时安装两个。
+
+Windows：
+
+```bat
+.venv\Scripts\python.exe -m pip install -r requirements-torch.txt
+```
+
+macOS / Linux：
+
+```sh
+.venv/bin/python -m pip install -r requirements-torch.txt
+```
+
+TensorFlow 对照示例把上面的文件名改为 `requirements-tensorflow.txt`。安装后重新启动网页，默认使用 CPU。
+
+## 怎样记录实验
+
+先看演示，再切换到练习。每次运行保存参数、代码签名、随机种子、指标与结果表；可以比较当前会话中的实验，并下载 CSV / JSON。图表上的选择与回放不重新训练。修改代码、数据或训练参数后，旧结果会提示待更新。
+
+安装说明参考 [Python Windows 文档](https://docs.python.org/3.12/using/windows.html)与 [Python macOS 文档](https://docs.python.org/3.12/using/mac.html)。

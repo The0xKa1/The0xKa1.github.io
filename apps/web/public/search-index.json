@@ -154410,15 +154410,338 @@
     "summary": "概率与图模型 概率模型用分布描述数据和不确定性。例如，同样出现“中奖”两个字，一封邮件属于垃圾邮件的可能性仍取决于发件人、其他词语和垃圾邮件的比例。 条件概率与贝叶斯公式 条件概率 P ( A ∣ B ) P(A\\mid B) P ( A ∣ B ) 表示已知 B B B 发生时， A A A 发生的概率。 它一般不等于 P ( B ∣ A ) P(B\\mi..."
   },
   {
+    "slug": "courses/machine-learning/projects/anomaly",
+    "title": "异常批次侦探",
+    "pageType": "page",
+    "headings": [
+      "异常批次侦探",
+      "下载与运行 {#run}",
+      "看演示 → 写函数 → 做对照 → 挑战",
+      "函数接口",
+      "`fit_detector`",
+      "`flag_anomalies`",
+      "`evaluate`",
+      "完成标准"
+    ],
+    "blocks": [
+      {
+        "text": "样品冷藏温度与称重记录通常有稳定关系。坤坤需要找出不寻常的批次：阈值太低，正常批次也报警；阈值太高，又可能漏掉问题。",
+        "anchorId": "search-6de0fda5c4b7",
+        "heading": null,
+        "headingId": null,
+        "kind": "content"
+      },
+      {
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "heading"
+      },
+      {
+        "text": "下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“异常批次侦探”。",
+        "anchorId": "search-d5013cbaa052",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "练习文件： projects/anomaly/exercises.py 。演示查看参考实现；练习使用自己保存的函数。",
+        "anchorId": "search-4465ee9dcc7e",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "看演示 → 写函数 → 做对照 → 挑战",
+        "anchorId": "看演示--写函数--做对照--挑战",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "heading"
+      },
+      {
+        "text": "运行默认设置，先看报警，再揭开合成数据的真实标签。",
+        "anchorId": "search-eae073eefeec",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "完成 fit_detector、flag_anomalies、evaluate；分数越大越异常。",
+        "anchorId": "search-85b3b4403660",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "固定种子，比较 80%、95%、99% 的校准分位数，记录误报、漏报、准确率和召回率。",
+        "anchorId": "search-4a2924aeb80a",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "挑战：添加单变量规则作基线，比较仅看温度与联合看温度、重量。",
+        "anchorId": "search-71752ccfd6b0",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "函数接口",
+        "anchorId": "函数接口",
+        "heading": "函数接口",
+        "headingId": "函数接口",
+        "kind": "heading"
+      },
+      {
+        "text": "fit_detector",
+        "anchorId": "fit_detector",
+        "heading": "fit_detector",
+        "headingId": "fit_detector",
+        "kind": "heading"
+      },
+      {
+        "text": "输入正常历史记录 N×2；返回拟合后的 IsolationForest。只接收训练集。",
+        "anchorId": "search-133ae6ac7f84",
+        "heading": "fit_detector",
+        "headingId": "fit_detector",
+        "kind": "content"
+      },
+      {
+        "text": "flag_anomalies",
+        "anchorId": "flag_anomalies",
+        "heading": "flag_anomalies",
+        "headingId": "flag_anomalies",
+        "kind": "heading"
+      },
+      {
+        "text": "分数越大越异常；大于等于阈值返回 True，返回布尔数组。",
+        "anchorId": "search-6388de9f5bb5",
+        "heading": "flag_anomalies",
+        "headingId": "flag_anomalies",
+        "kind": "content"
+      },
+      {
+        "text": "evaluate",
+        "anchorId": "evaluate",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "heading"
+      },
+      {
+        "text": "输入真实异常布尔标签与报警布尔数组；返回 precision/recall，分母零时取 0。",
+        "anchorId": "search-2ffc7cf47a3b",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "IsolationForest 的 score_samples 越低越异常；调度已取负号。报警阈值从独立正常校准集确定。",
+        "anchorId": "search-c57d9688b356",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "IsolationForest.fit；scores >= threshold；precision = TP/(TP+FP)，recall = TP/(TP+FN)。",
+        "anchorId": "search-4b9f9fe6c9fe",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "完整实现： solutions/anomaly.py 。练习模式只调用 projects/anomaly/exercises.py 。",
+        "anchorId": "search-866506768e1a",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "完成标准",
+        "anchorId": "完成标准",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "heading"
+      },
+      {
+        "text": "通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+        "anchorId": "search-9623d24b19eb",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "content"
+      }
+    ],
+    "content": "异常批次侦探 样品冷藏温度与称重记录通常有稳定关系。坤坤需要找出不寻常的批次：阈值太低，正常批次也报警；阈值太高，又可能漏掉问题。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“异常批次侦探”。 练习文件： projects/anomaly/exercises.py 。演示查看参考实现；练习使用自己保存的函数。 看演示 → 写函数 → 做对照 → 挑战 运行默认设置，先看报警，再揭开合成数据的真实标签。 完成 fit_detector、flag_anomalies、evaluate；分数越大越异常。 固定种子，比较 80%、95%、99% 的校准分位数，记录误报、漏报、准确率和召回率。 挑战：添加单变量规则作基线，比较仅看温度与联合看温度、重量。 函数接口 fit_detector 输入正常历史记录 N×2；返回拟合后的 IsolationForest。只接收训练集。 flag_anomalies 分数越大越异常；大于等于阈值返回 True，返回布尔数组。 evaluate 输入真实异常布尔标签与报警布尔数组；返回 precision/recall，分母零时取 0。 提示一：思路 IsolationForest 的 score_samples 越低越异常；调度已取负号。报警阈值从独立正常校准集确定。 提示二：接口 IsolationForest.fit；scores >= threshold；precision = TP/(TP+FP)，recall = TP/(TP+FN)。 完整实现： solutions/anomaly.py 。练习模式只调用 projects/anomaly/exercises.py 。 完成标准 通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+    "summary": "异常批次侦探 样品冷藏温度与称重记录通常有稳定关系。坤坤需要找出不寻常的批次：阈值太低，正常批次也报警；阈值太高，又可能漏掉问题。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“异常批次侦探”。 练习文件： projects/anomaly/exercises.py 。演示查看..."
+  },
+  {
+    "slug": "courses/machine-learning/projects/classification-arena",
+    "title": "分类边界擂台",
+    "pageType": "page",
+    "headings": [
+      "分类边界擂台",
+      "下载与运行 {#run}",
+      "看演示 → 写函数 → 做对照 → 挑战",
+      "函数接口",
+      "`build_model`",
+      "`accuracy`",
+      "完成标准"
+    ],
+    "blocks": [
+      {
+        "text": "两类样品在特征平面上绕成了月牙。坤坤画了一条直线，总有一片分错；换成能弯曲的边界，结果会怎样？这里先用合成点集隔离模型差异，再到葡萄酒项目使用真实数据。",
+        "anchorId": "search-8a73eb77c886",
+        "heading": null,
+        "headingId": null,
+        "kind": "content"
+      },
+      {
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "heading"
+      },
+      {
+        "text": "下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“分类边界擂台”。",
+        "anchorId": "search-fd40c8ca6772",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "练习文件： projects/classification_arena/exercises.py 。演示查看参考实现；练习使用自己保存的函数。",
+        "anchorId": "search-cf600e634011",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "看演示 → 写函数 → 做对照 → 挑战",
+        "anchorId": "看演示--写函数--做对照--挑战",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "heading"
+      },
+      {
+        "text": "在三种点集上并排观察逻辑回归、决策树、RBF 核方法。",
+        "anchorId": "search-1c1b61e00b18",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "完成 build_model 与 accuracy；缩放器只能在训练数据上拟合。",
+        "anchorId": "search-476947af7eea",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "固定数据与噪声，比较复杂度 1、3、20；再增加噪声，观察训练与验证差距。",
+        "anchorId": "search-7fb54f20497b",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "挑战：添加 KNN，比较邻居数；选好配置再运行最终测试。",
+        "anchorId": "search-3b5cc8c4cb4d",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "函数接口",
+        "anchorId": "函数接口",
+        "heading": "函数接口",
+        "headingId": "函数接口",
+        "kind": "heading"
+      },
+      {
+        "text": "build_model",
+        "anchorId": "build_model",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "heading"
+      },
+      {
+        "text": "kind 为 逻辑回归/决策树/RBF 核方法；complexity>0。树深取整数，其他模型作 C。返回未拟合模型。",
+        "anchorId": "search-d907ab01a27c",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "content"
+      },
+      {
+        "text": "accuracy",
+        "anchorId": "accuracy",
+        "heading": "accuracy",
+        "headingId": "accuracy",
+        "kind": "heading"
+      },
+      {
+        "text": "两个等长非空一维标签数组；返回正确比例。例：[0,1] 对 [0,0] -> 0.5。",
+        "anchorId": "search-38822387dd0f",
+        "heading": "accuracy",
+        "headingId": "accuracy",
+        "kind": "content"
+      },
+      {
+        "text": "直线无法分开交叉点；RBF 用距离形成弯曲的边界，树用轴对齐区域划分。",
+        "anchorId": "search-d3c0d3f9f2e1",
+        "heading": "accuracy",
+        "headingId": "accuracy",
+        "kind": "content"
+      },
+      {
+        "text": "make_pipeline(StandardScaler(), model)；LogisticRegression、DecisionTreeClassifier、SVC(probability=True)。",
+        "anchorId": "search-7017b52ebb85",
+        "heading": "accuracy",
+        "headingId": "accuracy",
+        "kind": "content"
+      },
+      {
+        "text": "完整实现： solutions/classification_arena.py 。练习模式只调用 projects/classification_arena/exercises.py 。",
+        "anchorId": "search-ee682e16455c",
+        "heading": "accuracy",
+        "headingId": "accuracy",
+        "kind": "content"
+      },
+      {
+        "text": "完成标准",
+        "anchorId": "完成标准",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "heading"
+      },
+      {
+        "text": "通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+        "anchorId": "search-09b46e1eef0b",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "content"
+      }
+    ],
+    "content": "分类边界擂台 两类样品在特征平面上绕成了月牙。坤坤画了一条直线，总有一片分错；换成能弯曲的边界，结果会怎样？这里先用合成点集隔离模型差异，再到葡萄酒项目使用真实数据。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“分类边界擂台”。 练习文件： projects/classification_arena/exercises.py 。演示查看参考实现；练习使用自己保存的函数。 看演示 → 写函数 → 做对照 → 挑战 在三种点集上并排观察逻辑回归、决策树、RBF 核方法。 完成 build_model 与 accuracy；缩放器只能在训练数据上拟合。 固定数据与噪声，比较复杂度 1、3、20；再增加噪声，观察训练与验证差距。 挑战：添加 KNN，比较邻居数；选好配置再运行最终测试。 函数接口 build_model kind 为 逻辑回归/决策树/RBF 核方法；complexity>0。树深取整数，其他模型作 C。返回未拟合模型。 accuracy 两个等长非空一维标签数组；返回正确比例。例：[0,1] 对 [0,0] -> 0.5。 提示一：思路 直线无法分开交叉点；RBF 用距离形成弯曲的边界，树用轴对齐区域划分。 提示二：接口 make_pipeline(StandardScaler(), model)；LogisticRegression、DecisionTreeClassifier、SVC(probability=True)。 完整实现： solutions/classification_arena.py 。练习模式只调用 projects/classification_arena/exercises.py 。 完成标准 通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+    "summary": "分类边界擂台 两类样品在特征平面上绕成了月牙。坤坤画了一条直线，总有一片分错；换成能弯曲的边界，结果会怎样？这里先用合成点集隔离模型差异，再到葡萄酒项目使用真实数据。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“分类边界擂台”。 练习文件： projects/classifi..."
+  },
+  {
     "slug": "courses/machine-learning/projects/clustering",
     "title": "葡萄酒聚类与降维",
     "pageType": "page",
     "headings": [
       "葡萄酒聚类与降维",
       "把标签收起来再分一次 {#scenario}",
-      "运行 {#run}",
-      "分组与投影 {#pipeline}",
-      "读指标 {#results}"
+      "下载与运行 {#run}",
+      "看图与实验 {#results}",
+      "填写函数 {#exercises}",
+      "`distances`",
+      "`assign_groups`",
+      "`update_centers`",
+      "`converged`",
+      "`best_restart（进阶）`",
+      "进阶与记录 {#comparison}"
     ],
     "blocks": [
       {
@@ -154450,127 +154773,363 @@
         "kind": "content"
       },
       {
-        "text": "运行",
+        "text": "下载与运行",
         "anchorId": "run",
-        "heading": "运行",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "heading"
       },
       {
-        "text": "运行环境 · clustering.py",
-        "anchorId": "search-ca85f0d12e83",
-        "heading": "运行",
+        "text": "下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“聚类与降维”。",
+        "anchorId": "search-03b79e4d84be",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "python clustering.py",
-        "anchorId": "search-d49f12d9a1a0",
-        "heading": "运行",
+        "text": "本实验的练习文件： projects/clustering/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。",
+        "anchorId": "search-4f6c7f48de61",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "脚本使用 scikit-learn 自带的 178 条 Wine 记录，在当前目录保存 clustering-pca.png 和 clustering-metrics.json 。",
-        "anchorId": "search-5e3f1a128beb",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "分组与投影",
-        "anchorId": "pipeline",
-        "heading": "分组与投影",
-        "headingId": "pipeline",
-        "kind": "heading"
-      },
-      {
-        "text": "X = StandardScaler().fit_transform(data.data) groups = KMeans(n_clusters= 3 , n_init= 20 , random_state= 42 ).fit_predict(X) projected = PCA(n_components= 2 ).fit_transform(X)",
-        "anchorId": "search-f756f2ef3cea",
-        "heading": "分组与投影",
-        "headingId": "pipeline",
-        "kind": "content"
-      },
-      {
-        "text": "K-means 使用全部 13 个标准化特征。PCA 把 13 维测量值压成两个坐标来画图；投影重叠的点，在原来的 13 维空间中也可能相隔较远。图的左右两栏使用相同坐标，分别按聚类组别与真实类别着色；组号与类别各自编号，看两栏中哪些点被分在一起即可。",
-        "anchorId": "search-bf1da7a3258a",
-        "heading": "分组与投影",
-        "headingId": "pipeline",
-        "kind": "content"
-      },
-      {
-        "text": "设置 K=3，将葡萄酒分成三组，与三个类别对照。 n_init=20 用不同初始中心重复拟合，保留目标值较好的结果。",
-        "anchorId": "search-a90c6dc5c325",
-        "heading": "分组与投影",
-        "headingId": "pipeline",
-        "kind": "content"
-      },
-      {
-        "text": "读指标",
+        "text": "看图与实验",
         "anchorId": "results",
-        "heading": "读指标",
+        "heading": "看图与实验",
         "headingId": "results",
         "kind": "heading"
       },
       {
-        "text": "输出 含义",
-        "anchorId": "search-5c36f7424e64",
-        "heading": "读指标",
+        "text": "从二维点集开始，拖动步骤条，看“分组—更新中心”如何交替。修改K与种子，比较轨迹和目标值。转到 Wine 后，先观察分组，再揭开标签。",
+        "anchorId": "search-89bb119790a5",
+        "heading": "看图与实验",
         "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "cluster_sizes 各组包含多少条记录",
-        "anchorId": "search-003f6bebd424",
-        "heading": "读指标",
+        "text": "先在二维点集完成“计算距离—分组—更新中心”的循环。点的颜色表示当前分组，叉号是中心，虚线记录中心走过的位置。拖动步骤条可单步查看，也可以播放、暂停、重置。",
+        "anchorId": "search-5514bae1bf77",
+        "heading": "看图与实验",
         "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "silhouette 组内是否紧凑、组间是否分离；不使用真实标签",
-        "anchorId": "search-37bd8163fc23",
-        "heading": "读指标",
+        "text": "转到 Wine 后，默认在全部13个成分上聚类，用主成分分析（Principal Component Analysis，PCA）投影展示。切换“先降至二维再聚类”时，算法输入才变成两个主成分。",
+        "anchorId": "search-3e4855e7fb18",
+        "heading": "看图与实验",
         "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "adjusted_rand_index 聚类与类别分组的一致程度，简称 ARI（Adjusted Rand Index，调整兰德指数）；使用真实标签",
-        "anchorId": "search-39bbbfcfe092",
-        "heading": "读指标",
+        "text": "揭开标签后，用同一组坐标对照真实类别。调整兰德指数（Adjusted Rand Index，ARI）比较样本对是否同组；交换簇编号不改变评价。",
+        "anchorId": "search-96d05e7a796f",
+        "heading": "看图与实验",
         "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "pca_explained_variance_ratio 每个投影方向保留的方差比例",
-        "anchorId": "search-48c99ba1810a",
-        "heading": "读指标",
-        "headingId": "results",
+        "text": "填写函数",
+        "anchorId": "exercises",
+        "heading": "填写函数",
+        "headingId": "exercises",
+        "kind": "heading"
+      },
+      {
+        "text": "distances",
+        "anchorId": "distances",
+        "heading": "distances",
+        "headingId": "distances",
+        "kind": "heading"
+      },
+      {
+        "text": "将每个样本与每个中心相减，平方后对特征维求和。",
+        "anchorId": "search-88c2e9d6d23c",
+        "heading": "distances",
+        "headingId": "distances",
         "kind": "content"
       },
       {
-        "text": "ARI 比较哪些样本对被分在一起，并校正随机分组的一致性。1 表示分组完全一致，随机分组的期望约为 0，也可能为负。交换整个组的编号不会改变 ARI。",
-        "anchorId": "search-da7eac8d2292",
-        "heading": "读指标",
-        "headingId": "results",
+        "text": "X[:,None,:] 与 centers[None,:,:] 广播；结果为 N×K。",
+        "anchorId": "search-c1461622146e",
+        "heading": "distances",
+        "headingId": "distances",
         "kind": "content"
       },
       {
-        "text": "K-means 偏好紧凑团状分布，成分接近的类别可能被混在一起。二维图、轮廓系数和 ARI 分别反映投影、几何结构和标签一致性，回答的问题不同。",
-        "anchorId": "search-2c832cd5d4b7",
-        "heading": "读指标",
-        "headingId": "results",
+        "text": "assign_groups",
+        "anchorId": "assign_groups",
+        "heading": "assign_groups",
+        "headingId": "assign_groups",
+        "kind": "heading"
+      },
+      {
+        "text": "每个样本选择距离最小的中心。",
+        "anchorId": "search-eea74166435f",
+        "heading": "assign_groups",
+        "headingId": "assign_groups",
         "kind": "content"
       },
       {
-        "text": "Wine 数据说明 · KMeans · PCA · Adjusted Rand Index",
-        "anchorId": "search-0865ee825640",
-        "heading": "读指标",
-        "headingId": "results",
+        "text": "对距离矩阵使用 argmin(axis=1)。",
+        "anchorId": "search-3ddeee08231d",
+        "heading": "assign_groups",
+        "headingId": "assign_groups",
+        "kind": "content"
+      },
+      {
+        "text": "update_centers",
+        "anchorId": "update_centers",
+        "heading": "update_centers",
+        "headingId": "update_centers",
+        "kind": "heading"
+      },
+      {
+        "text": "新中心是该组样本均值；空组保留原中心。",
+        "anchorId": "search-9388c91b6213",
+        "heading": "update_centers",
+        "headingId": "update_centers",
+        "kind": "content"
+      },
+      {
+        "text": "先复制 old_centers，再按 groups==i 取行求 mean(axis=0)。",
+        "anchorId": "search-16c1bd4bee38",
+        "heading": "update_centers",
+        "headingId": "update_centers",
+        "kind": "content"
+      },
+      {
+        "text": "converged",
+        "anchorId": "converged",
+        "heading": "converged",
+        "headingId": "converged",
+        "kind": "heading"
+      },
+      {
+        "text": "每个中心计算一次移动距离，最大的也不超过阈值才停止。",
+        "anchorId": "search-d0625edc55fa",
+        "heading": "converged",
+        "headingId": "converged",
+        "kind": "content"
+      },
+      {
+        "text": "np.linalg.norm(new-old,axis=1)；不能只看某一个中心。",
+        "anchorId": "search-d2f16803bc0e",
+        "heading": "converged",
+        "headingId": "converged",
+        "kind": "content"
+      },
+      {
+        "text": "best_restart（进阶）",
+        "anchorId": "best_restart进阶",
+        "heading": "best_restart（进阶）",
+        "headingId": "best_restart进阶",
+        "kind": "heading"
+      },
+      {
+        "text": "多个初始位置会得到不同局部最优，比较最终目标值。",
+        "anchorId": "search-881d15c2fcb5",
+        "heading": "best_restart（进阶）",
+        "headingId": "best_restart进阶",
+        "kind": "content"
+      },
+      {
+        "text": "返回 inertias 中最小值的位置，不能直接返回最小值。",
+        "anchorId": "search-b0bc1339dac6",
+        "heading": "best_restart（进阶）",
+        "headingId": "best_restart进阶",
+        "kind": "content"
+      },
+      {
+        "text": "进阶与记录",
+        "anchorId": "comparison",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "heading"
+      },
+      {
+        "text": "完成多次初始化并和 scikit-learn 比较。分别在13维和二维投影中聚类，查看轮廓系数、组内距离和标签对照；不同输入尺度下的目标值不要直接横向比较。",
+        "anchorId": "search-06747e6094cf",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "content"
+      },
+      {
+        "text": "“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/clustering.py 。",
+        "anchorId": "search-de56bedc25fe",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
         "kind": "content"
       }
     ],
-    "content": "葡萄酒聚类与降维 把标签收起来再分一次 分类做完了，坤坤想把这张表再折腾一下。他收起类别标签，让 K-means 只看成分，分成三组。屏幕上的每个点是一份酒样，他把原来的类别也画在旁边，两张图来回对着看。有些样品分在一起，有些换了组；他想找的就是这些不一致的地方，再翻回表里看它们的检测值。 聚类与降维 聚类在没有类别标签的情况下按相似性分组。K-means（K 均值聚类）用 K 个中心表示分组；主成分分析（Principal Component Analysis，PCA）将数据投影到保留较大方差的少数方向。 相关知识： 标准化 、 K-means 与聚类评价 、 PCA 。 运行 运行环境 · clustering.py python clustering.py 脚本使用 scikit-learn 自带的 178 条 Wine 记录，在当前目录保存 clustering-pca.png 和 clustering-metrics.json 。 分组与投影 X = StandardScaler().fit_transform(data.data) groups = KMeans(n_clusters= 3 , n_init= 20 , random_state= 42 ).fit_predict(X) projected = PCA(n_components= 2 ).fit_transform(X) K-means 使用全部 13 个标准化特征。PCA 把 13 维测量值压成两个坐标来画图；投影重叠的点，在原来的 13 维空间中也可能相隔较远。图的左右两栏使用相同坐标，分别按聚类组别与真实类别着色；组号与类别各自编号，看两栏中哪些点被分在一起即可。 设置 K=3，将葡萄酒分成三组，与三个类别对照。 n_init=20 用不同初始中心重复拟合，保留目标值较好的结果。 读指标 输出 含义 cluster_sizes 各组包含多少条记录 silhouette 组内是否紧凑、组间是否分离；不使用真实标签 adjusted_rand_index 聚类与类别分组的一致程度，简称 ARI（Adjusted Rand Index，调整兰德指数）；使用真实标签 pca_explained_variance_ratio 每个投影方向保留的方差比例 ARI 比较哪些样本对被分在一起，并校正随机分组的一致性。1 表示分组完全一致，随机分组的期望约为 0，也可能为负。交换整个组的编号不会改变 ARI。 K-means 偏好紧凑团状分布，成分接近的类别可能被混在一起。二维图、轮廓系数和 ARI 分别反映投影、几何结构和标签一致性，回答的问题不同。 参考资料 Wine 数据说明 · KMeans · PCA · Adjusted Rand Index",
+    "content": "葡萄酒聚类与降维 把标签收起来再分一次 分类做完了，坤坤想把这张表再折腾一下。他收起类别标签，让 K-means 只看成分，分成三组。屏幕上的每个点是一份酒样，他把原来的类别也画在旁边，两张图来回对着看。有些样品分在一起，有些换了组；他想找的就是这些不一致的地方，再翻回表里看它们的检测值。 聚类与降维 聚类在没有类别标签的情况下按相似性分组。K-means（K 均值聚类）用 K 个中心表示分组；主成分分析（Principal Component Analysis，PCA）将数据投影到保留较大方差的少数方向。 相关知识： 标准化 、 K-means 与聚类评价 、 PCA 。 下载与运行 下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“聚类与降维”。 本实验的练习文件： projects/clustering/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。 看图与实验 从二维点集开始，拖动步骤条，看“分组—更新中心”如何交替。修改K与种子，比较轨迹和目标值。转到 Wine 后，先观察分组，再揭开标签。 先在二维点集完成“计算距离—分组—更新中心”的循环。点的颜色表示当前分组，叉号是中心，虚线记录中心走过的位置。拖动步骤条可单步查看，也可以播放、暂停、重置。 转到 Wine 后，默认在全部13个成分上聚类，用主成分分析（Principal Component Analysis，PCA）投影展示。切换“先降至二维再聚类”时，算法输入才变成两个主成分。 揭开标签后，用同一组坐标对照真实类别。调整兰德指数（Adjusted Rand Index，ARI）比较样本对是否同组；交换簇编号不改变评价。 填写函数 distances 将每个样本与每个中心相减，平方后对特征维求和。 接口提示 X[:,None,:] 与 centers[None,:,:] 广播；结果为 N×K。 assign_groups 每个样本选择距离最小的中心。 接口提示 对距离矩阵使用 argmin(axis=1)。 update_centers 新中心是该组样本均值；空组保留原中心。 接口提示 先复制 old_centers，再按 groups==i 取行求 mean(axis=0)。 converged 每个中心计算一次移动距离，最大的也不超过阈值才停止。 接口提示 np.linalg.norm(new-old,axis=1)；不能只看某一个中心。 best_restart（进阶） 多个初始位置会得到不同局部最优，比较最终目标值。 接口提示 返回 inertias 中最小值的位置，不能直接返回最小值。 进阶与记录 完成多次初始化并和 scikit-learn 比较。分别在13维和二维投影中聚类，查看轮廓系数、组内距离和标签对照；不同输入尺度下的目标值不要直接横向比较。 “实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/clustering.py 。",
     "summary": "葡萄酒聚类与降维 把标签收起来再分一次 分类做完了，坤坤想把这张表再折腾一下。他收起类别标签，让 K-means 只看成分，分成三组。屏幕上的每个点是一份酒样，他把原来的类别也画在旁边，两张图来回对着看。有些样品分在一起，有些换了组；他想找的就是这些不一致的地方，再翻回表里看它们的检测值。 聚类与降维 聚类在没有类别标签的情况下按相似性分组。K-means（..."
+  },
+  {
+    "slug": "courses/machine-learning/projects/color-compression",
+    "title": "图片颜色压缩",
+    "pageType": "page",
+    "headings": [
+      "图片颜色压缩",
+      "下载与运行 {#run}",
+      "看演示 → 写函数 → 做对照 → 挑战",
+      "函数接口",
+      "`fit_palette`",
+      "`reconstruct`",
+      "`mse`",
+      "完成标准"
+    ],
+    "blocks": [
+      {
+        "text": "果盘照片有许多相近颜色。坤坤想做一张只有八种颜色的海报：该保留哪些颜色，每个像素又应该变成哪一种？",
+        "anchorId": "search-9bb81e55480a",
+        "heading": null,
+        "headingId": null,
+        "kind": "content"
+      },
+      {
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "heading"
+      },
+      {
+        "text": "下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“图片颜色压缩”。",
+        "anchorId": "search-81adffa24370",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "练习文件： projects/color_compression/exercises.py 。演示查看参考实现；练习使用自己保存的函数。",
+        "anchorId": "search-648d879deafc",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "看演示 → 写函数 → 做对照 → 挑战",
+        "anchorId": "看演示--写函数--做对照--挑战",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "heading"
+      },
+      {
+        "text": "观察 2 色、8 色和 32 色的重建，找到最先丢失的细节。",
+        "anchorId": "search-8ab48c0c8ffe",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "完成 fit_palette、reconstruct、mse；输入像素范围为 0..1。",
+        "anchorId": "search-91ce55f86bc9",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "上传自己的照片，比较颜色数量与均方误差，并下载重建图。",
+        "anchorId": "search-10d921a7921c",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "挑战：给不同图像比较误差曲线，解释为什么相同 K 的失真不同。",
+        "anchorId": "search-84599d495a13",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "函数接口",
+        "anchorId": "函数接口",
+        "heading": "函数接口",
+        "headingId": "函数接口",
+        "kind": "heading"
+      },
+      {
+        "text": "fit_palette",
+        "anchorId": "fit_palette",
+        "heading": "fit_palette",
+        "headingId": "fit_palette",
+        "kind": "heading"
+      },
+      {
+        "text": "输入 N×3 RGB（0..1），颜色数 K；返回 K×3 调色板，仅拟合输入像素。",
+        "anchorId": "search-adac1361d403",
+        "heading": "fit_palette",
+        "headingId": "fit_palette",
+        "kind": "content"
+      },
+      {
+        "text": "reconstruct",
+        "anchorId": "reconstruct",
+        "heading": "reconstruct",
+        "headingId": "reconstruct",
+        "kind": "heading"
+      },
+      {
+        "text": "将 H×W×3 图的每个像素换为最近的调色板颜色，返回相同形状图。",
+        "anchorId": "search-f7ad384423eb",
+        "heading": "reconstruct",
+        "headingId": "reconstruct",
+        "kind": "content"
+      },
+      {
+        "text": "mse",
+        "anchorId": "mse",
+        "heading": "mse",
+        "headingId": "mse",
+        "kind": "heading"
+      },
+      {
+        "text": "返回所有像素通道的均方误差；相同图应为 0。",
+        "anchorId": "search-1ccfecba19cc",
+        "heading": "mse",
+        "headingId": "mse",
+        "kind": "content"
+      },
+      {
+        "text": "把每个像素看作 RGB 空间的一个点；中心是调色板颜色，最近中心决定像素的新颜色。",
+        "anchorId": "search-00876f258dce",
+        "heading": "mse",
+        "headingId": "mse",
+        "kind": "content"
+      },
+      {
+        "text": "KMeans.cluster_centers_；将图片 reshape(-1,3)，用广播计算像素到各中心的平方距离。",
+        "anchorId": "search-ae790bcc049e",
+        "heading": "mse",
+        "headingId": "mse",
+        "kind": "content"
+      },
+      {
+        "text": "完整实现： solutions/color_compression.py 。练习模式只调用 projects/color_compression/exercises.py 。",
+        "anchorId": "search-1ef53fcef366",
+        "heading": "mse",
+        "headingId": "mse",
+        "kind": "content"
+      },
+      {
+        "text": "完成标准",
+        "anchorId": "完成标准",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "heading"
+      },
+      {
+        "text": "通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+        "anchorId": "search-eac6ea89d8f0",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "content"
+      }
+    ],
+    "content": "图片颜色压缩 果盘照片有许多相近颜色。坤坤想做一张只有八种颜色的海报：该保留哪些颜色，每个像素又应该变成哪一种？ 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“图片颜色压缩”。 练习文件： projects/color_compression/exercises.py 。演示查看参考实现；练习使用自己保存的函数。 看演示 → 写函数 → 做对照 → 挑战 观察 2 色、8 色和 32 色的重建，找到最先丢失的细节。 完成 fit_palette、reconstruct、mse；输入像素范围为 0..1。 上传自己的照片，比较颜色数量与均方误差，并下载重建图。 挑战：给不同图像比较误差曲线，解释为什么相同 K 的失真不同。 函数接口 fit_palette 输入 N×3 RGB（0..1），颜色数 K；返回 K×3 调色板，仅拟合输入像素。 reconstruct 将 H×W×3 图的每个像素换为最近的调色板颜色，返回相同形状图。 mse 返回所有像素通道的均方误差；相同图应为 0。 提示一：思路 把每个像素看作 RGB 空间的一个点；中心是调色板颜色，最近中心决定像素的新颜色。 提示二：接口 KMeans.cluster_centers_；将图片 reshape(-1,3)，用广播计算像素到各中心的平方距离。 完整实现： solutions/color_compression.py 。练习模式只调用 projects/color_compression/exercises.py 。 完成标准 通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+    "summary": "图片颜色压缩 果盘照片有许多相近颜色。坤坤想做一张只有八种颜色的海报：该保留哪些颜色，每个像素又应该变成哪一种？ 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“图片颜色压缩”。 练习文件： projects/color_compression/exercises.py 。演示查..."
   },
   {
     "slug": "courses/machine-learning/projects/diabetes",
@@ -154579,9 +155138,14 @@
     "headings": [
       "酒精含量预测",
       "遮住一列，看看能估多准 {#scenario}",
-      "运行与数据划分",
-      "参数选择",
-      "误差与残差"
+      "下载与运行 {#run}",
+      "看图与实验 {#results}",
+      "填写函数 {#exercises}",
+      "`split_target`",
+      "`errors`",
+      "`build_model`",
+      "`select_alpha`",
+      "进阶与记录 {#comparison}"
     ],
     "blocks": [
       {
@@ -154627,98 +155191,175 @@
         "kind": "content"
       },
       {
-        "text": "运行与数据划分",
-        "anchorId": "运行与数据划分",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "heading"
       },
       {
-        "text": "运行环境 · wine-regression.py",
-        "anchorId": "search-a410befcb36c",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
+        "text": "下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“酒精含量预测”。",
+        "anchorId": "search-24fb596232ea",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "python wine-regression.py",
-        "anchorId": "search-ee114d4a6593",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
+        "text": "本实验的练习文件： projects/wine_regression/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。",
+        "anchorId": "search-a21d5eb327d9",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "load_wine(as_frame=True) 读取成分表。用 y = dataset.data[\"alcohol\"] 取出目标， X = dataset.data.drop(columns=\"alcohol\") 留下其余指标。脚本留出 20% 测试数据，其余用于训练与选参数。缩放放在数据管道（Pipeline，将预处理和模型串联的对象）内，每一折只用该折训练部分计算缩放参数。",
-        "anchorId": "search-d0c1752f3801",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
-        "kind": "content"
-      },
-      {
-        "text": "参数选择",
-        "anchorId": "参数选择",
-        "heading": "参数选择",
-        "headingId": "参数选择",
+        "text": "看图与实验",
+        "anchorId": "results",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "heading"
       },
       {
-        "text": "Ridge 在线性回归的训练目标中加入 L2 正则化（权重平方和惩罚）， alpha 控制约束强度。脚本比较五个候选值：",
-        "anchorId": "search-30647084b6c1",
-        "heading": "参数选择",
-        "headingId": "参数选择",
+        "text": "先看实测—预测图：虚线是理想预测。残差为实测减预测，零线上方表示低估。选择偏差大的点，查看原始成分。再比较 alpha 曲线和标准化系数。",
+        "anchorId": "search-a1f2f5d0ee26",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "folds = KFold(n_splits= 5 , shuffle= True , random_state= 42 ) search = GridSearchCV( model, { \"ridge__alpha\" : [ 0.01 , 0.1 , 1 , 10 , 100 ]}, scoring= \"neg_mean_absolute_error\" , cv=folds, ) search.fit(X_train, y_train)",
-        "anchorId": "search-752026efb9c9",
-        "heading": "参数选择",
-        "headingId": "参数选择",
+        "text": "alcohol 是预测目标，从输入中移除后留下12项成分。每折单独拟合标准化与模型，比较平均绝对误差（Mean Absolute Error，MAE），选择平均验证误差最小的 alpha 。",
+        "anchorId": "search-158413bb15f4",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "每次用四份训练、一份验证，轮换五次，选择平均验证 MAE（Mean Absolute Error，平均绝对误差）最小的参数。Ridge 拟合使用平方误差加正则项，MAE 用于这里的参数比较。",
-        "anchorId": "search-74132dc39a94",
-        "heading": "参数选择",
-        "headingId": "参数选择",
+        "text": "实测—预测图的虚线表示理想预测。残差定义为实测减预测：正值表示低估，负值表示高估。开发数据上的图使用五折折外预测，每个点都由没有训练过该点的模型预测。",
+        "anchorId": "search-c8110ec61f2b",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "接口按分数越大越好排序，所以使用负 MAE；打印时取负号还原误差。选定参数后， GridSearchCV 默认在全部训练数据上重新拟合，测试集用于最终评价。",
-        "anchorId": "search-1aee51f2e04e",
-        "heading": "参数选择",
-        "headingId": "参数选择",
+        "text": "参数图使用对数横轴；误差越小越好。系数曲线对应标准化后的输入，观察正则化加强时系数怎样变化。选定配置后，再查看留出的测试集。",
+        "anchorId": "search-20faf52d6855",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "GridSearchCV 接口",
-        "anchorId": "search-6c4fb4609ecc",
-        "heading": "参数选择",
-        "headingId": "参数选择",
-        "kind": "content"
-      },
-      {
-        "text": "误差与残差",
-        "anchorId": "误差与残差",
-        "heading": "误差与残差",
-        "headingId": "误差与残差",
+        "text": "填写函数",
+        "anchorId": "exercises",
+        "heading": "填写函数",
+        "headingId": "exercises",
         "kind": "heading"
       },
       {
-        "text": "基线始终预测训练标签的均值。脚本在同一测试集上比较基线与 Ridge 的 MAE 和决定系数 R²。MAE 越小越好；R² 为 1 表示完全吻合，0 对应预测测试集目标均值的参照水平，也可能为负。",
-        "anchorId": "search-f703d912e153",
-        "heading": "误差与残差",
-        "headingId": "误差与残差",
+        "text": "split_target",
+        "anchorId": "split_target",
+        "heading": "split_target",
+        "headingId": "split_target",
+        "kind": "heading"
+      },
+      {
+        "text": "目标列必须从输入中移除，保留相同索引。",
+        "anchorId": "search-7a2d19eb0e88",
+        "heading": "split_target",
+        "headingId": "split_target",
         "kind": "content"
       },
       {
-        "text": "wine-residuals.png 的横轴是预测值，纵轴是“真实值减预测值”。零线上方表示低估，下方表示高估。找找离零线最远的点：模型在哪些预测范围内偏差最大？",
-        "anchorId": "search-de169b0a48b2",
-        "heading": "误差与残差",
-        "headingId": "误差与残差",
+        "text": "X=data.drop(columns=\"alcohol\")；y=data[\"alcohol\"]。",
+        "anchorId": "search-1cfff471a754",
+        "heading": "split_target",
+        "headingId": "split_target",
+        "kind": "content"
+      },
+      {
+        "text": "errors",
+        "anchorId": "errors",
+        "heading": "errors",
+        "headingId": "errors",
+        "kind": "heading"
+      },
+      {
+        "text": "残差保留正负号，绝对误差去掉符号后求平均。",
+        "anchorId": "search-2dfd1a0a0f3b",
+        "heading": "errors",
+        "headingId": "errors",
+        "kind": "content"
+      },
+      {
+        "text": "np.asarray(actual)-np.asarray(predicted)；np.abs(...).mean()。",
+        "anchorId": "search-27161cc713fb",
+        "heading": "errors",
+        "headingId": "errors",
+        "kind": "content"
+      },
+      {
+        "text": "build_model",
+        "anchorId": "build_model",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "heading"
+      },
+      {
+        "text": "每折训练内部都要重新拟合标准化。",
+        "anchorId": "search-15f324ebcffe",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "content"
+      },
+      {
+        "text": "用 make_pipeline(StandardScaler(), Ridge(alpha=alpha)) 返回未拟合模型。",
+        "anchorId": "search-399d90e7842b",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "content"
+      },
+      {
+        "text": "select_alpha",
+        "anchorId": "select_alpha",
+        "heading": "select_alpha",
+        "headingId": "select_alpha",
+        "kind": "heading"
+      },
+      {
+        "text": "只比较 valid_mae，不能按训练误差选择。",
+        "anchorId": "search-eb84bd59b225",
+        "heading": "select_alpha",
+        "headingId": "select_alpha",
+        "kind": "content"
+      },
+      {
+        "text": "idxmin() 找到最小验证误差所在行，再取 alpha。",
+        "anchorId": "search-bfe5e9266ead",
+        "heading": "select_alpha",
+        "headingId": "select_alpha",
+        "kind": "content"
+      },
+      {
+        "text": "进阶与记录",
+        "anchorId": "comparison",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "heading"
+      },
+      {
+        "text": "只选两三项成分，再恢复全部12项，比较五折验证误差和波动。说明岭回归与均值基线、普通线性回归的差异，最后用测试集评价选定配置。",
+        "anchorId": "search-82c0be5c52a6",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "content"
+      },
+      {
+        "text": "“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/wine_regression.py 。",
+        "anchorId": "search-0c3090185ac2",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
         "kind": "content"
       }
     ],
-    "content": "酒精含量预测 遮住一列，看看能估多准 翻成分表时，坤坤又盯上了酒精这一列：其他指标都知道，能不能把它估出来？他另存了一份表，把 alcohol 列取出来当答案，剩下 12 列交给岭回归。跑完以后，把实测值和预测值并排放着看。光看一长列数字很费眼，画成残差图，偏得远的样品就显出来了。 回归、基线与残差 回归预测连续数值；基线是用来比较的简单规则。岭回归（Ridge regression）在线性回归中加入权重平方惩罚。残差是实际值减预测值，用来观察预测偏高还是偏低。 数据包含 178 条葡萄酒记录。将 alcohol （酒精）列作为预测目标，另外 12 项指标作为输入。 参考资料 数据说明 相关知识： 线性回归 、 损失函数 、 特征缩放 、 正则化 、 交叉验证 、 数据泄漏 。 运行与数据划分 运行环境 · wine-regression.py python wine-regression.py load_wine(as_frame=True) 读取成分表。用 y = dataset.data[\"alcohol\"] 取出目标， X = dataset.data.drop(columns=\"alcohol\") 留下其余指标。脚本留出 20% 测试数据，其余用于训练与选参数。缩放放在数据管道（Pipeline，将预处理和模型串联的对象）内，每一折只用该折训练部分计算缩放参数。 参数选择 Ridge 在线性回归的训练目标中加入 L2 正则化（权重平方和惩罚）， alpha 控制约束强度。脚本比较五个候选值： folds = KFold(n_splits= 5 , shuffle= True , random_state= 42 ) search = GridSearchCV( model, { \"ridge__alpha\" : [ 0.01 , 0.1 , 1 , 10 , 100 ]}, scoring= \"neg_mean_absolute_error\" , cv=folds, ) search.fit(X_train, y_train) 每次用四份训练、一份验证，轮换五次，选择平均验证 MAE（Mean Absolute Error，平均绝对误差）最小的参数。Ridge 拟合使用平方误差加正则项，MAE 用于这里的参数比较。 接口按分数越大越好排序，所以使用负 MAE；打印时取负号还原误差。选定参数后， GridSearchCV 默认在全部训练数据上重新拟合，测试集用于最终评价。 参考资料 GridSearchCV 接口 误差与残差 基线始终预测训练标签的均值。脚本在同一测试集上比较基线与 Ridge 的 MAE 和决定系数 R²。MAE 越小越好；R² 为 1 表示完全吻合，0 对应预测测试集目标均值的参照水平，也可能为负。 wine-residuals.png 的横轴是预测值，纵轴是“真实值减预测值”。零线上方表示低估，下方表示高估。找找离零线最远的点：模型在哪些预测范围内偏差最大？",
+    "content": "酒精含量预测 遮住一列，看看能估多准 翻成分表时，坤坤又盯上了酒精这一列：其他指标都知道，能不能把它估出来？他另存了一份表，把 alcohol 列取出来当答案，剩下 12 列交给岭回归。跑完以后，把实测值和预测值并排放着看。光看一长列数字很费眼，画成残差图，偏得远的样品就显出来了。 回归、基线与残差 回归预测连续数值；基线是用来比较的简单规则。岭回归（Ridge regression）在线性回归中加入权重平方惩罚。残差是实际值减预测值，用来观察预测偏高还是偏低。 数据包含 178 条葡萄酒记录。将 alcohol （酒精）列作为预测目标，另外 12 项指标作为输入。 参考资料 数据说明 相关知识： 线性回归 、 损失函数 、 特征缩放 、 正则化 、 交叉验证 、 数据泄漏 。 下载与运行 下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“酒精含量预测”。 本实验的练习文件： projects/wine_regression/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。 看图与实验 先看实测—预测图：虚线是理想预测。残差为实测减预测，零线上方表示低估。选择偏差大的点，查看原始成分。再比较 alpha 曲线和标准化系数。 alcohol 是预测目标，从输入中移除后留下12项成分。每折单独拟合标准化与模型，比较平均绝对误差（Mean Absolute Error，MAE），选择平均验证误差最小的 alpha 。 实测—预测图的虚线表示理想预测。残差定义为实测减预测：正值表示低估，负值表示高估。开发数据上的图使用五折折外预测，每个点都由没有训练过该点的模型预测。 参数图使用对数横轴；误差越小越好。系数曲线对应标准化后的输入，观察正则化加强时系数怎样变化。选定配置后，再查看留出的测试集。 填写函数 split_target 目标列必须从输入中移除，保留相同索引。 接口提示 X=data.drop(columns=\"alcohol\")；y=data[\"alcohol\"]。 errors 残差保留正负号，绝对误差去掉符号后求平均。 接口提示 np.asarray(actual)-np.asarray(predicted)；np.abs(...).mean()。 build_model 每折训练内部都要重新拟合标准化。 接口提示 用 make_pipeline(StandardScaler(), Ridge(alpha=alpha)) 返回未拟合模型。 select_alpha 只比较 valid_mae，不能按训练误差选择。 接口提示 idxmin() 找到最小验证误差所在行，再取 alpha。 进阶与记录 只选两三项成分，再恢复全部12项，比较五折验证误差和波动。说明岭回归与均值基线、普通线性回归的差异，最后用测试集评价选定配置。 “实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/wine_regression.py 。",
     "summary": "酒精含量预测 遮住一列，看看能估多准 翻成分表时，坤坤又盯上了酒精这一列：其他指标都知道，能不能把它估出来？他另存了一份表，把 alcohol 列取出来当答案，剩下 12 列交给岭回归。跑完以后，把实测值和预测值并排放着看。光看一长列数字很费眼，画成残差图，偏得远的样品就显出来了。 回归、基线与残差 回归预测连续数值；基线是用来比较的简单规则。岭回归（Rid..."
   },
   {
@@ -154728,9 +155369,15 @@
     "headings": [
       "数字识别与训练框架",
       "这个编号写的是 3 还是 8 {#scenario}",
-      "运行 {#run}",
-      "模型与输出 {#model}",
-      "对照实验 {#comparison}"
+      "下载与运行 {#run}",
+      "看图与实验 {#results}",
+      "填写函数 {#exercises}",
+      "`normalize`",
+      "`build_network`",
+      "`train_step`",
+      "`evaluate`",
+      "训练框架",
+      "进阶与记录 {#comparison}"
     ],
     "blocks": [
       {
@@ -154769,126 +155416,203 @@
         "kind": "content"
       },
       {
-        "text": "运行",
+        "text": "下载与运行",
         "anchorId": "run",
-        "heading": "运行",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "heading"
       },
       {
-        "text": "下载 digits.py 。三个版本使用相同的数据划分和网络宽度，分别运行即可；无需同时安装三个框架。",
-        "anchorId": "search-49bdf3ac5a27",
-        "heading": "运行",
+        "text": "下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“数字识别”。",
+        "anchorId": "search-b1f9ccfe2af3",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "python -m pip install numpy scikit-learn python digits.py --framework sklearn",
-        "anchorId": "search-1a6006e8ac49",
-        "heading": "运行",
+        "text": "本实验的练习文件： projects/digits/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。",
+        "anchorId": "search-4f624a3db419",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "python -m pip install numpy scikit-learn torch python digits.py --framework pytorch",
-        "anchorId": "search-02187a6e8b79",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "python -m pip install numpy scikit-learn tensorflow python digits.py --framework tensorflow",
-        "anchorId": "search-14144c162e44",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "脚本默认运行在中央处理器（Central Processing Unit，CPU），训练 40 轮。 --epochs 80 可以修改轮数。scikit-learn 提示未收敛时，表示到达了设定的训练上限。",
-        "anchorId": "search-66158e51bf8e",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "digits 数据集 · PyTorch 安装 · TensorFlow 安装",
-        "anchorId": "search-6c1c7d8ab385",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "模型与输出",
-        "anchorId": "model",
-        "heading": "模型与输出",
-        "headingId": "model",
+        "text": "看图与实验",
+        "anchorId": "results",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "heading"
       },
       {
-        "text": "网络结构为 64 个输入 → 32 个整流线性单元（Rectified Linear Unit，ReLU）隐藏单元 → 10 个类别得分 。像素统一除以 16，缩放到 0—1。训练集占 80%，测试集占 20%，划分保留各类别比例。",
-        "anchorId": "search-378dd907fb76",
-        "heading": "模型与输出",
-        "headingId": "model",
+        "text": "先运行 scikit-learn 基线。安装 PyTorch 后填写网络和训练步骤，比较训练曲线。错题墙标题“3 → 8”表示真实数字3被预测成8。点选编号，观察概率，再尝试噪声和平移。",
+        "anchorId": "search-5377d43f9094",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "输出文件名为 digits-sklearn.json 、 digits-pytorch.json 或 digits-tensorflow.json ，保存在脚本旁边，包含准确率与混淆矩阵。矩阵的行是真实数字，列是预测数字。观察非对角线元素，可以知道哪些数字容易混淆。",
-        "anchorId": "search-8b664e4f34cd",
-        "heading": "模型与输出",
-        "headingId": "model",
+        "text": "数据集含1797张8×8图像，每张展开为64个输入，像素从0—16缩放到0—1。训练、验证、测试按固定划分分别占约60%、20%、20%。",
+        "anchorId": "search-c8b7f920ae7f",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "三个版本的初始化和默认优化设置不同，分数差异也会受这些设置影响。",
-        "anchorId": "search-b329ede0214d",
-        "heading": "模型与输出",
-        "headingId": "model",
+        "text": "PyTorch 主线网络为64个输入、一个带整流线性单元（Rectified Linear Unit，ReLU）的隐藏层、10个类别得分。训练时使用交叉熵；评价时转换为各类概率。",
+        "anchorId": "search-35b56a6f143e",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "对照实验",
+        "text": "错题墙标题“3 → 8”表示真实数字3被预测成8。选择样本后可增加噪声或水平平移；图像使用相同灰度范围，概率图固定在0—1，方便比较变化。平移空出的位置补零，不把右侧像素绕回左侧。",
+        "anchorId": "search-550cd17f5a24",
+        "heading": "看图与实验",
+        "headingId": "results",
+        "kind": "content"
+      },
+      {
+        "text": "填写函数",
+        "anchorId": "exercises",
+        "heading": "填写函数",
+        "headingId": "exercises",
+        "kind": "heading"
+      },
+      {
+        "text": "normalize",
+        "anchorId": "normalize",
+        "heading": "normalize",
+        "headingId": "normalize",
+        "kind": "heading"
+      },
+      {
+        "text": "像素的已知范围为0到16，转换为0到1并展平。",
+        "anchorId": "search-977e90b7da45",
+        "heading": "normalize",
+        "headingId": "normalize",
+        "kind": "content"
+      },
+      {
+        "text": "reshape(-1,64).astype(\"float32\") / 16；先检查形状、范围与有限性。",
+        "anchorId": "search-48baeb967619",
+        "heading": "normalize",
+        "headingId": "normalize",
+        "kind": "content"
+      },
+      {
+        "text": "build_network",
+        "anchorId": "build_network",
+        "heading": "build_network",
+        "headingId": "build_network",
+        "kind": "heading"
+      },
+      {
+        "text": "隐藏层用 ReLU；最后输出10个类别得分。",
+        "anchorId": "search-3b028eb76579",
+        "heading": "build_network",
+        "headingId": "build_network",
+        "kind": "content"
+      },
+      {
+        "text": "nn.Sequential(nn.Linear(64,hidden), nn.ReLU(), nn.Linear(hidden,10))。",
+        "anchorId": "search-5981fe9650e5",
+        "heading": "build_network",
+        "headingId": "build_network",
+        "kind": "content"
+      },
+      {
+        "text": "train_step",
+        "anchorId": "train_step",
+        "heading": "train_step",
+        "headingId": "train_step",
+        "kind": "heading"
+      },
+      {
+        "text": "每个批次先清除旧梯度，再计算损失、反向传播并更新参数。",
+        "anchorId": "search-e223d8d5d5aa",
+        "heading": "train_step",
+        "headingId": "train_step",
+        "kind": "content"
+      },
+      {
+        "text": "optimizer.zero_grad() → model(x) → cross_entropy → backward() → optimizer.step()。",
+        "anchorId": "search-cea6acda77f4",
+        "heading": "train_step",
+        "headingId": "train_step",
+        "kind": "content"
+      },
+      {
+        "text": "evaluate",
+        "anchorId": "evaluate",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "heading"
+      },
+      {
+        "text": "预测时关闭梯度计算，返回概率和概率最大的类别。",
+        "anchorId": "search-4379f3f6ddf3",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "model.eval() 与 torch.no_grad()；softmax(dim=1)，再转 numpy。",
+        "anchorId": "search-0750b3aea62a",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "训练框架",
+        "anchorId": "训练框架",
+        "heading": "训练框架",
+        "headingId": "训练框架",
+        "kind": "heading"
+      },
+      {
+        "text": "scikit-learn 是可直接运行的基线。PyTorch 用来填写网络与训练步骤，额外安装：",
+        "anchorId": "search-f1257e420c87",
+        "heading": "训练框架",
+        "headingId": "训练框架",
+        "kind": "content"
+      },
+      {
+        "text": "python -m pip install -r requirements-torch.txt",
+        "anchorId": "search-92c5a0f1a178",
+        "heading": "训练框架",
+        "headingId": "训练框架",
+        "kind": "content"
+      },
+      {
+        "text": "TensorFlow 保留完整对照示例，按需安装 requirements-tensorflow.txt 。三个框架共享数据划分；初始化和优化实现不同，分数差异需要结合设置分析。",
+        "anchorId": "search-40c72e61d526",
+        "heading": "训练框架",
+        "headingId": "训练框架",
+        "kind": "content"
+      },
+      {
+        "text": "进阶与记录",
         "anchorId": "comparison",
-        "heading": "对照实验",
+        "heading": "进阶与记录",
         "headingId": "comparison",
         "kind": "heading"
       },
       {
-        "text": "改动 观察内容 对应知识",
-        "anchorId": "search-d6c244cc630a",
-        "heading": "对照实验",
+        "text": "固定数据划分和种子，分别改变隐藏层宽度、学习率、训练轮数。根据验证曲线选配置，再打开测试集。TensorFlow 为完整接口对照，不要求三套框架都安装。",
+        "anchorId": "search-c854c8e37466",
+        "heading": "进阶与记录",
         "headingId": "comparison",
         "kind": "content"
       },
       {
-        "text": "隐藏单元从 32 改为 8 或 64 容量、训练耗时、验证表现 欠拟合与过拟合",
-        "anchorId": "search-e44f5d1eb7d2",
-        "heading": "对照实验",
-        "headingId": "comparison",
-        "kind": "content"
-      },
-      {
-        "text": "输入用主成分分析（Principal Component Analysis，PCA）压缩 维度减少后的准确率和耗时 无监督学习与降维",
-        "anchorId": "search-a37e9a0462bf",
-        "heading": "对照实验",
-        "headingId": "comparison",
-        "kind": "content"
-      },
-      {
-        "text": "使用不同随机种子重复训练 各次分数及其波动 实验记录",
-        "anchorId": "search-321782fc62f7",
-        "heading": "对照实验",
-        "headingId": "comparison",
-        "kind": "content"
-      },
-      {
-        "text": "比较这些设置时，从训练集划出一部分作验证集。用验证结果选好配置，再运行一次测试集，记录最终成绩。",
-        "anchorId": "search-97d7643a0324",
-        "heading": "对照实验",
+        "text": "“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/digits.py 。",
+        "anchorId": "search-3779302338a8",
+        "heading": "进阶与记录",
         "headingId": "comparison",
         "kind": "content"
       }
     ],
-    "content": "数字识别与训练框架 这个编号写的是 3 还是 8 坤坤正在把实验记录里的样品编号录进电脑。有个数字上半圈挤在一起，看着像 3，又像 8。他放大照片看了半天，顺手记下一个小想法：让程序认数字试试。于是找来现成的手写数字图片，训练一个小网络。跑完先看它认错了什么，尤其是那些自己也容易看花眼的数字。 图像分类与前馈网络 图像分类为每张图片预测一个类别。前馈神经网络让输入依次经过若干层计算；本项目将 64 个像素值映射为 10 个类别得分，选择得分最高的数字。 scikit-learn 自带 1797 张图像，不需要额外下载数据。每个像素的取值为 0 到 16；展开后得到 64 维输入。 相关知识： 数组形状 、 前馈网络 、 反向传播 、 框架接口 、 模型选择 。 运行 下载 digits.py 。三个版本使用相同的数据划分和网络宽度，分别运行即可；无需同时安装三个框架。 scikit-learn python -m pip install numpy scikit-learn python digits.py --framework sklearn PyTorch python -m pip install numpy scikit-learn torch python digits.py --framework pytorch TensorFlow python -m pip install numpy scikit-learn tensorflow python digits.py --framework tensorflow 脚本默认运行在中央处理器（Central Processing Unit，CPU），训练 40 轮。 --epochs 80 可以修改轮数。scikit-learn 提示未收敛时，表示到达了设定的训练上限。 参考资料 digits 数据集 · PyTorch 安装 · TensorFlow 安装 模型与输出 网络结构为 64 个输入 → 32 个整流线性单元（Rectified Linear Unit，ReLU）隐藏单元 → 10 个类别得分 。像素统一除以 16，缩放到 0—1。训练集占 80%，测试集占 20%，划分保留各类别比例。 输出文件名为 digits-sklearn.json 、 digits-pytorch.json 或 digits-tensorflow.json ，保存在脚本旁边，包含准确率与混淆矩阵。矩阵的行是真实数字，列是预测数字。观察非对角线元素，可以知道哪些数字容易混淆。 三个版本的初始化和默认优化设置不同，分数差异也会受这些设置影响。 对照实验 改动 观察内容 对应知识 隐藏单元从 32 改为 8 或 64 容量、训练耗时、验证表现 欠拟合与过拟合 输入用主成分分析（Principal Component Analysis，PCA）压缩 维度减少后的准确率和耗时 无监督学习与降维 使用不同随机种子重复训练 各次分数及其波动 实验记录 比较这些设置时，从训练集划出一部分作验证集。用验证结果选好配置，再运行一次测试集，记录最终成绩。",
+    "content": "数字识别与训练框架 这个编号写的是 3 还是 8 坤坤正在把实验记录里的样品编号录进电脑。有个数字上半圈挤在一起，看着像 3，又像 8。他放大照片看了半天，顺手记下一个小想法：让程序认数字试试。于是找来现成的手写数字图片，训练一个小网络。跑完先看它认错了什么，尤其是那些自己也容易看花眼的数字。 图像分类与前馈网络 图像分类为每张图片预测一个类别。前馈神经网络让输入依次经过若干层计算；本项目将 64 个像素值映射为 10 个类别得分，选择得分最高的数字。 scikit-learn 自带 1797 张图像，不需要额外下载数据。每个像素的取值为 0 到 16；展开后得到 64 维输入。 相关知识： 数组形状 、 前馈网络 、 反向传播 、 框架接口 、 模型选择 。 下载与运行 下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“数字识别”。 本实验的练习文件： projects/digits/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。 看图与实验 先运行 scikit-learn 基线。安装 PyTorch 后填写网络和训练步骤，比较训练曲线。错题墙标题“3 → 8”表示真实数字3被预测成8。点选编号，观察概率，再尝试噪声和平移。 数据集含1797张8×8图像，每张展开为64个输入，像素从0—16缩放到0—1。训练、验证、测试按固定划分分别占约60%、20%、20%。 PyTorch 主线网络为64个输入、一个带整流线性单元（Rectified Linear Unit，ReLU）的隐藏层、10个类别得分。训练时使用交叉熵；评价时转换为各类概率。 错题墙标题“3 → 8”表示真实数字3被预测成8。选择样本后可增加噪声或水平平移；图像使用相同灰度范围，概率图固定在0—1，方便比较变化。平移空出的位置补零，不把右侧像素绕回左侧。 填写函数 normalize 像素的已知范围为0到16，转换为0到1并展平。 接口提示 reshape(-1,64).astype(\"float32\") / 16；先检查形状、范围与有限性。 build_network 隐藏层用 ReLU；最后输出10个类别得分。 接口提示 nn.Sequential(nn.Linear(64,hidden), nn.ReLU(), nn.Linear(hidden,10))。 train_step 每个批次先清除旧梯度，再计算损失、反向传播并更新参数。 接口提示 optimizer.zero_grad() → model(x) → cross_entropy → backward() → optimizer.step()。 evaluate 预测时关闭梯度计算，返回概率和概率最大的类别。 接口提示 model.eval() 与 torch.no_grad()；softmax(dim=1)，再转 numpy。 训练框架 scikit-learn 是可直接运行的基线。PyTorch 用来填写网络与训练步骤，额外安装： python -m pip install -r requirements-torch.txt TensorFlow 保留完整对照示例，按需安装 requirements-tensorflow.txt 。三个框架共享数据划分；初始化和优化实现不同，分数差异需要结合设置分析。 进阶与记录 固定数据划分和种子，分别改变隐藏层宽度、学习率、训练轮数。根据验证曲线选配置，再打开测试集。TensorFlow 为完整接口对照，不要求三套框架都安装。 “实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/digits.py 。",
     "summary": "数字识别与训练框架 这个编号写的是 3 还是 8 坤坤正在把实验记录里的样品编号录进电脑。有个数字上半圈挤在一起，看着像 3，又像 8。他放大照片看了半天，顺手记下一个小想法：让程序认数字试试。于是找来现成的手写数字图片，训练一个小网络。跑完先看它认错了什么，尤其是那些自己也容易看花眼的数字。 图像分类与前馈网络 图像分类为每张图片预测一个类别。前馈神经网络..."
   },
   {
@@ -154898,10 +155622,14 @@
     "headings": [
       "Q-learning 格子导航",
       "送个样品，别再绕远路了 {#scenario}",
-      "运行 {#run}",
-      "环境定义 {#environment}",
-      "价值更新与探索 {#training}",
-      "结果与对照 {#evaluation}"
+      "下载与运行 {#run}",
+      "看图与实验 {#results}",
+      "填写函数 {#exercises}",
+      "`choose_action`",
+      "`update_value`",
+      "`exploration_rate`",
+      "进阶与记录 {#comparison}",
+      "直接画地图"
     ],
     "blocks": [
       {
@@ -154933,210 +155661,189 @@
         "kind": "content"
       },
       {
-        "text": "运行",
+        "text": "下载与运行",
         "anchorId": "run",
-        "heading": "运行",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "heading"
       },
       {
-        "text": "下载 gridworld.py ，使用 Python 3 运行，无需安装第三方库。",
-        "anchorId": "search-357638017787",
-        "heading": "运行",
+        "text": "下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“格子导航”。",
+        "anchorId": "search-30b97d2ee66f",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "python gridworld.py --episodes 2000 --seed 42",
-        "anchorId": "search-bc39e0eccd55",
-        "heading": "运行",
+        "text": "本实验的练习文件： projects/gridworld/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。",
+        "anchorId": "search-58465a57c8ec",
+        "heading": "下载与运行",
         "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "地图中的 S 是起点， G 是终点， # 是墙。坐标从 0 开始，格式为 (行, 列) 。",
-        "anchorId": "search-5fe6c3a7b30b",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "S... .##. .... .#.G",
-        "anchorId": "search-eb23f9e7542a",
-        "heading": "运行",
-        "headingId": "run",
-        "kind": "content"
-      },
-      {
-        "text": "环境定义",
-        "anchorId": "environment",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "看图与实验",
+        "anchorId": "results",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "heading"
       },
       {
-        "text": "要素 脚本中的设置",
-        "anchorId": "search-7459c6584f7b",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "从10回合开始，再增加到100、2000。选择训练阶段，对比探索轨迹与贪心评价；拖动动画步骤条可以逐步前进。箭头并列表示多个动作的价值相同。",
+        "anchorId": "search-01aa9404312a",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "状态 当前格子的坐标",
-        "anchorId": "search-140c90c13e47",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "地图用蓝色机器人表示起点、棋旗表示终点，砖墙格子不能通行。撞墙或越界会留在原地；进入终点得到+10，其余动作得到−1。地图可直接编辑，改动后需要重新训练。",
+        "anchorId": "search-fdd45d9ba355",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "动作 上、右、下、左",
-        "anchorId": "search-760bdfc8faf1",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "每格保存上、右、下、左四个动作价值。ε-greedy 以 ε 的概率随机探索，其他时候选择最大Q值；多个动作并列时随机选择。",
+        "anchorId": "search-7aa93736de34",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "转移 确定移动；撞墙或越界时留在原地",
-        "anchorId": "search-e2dcec763cb1",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "target = reward if terminated else reward + gamma * max (next_values) new_value = current + alpha * (target - current)",
+        "anchorId": "search-71d7861020ce",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "奖励 进入终点 +10，其余动作 −1",
-        "anchorId": "search-fd6496d18b24",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "到达终点是真正终止；回合步数耗尽只是截断，仍保留下一状态价值。广度优先搜索（Breadth-First Search，BFS）只计算最短距离作参照，不参与训练。",
+        "anchorId": "search-da6e8de15022",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "终止 到达终点",
-        "anchorId": "search-2cd68e413466",
-        "heading": "环境定义",
-        "headingId": "environment",
+        "text": "动画可切换训练阶段和路线类型，比较训练中的探索轨迹与关闭探索后的贪心路线。策略箭头并列表示Q值并列；热图色阶在各阶段保持一致。",
+        "anchorId": "search-45ea7fbdeb7c",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "截断 一轮执行 80 步仍未到达终点，就重置起点",
-        "anchorId": "search-d85643e85649",
-        "heading": "环境定义",
-        "headingId": "environment",
-        "kind": "content"
-      },
-      {
-        "text": "一步代价让绕路和撞墙都损失奖励。地图固定且完全可观测，坐标足以描述状态。",
-        "anchorId": "search-466e63285e43",
-        "heading": "环境定义",
-        "headingId": "environment",
-        "kind": "content"
-      },
-      {
-        "text": "价值更新与探索",
-        "anchorId": "training",
-        "heading": "价值更新与探索",
-        "headingId": "training",
+        "text": "填写函数",
+        "anchorId": "exercises",
+        "heading": "填写函数",
+        "headingId": "exercises",
         "kind": "heading"
       },
       {
-        "text": "每个可通行格子保存 4 个 Q 值，初始为 0。交互产生当前状态、动作、奖励和下一状态后，执行：",
-        "anchorId": "search-5c3a9cbce5aa",
-        "heading": "价值更新与探索",
-        "headingId": "training",
-        "kind": "content"
-      },
-      {
-        "text": "target = reward if terminated else reward + gamma * max (q[next_state]) q[state][action] += alpha * (target - q[state][action])",
-        "anchorId": "search-f92950ca5441",
-        "heading": "价值更新与探索",
-        "headingId": "training",
-        "kind": "content"
-      },
-      {
-        "text": "学习率 alpha=0.2 控制每次更新幅度，折扣因子 gamma=0.95 控制未来奖励的权重。到达终点后，目标只有当前奖励。80 步上限是人为截断，脚本仍保留下一状态的价值项。",
-        "anchorId": "search-af672f3afaec",
-        "heading": "价值更新与探索",
-        "headingId": "training",
-        "kind": "content"
-      },
-      {
-        "text": "训练采用 ε-greedy：ε 的概率随机选择动作，其余情况选择 Q 值最大的动作。ε 从 1 逐渐降到 0.05，训练后期仍有少量探索。相同 Q 值之间随机打破平局，避免始终偏好动作列表中的第一项。随机种子固定后，可以复现同一运行环境中的结果。",
-        "anchorId": "search-29c9e4a2bcdd",
-        "heading": "价值更新与探索",
-        "headingId": "training",
-        "kind": "content"
-      },
-      {
-        "text": "结果与对照",
-        "anchorId": "evaluation",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "choose_action",
+        "anchorId": "choose_action",
+        "heading": "choose_action",
+        "headingId": "choose_action",
         "kind": "heading"
       },
       {
-        "text": "广度优先搜索（Breadth-First Search，BFS）按离起点的步数逐层搜索，在这张每步代价相同的网格中可求最短步数。用它算出的最短步数，对照机器人学到的路线。",
-        "anchorId": "search-269bcef4f6e6",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "先判断是否探索；利用时从所有最大Q值中随机选一个。",
+        "anchorId": "search-2f3f51839095",
+        "heading": "choose_action",
+        "headingId": "choose_action",
         "kind": "content"
       },
       {
-        "text": "默认设置的一次运行得到：",
-        "anchorId": "search-b77dfc163a96",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "rng.random()<epsilon；rng.choice(np.flatnonzero(values==values.max()))。",
+        "anchorId": "search-72066aa2b726",
+        "heading": "choose_action",
+        "headingId": "choose_action",
         "kind": "content"
       },
       {
-        "text": "Greedy success: True Steps: 6; shortest possible: 6 Undiscounted evaluation reward: 5",
-        "anchorId": "search-489263d312fd",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "update_value",
+        "anchorId": "update_value",
+        "heading": "update_value",
+        "headingId": "update_value",
+        "kind": "heading"
+      },
+      {
+        "text": "终点之后没有下一步回报；步数耗尽仍不算真正终止。",
+        "anchorId": "search-523039778d49",
+        "heading": "update_value",
+        "headingId": "update_value",
         "kind": "content"
       },
       {
-        "text": "评估关闭 ε 随机探索，按最大 Q 值选择动作。6 步到终点，其中前 5 步各 −1，最后一步 +10，未折扣总奖励为 5。最短路径可能不止一条。",
-        "anchorId": "search-8e172e0e0d08",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "target=reward if terminated else reward+gamma max(next_values)；current+alpha (target-current)。",
+        "anchorId": "search-78fc3c6eb062",
+        "heading": "update_value",
+        "headingId": "update_value",
         "kind": "content"
       },
       {
-        "text": "分别运行 --episodes 10 、 --episodes 100 、 --episodes 2000 ，比较是否到达终点和路径长度。换几个随机种子重复运行，看看训练多少轮后能稳定送达。",
-        "anchorId": "search-64076fda2bfa",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "exploration_rate",
+        "anchorId": "exploration_rate",
+        "heading": "exploration_rate",
+        "headingId": "exploration_rate",
+        "kind": "heading"
+      },
+      {
+        "text": "episode 从0开始，开始全探索，后期保留少量随机动作。",
+        "anchorId": "search-fcf0eaabffdc",
+        "heading": "exploration_rate",
+        "headingId": "exploration_rate",
         "kind": "content"
       },
       {
-        "text": "保持 2000 轮，分别设置 --seed 0 、 --seed 1 、 --seed 2 。记录每次是否送达、走了多少步。",
-        "anchorId": "search-c8154f6838b4",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "max(.05,1-episode/(.8*episodes))。",
+        "anchorId": "search-335d1176f042",
+        "heading": "exploration_rate",
+        "headingId": "exploration_rate",
         "kind": "content"
       },
       {
-        "text": "将训练函数中的 epsilon 改为常数 0.05 或 0.5，比较训练成功比例与最终贪心路径。分别记录训练中的路线长度和关闭探索后的路线长度，观察随机试走怎样影响结果。",
-        "anchorId": "search-0a43d55209f0",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "进阶与记录",
+        "anchorId": "comparison",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "heading"
+      },
+      {
+        "text": "修改地图重新训练；比较固定探索率和衰减策略。运行三地图×三种子×两种策略对照，记录送达率与多走步数。BFS只作最短距离参照，不参与训练。",
+        "anchorId": "search-479d057c9642",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
         "kind": "content"
       },
       {
-        "text": "还可以移动几堵墙，重新训练，看看机器人会找到什么路线。",
-        "anchorId": "search-9e5386b64309",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/gridworld.py 。",
+        "anchorId": "search-bca92a29edad",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
         "kind": "content"
       },
       {
-        "text": "David Silver：动作价值学习与探索 。",
-        "anchorId": "search-7854fa28fab8",
-        "heading": "结果与对照",
-        "headingId": "evaluation",
+        "text": "直接画地图",
+        "anchorId": "直接画地图",
+        "heading": "直接画地图",
+        "headingId": "直接画地图",
+        "kind": "heading"
+      },
+      {
+        "text": "在地图上方选择墙壁、擦除、起点或终点工具，再点击方格。蓝色机器人表示起点，棋旗表示终点；不必输入字符地图。修改后重新训练，旧策略会标记为待更新。",
+        "anchorId": "search-d6d1f6be30b8",
+        "heading": "直接画地图",
+        "headingId": "直接画地图",
+        "kind": "content"
+      },
+      {
+        "text": "路线使用图形小车与方格墙壁显示，支持播放、暂停、重置、下一步和拖动进度。不可达地图会明确提示；策略热图与动作 Q 值用于解释小车为什么这样走。",
+        "anchorId": "search-28e767678f74",
+        "heading": "直接画地图",
+        "headingId": "直接画地图",
         "kind": "content"
       }
     ],
-    "content": "Q-learning 格子导航 送个样品，别再绕远路了 坤坤从样品架走到检测台，得绕过中间的实验桌。写寻路程序时，他就拿这段路当地图：架子是起点，检测台是终点，桌子占掉的格子不能走。小车在屏幕里试着送样，每走一步扣一分，送到加十分。坤坤把训练轮数从 10 改到 100，再改到 2000，看看它什么时候能少绕几个弯。 强化学习与 Q-learning 强化学习通过动作得到的奖励学习决策。Q-learning 学习动作价值 Q：在一个状态执行某个动作后，未来能得到多少折扣奖励的估计。 所需知识： Python 函数与循环 、 决策过程与回报 、 贝尔曼方程 、 Q-learning 与探索 。 运行 下载 gridworld.py ，使用 Python 3 运行，无需安装第三方库。 python gridworld.py --episodes 2000 --seed 42 地图中的 S 是起点， G 是终点， # 是墙。坐标从 0 开始，格式为 (行, 列) 。 S... .##. .... .#.G 环境定义 要素 脚本中的设置 状态 当前格子的坐标 动作 上、右、下、左 转移 确定移动；撞墙或越界时留在原地 奖励 进入终点 +10，其余动作 −1 终止 到达终点 截断 一轮执行 80 步仍未到达终点，就重置起点 一步代价让绕路和撞墙都损失奖励。地图固定且完全可观测，坐标足以描述状态。 价值更新与探索 每个可通行格子保存 4 个 Q 值，初始为 0。交互产生当前状态、动作、奖励和下一状态后，执行： target = reward if terminated else reward + gamma * max (q[next_state]) q[state][action] += alpha * (target - q[state][action]) 学习率 alpha=0.2 控制每次更新幅度，折扣因子 gamma=0.95 控制未来奖励的权重。到达终点后，目标只有当前奖励。80 步上限是人为截断，脚本仍保留下一状态的价值项。 训练采用 ε-greedy：ε 的概率随机选择动作，其余情况选择 Q 值最大的动作。ε 从 1 逐渐降到 0.05，训练后期仍有少量探索。相同 Q 值之间随机打破平局，避免始终偏好动作列表中的第一项。随机种子固定后，可以复现同一运行环境中的结果。 结果与对照 广度优先搜索（Breadth-First Search，BFS）按离起点的步数逐层搜索，在这张每步代价相同的网格中可求最短步数。用它算出的最短步数，对照机器人学到的路线。 默认设置的一次运行得到： Greedy success: True Steps: 6; shortest possible: 6 Undiscounted evaluation reward: 5 评估关闭 ε 随机探索，按最大 Q 值选择动作。6 步到终点，其中前 5 步各 −1，最后一步 +10，未折扣总奖励为 5。最短路径可能不止一条。 训练轮数 分别运行 --episodes 10 、 --episodes 100 、 --episodes 2000 ，比较是否到达终点和路径长度。换几个随机种子重复运行，看看训练多少轮后能稳定送达。 随机种子 保持 2000 轮，分别设置 --seed 0 、 --seed 1 、 --seed 2 。记录每次是否送达、走了多少步。 探索 将训练函数中的 epsilon 改为常数 0.05 或 0.5，比较训练成功比例与最终贪心路径。分别记录训练中的路线长度和关闭探索后的路线长度，观察随机试走怎样影响结果。 还可以移动几堵墙，重新训练，看看机器人会找到什么路线。 参考资料 David Silver：动作价值学习与探索 。",
+    "content": "Q-learning 格子导航 送个样品，别再绕远路了 坤坤从样品架走到检测台，得绕过中间的实验桌。写寻路程序时，他就拿这段路当地图：架子是起点，检测台是终点，桌子占掉的格子不能走。小车在屏幕里试着送样，每走一步扣一分，送到加十分。坤坤把训练轮数从 10 改到 100，再改到 2000，看看它什么时候能少绕几个弯。 强化学习与 Q-learning 强化学习通过动作得到的奖励学习决策。Q-learning 学习动作价值 Q：在一个状态执行某个动作后，未来能得到多少折扣奖励的估计。 所需知识： Python 函数与循环 、 决策过程与回报 、 贝尔曼方程 、 Q-learning 与探索 。 下载与运行 下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“格子导航”。 本实验的练习文件： projects/gridworld/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。 看图与实验 从10回合开始，再增加到100、2000。选择训练阶段，对比探索轨迹与贪心评价；拖动动画步骤条可以逐步前进。箭头并列表示多个动作的价值相同。 地图用蓝色机器人表示起点、棋旗表示终点，砖墙格子不能通行。撞墙或越界会留在原地；进入终点得到+10，其余动作得到−1。地图可直接编辑，改动后需要重新训练。 每格保存上、右、下、左四个动作价值。ε-greedy 以 ε 的概率随机探索，其他时候选择最大Q值；多个动作并列时随机选择。 target = reward if terminated else reward + gamma * max (next_values) new_value = current + alpha * (target - current) 到达终点是真正终止；回合步数耗尽只是截断，仍保留下一状态价值。广度优先搜索（Breadth-First Search，BFS）只计算最短距离作参照，不参与训练。 动画可切换训练阶段和路线类型，比较训练中的探索轨迹与关闭探索后的贪心路线。策略箭头并列表示Q值并列；热图色阶在各阶段保持一致。 填写函数 choose_action 先判断是否探索；利用时从所有最大Q值中随机选一个。 接口提示 rng.random()&#x3C;epsilon；rng.choice(np.flatnonzero(values==values.max()))。 update_value 终点之后没有下一步回报；步数耗尽仍不算真正终止。 接口提示 target=reward if terminated else reward+gamma max(next_values)；current+alpha (target-current)。 exploration_rate episode 从0开始，开始全探索，后期保留少量随机动作。 接口提示 max(.05,1-episode/(.8*episodes))。 进阶与记录 修改地图重新训练；比较固定探索率和衰减策略。运行三地图×三种子×两种策略对照，记录送达率与多走步数。BFS只作最短距离参照，不参与训练。 “实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/gridworld.py 。 直接画地图 在地图上方选择墙壁、擦除、起点或终点工具，再点击方格。蓝色机器人表示起点，棋旗表示终点；不必输入字符地图。修改后重新训练，旧策略会标记为待更新。 路线使用图形小车与方格墙壁显示，支持播放、暂停、重置、下一步和拖动进度。不可达地图会明确提示；策略热图与动作 Q 值用于解释小车为什么这样走。",
     "summary": "Q-learning 格子导航 送个样品，别再绕远路了 坤坤从样品架走到检测台，得绕过中间的实验桌。写寻路程序时，他就拿这段路当地图：架子是起点，检测台是终点，桌子占掉的格子不能走。小车在屏幕里试着送样，每走一步扣一分，送到加十分。坤坤把训练轮数从 10 改到 100，再改到 2000，看看它什么时候能少绕几个弯。 强化学习与 Q-learning 强化学习..."
   },
   {
@@ -155144,118 +155851,527 @@
     "title": "项目实践",
     "pageType": "page",
     "headings": [
-      "项目实践",
-      "运行环境 {#setup}"
+      "坤坤的食品实验室",
+      "选择你的第一项实验",
+      "运行环境：第一次使用也能跟上 {#setup}",
+      "先认识四个词",
+      "Windows 10 / 11",
+      "macOS",
+      "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+      "启动后应该看到什么",
+      "第一道练习怎么写",
+      "常见提示怎么处理",
+      "可选：数字识别的深度学习框架",
+      "怎样记录实验"
     ],
     "blocks": [
       {
-        "text": "项目 内容 所需知识",
-        "anchorId": "search-8bfc7c83eef7",
+        "text": "从给果盘照片降噪，到用八种颜色重建图片，再让机器人穿过自己画的地图。十个实验共用一个本地网页，每个实验都可以先看效果，再补全 Python 函数。",
+        "anchorId": "search-7a8826feac9d",
         "heading": null,
         "headingId": null,
         "kind": "content"
       },
       {
-        "text": "实验时间统计 读取逗号分隔值（Comma-Separated Values，CSV）文件、按任务和日期汇总、绘图 Python 、 数据表 、 绘图",
-        "anchorId": "search-49085b846dd5",
+        "text": "下载完整项目包 ml-lab.zip",
+        "anchorId": "search-1a6d9f58f51b",
         "heading": null,
         "headingId": null,
         "kind": "content"
       },
       {
-        "text": "葡萄酒分类 训练分类器，比较基线与分类结果 特征与标签 、 数据划分 、 逻辑回归 、 评价指标",
-        "anchorId": "search-12766d84bb2c",
-        "heading": null,
-        "headingId": null,
+        "text": "选择你的第一项实验",
+        "anchorId": "选择你的第一项实验",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "heading"
+      },
+      {
+        "text": "顺序 实验 这次能看到什么",
+        "anchorId": "search-290c3bcc6aba",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
         "kind": "content"
       },
       {
-        "text": "酒精含量预测 岭回归、交叉验证、残差分析 回归 、 正则化 、 交叉验证 、 数据泄漏",
-        "anchorId": "search-9fe9a6c842f9",
-        "heading": null,
-        "headingId": null,
+        "text": "01 图像处理工作台 亮度、噪声、滤波与边缘的变化",
+        "anchorId": "search-aa0936734866",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
         "kind": "content"
       },
       {
-        "text": "聚类与二维投影 按相似性分组并投影到二维 聚类 、 主成分分析",
-        "anchorId": "search-7dbfd458634b",
-        "heading": null,
-        "headingId": null,
+        "text": "02 分类边界擂台 三种模型分界线，清楚看见直线的局限",
+        "anchorId": "search-9ee73f1649a5",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
         "kind": "content"
       },
       {
-        "text": "数字识别 三种框架的网络训练 前馈网络 、 反向传播 、 框架接口",
-        "anchorId": "search-b17d7e38263c",
-        "heading": null,
-        "headingId": null,
+        "text": "03 葡萄酒分类 真实成分数据上的错分与概率",
+        "anchorId": "search-3db0a5d32458",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
         "kind": "content"
       },
       {
-        "text": "格子世界 动作价值学习与探索 马尔可夫决策过程 、 动作价值",
-        "anchorId": "search-9bef292b6ce4",
-        "heading": null,
-        "headingId": null,
+        "text": "04 酒精含量预测 预测偏高还是偏低，正则化改变了什么",
+        "anchorId": "search-7c462f5c58d2",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
         "kind": "content"
       },
       {
-        "text": "运行环境",
+        "text": "05 聚类与降维 中心如何移动，点如何重新归组",
+        "anchorId": "search-5e2365096ff9",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "06 图片颜色压缩 2、8、32 种颜色重建同一张图",
+        "anchorId": "search-85a608dfebee",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "07 数字识别 训练曲线、错题墙、噪声扰动",
+        "anchorId": "search-953e9fe00cd2",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "08 零食推荐器 口味滑块改变推荐名单，查看匹配原因",
+        "anchorId": "search-45842f78694a",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "09 异常批次侦探 调阈值后，误报与漏报怎样变化",
+        "anchorId": "search-c4891aecb59b",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "10 格子导航 点击格子画地图，播放小车送样路线",
+        "anchorId": "search-9f1136d86ebc",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "建议从图像处理与分类边界开始，再做聚类和图片压缩；后面的实验按兴趣选择。葡萄酒分类保留真实数据练习；分类边界擂台先用合成数据把模型差异放大，便于理解。",
+        "anchorId": "search-f8787e093a74",
+        "heading": "选择你的第一项实验",
+        "headingId": "选择你的第一项实验",
+        "kind": "content"
+      },
+      {
+        "text": "运行环境：第一次使用也能跟上",
         "anchorId": "setup",
-        "heading": "运行环境",
+        "heading": "运行环境：第一次使用也能跟上",
         "headingId": "setup",
         "kind": "heading"
       },
       {
-        "text": "Python 3.10 或更新版本，普通中央处理器（Central Processing Unit，CPU）即可。在项目文件夹创建虚拟环境：",
-        "anchorId": "search-5dc46c9436d8",
-        "heading": "运行环境",
+        "text": "你需要一台 Windows、macOS 或 Linux 电脑，以及可联网的安装过程。实验安装完成后在本机运行，浏览器只是显示界面；不需要网站账号，也不需要显卡。",
+        "anchorId": "search-2e4be425f3d3",
+        "heading": "运行环境：第一次使用也能跟上",
         "headingId": "setup",
         "kind": "content"
       },
       {
-        "text": "python -m venv .venv",
-        "anchorId": "search-6f80277616e7",
-        "heading": "运行环境",
-        "headingId": "setup",
+        "text": "先认识四个词",
+        "anchorId": "先认识四个词",
+        "heading": "先认识四个词",
+        "headingId": "先认识四个词",
+        "kind": "heading"
+      },
+      {
+        "text": "文件夹 ：用来放文件。解压后应得到 ml-lab 文件夹，里面能看到 app.py 、 requirements.txt 、 projects 。",
+        "anchorId": "search-2d552508b215",
+        "heading": "先认识四个词",
+        "headingId": "先认识四个词",
         "kind": "content"
       },
       {
-        "text": "Windows 激活命令为 .venv\\Scripts\\activate ，macOS、Linux 为 source .venv/bin/activate 。系统使用 python3 命令时，将上述命令中的 python 替换为 python3 。",
-        "anchorId": "search-392bf178cc3f",
-        "heading": "运行环境",
-        "headingId": "setup",
+        "text": "路径 ：一个文件或文件夹的地址，例如 C:\\Users\\你的用户名\\Downloads\\ml-lab 。路径含空格时，要用英文双引号包住。",
+        "anchorId": "search-acef0ba50e74",
+        "heading": "先认识四个词",
+        "headingId": "先认识四个词",
         "kind": "content"
       },
       {
-        "text": "安装依赖：",
-        "anchorId": "search-d0f005c438f2",
-        "heading": "运行环境",
-        "headingId": "setup",
+        "text": "终端 ：输入命令的窗口。键盘输入一行，按 Enter / 回车 执行，等提示符再次出现才输入下一行。这里的“终端”不是 Python 里出现 >>> 的窗口。",
+        "anchorId": "search-4f4fab520642",
+        "heading": "先认识四个词",
+        "headingId": "先认识四个词",
         "kind": "content"
       },
       {
-        "text": "python -m pip install \"numpy>=1.24,<3\" \"pandas>=2,<3\" \"scikit-learn>=1.4,<2\" \"matplotlib>=3.8,<4\"",
-        "anchorId": "search-9492645d2b69",
-        "heading": "运行环境",
-        "headingId": "setup",
+        "text": "当前文件夹 ：终端现在所在的位置。 cd 是“进入文件夹”； .. 表示上一层。后面的命令必须在含有 app.py 的文件夹里执行。",
+        "anchorId": "search-51955a175709",
+        "heading": "先认识四个词",
+        "headingId": "先认识四个词",
         "kind": "content"
       },
       {
-        "text": "也可以下载 requirements.txt ，运行 python -m pip install -r requirements.txt 。",
-        "anchorId": "search-bbcfe4db0b98",
-        "heading": "运行环境",
-        "headingId": "setup",
+        "text": "复制代码框里的命令即可，不要复制代码框上面的标题。虚拟环境 .venv 用来把这个实验需要的依赖放在一起，避免混入其他 Python 项目。",
+        "anchorId": "search-aa893abecb1a",
+        "heading": "先认识四个词",
+        "headingId": "先认识四个词",
         "kind": "content"
       },
       {
-        "text": "Python：虚拟环境与包",
-        "anchorId": "search-59c7e04cb8c0",
-        "heading": "运行环境",
-        "headingId": "setup",
+        "text": "Windows 10 / 11",
+        "anchorId": "windows-10--11",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "heading"
+      },
+      {
+        "text": "到 Python 官方下载页 安装 Python 3.11 或 3.12 。安装器中勾选 Add python.exe to PATH ，然后安装。安装后重新打开命令窗口。",
+        "anchorId": "search-db548fd4f7df",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "content"
+      },
+      {
+        "text": "在资源管理器中找到下载的 ZIP，右键 → 全部解压缩 。不要直接在 ZIP 预览窗口里运行。",
+        "anchorId": "search-a5bff8d439a4",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "content"
+      },
+      {
+        "text": "打开解压后的 ml-lab 文件夹，确认看得到 app.py 。按 Alt + D 选中文件夹地址栏，输入 cmd ，按 Enter 。会打开黑色命令提示符窗口，且已经位于这个文件夹。",
+        "anchorId": "search-5f7f619e2f06",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "content"
+      },
+      {
+        "text": "逐行运行下面的命令。若安装时询问访问网络，允许 Python 下载依赖。",
+        "anchorId": "search-291e291a63e7",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "content"
+      },
+      {
+        "text": "py -3.12 --version py -3.12 -m venv .venv .venv\\Scripts\\python.exe -m pip install -r requirements.txt .venv\\Scripts\\python.exe -m streamlit run app.py",
+        "anchorId": "search-01dea2b7e16d",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "content"
+      },
+      {
+        "text": "如果安装的是 3.11，把前两行中的 -3.12 改成 -3.11 。如果提示找不到 py ，关闭窗口重新打开；仍无效则重新运行 Python 安装器，检查 PATH 和 Python Launcher。这里直接调用虚拟环境里的 Python，无需激活脚本，也无需更改 PowerShell 执行策略。",
+        "anchorId": "search-5d914a022bd3",
+        "heading": "Windows 10 / 11",
+        "headingId": "windows-10--11",
+        "kind": "content"
+      },
+      {
+        "text": "macOS",
+        "anchorId": "macos",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "heading"
+      },
+      {
+        "text": "从 Python 官方下载页 安装 Python 3.11 或 3.12 的 macOS 安装包。双击 ZIP 解压。",
+        "anchorId": "search-803e4b376548",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "content"
+      },
+      {
+        "text": "按 Command + 空格 打开 Spotlight，输入“终端”或 Terminal ，按 回车 。",
+        "anchorId": "search-83f498faaee8",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "content"
+      },
+      {
+        "text": "在终端输入 cd （注意后面有一个空格），先不要按回车。将 Finder 中解压后的 ml-lab 文件夹 拖到终端窗口里，路径会自动填入，再按回车。",
+        "anchorId": "search-6062e60a7b28",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "content"
+      },
+      {
+        "text": "输入 ls ，应能看到 app.py 。然后逐行运行：",
+        "anchorId": "search-f43c3879360a",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "content"
+      },
+      {
+        "text": "python3.12 --version python3.12 -m venv .venv .venv/bin/python -m pip install -r requirements.txt .venv/bin/python -m streamlit run app.py",
+        "anchorId": "search-0dcf851bdb87",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "content"
+      },
+      {
+        "text": "如果安装的是 3.11，把前两行的 python3.12 改成 python3.11 。不要用系统自带的旧 Python 代替。如果下载依赖出现证书错误，打开“应用程序”中的 Python 3.12 （或 3.11）文件夹，双击 Install Certificates.command 后重试安装依赖。",
+        "anchorId": "search-cd7e4e84c445",
+        "heading": "macOS",
+        "headingId": "macos",
+        "kind": "content"
+      },
+      {
+        "text": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "anchorId": "linux以-ubuntu-2404--debian-系为例",
+        "heading": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "headingId": "linux以-ubuntu-2404--debian-系为例",
+        "kind": "heading"
+      },
+      {
+        "text": "在文件管理器中解压 ZIP。按 Ctrl + Alt + T 打开终端；如果快捷键无效，在应用菜单搜索“终端”。",
+        "anchorId": "search-3b8d17db35b1",
+        "heading": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "headingId": "linux以-ubuntu-2404--debian-系为例",
+        "kind": "content"
+      },
+      {
+        "text": "输入 cd ，将 ml-lab 文件夹拖入窗口后回车。也可以在文件管理器地址栏复制路径，再输入 cd \"你复制的完整路径\" 。输入 ls ，确认有 app.py 。",
+        "anchorId": "search-cd7ea8545ab4",
+        "heading": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "headingId": "linux以-ubuntu-2404--debian-系为例",
+        "kind": "content"
+      },
+      {
+        "text": "Ubuntu 24.04 可以使用下面的命令。 sudo 会询问你的电脑登录密码；输入时不显示字符，正常输入后回车即可。",
+        "anchorId": "search-b9edc8b50878",
+        "heading": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "headingId": "linux以-ubuntu-2404--debian-系为例",
+        "kind": "content"
+      },
+      {
+        "text": "sudo apt update sudo apt install python3 python3-venv python3-pip python3 --version python3 -m venv .venv .venv/bin/python -m pip install -r requirements.txt .venv/bin/python -m streamlit run app.py",
+        "anchorId": "search-dff8574f9113",
+        "heading": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "headingId": "linux以-ubuntu-2404--debian-系为例",
+        "kind": "content"
+      },
+      {
+        "text": "建议版本为 3.11 / 3.12。其他发行版的软件包命令不同：Fedora 使用 dnf ，Arch 使用 pacman ；请安装对应发行版的 Python 和 venv 支持，再从创建 .venv 这一步继续。没有管理员权限时，联系电脑管理员安装 Python，不要把 sudo 加到后面的 pip 命令上。",
+        "anchorId": "search-9db07a70ae70",
+        "heading": "Linux（以 Ubuntu 24.04 / Debian 系为例）",
+        "headingId": "linux以-ubuntu-2404--debian-系为例",
+        "kind": "content"
+      },
+      {
+        "text": "启动后应该看到什么",
+        "anchorId": "启动后应该看到什么",
+        "heading": "启动后应该看到什么",
+        "headingId": "启动后应该看到什么",
+        "kind": "heading"
+      },
+      {
+        "text": "终端显示类似 Local URL: http://localhost:8501 ，浏览器通常会自动打开食品实验室。如果没有自动打开，把终端给出的 Local URL 复制到浏览器地址栏。 localhost 表示你自己的电脑。",
+        "anchorId": "search-6906ad61a5cf",
+        "heading": "启动后应该看到什么",
+        "headingId": "启动后应该看到什么",
+        "kind": "content"
+      },
+      {
+        "text": "终端暂时不出现新的提示符，说明网页服务正在运行。 让这个窗口保持打开 。停止时回到终端按 Ctrl + C （macOS 也是 Control + C，而不是 Command + C）。之后网页断开连接是正常现象。",
+        "anchorId": "search-1e44599b4097",
+        "heading": "启动后应该看到什么",
+        "headingId": "启动后应该看到什么",
+        "kind": "content"
+      },
+      {
+        "text": "下次使用不需要重新安装：重新进入 ml-lab 文件夹，仅执行最后一条启动命令。若端口被占用，在启动命令末尾追加 --server.port 8502 ，再打开终端显示的新地址。",
+        "anchorId": "search-2d57d606c95e",
+        "heading": "启动后应该看到什么",
+        "headingId": "启动后应该看到什么",
+        "kind": "content"
+      },
+      {
+        "text": "第一道练习怎么写",
+        "anchorId": "第一道练习怎么写",
+        "heading": "第一道练习怎么写",
+        "headingId": "第一道练习怎么写",
+        "kind": "heading"
+      },
+      {
+        "text": "在网页左侧选一个实验，保持“演示”，点“运行实验”先观察效果。",
+        "anchorId": "search-c66d0d3c1039",
+        "heading": "第一道练习怎么写",
+        "headingId": "第一道练习怎么写",
+        "kind": "content"
+      },
+      {
+        "text": "用 VS Code 等代码编辑器打开整个 ml-lab 文件夹。选择实验说明中标出的 projects/实验名/exercises.py 。",
+        "anchorId": "search-7ffc2e6f2334",
+        "heading": "第一道练习怎么写",
+        "headingId": "第一道练习怎么写",
+        "kind": "content"
+      },
+      {
+        "text": "每个函数写清了输入、输出。替换函数中的 raise NotImplementedError(...) ，保留函数名、参数名和缩进；不要把答案写进 page.py 。",
+        "anchorId": "search-eca3c33623d2",
+        "heading": "第一道练习怎么写",
+        "headingId": "第一道练习怎么写",
+        "kind": "content"
+      },
+      {
+        "text": "按 Ctrl + S 保存（macOS： Command + S ）。回到网页切换到“练习”，点“检查练习”，再点“运行实验”。",
+        "anchorId": "search-aa64690f3a81",
+        "heading": "第一道练习怎么写",
+        "headingId": "第一道练习怎么写",
+        "kind": "content"
+      },
+      {
+        "text": "修改代码、参数或数据后，旧结果会标记为待更新。重新点击运行按钮，才会执行你的新实现。完整参考实现位于 solutions 文件夹。",
+        "anchorId": "search-9b794da74937",
+        "heading": "第一道练习怎么写",
+        "headingId": "第一道练习怎么写",
+        "kind": "content"
+      },
+      {
+        "text": "常见提示怎么处理",
+        "anchorId": "常见提示怎么处理",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "heading"
+      },
+      {
+        "text": "提示 含义与处理",
+        "anchorId": "search-d75b9aa6f372",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "找不到 app.py 或 requirements.txt 当前文件夹不对。Windows 输入 dir ，macOS/Linux 输入 ls ，确认列出了这两个文件。不要进入里面第二层 projects 。",
+        "anchorId": "search-6f70070ff244",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": ">>> 打开了 Python 交互窗口。输入 exit() 回车退出，再输入安装命令。",
+        "anchorId": "search-7740be0acabe",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "No module named streamlit 依赖没有装进当前 Python。使用上面 .venv 开头的完整命令重新安装和启动。",
+        "anchorId": "search-b20573d3b15b",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "下载超时 检查网络，重新运行安装依赖那一行。已装好的包通常不必重新下载。",
+        "anchorId": "search-b499a9431677",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "NotImplementedError / 待完成 练习函数还没有写完。先切回演示看效果，再逐题填写。",
+        "anchorId": "search-29d219b01729",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "SyntaxError / IndentationError 查看报错对应文件和行号，检查冒号、括号以及同一层代码的缩进。",
+        "anchorId": "search-5516a7b9178b",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "PyTorch / TensorFlow 未安装 其他实验仍可使用；数字识别先选 scikit-learn，想做深度学习再安装下方可选依赖。",
+        "anchorId": "search-591ee661832a",
+        "heading": "常见提示怎么处理",
+        "headingId": "常见提示怎么处理",
+        "kind": "content"
+      },
+      {
+        "text": "可选：数字识别的深度学习框架",
+        "anchorId": "可选数字识别的深度学习框架",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "heading"
+      },
+      {
+        "text": "先按上述步骤装好基础环境。停止网页后，在同一文件夹运行你想使用的框架安装命令，不需要同时安装两个。",
+        "anchorId": "search-101f1f0df8d4",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "content"
+      },
+      {
+        "text": "Windows：",
+        "anchorId": "search-5d8571d93f80",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "content"
+      },
+      {
+        "text": ".venv\\Scripts\\python.exe -m pip install -r requirements-torch.txt",
+        "anchorId": "search-aee7faf8e834",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "content"
+      },
+      {
+        "text": "macOS / Linux：",
+        "anchorId": "search-84469f0bb1d9",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "content"
+      },
+      {
+        "text": ".venv/bin/python -m pip install -r requirements-torch.txt",
+        "anchorId": "search-5f0fa8d3b751",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "content"
+      },
+      {
+        "text": "TensorFlow 对照示例把上面的文件名改为 requirements-tensorflow.txt 。安装后重新启动网页，默认使用 CPU。",
+        "anchorId": "search-60d83c77dd67",
+        "heading": "可选：数字识别的深度学习框架",
+        "headingId": "可选数字识别的深度学习框架",
+        "kind": "content"
+      },
+      {
+        "text": "怎样记录实验",
+        "anchorId": "怎样记录实验",
+        "heading": "怎样记录实验",
+        "headingId": "怎样记录实验",
+        "kind": "heading"
+      },
+      {
+        "text": "先看演示，再切换到练习。每次运行保存参数、代码签名、随机种子、指标与结果表；可以比较当前会话中的实验，并下载 CSV / JSON。图表上的选择与回放不重新训练。修改代码、数据或训练参数后，旧结果会提示待更新。",
+        "anchorId": "search-79ef5479c63e",
+        "heading": "怎样记录实验",
+        "headingId": "怎样记录实验",
+        "kind": "content"
+      },
+      {
+        "text": "安装说明参考 Python Windows 文档 与 Python macOS 文档 。",
+        "anchorId": "search-da9a8af264c1",
+        "heading": "怎样记录实验",
+        "headingId": "怎样记录实验",
         "kind": "content"
       }
     ],
-    "content": "项目实践 项目 内容 所需知识 实验时间统计 读取逗号分隔值（Comma-Separated Values，CSV）文件、按任务和日期汇总、绘图 Python 、 数据表 、 绘图 葡萄酒分类 训练分类器，比较基线与分类结果 特征与标签 、 数据划分 、 逻辑回归 、 评价指标 酒精含量预测 岭回归、交叉验证、残差分析 回归 、 正则化 、 交叉验证 、 数据泄漏 聚类与二维投影 按相似性分组并投影到二维 聚类 、 主成分分析 数字识别 三种框架的网络训练 前馈网络 、 反向传播 、 框架接口 格子世界 动作价值学习与探索 马尔可夫决策过程 、 动作价值 运行环境 Python 3.10 或更新版本，普通中央处理器（Central Processing Unit，CPU）即可。在项目文件夹创建虚拟环境： python -m venv .venv Windows 激活命令为 .venv\\Scripts\\activate ，macOS、Linux 为 source .venv/bin/activate 。系统使用 python3 命令时，将上述命令中的 python 替换为 python3 。 安装依赖： python -m pip install \"numpy>=1.24,&#x3C;3\" \"pandas>=2,&#x3C;3\" \"scikit-learn>=1.4,&#x3C;2\" \"matplotlib>=3.8,&#x3C;4\" 也可以下载 requirements.txt ，运行 python -m pip install -r requirements.txt 。 参考资料 Python：虚拟环境与包",
-    "summary": "项目实践 项目 内容 所需知识 实验时间统计 读取逗号分隔值（Comma-Separated Values，CSV）文件、按任务和日期汇总、绘图 Python 、 数据表 、 绘图 葡萄酒分类 训练分类器，比较基线与分类结果 特征与标签 、 数据划分 、 逻辑回归 、 评价指标 酒精含量预测 岭回归、交叉验证、残差分析 回归 、 正则化 、 交叉验证 、 数..."
+    "content": "坤坤的食品实验室 从给果盘照片降噪，到用八种颜色重建图片，再让机器人穿过自己画的地图。十个实验共用一个本地网页，每个实验都可以先看效果，再补全 Python 函数。 下载完整项目包 ml-lab.zip 选择你的第一项实验 顺序 实验 这次能看到什么 01 图像处理工作台 亮度、噪声、滤波与边缘的变化 02 分类边界擂台 三种模型分界线，清楚看见直线的局限 03 葡萄酒分类 真实成分数据上的错分与概率 04 酒精含量预测 预测偏高还是偏低，正则化改变了什么 05 聚类与降维 中心如何移动，点如何重新归组 06 图片颜色压缩 2、8、32 种颜色重建同一张图 07 数字识别 训练曲线、错题墙、噪声扰动 08 零食推荐器 口味滑块改变推荐名单，查看匹配原因 09 异常批次侦探 调阈值后，误报与漏报怎样变化 10 格子导航 点击格子画地图，播放小车送样路线 建议从图像处理与分类边界开始，再做聚类和图片压缩；后面的实验按兴趣选择。葡萄酒分类保留真实数据练习；分类边界擂台先用合成数据把模型差异放大，便于理解。 运行环境：第一次使用也能跟上 你需要一台 Windows、macOS 或 Linux 电脑，以及可联网的安装过程。实验安装完成后在本机运行，浏览器只是显示界面；不需要网站账号，也不需要显卡。 先认识四个词 文件夹 ：用来放文件。解压后应得到 ml-lab 文件夹，里面能看到 app.py 、 requirements.txt 、 projects 。 路径 ：一个文件或文件夹的地址，例如 C:\\Users\\你的用户名\\Downloads\\ml-lab 。路径含空格时，要用英文双引号包住。 终端 ：输入命令的窗口。键盘输入一行，按 Enter / 回车 执行，等提示符再次出现才输入下一行。这里的“终端”不是 Python 里出现 >>> 的窗口。 当前文件夹 ：终端现在所在的位置。 cd 是“进入文件夹”； .. 表示上一层。后面的命令必须在含有 app.py 的文件夹里执行。 复制代码框里的命令即可，不要复制代码框上面的标题。虚拟环境 .venv 用来把这个实验需要的依赖放在一起，避免混入其他 Python 项目。 Windows 10 / 11 到 Python 官方下载页 安装 Python 3.11 或 3.12 。安装器中勾选 Add python.exe to PATH ，然后安装。安装后重新打开命令窗口。 在资源管理器中找到下载的 ZIP，右键 → 全部解压缩 。不要直接在 ZIP 预览窗口里运行。 打开解压后的 ml-lab 文件夹，确认看得到 app.py 。按 Alt + D 选中文件夹地址栏，输入 cmd ，按 Enter 。会打开黑色命令提示符窗口，且已经位于这个文件夹。 逐行运行下面的命令。若安装时询问访问网络，允许 Python 下载依赖。 py -3.12 --version py -3.12 -m venv .venv .venv\\Scripts\\python.exe -m pip install -r requirements.txt .venv\\Scripts\\python.exe -m streamlit run app.py 如果安装的是 3.11，把前两行中的 -3.12 改成 -3.11 。如果提示找不到 py ，关闭窗口重新打开；仍无效则重新运行 Python 安装器，检查 PATH 和 Python Launcher。这里直接调用虚拟环境里的 Python，无需激活脚本，也无需更改 PowerShell 执行策略。 macOS 从 Python 官方下载页 安装 Python 3.11 或 3.12 的 macOS 安装包。双击 ZIP 解压。 按 Command + 空格 打开 Spotlight，输入“终端”或 Terminal ，按 回车 。 在终端输入 cd （注意后面有一个空格），先不要按回车。将 Finder 中解压后的 ml-lab 文件夹 拖到终端窗口里，路径会自动填入，再按回车。 输入 ls ，应能看到 app.py 。然后逐行运行： python3.12 --version python3.12 -m venv .venv .venv/bin/python -m pip install -r requirements.txt .venv/bin/python -m streamlit run app.py 如果安装的是 3.11，把前两行的 python3.12 改成 python3.11 。不要用系统自带的旧 Python 代替。如果下载依赖出现证书错误，打开“应用程序”中的 Python 3.12 （或 3.11）文件夹，双击 Install Certificates.command 后重试安装依赖。 Linux（以 Ubuntu 24.04 / Debian 系为例） 在文件管理器中解压 ZIP。按 Ctrl + Alt + T 打开终端；如果快捷键无效，在应用菜单搜索“终端”。 输入 cd ，将 ml-lab 文件夹拖入窗口后回车。也可以在文件管理器地址栏复制路径，再输入 cd \"你复制的完整路径\" 。输入 ls ，确认有 app.py 。 Ubuntu 24.04 可以使用下面的命令。 sudo 会询问你的电脑登录密码；输入时不显示字符，正常输入后回车即可。 sudo apt update sudo apt install python3 python3-venv python3-pip python3 --version python3 -m venv .venv .venv/bin/python -m pip install -r requirements.txt .venv/bin/python -m streamlit run app.py 建议版本为 3.11 / 3.12。其他发行版的软件包命令不同：Fedora 使用 dnf ，Arch 使用 pacman ；请安装对应发行版的 Python 和 venv 支持，再从创建 .venv 这一步继续。没有管理员权限时，联系电脑管理员安装 Python，不要把 sudo 加到后面的 pip 命令上。 启动后应该看到什么 终端显示类似 Local URL: http://localhost:8501 ，浏览器通常会自动打开食品实验室。如果没有自动打开，把终端给出的 Local URL 复制到浏览器地址栏。 localhost 表示你自己的电脑。 终端暂时不出现新的提示符，说明网页服务正在运行。 让这个窗口保持打开 。停止时回到终端按 Ctrl + C （macOS 也是 Control + C，而不是 Command + C）。之后网页断开连接是正常现象。 下次使用不需要重新安装：重新进入 ml-lab 文件夹，仅执行最后一条启动命令。若端口被占用，在启动命令末尾追加 --server.port 8502 ，再打开终端显示的新地址。 第一道练习怎么写 在网页左侧选一个实验，保持“演示”，点“运行实验”先观察效果。 用 VS Code 等代码编辑器打开整个 ml-lab 文件夹。选择实验说明中标出的 projects/实验名/exercises.py 。 每个函数写清了输入、输出。替换函数中的 raise NotImplementedError(...) ，保留函数名、参数名和缩进；不要把答案写进 page.py 。 按 Ctrl + S 保存（macOS： Command + S ）。回到网页切换到“练习”，点“检查练习”，再点“运行实验”。 修改代码、参数或数据后，旧结果会标记为待更新。重新点击运行按钮，才会执行你的新实现。完整参考实现位于 solutions 文件夹。 常见提示怎么处理 提示 含义与处理 找不到 app.py 或 requirements.txt 当前文件夹不对。Windows 输入 dir ，macOS/Linux 输入 ls ，确认列出了这两个文件。不要进入里面第二层 projects 。 >>> 打开了 Python 交互窗口。输入 exit() 回车退出，再输入安装命令。 No module named streamlit 依赖没有装进当前 Python。使用上面 .venv 开头的完整命令重新安装和启动。 下载超时 检查网络，重新运行安装依赖那一行。已装好的包通常不必重新下载。 NotImplementedError / 待完成 练习函数还没有写完。先切回演示看效果，再逐题填写。 SyntaxError / IndentationError 查看报错对应文件和行号，检查冒号、括号以及同一层代码的缩进。 PyTorch / TensorFlow 未安装 其他实验仍可使用；数字识别先选 scikit-learn，想做深度学习再安装下方可选依赖。 可选：数字识别的深度学习框架 先按上述步骤装好基础环境。停止网页后，在同一文件夹运行你想使用的框架安装命令，不需要同时安装两个。 Windows： .venv\\Scripts\\python.exe -m pip install -r requirements-torch.txt macOS / Linux： .venv/bin/python -m pip install -r requirements-torch.txt TensorFlow 对照示例把上面的文件名改为 requirements-tensorflow.txt 。安装后重新启动网页，默认使用 CPU。 怎样记录实验 先看演示，再切换到练习。每次运行保存参数、代码签名、随机种子、指标与结果表；可以比较当前会话中的实验，并下载 CSV / JSON。图表上的选择与回放不重新训练。修改代码、数据或训练参数后，旧结果会提示待更新。 安装说明参考 Python Windows 文档 与 Python macOS 文档 。",
+    "summary": "坤坤的食品实验室 从给果盘照片降噪，到用八种颜色重建图片，再让机器人穿过自己画的地图。十个实验共用一个本地网页，每个实验都可以先看效果，再补全 Python 函数。 下载完整项目包 ml-lab.zip 选择你的第一项实验 顺序 实验 这次能看到什么 01 图像处理工作台 亮度、噪声、滤波与边缘的变化 02 分类边界擂台 三种模型分界线，清楚看见直线的局限..."
   },
   {
     "slug": "courses/machine-learning/projects/iris",
@@ -155264,9 +156380,15 @@
     "headings": [
       "葡萄酒分类",
       "这瓶酒该分到哪一类 {#scenario}",
-      "运行与数据划分",
-      "缩放与分类",
-      "分类结果"
+      "先把模型差异看清楚",
+      "下载与运行 {#run}",
+      "看图与实验 {#results}",
+      "填写函数 {#exercises}",
+      "`split_data`",
+      "`build_model`",
+      "`evaluate`",
+      "`compare_depths（进阶）`",
+      "进阶与记录 {#comparison}"
     ],
     "blocks": [
       {
@@ -155312,206 +156434,529 @@
         "kind": "content"
       },
       {
-        "text": "运行与数据划分",
-        "anchorId": "运行与数据划分",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
+        "text": "先把模型差异看清楚",
+        "anchorId": "先把模型差异看清楚",
+        "heading": "先把模型差异看清楚",
+        "headingId": "先把模型差异看清楚",
         "kind": "heading"
       },
       {
-        "text": "运行环境 · wine-classification.py",
-        "anchorId": "search-5381ad471805",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
+        "text": "建议先做 分类边界擂台 ：月牙、同心圆与交叉点让线性模型和非线性模型的差异一眼可见。回到本项目，再看真实 Wine 成分数据是否同样需要复杂边界。数据集比较容易分开，准确率接近时，更值得比较两个特征与全部特征、浅树与深树的错误位置。",
+        "anchorId": "search-96467057a559",
+        "heading": "先把模型差异看清楚",
+        "headingId": "先把模型差异看清楚",
         "kind": "content"
       },
       {
-        "text": "python wine-classification.py",
-        "anchorId": "search-0fa5c90fa6b0",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
-        "kind": "content"
-      },
-      {
-        "text": "X 的 13 列是检测指标， y 是类别。脚本使用 142 条训练记录、36 条测试记录； stratify=y 保持类别比例， random_state=42 固定划分结果。",
-        "anchorId": "search-583286bea0ba",
-        "heading": "运行与数据划分",
-        "headingId": "运行与数据划分",
-        "kind": "content"
-      },
-      {
-        "text": "缩放与分类",
-        "anchorId": "缩放与分类",
-        "heading": "缩放与分类",
-        "headingId": "缩放与分类",
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "heading"
       },
       {
-        "text": "model = Pipeline([ ( \"scale\" , StandardScaler()), ( \"logistic\" , LogisticRegression(max_iter= 1000 )), ]) model.fit(X_train, y_train)",
-        "anchorId": "search-aff6b0d00c73",
-        "heading": "缩放与分类",
-        "headingId": "缩放与分类",
+        "text": "下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“葡萄酒分类”。",
+        "anchorId": "search-4a9cdd641d6e",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "Pipeline 在训练集上拟合缩放参数与分类器。预测测试集时使用相同的缩放参数。",
-        "anchorId": "search-076fcbfe6800",
-        "heading": "缩放与分类",
-        "headingId": "缩放与分类",
+        "text": "本实验的练习文件： projects/wine_classification/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。",
+        "anchorId": "search-f9514e1b8c2e",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "基线 DummyClassifier 始终预测训练集中最多的类别。它与模型使用同一测试集计算准确率。想比较不同设置，可以在训练数据内加入 验证集或交叉验证 。",
-        "anchorId": "search-a947f7af37cc",
-        "heading": "缩放与分类",
-        "headingId": "缩放与分类",
-        "kind": "content"
-      },
-      {
-        "text": "分类结果",
-        "anchorId": "分类结果",
-        "heading": "分类结果",
-        "headingId": "分类结果",
+        "text": "看图与实验",
+        "anchorId": "results",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "heading"
       },
       {
-        "text": "脚本输出分类报告，并保存 wine-confusion-matrix.png 。混淆矩阵的行是真实类别，列是预测类别；对角线表示正确分类，其他格子显示哪些类别发生了混淆。",
-        "anchorId": "search-d639100a5059",
-        "heading": "分类结果",
-        "headingId": "分类结果",
+        "text": "先比较多数类基线与逻辑回归，再改两个坐标轴。背景边界只属于两特征模型；完整13特征模型的成绩在下面。选择错分点，查看成分和类别概率。",
+        "anchorId": "search-19660365108a",
+        "heading": "看图与实验",
+        "headingId": "results",
         "kind": "content"
       },
       {
-        "text": "报告中的 precision（精确率）、recall（召回率）和 F1 score（精确率与召回率的调和平均）按类别计算，support 是各类测试样本数。换几个 random_state ，看看这 36 条测试记录换一批后，准确率会变多少。",
-        "anchorId": "search-f1a02f4ae7c2",
-        "heading": "分类结果",
-        "headingId": "分类结果",
+        "text": "固定留出20%测试数据；剩余数据再按3:1分成训练和验证两部分。缩放器只在训练数据上拟合，与分类器放入同一个管道。",
+        "anchorId": "search-20f2375644ab",
+        "heading": "看图与实验",
+        "headingId": "results",
+        "kind": "content"
+      },
+      {
+        "text": "上方决策边界来自仅使用所选两个特征的模型。下方比较多数类基线、逻辑回归与决策树，另外列出两特征模型供对照。完整13特征模型的表现不能从二维背景直接推断。",
+        "anchorId": "search-ee3e7f15df9b",
+        "heading": "看图与实验",
+        "headingId": "results",
+        "kind": "content"
+      },
+      {
+        "text": "混淆矩阵的行是真实类别、列是预测类别。选择错分样本可查看成分、真实类别、预测类别和三类概率；某次验证没有错分时，页面会明确显示。",
+        "anchorId": "search-5b1124efe5a5",
+        "heading": "看图与实验",
+        "headingId": "results",
+        "kind": "content"
+      },
+      {
+        "text": "填写函数",
+        "anchorId": "exercises",
+        "heading": "填写函数",
+        "headingId": "exercises",
+        "kind": "heading"
+      },
+      {
+        "text": "split_data",
+        "anchorId": "split_data",
+        "heading": "split_data",
+        "headingId": "split_data",
+        "kind": "heading"
+      },
+      {
+        "text": "这里收到的是开发数据；在其中保留四分之一作为验证集。",
+        "anchorId": "search-8dabe956f98a",
+        "heading": "split_data",
+        "headingId": "split_data",
+        "kind": "content"
+      },
+      {
+        "text": "train_test_split(..., test_size=.25, stratify=y, random_state=seed)。",
+        "anchorId": "search-939deed3ad79",
+        "heading": "split_data",
+        "headingId": "split_data",
+        "kind": "content"
+      },
+      {
+        "text": "build_model",
+        "anchorId": "build_model",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "heading"
+      },
+      {
+        "text": "缩放器和分类器要一起 fit；预测时不能重新学习均值和标准差。",
+        "anchorId": "search-e24616206f66",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "content"
+      },
+      {
+        "text": "Pipeline 或 make_pipeline；StandardScaler 后接 LogisticRegression。",
+        "anchorId": "search-7cdb5439bb5e",
+        "heading": "build_model",
+        "headingId": "build_model",
+        "kind": "content"
+      },
+      {
+        "text": "evaluate",
+        "anchorId": "evaluate",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "heading"
+      },
+      {
+        "text": "准确率计算预测正确的比例；错分位置是数组位置，不是原表的样本编号。",
+        "anchorId": "search-a70f804abaee",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "np.flatnonzero；confusion_matrix(..., labels=[0,1,2]) 保持三类矩阵形状。",
+        "anchorId": "search-24b08697c615",
+        "heading": "evaluate",
+        "headingId": "evaluate",
+        "kind": "content"
+      },
+      {
+        "text": "compare_depths（进阶）",
+        "anchorId": "compare_depths进阶",
+        "heading": "compare_depths（进阶）",
+        "headingId": "compare_depths进阶",
+        "kind": "heading"
+      },
+      {
+        "text": "每个深度重新训练一棵树，分别记录训练和验证准确率。",
+        "anchorId": "search-78df686a8326",
+        "heading": "compare_depths（进阶）",
+        "headingId": "compare_depths进阶",
+        "kind": "content"
+      },
+      {
+        "text": "DecisionTreeClassifier(max_depth=depth, random_state=seed)。",
+        "anchorId": "search-da226999296d",
+        "heading": "compare_depths（进阶）",
+        "headingId": "compare_depths进阶",
+        "kind": "content"
+      },
+      {
+        "text": "进阶与记录",
+        "anchorId": "comparison",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "heading"
+      },
+      {
+        "text": "运行树深度对照，找出训练准确率增加而验证结果没有改善的区间。用验证结果选配置，再评价测试集；不要为追求测试分数反复选择。",
+        "anchorId": "search-171f38220bf1",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
+        "kind": "content"
+      },
+      {
+        "text": "“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/wine_classification.py 。",
+        "anchorId": "search-311c8426b9eb",
+        "heading": "进阶与记录",
+        "headingId": "comparison",
         "kind": "content"
       }
     ],
-    "content": "葡萄酒分类 这瓶酒该分到哪一类 坤坤拿到一张葡萄酒成分表，横着有 13 项指标，往下翻还有一百多行。酒精、苹果酸、总酚，单独看都认识，放在一起就不太好判断了。他留出一部分带类别标签的记录，让模型从中学规律，再把剩下的标签遮住，看看它能认对多少。认错的几条单独列出来，回头对着成分表慢慢看。 分类与混淆矩阵 分类学习输入特征与类别之间的对应关系。混淆矩阵将真实类别放在行、预测类别放在列，每个格子记录一种预测组合的数量。 数据由 scikit-learn 提供，共 178 条记录、3 个类别。 参考资料 数据说明 相关知识： 特征与标签 、 数据划分 、 基线 、 逻辑回归 、 特征缩放 、 分类指标 。 运行与数据划分 运行环境 · wine-classification.py python wine-classification.py X 的 13 列是检测指标， y 是类别。脚本使用 142 条训练记录、36 条测试记录； stratify=y 保持类别比例， random_state=42 固定划分结果。 缩放与分类 model = Pipeline([ ( \"scale\" , StandardScaler()), ( \"logistic\" , LogisticRegression(max_iter= 1000 )), ]) model.fit(X_train, y_train) Pipeline 在训练集上拟合缩放参数与分类器。预测测试集时使用相同的缩放参数。 基线 DummyClassifier 始终预测训练集中最多的类别。它与模型使用同一测试集计算准确率。想比较不同设置，可以在训练数据内加入 验证集或交叉验证 。 分类结果 脚本输出分类报告，并保存 wine-confusion-matrix.png 。混淆矩阵的行是真实类别，列是预测类别；对角线表示正确分类，其他格子显示哪些类别发生了混淆。 报告中的 precision（精确率）、recall（召回率）和 F1 score（精确率与召回率的调和平均）按类别计算，support 是各类测试样本数。换几个 random_state ，看看这 36 条测试记录换一批后，准确率会变多少。",
+    "content": "葡萄酒分类 这瓶酒该分到哪一类 坤坤拿到一张葡萄酒成分表，横着有 13 项指标，往下翻还有一百多行。酒精、苹果酸、总酚，单独看都认识，放在一起就不太好判断了。他留出一部分带类别标签的记录，让模型从中学规律，再把剩下的标签遮住，看看它能认对多少。认错的几条单独列出来，回头对着成分表慢慢看。 分类与混淆矩阵 分类学习输入特征与类别之间的对应关系。混淆矩阵将真实类别放在行、预测类别放在列，每个格子记录一种预测组合的数量。 数据由 scikit-learn 提供，共 178 条记录、3 个类别。 参考资料 数据说明 相关知识： 特征与标签 、 数据划分 、 基线 、 逻辑回归 、 特征缩放 、 分类指标 。 先把模型差异看清楚 建议先做 分类边界擂台 ：月牙、同心圆与交叉点让线性模型和非线性模型的差异一眼可见。回到本项目，再看真实 Wine 成分数据是否同样需要复杂边界。数据集比较容易分开，准确率接近时，更值得比较两个特征与全部特征、浅树与深树的错误位置。 下载与运行 下载 食品实验室完整项目包 ，按 运行环境 安装并启动。在左侧选择“葡萄酒分类”。 本实验的练习文件： projects/wine_classification/exercises.py 。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。 看图与实验 先比较多数类基线与逻辑回归，再改两个坐标轴。背景边界只属于两特征模型；完整13特征模型的成绩在下面。选择错分点，查看成分和类别概率。 固定留出20%测试数据；剩余数据再按3:1分成训练和验证两部分。缩放器只在训练数据上拟合，与分类器放入同一个管道。 上方决策边界来自仅使用所选两个特征的模型。下方比较多数类基线、逻辑回归与决策树，另外列出两特征模型供对照。完整13特征模型的表现不能从二维背景直接推断。 混淆矩阵的行是真实类别、列是预测类别。选择错分样本可查看成分、真实类别、预测类别和三类概率；某次验证没有错分时，页面会明确显示。 填写函数 split_data 这里收到的是开发数据；在其中保留四分之一作为验证集。 接口提示 train_test_split(..., test_size=.25, stratify=y, random_state=seed)。 build_model 缩放器和分类器要一起 fit；预测时不能重新学习均值和标准差。 接口提示 Pipeline 或 make_pipeline；StandardScaler 后接 LogisticRegression。 evaluate 准确率计算预测正确的比例；错分位置是数组位置，不是原表的样本编号。 接口提示 np.flatnonzero；confusion_matrix(..., labels=[0,1,2]) 保持三类矩阵形状。 compare_depths（进阶） 每个深度重新训练一棵树，分别记录训练和验证准确率。 接口提示 DecisionTreeClassifier(max_depth=depth, random_state=seed)。 进阶与记录 运行树深度对照，找出训练准确率增加而验证结果没有改善的区间。用验证结果选配置，再评价测试集；不要为追求测试分数反复选择。 “实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 solutions/wine_classification.py 。",
     "summary": "葡萄酒分类 这瓶酒该分到哪一类 坤坤拿到一张葡萄酒成分表，横着有 13 项指标，往下翻还有一百多行。酒精、苹果酸、总酚，单独看都认识，放在一起就不太好判断了。他留出一部分带类别标签的记录，让模型从中学规律，再把剩下的标签遮住，看看它能认对多少。认错的几条单独列出来，回头对着成分表慢慢看。 分类与混淆矩阵 分类学习输入特征与类别之间的对应关系。混淆矩阵将真实类..."
   },
   {
     "slug": "courses/machine-learning/projects/learning-log",
-    "title": "实验时间统计",
+    "title": "图像处理工作台",
     "pageType": "page",
     "headings": [
-      "实验时间统计",
-      "报告怎么又写到周日了 {#scenario}",
-      "数据与运行",
-      "分组统计",
-      "修改与分析"
+      "图像处理工作台",
+      "下载与运行 {#run}",
+      "看演示 → 写函数 → 做对照 → 挑战",
+      "函数接口",
+      "`grayscale`",
+      "`adjust`",
+      "`mean_filter`",
+      "`edge_strength`",
+      "完成标准"
     ],
     "blocks": [
       {
-        "text": "报告怎么又写到周日了",
-        "anchorId": "scenario",
-        "heading": "报告怎么又写到周日了",
-        "headingId": "scenario",
+        "text": "坤坤给果盘拍了一张照片。灯光偏暗、像素里有噪声，他想把图变清楚，却发现滤波窗口越大，水果边缘也越模糊。",
+        "anchorId": "search-519a085df79d",
+        "heading": null,
+        "headingId": null,
+        "kind": "content"
+      },
+      {
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "heading"
       },
       {
-        "text": "周日晚上，坤坤还在补食品化学的实验报告。做实验时没觉得花了多久，回来找记录、整理表格，半天就过去了。他决定下周随手记一下用时，预习、做实验、写报告各记一笔。攒满一周后，把这些记录放进表格，看看时间究竟耗在了哪儿。",
-        "anchorId": "search-7e4eedb39b51",
-        "heading": "报告怎么又写到周日了",
-        "headingId": "scenario",
+        "text": "下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“图像处理工作台”。",
+        "anchorId": "search-dfa95053b1ac",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "数据表用行保存记录、列保存字段。分组统计把同一任务或日期的记录放在一起，再求和或求平均。CSV（Comma-Separated Values，逗号分隔值）是保存这类表格的一种纯文本格式。",
-        "anchorId": "search-1a9752fc694b",
-        "heading": "报告怎么又写到周日了",
-        "headingId": "scenario",
+        "text": "练习文件： projects/image_lab/exercises.py 。演示查看参考实现；练习使用自己保存的函数。",
+        "anchorId": "search-d054df609cca",
+        "heading": "下载与运行",
+        "headingId": "run",
         "kind": "content"
       },
       {
-        "text": "相关知识： 函数与列表 、 pandas 、 绘图 。",
-        "anchorId": "search-a63bea8d1f45",
-        "heading": "报告怎么又写到周日了",
-        "headingId": "scenario",
-        "kind": "content"
-      },
-      {
-        "text": "数据与运行",
-        "anchorId": "数据与运行",
-        "heading": "数据与运行",
-        "headingId": "数据与运行",
+        "text": "看演示 → 写函数 → 做对照 → 挑战",
+        "anchorId": "看演示--写函数--做对照--挑战",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
         "kind": "heading"
       },
       {
-        "text": "运行环境 · learning-log.py · learning-log.csv",
-        "anchorId": "search-d178534f7eb2",
-        "heading": "数据与运行",
-        "headingId": "数据与运行",
+        "text": "观察亮度和对比度的作用；再比较原图、加噪图与滤波结果。",
+        "anchorId": "search-5cddbab49e3b",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
         "kind": "content"
       },
       {
-        "text": "脚本与 CSV 放在同一文件夹，运行：",
-        "anchorId": "search-cbac08c1bfcd",
-        "heading": "数据与运行",
-        "headingId": "数据与运行",
+        "text": "完成 grayscale、adjust、mean_filter、edge_strength 四个函数。",
+        "anchorId": "search-24672b677591",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
         "kind": "content"
       },
       {
-        "text": "python learning-log.py",
-        "anchorId": "search-9a0ae2cb8a13",
-        "heading": "数据与运行",
-        "headingId": "数据与运行",
+        "text": "固定噪声种子，比较窗口 1、3、9、15；记录 MSE 与边缘清晰度。",
+        "anchorId": "search-7f0b1e310de7",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
         "kind": "content"
       },
       {
-        "text": "示例文件里放了一周的实验用时记录。 date 是日期， subject 是任务（Prep 为实验预习、Experiment 为做实验、Report 为整理报告）， minutes 是分钟数。每行代表一段用时记录，同一天可以有多行。",
-        "anchorId": "search-c2a9a397485a",
-        "heading": "数据与运行",
-        "headingId": "数据与运行",
+        "text": "挑战：实现中值滤波，添加椒盐噪声，和均值滤波比较。",
+        "anchorId": "search-b9d78cb6b8bf",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
         "kind": "content"
       },
       {
-        "text": "脚本打印各任务和各日期的汇总，在同一文件夹保存 learning-log-summary.png 。",
-        "anchorId": "search-aea70e163a22",
-        "heading": "数据与运行",
-        "headingId": "数据与运行",
-        "kind": "content"
-      },
-      {
-        "text": "分组统计",
-        "anchorId": "分组统计",
-        "heading": "分组统计",
-        "headingId": "分组统计",
+        "text": "函数接口",
+        "anchorId": "函数接口",
+        "heading": "函数接口",
+        "headingId": "函数接口",
         "kind": "heading"
       },
       {
-        "text": "totals = records.groupby( \"subject\" )[ \"minutes\" ]. sum () daily = records.groupby( \"date\" )[ \"minutes\" ]. sum ()",
-        "anchorId": "search-dc2f4282ad80",
-        "heading": "分组统计",
-        "headingId": "分组统计",
-        "kind": "content"
-      },
-      {
-        "text": "第一行将同任务的时长相加，第二行按日期相加。脚本还检查日期、缺失值和负数。缺失时长表示未知，0 表示该项任务没有用时；日均值只覆盖有记录的日期。",
-        "anchorId": "search-f5a29ab3e6ec",
-        "heading": "分组统计",
-        "headingId": "分组统计",
-        "kind": "content"
-      },
-      {
-        "text": "修改与分析",
-        "anchorId": "修改与分析",
-        "heading": "修改与分析",
-        "headingId": "修改与分析",
+        "text": "grayscale",
+        "anchorId": "grayscale",
+        "heading": "grayscale",
+        "headingId": "grayscale",
         "kind": "heading"
       },
       {
-        "text": "把示例换成自己的记录，保留列名即可。再加一张按日期排列的折线图：哪天的实验排得最满？整理报告的时间是不是都挤到了周日？",
-        "anchorId": "search-9e878b95dc50",
-        "heading": "修改与分析",
-        "headingId": "修改与分析",
+        "text": "输入 H×W×3、0..1 RGB；返回 H×W 亮度。例：纯红像素约为 0.2126。",
+        "anchorId": "search-4bfd78c1c6ff",
+        "heading": "grayscale",
+        "headingId": "grayscale",
+        "kind": "content"
+      },
+      {
+        "text": "adjust",
+        "anchorId": "adjust",
+        "heading": "adjust",
+        "headingId": "adjust",
+        "kind": "heading"
+      },
+      {
+        "text": "以 0.5 为中心调整对比度，再加亮度；裁剪到 0..1，不改变形状。",
+        "anchorId": "search-e4bf5e7eb48b",
+        "heading": "adjust",
+        "headingId": "adjust",
+        "kind": "content"
+      },
+      {
+        "text": "mean_filter",
+        "anchorId": "mean_filter",
+        "heading": "mean_filter",
+        "headingId": "mean_filter",
+        "kind": "heading"
+      },
+      {
+        "text": "输入二维灰度图、奇数窗口；边缘复制填充，返回等尺寸窗口均值。",
+        "anchorId": "search-ed18aa8724be",
+        "heading": "mean_filter",
+        "headingId": "mean_filter",
+        "kind": "content"
+      },
+      {
+        "text": "edge_strength",
+        "anchorId": "edge_strength",
+        "heading": "edge_strength",
+        "headingId": "edge_strength",
+        "kind": "heading"
+      },
+      {
+        "text": "返回相邻像素差的梯度幅度，右/下边界差置零；输出 H×W。",
+        "anchorId": "search-09dc4ab77986",
+        "heading": "edge_strength",
+        "headingId": "edge_strength",
+        "kind": "content"
+      },
+      {
+        "text": "灰度是 RGB 的加权和；均值滤波用邻域替代中心值。先处理等尺寸和边界。",
+        "anchorId": "search-5f2f2eb72f98",
+        "heading": "edge_strength",
+        "headingId": "edge_strength",
+        "kind": "content"
+      },
+      {
+        "text": "numpy.pad 的 edge 模式保留边界；sliding_window_view 可以取得窗口；np.diff 计算相邻差。",
+        "anchorId": "search-1997203c710a",
+        "heading": "edge_strength",
+        "headingId": "edge_strength",
+        "kind": "content"
+      },
+      {
+        "text": "完整实现： solutions/image_lab.py 。练习模式只调用 projects/image_lab/exercises.py 。",
+        "anchorId": "search-91d61f5c7c39",
+        "heading": "edge_strength",
+        "headingId": "edge_strength",
+        "kind": "content"
+      },
+      {
+        "text": "完成标准",
+        "anchorId": "完成标准",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "heading"
+      },
+      {
+        "text": "通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+        "anchorId": "search-57776a76680e",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "content"
+      },
+      {
+        "text": "旧的时间统计实验已由本实验替换，本页原地址继续保留。旧版单文件脚本仍可 下载 。",
+        "anchorId": "search-a9dcadd0fc28",
+        "heading": "完成标准",
+        "headingId": "完成标准",
         "kind": "content"
       }
     ],
-    "content": "实验时间统计 报告怎么又写到周日了 周日晚上，坤坤还在补食品化学的实验报告。做实验时没觉得花了多久，回来找记录、整理表格，半天就过去了。他决定下周随手记一下用时，预习、做实验、写报告各记一笔。攒满一周后，把这些记录放进表格，看看时间究竟耗在了哪儿。 数据表与分组统计 数据表用行保存记录、列保存字段。分组统计把同一任务或日期的记录放在一起，再求和或求平均。CSV（Comma-Separated Values，逗号分隔值）是保存这类表格的一种纯文本格式。 相关知识： 函数与列表 、 pandas 、 绘图 。 数据与运行 运行环境 · learning-log.py · learning-log.csv 脚本与 CSV 放在同一文件夹，运行： python learning-log.py 示例文件里放了一周的实验用时记录。 date 是日期， subject 是任务（Prep 为实验预习、Experiment 为做实验、Report 为整理报告）， minutes 是分钟数。每行代表一段用时记录，同一天可以有多行。 脚本打印各任务和各日期的汇总，在同一文件夹保存 learning-log-summary.png 。 分组统计 totals = records.groupby( \"subject\" )[ \"minutes\" ]. sum () daily = records.groupby( \"date\" )[ \"minutes\" ]. sum () 第一行将同任务的时长相加，第二行按日期相加。脚本还检查日期、缺失值和负数。缺失时长表示未知，0 表示该项任务没有用时；日均值只覆盖有记录的日期。 修改与分析 把示例换成自己的记录，保留列名即可。再加一张按日期排列的折线图：哪天的实验排得最满？整理报告的时间是不是都挤到了周日？",
-    "summary": "实验时间统计 报告怎么又写到周日了 周日晚上，坤坤还在补食品化学的实验报告。做实验时没觉得花了多久，回来找记录、整理表格，半天就过去了。他决定下周随手记一下用时，预习、做实验、写报告各记一笔。攒满一周后，把这些记录放进表格，看看时间究竟耗在了哪儿。 数据表与分组统计 数据表用行保存记录、列保存字段。分组统计把同一任务或日期的记录放在一起，再求和或求平均。CS..."
+    "content": "图像处理工作台 坤坤给果盘拍了一张照片。灯光偏暗、像素里有噪声，他想把图变清楚，却发现滤波窗口越大，水果边缘也越模糊。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“图像处理工作台”。 练习文件： projects/image_lab/exercises.py 。演示查看参考实现；练习使用自己保存的函数。 看演示 → 写函数 → 做对照 → 挑战 观察亮度和对比度的作用；再比较原图、加噪图与滤波结果。 完成 grayscale、adjust、mean_filter、edge_strength 四个函数。 固定噪声种子，比较窗口 1、3、9、15；记录 MSE 与边缘清晰度。 挑战：实现中值滤波，添加椒盐噪声，和均值滤波比较。 函数接口 grayscale 输入 H×W×3、0..1 RGB；返回 H×W 亮度。例：纯红像素约为 0.2126。 adjust 以 0.5 为中心调整对比度，再加亮度；裁剪到 0..1，不改变形状。 mean_filter 输入二维灰度图、奇数窗口；边缘复制填充，返回等尺寸窗口均值。 edge_strength 返回相邻像素差的梯度幅度，右/下边界差置零；输出 H×W。 提示一：思路 灰度是 RGB 的加权和；均值滤波用邻域替代中心值。先处理等尺寸和边界。 提示二：接口 numpy.pad 的 edge 模式保留边界；sliding_window_view 可以取得窗口；np.diff 计算相邻差。 完整实现： solutions/image_lab.py 。练习模式只调用 projects/image_lab/exercises.py 。 完成标准 通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。 旧的时间统计实验已由本实验替换，本页原地址继续保留。旧版单文件脚本仍可 下载 。",
+    "summary": "图像处理工作台 坤坤给果盘拍了一张照片。灯光偏暗、像素里有噪声，他想把图变清楚，却发现滤波窗口越大，水果边缘也越模糊。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“图像处理工作台”。 练习文件： projects/image_lab/exercises.py 。演示查看参考实..."
+  },
+  {
+    "slug": "courses/machine-learning/projects/recommender",
+    "title": "零食推荐器",
+    "pageType": "page",
+    "headings": [
+      "零食推荐器",
+      "下载与运行 {#run}",
+      "看演示 → 写函数 → 做对照 → 挑战",
+      "函数接口",
+      "`similarity`",
+      "`rank_items`",
+      "完成标准"
+    ],
+    "blocks": [
+      {
+        "text": "坤坤要挑五种零食招待同学。有的人喜欢酥脆，有的人偏爱酸甜。先把口味写成向量，看看推荐名单如何随偏好变化。",
+        "anchorId": "search-00e73fbe42f0",
+        "heading": null,
+        "headingId": null,
+        "kind": "content"
+      },
+      {
+        "text": "下载与运行",
+        "anchorId": "run",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "heading"
+      },
+      {
+        "text": "下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“零食推荐器”。",
+        "anchorId": "search-98b86e0510dd",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "练习文件： projects/recommender/exercises.py 。演示查看参考实现；练习使用自己保存的函数。",
+        "anchorId": "search-3c0369342fe8",
+        "heading": "下载与运行",
+        "headingId": "run",
+        "kind": "content"
+      },
+      {
+        "text": "看演示 → 写函数 → 做对照 → 挑战",
+        "anchorId": "看演示--写函数--做对照--挑战",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "heading"
+      },
+      {
+        "text": "拖动四个偏好滑块，观察前五名与属性对照。",
+        "anchorId": "search-196e1353b51b",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "完成 similarity 与 rank_items；推荐不能包含已经尝过的项。",
+        "anchorId": "search-f3642ec2394c",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "比较单一偏好、混合偏好、全零偏好；排除当前第一名后重新运行。",
+        "anchorId": "search-528607780c43",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "挑战：用点赞食品的平均属性生成偏好向量，加入负反馈。",
+        "anchorId": "search-5df374a1079c",
+        "heading": "看演示 → 写函数 → 做对照 → 挑战",
+        "headingId": "看演示--写函数--做对照--挑战",
+        "kind": "content"
+      },
+      {
+        "text": "函数接口",
+        "anchorId": "函数接口",
+        "heading": "函数接口",
+        "headingId": "函数接口",
+        "kind": "heading"
+      },
+      {
+        "text": "similarity",
+        "anchorId": "similarity",
+        "heading": "similarity",
+        "headingId": "similarity",
+        "kind": "heading"
+      },
+      {
+        "text": "profile 为 D 维偏好向量；features 为 N×D。返回余弦相似度，零向量得 0。",
+        "anchorId": "search-60923549ad1f",
+        "heading": "similarity",
+        "headingId": "similarity",
+        "kind": "content"
+      },
+      {
+        "text": "rank_items",
+        "anchorId": "rank_items",
+        "heading": "rank_items",
+        "headingId": "rank_items",
+        "kind": "heading"
+      },
+      {
+        "text": "返回分数降序的原始行号，排除已选行；同分保持原顺序，最多 count 项。",
+        "anchorId": "search-92852c3688d3",
+        "heading": "rank_items",
+        "headingId": "rank_items",
+        "kind": "content"
+      },
+      {
+        "text": "余弦相似度比较向量方向；先算分数，再排除已选项并排序。零向量不能直接除以零。",
+        "anchorId": "search-bcf8bdfd84dd",
+        "heading": "rank_items",
+        "headingId": "rank_items",
+        "kind": "content"
+      },
+      {
+        "text": "np.linalg.norm、np.divide(where=...)；np.argsort(-scores,kind=\"stable\")。",
+        "anchorId": "search-d0971ec6e4db",
+        "heading": "rank_items",
+        "headingId": "rank_items",
+        "kind": "content"
+      },
+      {
+        "text": "完整实现： solutions/recommender.py 。练习模式只调用 projects/recommender/exercises.py 。",
+        "anchorId": "search-b6c1eef1433e",
+        "heading": "rank_items",
+        "headingId": "rank_items",
+        "kind": "content"
+      },
+      {
+        "text": "完成标准",
+        "anchorId": "完成标准",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "heading"
+      },
+      {
+        "text": "通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+        "anchorId": "search-3269bc2a982c",
+        "heading": "完成标准",
+        "headingId": "完成标准",
+        "kind": "content"
+      }
+    ],
+    "content": "零食推荐器 坤坤要挑五种零食招待同学。有的人喜欢酥脆，有的人偏爱酸甜。先把口味写成向量，看看推荐名单如何随偏好变化。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“零食推荐器”。 练习文件： projects/recommender/exercises.py 。演示查看参考实现；练习使用自己保存的函数。 看演示 → 写函数 → 做对照 → 挑战 拖动四个偏好滑块，观察前五名与属性对照。 完成 similarity 与 rank_items；推荐不能包含已经尝过的项。 比较单一偏好、混合偏好、全零偏好；排除当前第一名后重新运行。 挑战：用点赞食品的平均属性生成偏好向量，加入负反馈。 函数接口 similarity profile 为 D 维偏好向量；features 为 N×D。返回余弦相似度，零向量得 0。 rank_items 返回分数降序的原始行号，排除已选行；同分保持原顺序，最多 count 项。 提示一：思路 余弦相似度比较向量方向；先算分数，再排除已选项并排序。零向量不能直接除以零。 提示二：接口 np.linalg.norm、np.divide(where=...)；np.argsort(-scores,kind=\"stable\")。 完整实现： solutions/recommender.py 。练习模式只调用 projects/recommender/exercises.py 。 完成标准 通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。",
+    "summary": "零食推荐器 坤坤要挑五种零食招待同学。有的人喜欢酥脆，有的人偏爱酸甜。先把口味写成向量，看看推荐名单如何随偏好变化。 下载与运行 下载食品实验室完整项目包 。第一次使用，先按 环境配置教程 打开终端、安装 Python 和依赖。启动后在左侧选择“零食推荐器”。 练习文件： projects/recommender/exercises.py 。演示查看参考实现..."
   },
   {
     "slug": "courses/machine-learning/python-data",

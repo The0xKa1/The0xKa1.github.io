@@ -24,41 +24,60 @@ statistics: false
 
 相关知识：[线性回归](../linear-models.md#linear-regression)、[损失函数](../linear-models.md#loss)、[特征缩放](../linear-models.md#scaling)、[正则化](../evaluation.md#overfitting)、[交叉验证](../evaluation.md#validation)、[数据泄漏](../evaluation.md#leakage)。
 
-## 运行与数据划分
+## 下载与运行 {#run}
 
-[运行环境](./index.md#setup) · [wine-regression.py](/downloads/ml-guide/wine-regression.py)
+下载 [食品实验室完整项目包](/downloads/ml-guide/ml-lab.zip)，按[运行环境](./index.md#setup)安装并启动。在左侧选择“酒精含量预测”。
 
-```bash
-python wine-regression.py
-```
+本实验的练习文件：`projects/wine_regression/exercises.py`。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。
 
-`load_wine(as_frame=True)` 读取成分表。用 `y = dataset.data["alcohol"]` 取出目标，`X = dataset.data.drop(columns="alcohol")` 留下其余指标。脚本留出 20% 测试数据，其余用于训练与选参数。缩放放在数据管道（Pipeline，将预处理和模型串联的对象）内，每一折只用该折训练部分计算缩放参数。
+![酒精含量预测运行预览](/images/ml-guide/lab-wine_regression.png)
 
-## 参数选择
+## 看图与实验 {#results}
 
-Ridge 在线性回归的训练目标中加入 L2 正则化（权重平方和惩罚），`alpha` 控制约束强度。脚本比较五个候选值：
+先看实测—预测图：虚线是理想预测。残差为实测减预测，零线上方表示低估。选择偏差大的点，查看原始成分。再比较 alpha 曲线和标准化系数。
 
-```python
-folds = KFold(n_splits=5, shuffle=True, random_state=42)
-search = GridSearchCV(
-    model,
-    {"ridge__alpha": [0.01, 0.1, 1, 10, 100]},
-    scoring="neg_mean_absolute_error",
-    cv=folds,
-)
-search.fit(X_train, y_train)
-```
+`alcohol` 是预测目标，从输入中移除后留下12项成分。每折单独拟合标准化与模型，比较平均绝对误差（Mean Absolute Error，MAE），选择平均验证误差最小的 `alpha`。
 
-每次用四份训练、一份验证，轮换五次，选择平均验证 MAE（Mean Absolute Error，平均绝对误差）最小的参数。Ridge 拟合使用平方误差加正则项，MAE 用于这里的参数比较。
+实测—预测图的虚线表示理想预测。残差定义为实测减预测：正值表示低估，负值表示高估。开发数据上的图使用五折折外预测，每个点都由没有训练过该点的模型预测。
 
-接口按分数越大越好排序，所以使用负 MAE；打印时取负号还原误差。选定参数后，`GridSearchCV` 默认在全部训练数据上重新拟合，测试集用于最终评价。
+参数图使用对数横轴；误差越小越好。系数曲线对应标准化后的输入，观察正则化加强时系数怎样变化。选定配置后，再查看留出的测试集。
 
-!!! quote "参考资料"
+## 填写函数 {#exercises}
 
-    [GridSearchCV 接口](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)
+### `split_target`
 
-## 误差与残差
+目标列必须从输入中移除，保留相同索引。
 
-基线始终预测训练标签的均值。脚本在同一测试集上比较基线与 Ridge 的 MAE 和决定系数 R²。MAE 越小越好；R² 为 1 表示完全吻合，0 对应预测测试集目标均值的参照水平，也可能为负。
+??? tip "接口提示"
 
-`wine-residuals.png` 的横轴是预测值，纵轴是“真实值减预测值”。零线上方表示低估，下方表示高估。找找离零线最远的点：模型在哪些预测范围内偏差最大？
+    X=data.drop(columns="alcohol")；y=data["alcohol"]。
+
+### `errors`
+
+残差保留正负号，绝对误差去掉符号后求平均。
+
+??? tip "接口提示"
+
+    np.asarray(actual)-np.asarray(predicted)；np.abs(...).mean()。
+
+### `build_model`
+
+每折训练内部都要重新拟合标准化。
+
+??? tip "接口提示"
+
+    用 make_pipeline(StandardScaler(), Ridge(alpha=alpha)) 返回未拟合模型。
+
+### `select_alpha`
+
+只比较 valid_mae，不能按训练误差选择。
+
+??? tip "接口提示"
+
+    idxmin() 找到最小验证误差所在行，再取 alpha。
+
+## 进阶与记录 {#comparison}
+
+只选两三项成分，再恢复全部12项，比较五折验证误差和波动。说明岭回归与均值基线、普通线性回归的差异，最后用测试集评价选定配置。
+
+“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 `solutions/wine_regression.py`。

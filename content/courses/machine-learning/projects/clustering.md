@@ -18,41 +18,68 @@ statistics: false
 
 相关知识：[标准化](../linear-models.md#scaling)、[K-means 与聚类评价](../unsupervised.md#kmeans)、[PCA](../unsupervised.md#pca)。
 
-## 运行 {#run}
+## 下载与运行 {#run}
 
-[运行环境](./index.md#setup) · [clustering.py](/downloads/ml-guide/clustering.py)
+下载 [食品实验室完整项目包](/downloads/ml-guide/ml-lab.zip)，按[运行环境](./index.md#setup)安装并启动。在左侧选择“聚类与降维”。
 
-```bash
-python clustering.py
-```
+本实验的练习文件：`projects/clustering/exercises.py`。先运行演示，再填写函数；保存后点击“检查练习”，通过后切到练习模式运行。
 
-脚本使用 scikit-learn 自带的 178 条 Wine 记录，在当前目录保存 `clustering-pca.png` 和 `clustering-metrics.json`。
+![聚类与降维运行预览](/images/ml-guide/lab-clustering.png)
 
-## 分组与投影 {#pipeline}
+## 看图与实验 {#results}
 
-```python
-X = StandardScaler().fit_transform(data.data)
-groups = KMeans(n_clusters=3, n_init=20, random_state=42).fit_predict(X)
-projected = PCA(n_components=2).fit_transform(X)
-```
+从二维点集开始，拖动步骤条，看“分组—更新中心”如何交替。修改K与种子，比较轨迹和目标值。转到 Wine 后，先观察分组，再揭开标签。
 
-K-means 使用全部 13 个标准化特征。PCA 把 13 维测量值压成两个坐标来画图；投影重叠的点，在原来的 13 维空间中也可能相隔较远。图的左右两栏使用相同坐标，分别按聚类组别与真实类别着色；组号与类别各自编号，看两栏中哪些点被分在一起即可。
+先在二维点集完成“计算距离—分组—更新中心”的循环。点的颜色表示当前分组，叉号是中心，虚线记录中心走过的位置。拖动步骤条可单步查看，也可以播放、暂停、重置。
 
-设置 K=3，将葡萄酒分成三组，与三个类别对照。`n_init=20` 用不同初始中心重复拟合，保留目标值较好的结果。
+转到 Wine 后，默认在全部13个成分上聚类，用主成分分析（Principal Component Analysis，PCA）投影展示。切换“先降至二维再聚类”时，算法输入才变成两个主成分。
 
-## 读指标 {#results}
+揭开标签后，用同一组坐标对照真实类别。调整兰德指数（Adjusted Rand Index，ARI）比较样本对是否同组；交换簇编号不改变评价。
 
-| 输出 | 含义 |
-| --- | --- |
-| `cluster_sizes` | 各组包含多少条记录 |
-| `silhouette` | 组内是否紧凑、组间是否分离；不使用真实标签 |
-| `adjusted_rand_index` | 聚类与类别分组的一致程度，简称 ARI（Adjusted Rand Index，调整兰德指数）；使用真实标签 |
-| `pca_explained_variance_ratio` | 每个投影方向保留的方差比例 |
+## 填写函数 {#exercises}
 
-ARI 比较哪些样本对被分在一起，并校正随机分组的一致性。1 表示分组完全一致，随机分组的期望约为 0，也可能为负。交换整个组的编号不会改变 ARI。
+### `distances`
 
-K-means 偏好紧凑团状分布，成分接近的类别可能被混在一起。二维图、轮廓系数和 ARI 分别反映投影、几何结构和标签一致性，回答的问题不同。
+将每个样本与每个中心相减，平方后对特征维求和。
 
-!!! quote "参考资料"
+??? tip "接口提示"
 
-    [Wine 数据说明](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_wine.html) · [KMeans](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) · [PCA](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html) · [Adjusted Rand Index](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html)
+    X[:,None,:] 与 centers[None,:,:] 广播；结果为 N×K。
+
+### `assign_groups`
+
+每个样本选择距离最小的中心。
+
+??? tip "接口提示"
+
+    对距离矩阵使用 argmin(axis=1)。
+
+### `update_centers`
+
+新中心是该组样本均值；空组保留原中心。
+
+??? tip "接口提示"
+
+    先复制 old_centers，再按 groups==i 取行求 mean(axis=0)。
+
+### `converged`
+
+每个中心计算一次移动距离，最大的也不超过阈值才停止。
+
+??? tip "接口提示"
+
+    np.linalg.norm(new-old,axis=1)；不能只看某一个中心。
+
+### `best_restart（进阶）`
+
+多个初始位置会得到不同局部最优，比较最终目标值。
+
+??? tip "接口提示"
+
+    返回 inertias 中最小值的位置，不能直接返回最小值。
+
+## 进阶与记录 {#comparison}
+
+完成多次初始化并和 scikit-learn 比较。分别在13维和二维投影中聚类，查看轮廓系数、组内距离和标签对照；不同输入尺度下的目标值不要直接横向比较。
+
+“实验记录”保存当前会话中的参数、种子、指标和结果表，可下载 CSV 或 JSON。修改代码或训练参数后，旧结果会提示待更新；查看图中样本不会重新训练。完整参考实现放在 `solutions/clustering.py`。
