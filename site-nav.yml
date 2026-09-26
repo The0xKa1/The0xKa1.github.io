@@ -143,17 +143,6 @@ nav:
                   - 数字识别: courses/machine-learning/projects/digits.md
                   - 格子世界: courses/machine-learning/projects/gridworld.md
           
-          - Missing Semester (TMS):
-              - NOTE/CS/TMS/index.md
-              - 概览与shell: NOTE/CS/TMS/overview-and-shell.md
-              - shell工具与脚本: NOTE/CS/TMS/shell-tools-and-scripts.md
-              - 数据整理: NOTE/CS/TMS/data-wrangling.md
-              - 命令行环境: NOTE/CS/TMS/command-line-environment.md
-              - 调试与性能分析: NOTE/CS/TMS/debugging-and-profiling.md
-              - 元编程: NOTE/CS/TMS/metaprogramming.md
-              - 安全和密码学: NOTE/CS/TMS/security-and-cryptography.md
-              - 大杂烩: NOTE/CS/TMS/miscellaneous.md
-              
           - Git 版本控制:
               - NOTE/CS/GIT/index.md
               
