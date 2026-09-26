@@ -119,6 +119,29 @@ nav:
       # 自学笔记
       - 💻 自学笔记:
           - NOTE/CS/index.md 
+
+          - 机器学习:
+              - courses/machine-learning/index.md
+              - Python 与数据: courses/machine-learning/python-data.md
+              - 从数据到模型: courses/machine-learning/basics.md
+              - 线性模型: courses/machine-learning/linear-models.md
+              - 模型评价: courses/machine-learning/evaluation.md
+              - 距离、间隔与分类: courses/machine-learning/supervised-methods.md
+              - 树模型与集成: courses/machine-learning/trees-clustering.md
+              - 聚类、降维与异常检测: courses/machine-learning/unsupervised.md
+              - 概率与图模型: courses/machine-learning/probabilistic-models.md
+              - 神经网络与深度学习: courses/machine-learning/neural-networks.md
+              - 强化学习入门: courses/machine-learning/reinforcement-learning.md
+              - 进阶专题: courses/machine-learning/advanced-topics.md
+              - 实验与模型选择: courses/machine-learning/experiments.md
+              - 项目实践:
+                  - courses/machine-learning/projects/index.md
+                  - 实验时间统计: courses/machine-learning/projects/learning-log.md
+                  - 葡萄酒分类: courses/machine-learning/projects/iris.md
+                  - 酒精含量预测: courses/machine-learning/projects/diabetes.md
+                  - 聚类与二维投影: courses/machine-learning/projects/clustering.md
+                  - 数字识别: courses/machine-learning/projects/digits.md
+                  - 格子世界: courses/machine-learning/projects/gridworld.md
           
           - Missing Semester (TMS):
               - NOTE/CS/TMS/index.md
