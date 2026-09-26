@@ -1,0 +1,57 @@
+{
+  "image_lab": {
+    "noisy_mse": 0.01089030645083492,
+    "filtered_mse": 0.0037399885900841656
+  },
+  "classification_arena": {
+    "多数类基线": 0.5,
+    "逻辑回归": 0.45,
+    "决策树": 0.8333333333333334,
+    "RBF 核方法": 0.9333333333333333
+  },
+  "color_compression": {
+    "mse": 0.0005944521981291473,
+    "theoretical_ratio": 7.968871595330739,
+    "colors": 8
+  },
+  "recommender": {
+    "recommended": 5,
+    "top_score": 0.9383148632568364
+  },
+  "anomaly": {
+    "precision": 0.8108108108108109,
+    "recall": 1.0,
+    "alerts": 37,
+    "missed": 0,
+    "false_alarms": 7,
+    "threshold": 0.6108501283260376
+  },
+  "wine_classification": {
+    "多数类基线": 0.3888888888888889,
+    "逻辑回归": 1.0,
+    "决策树": 0.9166666666666666,
+    "逻辑回归（两个特征）": 0.75
+  },
+  "wine_regression": {
+    "alpha": 10.0,
+    "均值基线": 0.6900626706989338,
+    "线性回归": 0.4861689928088424,
+    "岭回归": 0.47704589024995253
+  },
+  "clustering": {
+    "inertia": 61.59286366763891,
+    "sklearn_inertia": 61.55873344874132,
+    "silhouette": 0.5183449999242686
+  },
+  "digits": {
+    "valid_accuracy": 0.9416666666666667,
+    "valid_loss": 0.2680279016494751
+  },
+  "gridworld": {
+    "success": true,
+    "steps": 6,
+    "shortest": 6,
+    "extra_steps": 0,
+    "reward": 5.0
+  }
+}

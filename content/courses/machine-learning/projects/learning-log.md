@@ -1,46 +1,59 @@
 ---
-title: 实验时间统计
+title: 图像处理工作台
 comments: false
 statistics: false
 ---
 
-# 实验时间统计
+# 图像处理工作台
 
-## 报告怎么又写到周日了 {#scenario}
+坤坤给果盘拍了一张照片。灯光偏暗、像素里有噪声，他想把图变清楚，却发现滤波窗口越大，水果边缘也越模糊。
 
-周日晚上，坤坤还在补食品化学的实验报告。做实验时没觉得花了多久，回来找记录、整理表格，半天就过去了。他决定下周随手记一下用时，预习、做实验、写报告各记一笔。攒满一周后，把这些记录放进表格，看看时间究竟耗在了哪儿。
+![图像处理工作台实际运行预览](/images/ml-guide/lab-image_lab.png)
 
-![实验时间统计](/images/ml-guide/project-study.png)
+## 下载与运行 {#run}
 
-!!! definition "数据表与分组统计"
+[下载食品实验室完整项目包](/downloads/ml-guide/ml-lab.zip)。第一次使用，先按[环境配置教程](./index.md#setup)打开终端、安装 Python 和依赖。启动后在左侧选择“图像处理工作台”。
 
-    数据表用行保存记录、列保存字段。分组统计把同一任务或日期的记录放在一起，再求和或求平均。CSV（Comma-Separated Values，逗号分隔值）是保存这类表格的一种纯文本格式。
+练习文件：`projects/image_lab/exercises.py`。演示查看参考实现；练习使用自己保存的函数。
 
-相关知识：[函数与列表](../python-data.md#python)、[pandas](../python-data.md#dataframes)、[绘图](../python-data.md#plots)。
+## 看演示 → 写函数 → 做对照 → 挑战
 
-## 数据与运行
+1. 观察亮度和对比度的作用；再比较原图、加噪图与滤波结果。
+2. 完成 grayscale、adjust、mean_filter、edge_strength 四个函数。
+3. 固定噪声种子，比较窗口 1、3、9、15；记录 MSE 与边缘清晰度。
+4. 挑战：实现中值滤波，添加椒盐噪声，和均值滤波比较。
 
-[运行环境](./index.md#setup) · [learning-log.py](/downloads/ml-guide/learning-log.py) · [learning-log.csv](/downloads/ml-guide/learning-log.csv)
+## 函数接口
 
-脚本与 CSV 放在同一文件夹，运行：
+### `grayscale`
 
-```bash
-python learning-log.py
-```
+输入 H×W×3、0..1 RGB；返回 H×W 亮度。例：纯红像素约为 0.2126。
 
-示例文件里放了一周的实验用时记录。`date` 是日期，`subject` 是任务（Prep 为实验预习、Experiment 为做实验、Report 为整理报告），`minutes` 是分钟数。每行代表一段用时记录，同一天可以有多行。
+### `adjust`
 
-脚本打印各任务和各日期的汇总，在同一文件夹保存 `learning-log-summary.png`。
+以 0.5 为中心调整对比度，再加亮度；裁剪到 0..1，不改变形状。
 
-## 分组统计
+### `mean_filter`
 
-```python
-totals = records.groupby("subject")["minutes"].sum()
-daily = records.groupby("date")["minutes"].sum()
-```
+输入二维灰度图、奇数窗口；边缘复制填充，返回等尺寸窗口均值。
 
-第一行将同任务的时长相加，第二行按日期相加。脚本还检查日期、缺失值和负数。缺失时长表示未知，0 表示该项任务没有用时；日均值只覆盖有记录的日期。
+### `edge_strength`
 
-## 修改与分析
+返回相邻像素差的梯度幅度，右/下边界差置零；输出 H×W。
 
-把示例换成自己的记录，保留列名即可。再加一张按日期排列的折线图：哪天的实验排得最满？整理报告的时间是不是都挤到了周日？
+??? tip "提示一：思路"
+
+    灰度是 RGB 的加权和；均值滤波用邻域替代中心值。先处理等尺寸和边界。
+
+??? tip "提示二：接口"
+
+    numpy.pad 的 edge 模式保留边界；sliding_window_view 可以取得窗口；np.diff 计算相邻差。
+
+完整实现：`solutions/image_lab.py`。练习模式只调用 `projects/image_lab/exercises.py`。
+
+## 完成标准
+
+通过函数检查，跑通练习模式；保存至少两次参数不同的实验记录，说明观察到的变化与原因。检查失败时先核对输入与输出，不要只看图是否漂亮。
+
+
+旧的时间统计实验已由本实验替换，本页原地址继续保留。旧版单文件脚本仍可[下载](/downloads/ml-guide/learning-log.py)。
