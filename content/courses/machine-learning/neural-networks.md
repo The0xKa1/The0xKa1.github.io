@@ -6,7 +6,7 @@ statistics: false
 
 # 神经网络与深度学习
 
-相关知识：[数组与形状](./python-data.md#arrays)、[线性模型](./linear-models.md#linear-regression)、[梯度下降](./linear-models.md#gradient-descent)。
+相关知识：[数组与形状](./projects/python-data.md#arrays)、[线性模型](./linear-models.md#linear-regression)、[梯度下降](./linear-models.md#gradient-descent)。
 
 ## 前馈网络与激活函数 {#neurons}
 

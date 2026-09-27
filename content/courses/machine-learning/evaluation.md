@@ -61,7 +61,7 @@ statistics: false
 
 正则化通过约束模型复杂程度减少过拟合。例如 L2 正则化在训练目标中加入权重平方和的惩罚。约束太强也可能欠拟合，强度由验证结果选择。
 
-练习：在[回归项目](./projects/diabetes.md)中改变岭回归（Ridge regression）的 `alpha`，记录训练与验证平均绝对误差（Mean Absolute Error，MAE），观察二者如何变化。
+练习：在[葡萄酒研究室](./projects/iris.md)中改变岭回归（Ridge regression）的 `alpha`，记录训练与验证平均绝对误差（Mean Absolute Error，MAE），观察二者如何变化。
 
 !!! quote "参考资料"
 
