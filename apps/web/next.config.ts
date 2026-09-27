@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/courses/machine-learning/python-data",
+        destination: "/courses/machine-learning/projects/python-data",
+        permanent: true,
+      },
+      {
         source: "/courses",
         destination: "/NOTE/CS",
         permanent: true,

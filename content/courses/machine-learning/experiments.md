@@ -109,7 +109,7 @@ print(search.best_params_, search.best_score_)
 
 scikit-learn 把常见算法封装成 `fit/predict`。PyTorch 允许显式编写前向计算、反向传播和更新循环。TensorFlow 的 Keras 接口用 `compile/fit` 组织训练。它们都需要定义输入、模型、损失和评价方式。
 
-下面三个片段都使用多层感知机（Multilayer Perceptron，MLP），接收 64 维数字图像输入，输出 10 类预测。ReLU 是修正线性单元（Rectified Linear Unit），把负值置零；Adam 指自适应矩估计（Adaptive Moment Estimation），根据梯度的历史统计调整更新步长。`X_train` 已转换为浮点数组，`y_train` 是 0 到 9 的整数标签。完整运行文件见[数字识别实验](./projects/digits.md)。
+下面三个片段都使用多层感知机（Multilayer Perceptron，MLP），接收 64 维数字图像输入，输出 10 类预测。ReLU 是修正线性单元（Rectified Linear Unit），把负值置零；Adam 指自适应矩估计（Adaptive Moment Estimation），根据梯度的历史统计调整更新步长。`X_train` 已转换为浮点数组，`y_train` 是 0 到 9 的整数标签。这些片段用于比较框架写法；[手写数字识别项目](./projects/digits.md)使用 MNIST 的 28×28 图像与 PyTorch 卷积网络。
 
 === "scikit-learn"
 
@@ -155,36 +155,3 @@ scikit-learn 把常见算法封装成 `fit/predict`。PyTorch 允许显式编写
 !!! quote "参考资料"
 
     [scikit-learn：多层感知机](https://scikit-learn.org/stable/modules/neural_networks_supervised.html) · [PyTorch：完整训练流程](https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html) · [TensorFlow：Keras 入门](https://www.tensorflow.org/tutorials/quickstart/beginner)
-
-## Kaggle 与课程作业 {#coursework}
-
-!!! definition "定义"
-
-    Kaggle 是提供数据集、机器学习竞赛和练习的平台。课程作业则围绕指定概念或任务，通过计算、代码和实验检查理解。
-
-Kaggle 练习通常提供数据、评分指标和提交格式。公开榜单只反映一部分评估数据；频繁根据榜单分数改模型，也会让选择偏向这部分数据。本地验证仍然需要独立设计。
-
-课程作业适合检查一个具体知识点：手写一次梯度更新、实现 K 均值聚类（K-means，K 表示组数）的分配与更新、比较主成分分析（Principal Component Analysis，PCA）降维前后的分类效果。记录输入、预期行为和实际输出，才容易定位公式或代码中的问题。
-
-!!! quote "参考资料"
-
-    [Kaggle Learn：Python、数据处理与机器学习练习](https://www.kaggle.com/learn) · [动手学深度学习（Dive into Deep Learning，D2L）：各章代码与练习](https://zh.d2l.ai/)
-
-## 实验记录 {#reproduction}
-
-!!! definition "定义"
-
-    实验记录保存每次运行所用的数据、配置和结果，方便比较不同方案，也方便再次运行。
-
-| 记录 | 例子 |
-| --- | --- |
-| 数据与划分 | 数据来源、样本数、划分代码、是否按人或时间隔离 |
-| 训练配置 | 模型、超参数、随机种子、依赖版本、设备 |
-| 结果 | 基线与模型使用相同的评价方式，记录多次运行的均值与波动 |
-| 对照实验 | 固定其他条件，只改变待研究组件 |
-
-随机种子控制数据打乱、参数初始化等随机过程。设备和软件版本也会影响运行结果，一并记下便于排查差异。
-
-!!! quote "参考资料"
-
-    [PyTorch：随机性与可复现性](https://docs.pytorch.org/docs/stable/notes/randomness.html)
