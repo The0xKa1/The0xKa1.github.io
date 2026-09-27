@@ -9,3 +9,7 @@ skills-lock.json
 
 # 实验源码在旁边的独立 ml-lab 仓库维护。
 /projects/ml-lab/
+
+# Local handoffs and Illustrator scripts
+_handoffs/
+*.jsx
