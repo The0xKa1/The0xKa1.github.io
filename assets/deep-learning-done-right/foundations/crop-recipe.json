@@ -1,0 +1,102 @@
+[
+  {
+    "pdf": "simclr.pdf",
+    "page_1based": 2,
+    "output": "simclr-fig2.png",
+    "figure": "2",
+    "preview_scale_to": 1100,
+    "preview_xywh": [
+      455,
+      90,
+      260,
+      208
+    ],
+    "render_scale_to": 3300,
+    "crop_xywh": [
+      1365,
+      270,
+      780,
+      624
+    ]
+  },
+  {
+    "pdf": "bengio.pdf",
+    "page_1based": 6,
+    "output": "bengio-fig1.png",
+    "figure": "1",
+    "preview_scale_to": 1100,
+    "preview_xywh": [
+      220,
+      120,
+      405,
+      348
+    ],
+    "render_scale_to": 3300,
+    "crop_xywh": [
+      660,
+      360,
+      1215,
+      1044
+    ]
+  },
+  {
+    "pdf": "dropout.pdf",
+    "page_1based": 2,
+    "output": "dropout-fig1a.png",
+    "figure": "1(a)",
+    "preview_scale_to": 1100,
+    "preview_xywh": [
+      212,
+      125,
+      195,
+      230
+    ],
+    "render_scale_to": 3300,
+    "crop_xywh": [
+      636,
+      375,
+      585,
+      690
+    ]
+  },
+  {
+    "pdf": "resnet.pdf",
+    "page_1based": 2,
+    "output": "resnet-fig2.png",
+    "figure": "2",
+    "preview_scale_to": 1100,
+    "preview_xywh": [
+      120,
+      103,
+      210,
+      115
+    ],
+    "render_scale_to": 3300,
+    "crop_xywh": [
+      360,
+      309,
+      630,
+      345
+    ]
+  },
+  {
+    "pdf": "resnet.pdf",
+    "page_1based": 4,
+    "output": "resnet-fig3.png",
+    "figure": "3",
+    "preview_scale_to": 1100,
+    "preview_xywh": [
+      65,
+      102,
+      342,
+      765
+    ],
+    "render_scale_to": 3300,
+    "crop_xywh": [
+      195,
+      306,
+      1026,
+      2295
+    ]
+  }
+]
