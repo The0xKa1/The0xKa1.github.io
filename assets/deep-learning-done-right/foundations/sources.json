@@ -1,0 +1,686 @@
+{
+  "checked_at": "2026-10-13T15:39:55.309518+08:00",
+  "owner": "foundations",
+  "images": [
+    {
+      "file": "apps/web/public/images/deep-learning-done-right/foundations/simclr-fig2.png",
+      "chapter": "problem-and-learning.md",
+      "chapter_figure": "1",
+      "source_type": "paper_original_crop",
+      "paper": {
+        "title": "A Simple Framework for Contrastive Learning of Visual Representations",
+        "authors": [
+          "Ting Chen",
+          "Simon Kornblith",
+          "Mohammad Norouzi",
+          "Geoffrey Hinton"
+        ],
+        "year": 2020,
+        "version": "ICML 2020, PMLR 119:1597-1607",
+        "url": "https://proceedings.mlr.press/v119/chen20j/chen20j.pdf",
+        "rights": "Publisher-hosted proceedings PDF. Figure-specific reuse license not stated in downloaded figure or landing page; no blanket permission inferred."
+      },
+      "original_pdf": "assets/deep-learning-done-right/foundations/originals/simclr.pdf",
+      "original_sha256": "cc620e511bafe8b4b11ca3415f6d7bcf127a05818087bfa49905de3a2e50bc2d",
+      "paper_figure": "2",
+      "pdf_page_1based": 2,
+      "download_date": "2026-10-13",
+      "modifications": "PDF rasterization and rectangular crop only. No redraw, recoloring, overlays or generated content. Dropout uses panel (a) only; other diagrams preserved completely. Captions re-expressed in article text.",
+      "crop": {
+        "pdf": "simclr.pdf",
+        "page_1based": 2,
+        "output": "simclr-fig2.png",
+        "figure": "2",
+        "preview_scale_to": 1100,
+        "preview_xywh": [
+          455,
+          90,
+          260,
+          208
+        ],
+        "render_scale_to": 3300,
+        "crop_xywh": [
+          1365,
+          270,
+          780,
+          624
+        ]
+      },
+      "pixels": [
+        780,
+        624
+      ],
+      "sha256": "f44bd67c04608015346794818b92fdf8e11827835915a0175e67e1e657ba041e"
+    },
+    {
+      "file": "apps/web/public/images/deep-learning-done-right/foundations/bengio-fig1.png",
+      "chapter": "representations.md",
+      "chapter_figure": "1",
+      "source_type": "paper_original_crop",
+      "paper": {
+        "title": "A Neural Probabilistic Language Model",
+        "authors": [
+          "Yoshua Bengio",
+          "Réjean Ducharme",
+          "Pascal Vincent",
+          "Christian Jauvin"
+        ],
+        "year": 2003,
+        "version": "JMLR 3:1137-1155, published February 2003",
+        "url": "https://jmlr.org/papers/volume3/bengio03a/bengio03a.pdf",
+        "rights": "PDF copyright 2003 authors. Current JMLR author policy says CC BY with author-retained copyright; paper-specific license version not established. Policy: https://jmlr.org/author-info.html#Publication"
+      },
+      "original_pdf": "assets/deep-learning-done-right/foundations/originals/bengio.pdf",
+      "original_sha256": "0bddf9a608d62da449a6413d86cbf6e8b206212595efe0e0a14da0d79d5f4976",
+      "paper_figure": "1",
+      "pdf_page_1based": 6,
+      "download_date": "2026-10-13",
+      "modifications": "PDF rasterization and rectangular crop only. No redraw, recoloring, overlays or generated content. Dropout uses panel (a) only; other diagrams preserved completely. Captions re-expressed in article text.",
+      "crop": {
+        "pdf": "bengio.pdf",
+        "page_1based": 6,
+        "output": "bengio-fig1.png",
+        "figure": "1",
+        "preview_scale_to": 1100,
+        "preview_xywh": [
+          220,
+          120,
+          405,
+          348
+        ],
+        "render_scale_to": 3300,
+        "crop_xywh": [
+          660,
+          360,
+          1215,
+          1044
+        ]
+      },
+      "pixels": [
+        1215,
+        1044
+      ],
+      "sha256": "652365df0363b864ecaa4671e6a883c7bd82eda0a83b843275b98b2af73bee19"
+    },
+    {
+      "file": "apps/web/public/images/deep-learning-done-right/foundations/dropout-fig1a.png",
+      "chapter": "neural-network-basics.md",
+      "chapter_figure": "1",
+      "source_type": "paper_original_crop",
+      "paper": {
+        "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        "authors": [
+          "Nitish Srivastava",
+          "Geoffrey Hinton",
+          "Alex Krizhevsky",
+          "Ilya Sutskever",
+          "Ruslan Salakhutdinov"
+        ],
+        "year": 2014,
+        "version": "JMLR 15:1929-1958, published June 2014",
+        "url": "https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf",
+        "rights": "PDF copyright 2014 authors. Current JMLR author policy says CC BY with author-retained copyright; paper-specific license version not established. Policy: https://jmlr.org/author-info.html#Publication"
+      },
+      "original_pdf": "assets/deep-learning-done-right/foundations/originals/dropout.pdf",
+      "original_sha256": "9c196ccbe6c6a595a1adba6cd030d35f7c2e548bbf5e7f1278b0109d8dd9ebaa",
+      "paper_figure": "1(a)",
+      "pdf_page_1based": 2,
+      "download_date": "2026-10-13",
+      "modifications": "PDF rasterization and rectangular crop only. No redraw, recoloring, overlays or generated content. Dropout uses panel (a) only; other diagrams preserved completely. Captions re-expressed in article text.",
+      "crop": {
+        "pdf": "dropout.pdf",
+        "page_1based": 2,
+        "output": "dropout-fig1a.png",
+        "figure": "1(a)",
+        "preview_scale_to": 1100,
+        "preview_xywh": [
+          212,
+          125,
+          195,
+          230
+        ],
+        "render_scale_to": 3300,
+        "crop_xywh": [
+          636,
+          375,
+          585,
+          690
+        ]
+      },
+      "pixels": [
+        585,
+        690
+      ],
+      "sha256": "485bf79a8c492ac38d9b48d85791765bec6124244a328bb8ce100a216a34ce15"
+    },
+    {
+      "file": "apps/web/public/images/deep-learning-done-right/foundations/resnet-fig2.png",
+      "chapter": "network-composition.md",
+      "chapter_figure": "1",
+      "source_type": "paper_original_crop",
+      "paper": {
+        "title": "Deep Residual Learning for Image Recognition",
+        "authors": [
+          "Kaiming He",
+          "Xiangyu Zhang",
+          "Shaoqing Ren",
+          "Jian Sun"
+        ],
+        "year": 2016,
+        "version": "CVPR 2016 open-access proceedings, pp. 770-778",
+        "url": "https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf",
+        "rights": "CVF-hosted CVPR 2016 PDF; open accessibility verified. No figure-specific Creative Commons license established."
+      },
+      "original_pdf": "assets/deep-learning-done-right/foundations/originals/resnet.pdf",
+      "original_sha256": "51b5de45eb0b558b19c3affe49503cff50cb170a32de602983d6e2ec286942a7",
+      "paper_figure": "2",
+      "pdf_page_1based": 2,
+      "download_date": "2026-10-13",
+      "modifications": "PDF rasterization and rectangular crop only. No redraw, recoloring, overlays or generated content. Dropout uses panel (a) only; other diagrams preserved completely. Captions re-expressed in article text.",
+      "crop": {
+        "pdf": "resnet.pdf",
+        "page_1based": 2,
+        "output": "resnet-fig2.png",
+        "figure": "2",
+        "preview_scale_to": 1100,
+        "preview_xywh": [
+          120,
+          103,
+          210,
+          115
+        ],
+        "render_scale_to": 3300,
+        "crop_xywh": [
+          360,
+          309,
+          630,
+          345
+        ]
+      },
+      "pixels": [
+        630,
+        345
+      ],
+      "sha256": "3ba0a85e03a4ae81c9b82bca397e35084e7e548e7e0d8341321e3df17b214d1a"
+    },
+    {
+      "file": "apps/web/public/images/deep-learning-done-right/foundations/resnet-fig3.png",
+      "chapter": "cnn.md",
+      "chapter_figure": "1",
+      "source_type": "paper_original_crop",
+      "paper": {
+        "title": "Deep Residual Learning for Image Recognition",
+        "authors": [
+          "Kaiming He",
+          "Xiangyu Zhang",
+          "Shaoqing Ren",
+          "Jian Sun"
+        ],
+        "year": 2016,
+        "version": "CVPR 2016 open-access proceedings, pp. 770-778",
+        "url": "https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf",
+        "rights": "CVF-hosted CVPR 2016 PDF; open accessibility verified. No figure-specific Creative Commons license established."
+      },
+      "original_pdf": "assets/deep-learning-done-right/foundations/originals/resnet.pdf",
+      "original_sha256": "51b5de45eb0b558b19c3affe49503cff50cb170a32de602983d6e2ec286942a7",
+      "paper_figure": "3",
+      "pdf_page_1based": 4,
+      "download_date": "2026-10-13",
+      "modifications": "PDF rasterization and rectangular crop only. No redraw, recoloring, overlays or generated content. Dropout uses panel (a) only; other diagrams preserved completely. Captions re-expressed in article text.",
+      "crop": {
+        "pdf": "resnet.pdf",
+        "page_1based": 4,
+        "output": "resnet-fig3.png",
+        "figure": "3",
+        "preview_scale_to": 1100,
+        "preview_xywh": [
+          65,
+          102,
+          342,
+          765
+        ],
+        "render_scale_to": 3300,
+        "crop_xywh": [
+          195,
+          306,
+          1026,
+          2295
+        ]
+      },
+      "pixels": [
+        1026,
+        2295
+      ],
+      "sha256": "ea7d53b8cef0822d62ce6d3585dc6842d6e078f952530aa45b56fc79026141a9"
+    }
+  ],
+  "text_sources": [
+    {
+      "url": "https://jmlr.org/papers/v3/bengio03a.html",
+      "uses": [
+        {
+          "chapter": "problem-and-learning.md",
+          "section": "输出决定模型最后一步怎么做 {#outputs}",
+          "label": "Bengio 等人的语言模型"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://jmlr.org/papers/v3/bengio03a.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://en.d2l.ai/chapter_introduction/index.html",
+      "uses": [
+        {
+          "chapter": "problem-and-learning.md",
+          "section": "监督学习：答案随训练样本一起提供 {#supervised}",
+          "label": "Dive into Deep Learning 导论"
+        },
+        {
+          "chapter": "problem-and-learning.md",
+          "section": "无监督学习：拟合数据的结构 {#unsupervised}",
+          "label": "D2L 导论的无监督学习部分"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://en.d2l.ai/chapter_introduction/index.html",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to en.d2l.ai:443 \n",
+      "independent_verification": {
+        "method": "web retrieval, 2026-10-13",
+        "result": "Read sections 1.3.1 and 1.3.2; authors explicitly group self-supervised techniques within unlabeled-data learning. Shell TLS failure recorded separately."
+      }
+    },
+    {
+      "url": "https://proceedings.mlr.press/v119/chen20j/chen20j.pdf",
+      "uses": [
+        {
+          "chapter": "problem-and-learning.md",
+          "section": "自监督学习：从数据内部构造目标 {#self-supervised}",
+          "label": "Chen 等，SimCLR，ICML 2020，图 2"
+        },
+        {
+          "chapter": "problem-and-learning.md",
+          "section": "自监督学习：从数据内部构造目标 {#self-supervised}",
+          "label": "论文第 2 节"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://proceedings.mlr.press/v119/chen20j/chen20j.pdf",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to proceedings.mlr.press:443 \n",
+      "independent_verification": {
+        "method": "Successful initial curl download and local PDF inspection",
+        "result": "originals/simclr.pdf; Figure 2 and section 2 read and rendered. Later shell TLS failure does not invalidate saved PDF."
+      }
+    },
+    {
+      "url": "https://en.d2l.ai/chapter_reinforcement-learning/mdp.html",
+      "uses": [
+        {
+          "chapter": "problem-and-learning.md",
+          "section": "强化学习：动作改变后续数据 {#reinforcement}",
+          "label": "D2L 的马尔可夫决策过程章节"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://en.d2l.ai/chapter_reinforcement-learning/mdp.html",
+      "curl_exit": 0,
+      "error": "",
+      "independent_verification": {
+        "method": "web retrieval, 2026-10-13",
+        "result": "Author-maintained D2L MDP chapter retrieved (484 extracted lines)."
+      }
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/notes/broadcasting.html",
+      "uses": [
+        {
+          "chapter": "representations.md",
+          "section": "每一根轴都要有含义 {#tensor-axes}",
+          "label": "广播规则"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/notes/broadcasting.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html",
+      "uses": [
+        {
+          "chapter": "representations.md",
+          "section": "像素保留颜色和邻域 {#pixels}",
+          "label": "Conv2d 文档"
+        },
+        {
+          "chapter": "cnn.md",
+          "section": "一个输出位置读取哪些数 {#convolution}",
+          "label": "PyTorch Conv2d 文档"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.permute.html",
+      "uses": [
+        {
+          "chapter": "representations.md",
+          "section": "像素保留颜色和邻域 {#pixels}",
+          "label": "具体 API"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.permute.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Embedding.html",
+      "uses": [
+        {
+          "chapter": "representations.md",
+          "section": "token 编号怎样变成嵌入 {#embedding}",
+          "label": "Embedding 官方文档"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Embedding.html",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to docs.pytorch.org:443 \n",
+      "independent_verification": {
+        "method": "web retrieval of stable redirect target, 2026-10-13",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Embedding.html",
+        "result": "Weight shape V by d; index tensor shape gains a final embedding axis verified."
+      }
+    },
+    {
+      "url": "https://jmlr.org/papers/volume3/bengio03a/bengio03a.pdf",
+      "uses": [
+        {
+          "chapter": "representations.md",
+          "section": "token 编号怎样变成嵌入 {#embedding}",
+          "label": "Bengio 等，A Neural Probabilistic Language Model，2003，图 1"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://jmlr.org/papers/volume3/bengio03a/bengio03a.pdf",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.softmax.html",
+      "uses": [
+        {
+          "chapter": "representations.md",
+          "section": "输出张量、分数与概率 {#output-representations}",
+          "label": "softmax 文档"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.softmax.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Linear.html",
+      "uses": [
+        {
+          "chapter": "neural-network-basics.md",
+          "section": "一个神经元怎样计算 {#affine}",
+          "label": "Linear 文档"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Linear.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.ReLU.html",
+      "uses": [
+        {
+          "chapter": "neural-network-basics.md",
+          "section": "非线性为什么放在层之间 {#activations}",
+          "label": "ReLU"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.ReLU.html",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to docs.pytorch.org:443 \n",
+      "independent_verification": {
+        "method": "web retrieval of stable redirect target, 2026-10-13",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.ReLU.html",
+        "result": "Definition verified; zero-point gradient additionally checked through PyTorch execution."
+      }
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Sigmoid.html",
+      "uses": [
+        {
+          "chapter": "neural-network-basics.md",
+          "section": "非线性为什么放在层之间 {#activations}",
+          "label": "Sigmoid"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Sigmoid.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Tanh.html",
+      "uses": [
+        {
+          "chapter": "neural-network-basics.md",
+          "section": "非线性为什么放在层之间 {#activations}",
+          "label": "Tanh"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Tanh.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf",
+      "uses": [
+        {
+          "chapter": "neural-network-basics.md",
+          "section": "MLP 的层、参数和中间值 {#mlp}",
+          "label": "Srivastava 等，Dropout，2014，图 1(a)"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to jmlr.org:443 \n",
+      "independent_verification": {
+        "method": "Successful initial curl download and local PDF inspection",
+        "result": "originals/dropout.pdf; Figure 1(a), PDF page 2, visually inspected."
+      }
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+      "uses": [
+        {
+          "chapter": "neural-network-basics.md",
+          "section": "同一个网络如何学习 {#training-step}",
+          "label": "官方文档"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html",
+      "uses": [
+        {
+          "chapter": "cnn.md",
+          "section": "池化怎样减少空间尺寸 {#pooling}",
+          "label": "输出尺寸规则"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://distill.pub/2019/computing-receptive-fields/",
+      "uses": [
+        {
+          "chapter": "cnn.md",
+          "section": "感受野：深层位置能看到多大范围 {#receptive-field}",
+          "label": "Distill 的感受野推导"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://distill.pub/2019/computing-receptive-fields/",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to distill.pub:443 \n",
+      "independent_verification": {
+        "method": "web retrieval, 2026-10-13",
+        "result": "Single-path recurrence and border-padding qualification read; shell TLS failure recorded separately."
+      }
+    },
+    {
+      "url": "https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf",
+      "uses": [
+        {
+          "chapter": "cnn.md",
+          "section": "从卷积堆叠读懂 ResNet {#resnet}",
+          "label": "He 等，Deep Residual Learning for Image Recognition，CVPR 2016，图 3"
+        },
+        {
+          "chapter": "network-composition.md",
+          "section": "顺序堆叠就是函数复合 {#stacking}",
+          "label": "原论文第 1、3 节"
+        },
+        {
+          "chapter": "network-composition.md",
+          "section": "残差块为输入保留一条相加路径 {#residual}",
+          "label": "He 等，ResNet，CVPR 2016，图 2"
+        }
+      ],
+      "http_status": "000",
+      "final_url": "https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf",
+      "curl_exit": 35,
+      "error": "curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to openaccess.thecvf.com:443 \n",
+      "independent_verification": {
+        "method": "Successful initial curl download and local PDF inspection",
+        "result": "originals/resnet.pdf; Figures 2 and 3, sections 3.2-3.4 read and visually inspected."
+      }
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.cat.html",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "相加、拼接与门控如何融合 {#fusion}",
+          "label": "文档"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.cat.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1505.04597",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "相加、拼接与门控如何融合 {#fusion}",
+          "label": "U-Net 原论文"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://arxiv.org/abs/1505.04597",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "归一化放在哪里，保存什么 {#normalization}",
+          "label": "BatchNorm2d 文档"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1607.06450",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "归一化放在哪里，保存什么 {#normalization}",
+          "label": "LayerNorm 原论文"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://arxiv.org/abs/1607.06450",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "归一化放在哪里，保存什么 {#normalization}",
+          "label": "官方实现"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://proceedings.mlr.press/v119/xiong20b.html",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "归一化放在哪里，保存什么 {#normalization}",
+          "label": "Xiong 等，On Layer Normalization in the Transformer Architecture"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://proceedings.mlr.press/v119/xiong20b.html",
+      "curl_exit": 0,
+      "error": ""
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/stable/notes/autograd.html",
+      "uses": [
+        {
+          "chapter": "network-composition.md",
+          "section": "把组合网络接回训练 {#training}",
+          "label": "PyTorch 自动求导说明"
+        }
+      ],
+      "http_status": "200",
+      "final_url": "https://docs.pytorch.org/docs/stable/notes/autograd.html",
+      "curl_exit": 0,
+      "error": ""
+    }
+  ],
+  "generation": {
+    "used": false,
+    "reason": "Suitable original paper figures found for all five chapters. imagegen skill read; no model called or claimed."
+  }
+}

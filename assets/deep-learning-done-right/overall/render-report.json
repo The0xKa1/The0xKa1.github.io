@@ -1,0 +1,155 @@
+[
+  {
+    "file": "attention.md",
+    "math": 97,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "backprop-and-optimization.md",
+    "math": 93,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "cnn.md",
+    "math": 92,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "data-and-training.md",
+    "math": 32,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "evaluation-and-generalization.md",
+    "math": 43,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "generative-models.md",
+    "math": 178,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "index.md",
+    "math": 0,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "losses.md",
+    "math": 122,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "network-composition.md",
+    "math": 89,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "neural-network-basics.md",
+    "math": 67,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "overall.md",
+    "math": 12,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "pretraining-and-finetuning.md",
+    "math": 59,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "problem-and-learning.md",
+    "math": 79,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "reinforcement-learning.md",
+    "math": 87,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "representations.md",
+    "math": 85,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "rnn.md",
+    "math": 120,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  },
+  {
+    "file": "transformer.md",
+    "math": 102,
+    "errors": 0,
+    "messages": [],
+    "duplicateIds": [],
+    "missingImages": [],
+    "headingCount": 1
+  }
+]

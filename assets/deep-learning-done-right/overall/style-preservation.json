@@ -1,0 +1,172 @@
+[
+  {
+    "file": "attention.md",
+    "before_bytes": 9719,
+    "after_bytes": 9428,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "backprop-and-optimization.md",
+    "before_bytes": 10914,
+    "after_bytes": 10699,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "cnn.md",
+    "before_bytes": 10787,
+    "after_bytes": 10365,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "data-and-training.md",
+    "before_bytes": 10600,
+    "after_bytes": 10135,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "evaluation-and-generalization.md",
+    "before_bytes": 12596,
+    "after_bytes": 12271,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "generative-models.md",
+    "before_bytes": 18628,
+    "after_bytes": 17981,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "index.md",
+    "before_bytes": 4154,
+    "after_bytes": 1154,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "losses.md",
+    "before_bytes": 11039,
+    "after_bytes": 10844,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "network-composition.md",
+    "before_bytes": 11003,
+    "after_bytes": 10404,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "neural-network-basics.md",
+    "before_bytes": 8588,
+    "after_bytes": 8049,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "overall.md",
+    "before_bytes": 7277,
+    "after_bytes": 5610,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "pretraining-and-finetuning.md",
+    "before_bytes": 10925,
+    "after_bytes": 10602,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "problem-and-learning.md",
+    "before_bytes": 10380,
+    "after_bytes": 9875,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "reinforcement-learning.md",
+    "before_bytes": 11892,
+    "after_bytes": 11546,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "representations.md",
+    "before_bytes": 9671,
+    "after_bytes": 9318,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "rnn.md",
+    "before_bytes": 11115,
+    "after_bytes": 10535,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  },
+  {
+    "file": "transformer.md",
+    "before_bytes": 11106,
+    "after_bytes": 10314,
+    "code": true,
+    "math": true,
+    "images": true,
+    "sources": true,
+    "anchors": true
+  }
+]

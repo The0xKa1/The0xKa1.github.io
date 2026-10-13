@@ -120,6 +120,25 @@ nav:
       - 💻 自学笔记:
           - NOTE/CS/index.md 
 
+          - Deep Learning Done Right:
+              - NOTE/CS/deep-learning-done-right/index.md
+              - 深度学习知识树: NOTE/CS/deep-learning-done-right/overall.md
+              - 问题与学习信号: NOTE/CS/deep-learning-done-right/problem-and-learning.md
+              - 数据表示: NOTE/CS/deep-learning-done-right/representations.md
+              - 神经网络基础: NOTE/CS/deep-learning-done-right/neural-network-basics.md
+              - 损失函数: NOTE/CS/deep-learning-done-right/losses.md
+              - 反向传播与优化: NOTE/CS/deep-learning-done-right/backprop-and-optimization.md
+              - 数据与训练流程: NOTE/CS/deep-learning-done-right/data-and-training.md
+              - 评价与泛化: NOTE/CS/deep-learning-done-right/evaluation-and-generalization.md
+              - 堆叠、残差与特征融合: NOTE/CS/deep-learning-done-right/network-composition.md
+              - 卷积神经网络: NOTE/CS/deep-learning-done-right/cnn.md
+              - RNN、LSTM 与 GRU: NOTE/CS/deep-learning-done-right/rnn.md
+              - 注意力: NOTE/CS/deep-learning-done-right/attention.md
+              - Transformer: NOTE/CS/deep-learning-done-right/transformer.md
+              - 生成模型: NOTE/CS/deep-learning-done-right/generative-models.md
+              - 预训练与微调: NOTE/CS/deep-learning-done-right/pretraining-and-finetuning.md
+              - 强化学习: NOTE/CS/deep-learning-done-right/reinforcement-learning.md
+
           - 机器学习:
               - courses/machine-learning/index.md
               - 从数据到模型: courses/machine-learning/basics.md
