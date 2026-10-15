@@ -13,3 +13,10 @@ skills-lock.json
 # Local handoffs and Illustrator scripts
 _handoffs/
 *.jsx
+
+# Deep Learning course working records stay local; keep editable artwork.
+/assets/deep-learning-done-right/*
+!/assets/deep-learning-done-right/overall/
+/assets/deep-learning-done-right/overall/*
+!/assets/deep-learning-done-right/overall/DeepLearningTree.excalidraw
+/apps/web/public/fonts/dldr/manifest.json
