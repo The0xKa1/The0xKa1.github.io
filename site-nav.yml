@@ -135,9 +135,15 @@ nav:
               - RNN、LSTM 与 GRU: NOTE/CS/deep-learning-done-right/rnn.md
               - 注意力: NOTE/CS/deep-learning-done-right/attention.md
               - Transformer: NOTE/CS/deep-learning-done-right/transformer.md
+              - 现代 Transformer: NOTE/CS/deep-learning-done-right/modern-transformer.md
+              - 序列计算与存储: NOTE/CS/deep-learning-done-right/efficient-sequence-models.md
               - 生成模型: NOTE/CS/deep-learning-done-right/generative-models.md
               - 预训练与微调: NOTE/CS/deep-learning-done-right/pretraining-and-finetuning.md
+              - 规模与专家模型: NOTE/CS/deep-learning-done-right/scaling-and-experts.md
               - 强化学习: NOTE/CS/deep-learning-done-right/reinforcement-learning.md
+              - 偏好学习与推理计算: NOTE/CS/deep-learning-done-right/alignment-and-reasoning.md
+              - 多模态学习: NOTE/CS/deep-learning-done-right/multimodal-learning.md
+              - 深度学习的来路与远方: NOTE/CS/deep-learning-done-right/history-and-horizons.md
 
           - 机器学习:
               - courses/machine-learning/index.md

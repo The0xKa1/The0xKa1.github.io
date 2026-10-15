@@ -964,3 +964,48 @@ body {
 .admonition__content > .content-tabs:only-child .content-tabs__panel {
   background: transparent;
 }
+
+/* Course fables use a local serif face; technical content keeps its own fonts. */
+@font-face {
+  font-family: "DLDR Story";
+  src: url("/fonts/dldr/story-serif.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+[data-course="dldr"] .admonition--quote > .admonition__header .admonition__title,
+[data-course="dldr"] .admonition--quote > .admonition__content {
+  font-family: "DLDR Story", "Songti SC", SimSun, serif;
+}
+
+[data-course="dldr"] .admonition--quote > .admonition__content {
+  line-height: 1.9;
+}
+
+[data-course="dldr"] .admonition--quote > summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -3px;
+}
+
+[data-course="dldr"] .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.2em;
+}
+
+[data-course="dldr"] .katex-display > .katex {
+  width: max-content;
+  min-width: 100%;
+}
+
+[data-course="dldr"] table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+[data-course="dldr"] [id],
+[data-course="dldr"] details {
+  scroll-margin-top: 6rem;
+}

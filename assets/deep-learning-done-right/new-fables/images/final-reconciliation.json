@@ -1,0 +1,305 @@
+{
+  "status": "complete",
+  "manifestSHA256": "19842cfbf862baa3ee6f2db78c20af7ae65d34cfb78b335291710260ade4a67f",
+  "acceptedImageCount": 25,
+  "ids": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "K01",
+    "K02",
+    "K03",
+    "K04",
+    "K05",
+    "K06",
+    "K07",
+    "K08",
+    "K09",
+    "K10",
+    "K11",
+    "K12"
+  ],
+  "endingOnlyUpdatedIDs": [
+    "K01",
+    "K04",
+    "K05",
+    "K06"
+  ],
+  "preservedPriorOutputs": 20,
+  "allFinalApprovalHashesMatch": true,
+  "allBriefHashesUnchanged": true,
+  "allNativePNGsValidated": true,
+  "bridgeFileVerified": {
+    "path": "integration-body-edits.json",
+    "sha256": "fc882d198653c769ea84aa43fcb181eb4c8fa4fd721c9e3d9a4a374afaa85615",
+    "verdict": "approved",
+    "note": "All seven before-strings verified verbatim at the cited locations; all seven after-strings preserve technical meaning with no new padding or caveats. (1) backprop-and-optimization.md:45 — dropping the 分水渠 qualifier leaves the self-contained example $a=2\\theta,p=3a,q=a,s=p+q$ intact; the general rule at line 43 already carries the setup. (2) losses.md:94 — 设两份预报给出的概率分别为 $p=0.2$ 与 $p=0.01$ keeps both numbers and the loss conclusions unchanged. (3) neural-network-basics.md:52 — deleting the 田地图 sentence is safe: nothing later depends on the coordinate-direction note; the XOR table and the $s=x_1+x_2$ band argument are purely algebraic. (4) neural-network-basics.md:106 — 条带 is the body's own term (used again at line 117). (5) neural-network-basics.md:117 — $y=1$ 两点 $s=1$、$y=0$ 两点 $s=0$ 和 2 matches the truth table; 这两条平行直线 has its antecedent in the preceding sentence; 围栏/通道 uniformly become 条带. (6) network-composition.md:46 — identity statement and the post-addition caveat sentence both survive; the ReLU example is untouched. (7) reinforcement-learning.md:48 — rewards $(6,-8)$/$(2,2)$, $\\gamma=0.9$, and both computed returns verified arithmetically ($6-7.2=-1.2$, $2+1.8=3.8$); neutral path naming, expectation conclusion intact. Spot-check beyond the seven sites in the four affected files found no other body-text callbacks to old stories outside the replaceable ???quote blocks (remaining 通道 hits are legitimate channel terminology). The two unchangedChecked claims are accepted as stated."
+  },
+  "reviewHashes": {
+    "preflight": "ee55efb97a9d6c05859ded3529264c1d008937bfe3b619dbe0aa40654588efa6",
+    "kimi-new-review": "b160f700b239cc07597ff13edc81e733d401188c089239bceffecc37eaaa92e4",
+    "kimi-final-review": "30358a04fffbdf166f9f4d0735f92b9a5a9c3e6d77a52a48f3eebdcb2ec94044"
+  },
+  "outputs": [
+    {
+      "id": "C03",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C03.png",
+      "sha256": "f65f4c7c5ed3dca1d8c19bdb6e0dd8f43795a73210d3eee278435233c375381b",
+      "format": "PNG",
+      "width": 1536,
+      "height": 1024,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C04",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C04.png",
+      "sha256": "bd8a7f5ec6b441d0dd08612a0bbe71af44ceaa6a08d5b37ee6f8a918307a8266",
+      "format": "PNG",
+      "width": 1942,
+      "height": 809,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C05",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C05.png",
+      "sha256": "745c4596bd2fa736fe9e555b9a25153a2929da478819a2f5afe0cfea1d8a4bd9",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C07",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C07.png",
+      "sha256": "868d70ad94049930f4dc2b1e938784c6e220893cbdba30eaac0a4f7e8364fa95",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C08",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C08.png",
+      "sha256": "e3998e657216cdba09eac687f5b4889994f5f83d7841de6b5a217c24e14aa415",
+      "format": "PNG",
+      "width": 1536,
+      "height": 1024,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C01",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C01.png",
+      "sha256": "7f3a32d8a5f719af17b935049a84d133ebfa148302e8d9bbb03d24bff5a45746",
+      "format": "PNG",
+      "width": 1942,
+      "height": 809,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C02",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C02.png",
+      "sha256": "4faa195e5eb42895b200f9acb1e7583722e1134538c859b3b58d57a31da7d33c",
+      "format": "PNG",
+      "width": 2055,
+      "height": 765,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C06",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C06.png",
+      "sha256": "b69f8b3aa4be16f8718f271e582df43cb693b6440c51a878d448629bed748d14",
+      "format": "PNG",
+      "width": 1942,
+      "height": 809,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C11",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C11.png",
+      "sha256": "840384b8cd3de68938dc903279319cbb8aead1c56c435edd01b2c0fb3844a525",
+      "format": "PNG",
+      "width": 1536,
+      "height": 1024,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C10",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C10.png",
+      "sha256": "926ded188552a6b1727615a669428e7becc620e33207333147bfb4570d175d1f",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C09",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C09.png",
+      "sha256": "2ce3a28287d774e64cb2a3817f820728a82b18835ec8322e937c3014eef32b58",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C12",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C12.png",
+      "sha256": "0de2a8274b07fb2a7f245a31a48ee647ffffedd5805ac6302c5bcb5a248f1ad2",
+      "format": "PNG",
+      "width": 1536,
+      "height": 1024,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K08",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K08.png",
+      "sha256": "f8952ab16613fb6c8d8e5b1d56f6a3b2cb5f512dc76ca0ba000f97f67111eeed",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "C13",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/C13.png",
+      "sha256": "f7ac571d9d2ccb845b367b9fb361ac4afa457eebf5df1085dae100981e3da154",
+      "format": "PNG",
+      "width": 1942,
+      "height": 809,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K07",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K07.png",
+      "sha256": "f179270c520fd302ac62df5a3c9e718701198ffa351b92570306f87d97f7411e",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K04",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K04.png",
+      "sha256": "9c221ccb73180b8f048577076d331018097baae493bdee0bc79d5663c92a9121",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K02",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K02.png",
+      "sha256": "749f134d5389381ce4e0ff6cf346f323792fd704634659268370c7775b9422e4",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K01",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K01.png",
+      "sha256": "4d7f1df95061084003122b23212ecc4ccee5ef2e725ab7fe55d613dab4f51131",
+      "format": "PNG",
+      "width": 2048,
+      "height": 768,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K06",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K06.png",
+      "sha256": "602eab776dfcf22f92b1dd1e0afd37b46160ece643e6461d2a200e56010baea1",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K05",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K05.png",
+      "sha256": "5a73c2879220141804d7b8a794f9b134657db40fc26052b9f09d7f89f5973b01",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K09",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K09.png",
+      "sha256": "1f3acfb2660e70f9e5a381d83cd66aa72fb379a2413c6d76dbbbf54caba27916",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K10",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K10.png",
+      "sha256": "0d3ac4df597d62bb1a0e83647de9ee0f2c8d1789372a5a85bd35846ce6242e6e",
+      "format": "PNG",
+      "width": 1536,
+      "height": 1024,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K11",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K11.png",
+      "sha256": "5c2568195a8c7ca09f71be448134411829e7430359d392f67d00d21653662b34",
+      "format": "PNG",
+      "width": 1774,
+      "height": 887,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K03",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K03.png",
+      "sha256": "b7ac9c958834c80a72843ae85659d3b89593b365c577742a6ef4db58e739c970",
+      "format": "PNG",
+      "width": 1536,
+      "height": 1024,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    },
+    {
+      "id": "K12",
+      "path": "apps/web/public/images/deep-learning-done-right/stories-v2/K12.png",
+      "sha256": "5e4484f99a8a74b3ee7c3284207167c4c1aadd986d0af92ed3fa9323252ae9cc",
+      "format": "PNG",
+      "width": 1942,
+      "height": 809,
+      "conversion": "none; native PNG copied byte-for-byte",
+      "validation": "PNG signature, all chunk CRCs, IEND and zlib image data verified"
+    }
+  ]
+}

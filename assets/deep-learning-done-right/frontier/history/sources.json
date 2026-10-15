@@ -1,0 +1,187 @@
+{
+  "cutoff": "2026-10-15 Asia/Shanghai",
+  "sources": [
+    {
+      "url": "https://www.cs.cmu.edu/~./epxing/Class/10715/reading/McCulloch.and.Pitts.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://web.stanford.edu/class/psych209a/ReadingsByDate/01_30/Rosenblatt58Perceptron.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://americanhistory.si.edu/collections/object/nmah_334414",
+      "accessed_date": "2026-10-15",
+      "evidence": "史密森尼官方馆藏搜索条目可读；直接抓取403。仅用于馆藏存在及早期感知机装置，不取照片、硬件数量或精确落成年份。"
+    },
+    {
+      "url": "https://doi.org/10.1007/BF01931367",
+      "accessed_date": "2026-10-15",
+      "evidence": "出版社摘要、1976出版信息与参考文献2（1970硕士论文）已核对；未取得全文，不作唯一发明者归属。"
+    },
+    {
+      "url": "https://belinrae.inrae.fr/index.php?id=222547&lvl=notice_display",
+      "accessed_date": "2026-10-15",
+      "evidence": "INRAE学位馆藏记录/摘要已读；正文已收窄至模型拟合、预测及社会/生物科学应用，不声称核读1974论文全文。"
+    },
+    {
+      "url": "https://www.cs.toronto.edu/~hinton/absps/naturebp.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "作者PDF在线可访问但扫描文本未提取；标题/1986出版信息由Nature官方条目核对，传播背景参照2015三位研究者综述。"
+    },
+    {
+      "url": "https://leon.bottou.org/publications/pdf/ieee-1998.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "共同作者Bottou原稿下载成功；文字编码异常，实际打开第一页核对作者、标题、年份及文档识别应用。"
+    },
+    {
+      "url": "https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://papers.nips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "原会议PDF第1/2/6/7页已提取核读；表2区分2012集成15.3与单CNN验证18.2，比较第二名26.2。"
+    },
+    {
+      "url": "https://arxiv.org/abs/1512.03385",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/1312.6114",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/1406.2661",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2006.11239",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2112.10752",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://www.cs.cmu.edu/afs/cs.cmu.edu/academic/class/15780-s16/www/AlphaGo.nature16961.pdf",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://deepmind.google/research/alphago/",
+      "accessed_date": "2026-10-15",
+      "evidence": "DeepMind官方搜索记录核对2016年3月首尔4比1；机制依据原论文，不采纳观看人数。"
+    },
+    {
+      "url": "https://www.nature.com/articles/nature24270",
+      "accessed_date": "2026-10-15",
+      "evidence": "Nature原论文搜索摘要核对2017年、自我对弈、无棋谱训练和网络/搜索循环；未读取全文。"
+    },
+    {
+      "url": "https://arxiv.org/abs/1706.03762",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/1810.04805",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.14165",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2203.02155",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2103.00020",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2107.03374",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.08774",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2403.05530",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://doi.org/10.1126/science.adh2586",
+      "accessed_date": "2026-10-15",
+      "evidence": "Science原论文搜索摘要可读，正文抓取失败；样本与实验限制由MIT官方研究报道核对。"
+    },
+    {
+      "url": "https://news.mit.edu/2023/study-finds-chatgpt-boosts-worker-productivity-writing-0714",
+      "accessed_date": "2026-10-15",
+      "evidence": "MIT官方研究报道：453人、短篇职业写作、40%时间/18%评分；任务不要求严格事实准确或机构背景。"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41586-021-03819-2",
+      "accessed_date": "2026-10-15",
+      "evidence": "出版社全文、原图1、版权段及下载PDF第2页；87结构域、0.96/2.8 Å和评估口径。"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "accessed_date": "2026-10-15",
+      "evidence": "许可链接；两篇Nature文章Rights and permissions明确CC BY 4.0，图1无单列第三方排除说明。"
+    },
+    {
+      "url": "https://www.ebi.ac.uk/jdispatcher/blog/2022-07-28-new-afdb-release",
+      "accessed_date": "2026-10-15",
+      "evidence": "EMBL-EBI官方发布条目与机构同期说明搜索结果核对2022-07-28、200+ million predicted structures。"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41586-024-07487-w",
+      "accessed_date": "2026-10-15",
+      "evidence": "出版社全文、原图1、版权段及下载PDF第2页；复合物类型、扩散坐标、分任务不同指标。"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41586-025-10014-0",
+      "accessed_date": "2026-10-15",
+      "evidence": "出版社2026-01-28原论文摘要、Main、图1说明；序列到功能信号、变异效应、物种/留出评价。"
+    },
+    {
+      "url": "https://arxiv.org/abs/2501.12948",
+      "accessed_date": "2026-10-15",
+      "evidence": "原论文arXiv摘要/元数据或官方发布记录已在线打开核对；仅采用正文就近引用的机制、公开年份与定性范围。"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41586-025-09422-z",
+      "accessed_date": "2026-10-15",
+      "evidence": "出版社2025-09-17原论文R1-Zero、R1与限制章节；不引用跨版本变化的AIME数字。"
+    }
+  ],
+  "additional_context": [
+    {
+      "url": "https://www.cs.toronto.edu/~hinton/absps/NatureDeepReview.pdf",
+      "use": "作者综述：多层表示、反向传播传播及视觉发展背景；非替代节点原文"
+    }
+  ],
+  "excluded": "未使用未核实当日事件、普及率、拯救人数或跨任务万能预测；无虚构史料引语。"
+}

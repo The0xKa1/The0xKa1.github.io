@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 
 interface MarkdownRendererProps {
   html: string;
+  slug?: string;
   highlight?: string;
 }
 
@@ -67,7 +68,7 @@ function highlightSearchText(target: HTMLElement, query: string) {
   });
 }
 
-export function MarkdownRenderer({ html, highlight }: MarkdownRendererProps) {
+export function MarkdownRenderer({ html, highlight, slug }: MarkdownRendererProps) {
   const articleRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -91,10 +92,31 @@ export function MarkdownRenderer({ html, highlight }: MarkdownRendererProps) {
     const revealSearchTarget = () => {
       const target = getHashTarget();
       if (!target) return;
+      let ancestor: HTMLElement | null = target;
+      while (ancestor && ancestor !== article) {
+        if (ancestor instanceof HTMLDetailsElement) ancestor.open = true;
+        ancestor = ancestor.parentElement;
+      }
       if (article) clearSearchHighlights(article);
       if (highlight) highlightSearchText(target, highlight);
       target.scrollIntoView({ block: "start" });
     };
+
+    const updateMathScroll = () => {
+      if (article?.dataset.course !== "dldr") return;
+      article.querySelectorAll<HTMLElement>(".katex-display, table").forEach((formula) => {
+        if (formula.scrollWidth > formula.clientWidth + 1) {
+          formula.tabIndex = 0;
+          formula.setAttribute("aria-label", formula.tagName === "TABLE" ? "表格，可横向滚动" : "数学公式，可横向滚动");
+        } else {
+          formula.removeAttribute("tabindex");
+          formula.removeAttribute("aria-label");
+        }
+      });
+    };
+    const resizeObserver = new ResizeObserver(updateMathScroll);
+    if (article) resizeObserver.observe(article);
+    void document.fonts.ready.then(() => { if (!cancelled) updateMathScroll(); });
 
     const applyImageAlignment = (img: HTMLImageElement) => {
       const align = img.getAttribute("data-align");
@@ -188,6 +210,13 @@ export function MarkdownRenderer({ html, highlight }: MarkdownRendererProps) {
       }
     }
 
+    const onHashChange = () => {
+      if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
+      scrollFrame = window.requestAnimationFrame(revealSearchTarget);
+    };
+    window.addEventListener("hashchange", onHashChange);
+    onHashChange();
+
     void renderMermaid().finally(() => {
       if (!cancelled) {
         scrollFrame = window.requestAnimationFrame(revealSearchTarget);
@@ -196,6 +225,8 @@ export function MarkdownRenderer({ html, highlight }: MarkdownRendererProps) {
 
     return () => {
       cancelled = true;
+      window.removeEventListener("hashchange", onHashChange);
+      resizeObserver.disconnect();
       if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
       if (article) clearSearchHighlights(article);
     };
@@ -204,6 +235,7 @@ export function MarkdownRenderer({ html, highlight }: MarkdownRendererProps) {
   return (
     <article
       ref={articleRef}
+      data-course={slug?.startsWith("NOTE/CS/deep-learning-done-right/") ? "dldr" : undefined}
       className="prose prose-lg max-w-none"
       style={{
         color: "var(--text)",
