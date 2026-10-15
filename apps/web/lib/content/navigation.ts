@@ -27,7 +27,8 @@ export function pickAdjacentNavigationItems(
 }
 
 export async function getAdjacentNavigationItems(
-  slug: string
+  slug: string,
+  includeSectionIndex = false
 ): Promise<AdjacentNavigationItems> {
   const currentRows = await db
     .select({
@@ -41,10 +42,12 @@ export async function getAdjacentNavigationItems(
   const current = currentRows[0];
   if (!current) return { previous: null, next: null };
 
-  const parentCondition =
-    current.parentId === null
-      ? isNull(navigation.parentId)
-      : eq(navigation.parentId, current.parentId);
+  const sectionId = includeSectionIndex && slug.endsWith("/index")
+    ? current.id
+    : current.parentId;
+  const parentCondition = sectionId === null
+    ? isNull(navigation.parentId)
+    : eq(navigation.parentId, sectionId);
 
   const rows = await db
     .select({
@@ -65,5 +68,12 @@ export async function getAdjacentNavigationItems(
   const items = rows.filter(
     (item): item is AdjacentNavigationItem => typeof item.slug === "string"
   );
+  if (includeSectionIndex && sectionId !== null) {
+    const sectionRows = await db.select({
+      id: navigation.id, label: navigation.label, slug: navigation.slug,
+    }).from(navigation).where(and(eq(navigation.id, sectionId), eq(navigation.isVisible, true))).limit(1);
+    const section = sectionRows[0];
+    if (section?.slug?.endsWith("/index")) items.unshift({ ...section, slug: section.slug });
+  }
   return pickAdjacentNavigationItems(items, current.id);
 }

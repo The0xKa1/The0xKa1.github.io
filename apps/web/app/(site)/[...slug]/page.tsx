@@ -317,7 +317,9 @@ export default async function ContentPage({ params, searchParams }: PageProps) {
 
   let adjacentPages: AdjacentNavigationItems = { previous: null, next: null };
   try {
-    adjacentPages = await getAdjacentNavigationItems(resolvedSlug);
+    adjacentPages = await getAdjacentNavigationItems(
+      resolvedSlug, resolvedSlug.startsWith("NOTE/CS/deep-learning-done-right/")
+    );
   } catch {
     // Navigation is optional; content should remain readable if it is unavailable.
   }
@@ -334,7 +336,7 @@ export default async function ContentPage({ params, searchParams }: PageProps) {
           </div>
         )}
 
-        <MarkdownRenderer html={renderedHtml} highlight={searchHighlight?.slice(0, 120)} />
+        <MarkdownRenderer slug={page.slug} html={renderedHtml} highlight={searchHighlight?.slice(0, 120)} />
 
         <ChapterNavigation items={adjacentPages} />
 

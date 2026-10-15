@@ -1,0 +1,113 @@
+{
+  "owner": "frontier-a",
+  "verified_at_local_date": "2026-10-15",
+  "timezone": "Asia/Shanghai",
+  "scope": "Actual adopted sections, not entire-paper or video completion",
+  "sources": [
+    {
+      "id": "roformer",
+      "title": "RoFormer: Enhanced Transformer with Rotary Position Embedding",
+      "first_public_year": 2021,
+      "read_version": "2104.09864v5",
+      "url": "https://arxiv.org/html/2104.09864v5",
+      "read_extent": "§3.1–3.2, equations 11–16; full-text HTML read during planning and reused here",
+      "adopted_at": "modern-transformer.md#rope; #relative-dot",
+      "limits": "Rotations and relative inner product. All numerical examples/code are newly constructed educational examples."
+    },
+    {
+      "id": "position-interpolation",
+      "title": "Extending Context Window of Large Language Models via Position Interpolation",
+      "first_public_year": 2023,
+      "read_version": "2306.15595v2",
+      "url": "https://arxiv.org/html/2306.15595v2",
+      "read_extent": "§2.1–2.3, especially equation 4; full-text HTML read",
+      "adopted_at": "modern-transformer.md#long-context",
+      "limits": "Distinguish extrapolation from interpolation and evaluate adaptation; no reproduced benchmark claims."
+    },
+    {
+      "id": "rmsnorm",
+      "title": "Root Mean Square Layer Normalization",
+      "first_public_year": 2019,
+      "read_version": "1910.07467v1",
+      "url": "https://arxiv.org/html/1910.07467v1",
+      "read_extent": "§4 equation 4 and invariance discussion; full-text HTML read",
+      "adopted_at": "modern-transformer.md#rmsnorm",
+      "limits": "Teaching convention includes epsilon and no bias; elementary examples verified locally."
+    },
+    {
+      "id": "swiglu",
+      "title": "GLU Variants Improve Transformer",
+      "first_public_year": 2020,
+      "read_version": "2002.05202v1",
+      "url": "https://arxiv.org/html/2002.05202v1",
+      "read_extent": "§2 equations 5–6 and 2/3 hidden-width adjustment; full-text HTML read",
+      "adopted_at": "modern-transformer.md#swiglu",
+      "limits": "Three matrices, SiLU gate and matched parameter budget; no performance ranking."
+    },
+    {
+      "id": "llama",
+      "title": "LLaMA: Open and Efficient Foundation Language Models",
+      "first_public_year": 2023,
+      "read_version": "2302.13971v1",
+      "url": "https://arxiv.org/html/2302.13971v1",
+      "read_extent": "§2.2 architecture, pre-normalization, SwiGLU and rotary embeddings; full-text HTML read",
+      "adopted_at": "modern-transformer.md#decoder-block",
+      "limits": "Concrete documented architecture use in 2023; not a claim of invention or first adoption."
+    },
+    {
+      "id": "gqa",
+      "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "first_public_year": 2023,
+      "read_version": "2305.13245v3",
+      "url": "https://arxiv.org/html/2305.13245v3",
+      "read_extent": "§2.1–2.2 and experiment setup §3.1; full-text HTML read",
+      "adopted_at": "efficient-sequence-models.md#grouped-query",
+      "limits": "Grouping endpoints, change of structure and need for adaptation; no quality/speed generalization from T5 experiments."
+    },
+    {
+      "id": "flashattention",
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "first_public_year": 2022,
+      "read_version": "2205.14135v2",
+      "url": "https://arxiv.org/html/2205.14135v2",
+      "read_extent": "§3.1 Algorithm 1, Theorem 1, §3.2 IO analysis; full-text HTML read",
+      "adopted_at": "efficient-sequence-models.md#flash-attention",
+      "limits": "Tiling, online normalization, recomputation. Teaching code retains unnormalized numerator u; not a GPU kernel implementation."
+    },
+    {
+      "id": "mamba",
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "first_public_year": 2023,
+      "read_version": "2312.00752v2",
+      "url": "https://arxiv.org/html/2312.00752v2",
+      "read_extent": "§2 dimensions; §3.2 Algorithm 2; §3.5.1 Theorem 1; Appendix C gate derivation; full-text HTML read",
+      "adopted_at": "efficient-sequence-models.md#state-space",
+      "limits": "Input-dependent step and mappings, structured recurrence and finite state. Scalar examples are explicitly simplified."
+    },
+    {
+      "id": "cs336-inference",
+      "title": "Stanford CS336 Spring 2025 Lecture 10",
+      "first_public_year": 2025,
+      "read_version": "main retrieved 2026-10-15",
+      "url": "https://raw.githubusercontent.com/stanford-cs336/spring2025-lectures/main/lecture_10.py",
+      "read_extent": "lines 203–285; official executable lecture source read",
+      "adopted_at": "efficient-sequence-models.md#grouped-query",
+      "limits": "KV bytes separate from parameter storage; course hardware assumptions not reused as empirical speed."
+    }
+  ],
+  "figures": [],
+  "figure_policy": "No additional paper figures used: existing course diagrams were not replaced or relabeled. Two actual generated story illustrations recorded separately.",
+  "failed_requests_carried_from_plan": [
+    {
+      "url": "https://raw.githubusercontent.com/stanford-cs336/assignment1-basics/main/cs336_spring2025_assignment1_basics.pdf",
+      "result": "404 / internal error",
+      "counts_as_read": false
+    },
+    {
+      "url": "https://raw.githubusercontent.com/stanford-cs336/assignment1-basics/main/cs336_assignment1_basics.pdf",
+      "result": "web internal error",
+      "counts_as_read": false
+    }
+  ],
+  "date_policy": "first_public_year refers to paper preprint/lecture year, not product deployment. No 2026 technical event asserted."
+}

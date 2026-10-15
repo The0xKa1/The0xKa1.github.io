@@ -15,12 +15,13 @@ statistics: false
 
 ## 目录 {#chapters}
 
-| 分类 | 章节 |
+| 单元 | 章节 |
 | --- | --- |
-| 定义问题 | [问题与学习信号](./problem-and-learning.md) |
-| 数据表示 | [数据表示](./representations.md) |
-| 网络结构 | [神经网络基础](./neural-network-basics.md)、[卷积神经网络](./cnn.md)、[RNN、LSTM 与 GRU](./rnn.md)、[注意力](./attention.md)、[Transformer](./transformer.md)、[堆叠、残差与特征融合](./network-composition.md) |
-| 生成模型 | [自回归、AE、VAE、GAN 与扩散](./generative-models.md) |
-| 训练 | [数据与训练流程](./data-and-training.md)、[损失函数](./losses.md)、[反向传播与优化](./backprop-and-optimization.md)、[预训练与微调](./pretraining-and-finetuning.md) |
-| 交互学习 | [强化学习](./reinforcement-learning.md) |
-| 评价 | [评价与泛化](./evaluation-and-generalization.md) |
+| 问题与表示 | [问题与学习信号](./problem-and-learning.md)、[数据表示](./representations.md) |
+| 基础模型 | [神经网络基础](./neural-network-basics.md) |
+| 训练与评价 | [损失函数](./losses.md)、[反向传播与优化](./backprop-and-optimization.md)、[数据与训练流程](./data-and-training.md)、[评价与泛化](./evaluation-and-generalization.md) |
+| 网络结构 | [堆叠、残差与特征融合](./network-composition.md)、[卷积神经网络](./cnn.md)、[RNN、LSTM 与 GRU](./rnn.md)、[注意力](./attention.md)、[Transformer](./transformer.md)、[现代 Transformer](./modern-transformer.md)、[序列计算与存储](./efficient-sequence-models.md) |
+| 生成与迁移 | [生成模型](./generative-models.md)、[预训练与微调](./pretraining-and-finetuning.md)、[规模与专家模型](./scaling-and-experts.md) |
+| 交互与偏好学习 | [强化学习](./reinforcement-learning.md)、[偏好学习与推理计算](./alignment-and-reasoning.md) |
+| 多模态 | [多模态学习](./multimodal-learning.md) |
+| 历史与展望 | [深度学习的来路与远方](./history-and-horizons.md) |
